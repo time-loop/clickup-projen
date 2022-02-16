@@ -2,19 +2,10 @@ import { awscdk, javascript, YamlFile } from 'projen';
 import { JobPermission } from 'projen/lib/github/workflows-model';
 
 export module clickupCdk {
-  export interface ClickUpCdkTypeScriptAppOptions
-    extends Omit<Omit<awscdk.AwsCdkTypeScriptAppOptions, 'cdkVersion'>, 'defaultReleaseBranch'> {
-    /**
-     * Lowest compatible aws-cdk-lib version.
-     * @default '2.0.0'
-     */
-    readonly cdkVersion?: string;
-    /**
-     * It has been years since BLM. You really shouldn't need to be over-riding this.
-     * @default 'main'
-     */
-    readonly defaultReleaseBranch?: string;
-  }
+  /**
+   * If only JSII supported Omit<>
+   */
+  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -24,9 +15,7 @@ export module clickupCdk {
    * - default proprietary license
    * - default release build configuration
    * - default linting and codecov configuration
-   * - default cdkVersion: '2.0.0'
    * - default minNodeVersion: '14.15.0'
-   * - default defaultReleaseBranch: 'main'
    * - default deps and devDeps (you can add your own, but the base will always be present)
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
@@ -47,7 +36,6 @@ export module clickupCdk {
         authorOrganization: true,
         licensed: false,
 
-        defaultReleaseBranch: 'main',
         release: true,
         npmRegistryUrl: 'https://npm.pkg.github.com',
 
@@ -63,7 +51,6 @@ export module clickupCdk {
           },
         ],
 
-        cdkVersion: '2.0.0',
         minNodeVersion: '14.15.0',
 
         prettier: true,

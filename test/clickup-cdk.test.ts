@@ -4,6 +4,8 @@ describe('ClickUpCdkTypeScriptApp', () => {
   describe('defaults', () => {
     const p = new clickupCdk.ClickUpCdkTypeScriptApp({
       name: 'test',
+      cdkVersion: '2.1.0',
+      defaultReleaseBranch: 'main',
     });
     test('prettier is enabled', () => {
       expect(p.prettier).toBeTruthy();
