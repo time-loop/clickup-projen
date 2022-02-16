@@ -10,6 +10,7 @@ const project = new cdk.JsiiProject({
   // release: true, // default
   npmRegistryUrl: 'https://npm.pkg.github.com',
   repositoryUrl: 'https://github.com/time-loop/clickup-projen.git', // default
+  npmAccess: javascript.NpmAccess.PUBLIC,
 
   // We don't depend on any private resources.
   // Add a .npmrc before we try to Install dependencies
@@ -24,11 +25,11 @@ const project = new cdk.JsiiProject({
   //     ].join('\n'),
   //   },
   // ],
+  // gitignore: [ '/.npmrc' ],
 
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  deps: ['projen'],
+  devDeps: ['projen'],
+  peerDeps: ['projen'],
 
   prettier: true,
   prettierOptions: {
@@ -50,8 +51,6 @@ const project = new cdk.JsiiProject({
   // https://github.com/marketplace/actions/semantic-pull-request
   semanticTitleOptions: { requireScope: true },
 });
-
-// project.gitignore.addPatterns('/.npmrc');
 
 new YamlFile(project, 'codecov.yml', {
   obj: {
