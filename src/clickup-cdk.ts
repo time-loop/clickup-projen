@@ -58,6 +58,7 @@ export module clickupCdk {
         ],
 
         minNodeVersion: '14.17.0', // Required by @typescript-eslint/eslint-plugin@5.6.0
+        workflowNodeVersion: '14.17.0',
 
         prettier: true,
         prettierOptions: {
