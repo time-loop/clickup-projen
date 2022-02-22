@@ -22,6 +22,7 @@ export module clickupCdk {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
       const deps = [
         '@time-loop/cdk-library',
+        '@time-loop/clickup-projen',
         'cdk-constants',
         'cdk-iam-floyd',
         'colors',
