@@ -11,11 +11,11 @@
 When creating new cdk apps:
 
 ```bash
-yarn global add @time-loop/clickup-projen@0.0.1
+yarn global add @time-loop/clickup-projen
 
 mkdir my-new-cdk-app
 cd my-new-cdk-app
-npx projen new --from @time-loop/clickup-projen@0.0.1
+npx projen new --from @time-loop/clickup-projen
 ```
 
 ## What it does
