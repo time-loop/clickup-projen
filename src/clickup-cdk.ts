@@ -20,7 +20,13 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
-      const deps = ['@time-loop/cdk-library', 'colors', 'multi-convention-namer'].concat(...(options.deps ?? []));
+      const deps = [
+        '@time-loop/cdk-library',
+        'cdk-constants',
+        'cdk-iam-floyd',
+        'colors',
+        'multi-convention-namer',
+      ].concat(...(options.deps ?? []));
       const devDeps = [
         'esbuild',
         'eslint-config-prettier',
@@ -52,6 +58,7 @@ export module clickupCdk {
         ],
 
         minNodeVersion: '14.17.0', // Required by @typescript-eslint/eslint-plugin@5.6.0
+        workflowNodeVersion: '14.17.0',
 
         prettier: true,
         prettierOptions: {

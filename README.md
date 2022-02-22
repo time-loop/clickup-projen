@@ -6,6 +6,8 @@
 
 ## Usage
 
+### ClickUpCdkTypeScriptApp
+
 When creating new cdk apps:
 
 ```bash
