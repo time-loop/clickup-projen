@@ -15,7 +15,21 @@ yarn global add @time-loop/clickup-projen
 
 mkdir my-new-cdk-app
 cd my-new-cdk-app
-npx projen new --from @time-loop/clickup-projen
+npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
+```
+
+### ClickUpTypeScript
+
+When creating new TypeScript Libraries:
+
+```bash
+yarn global add @time-loop/clickup-projen
+
+mkdir my-new-lib
+cd my-new-lib
+npx projen new --from @time-loop/clickup-projen clickupts_clickuptypescript
+# update the name to have the `@time-loop/` prefix
+npx projen
 ```
 
 ## What it does
