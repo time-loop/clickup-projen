@@ -2,6 +2,7 @@ import { javascript, typescript } from 'projen';
 import { codecov } from './codecov';
 
 const githubOrg = 'time-loop';
+
 export module clickupTs {
   export const baseDevDeps = [
     'esbuild',
@@ -54,21 +55,18 @@ export module clickupTs {
     codeCovTokenSecret: 'CODECOV_TOKEN',
   };
 
-  /**
-   * If only JSII supported Omit<>
-   */
   export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {}
 
   /**
-   * ClickUp standardized CDK TypeScript App
+   * ClickUp standardized TypeScript Project
    *
    * Includes:
    * - default author information
    * - default proprietary license
    * - default release build configuration
    * - default linting and codecov configuration
-   * - default minNodeVersion: '14.15.0'
-   * - default deps and devDeps (you can add your own, but the base will always be present)
+   * - default minNodeVersion: '14.17.0'
+   * - default devDeps (you can add your own, but the base will always be present)
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {

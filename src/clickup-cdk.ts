@@ -2,10 +2,8 @@ import { awscdk } from 'projen';
 
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
+
 export module clickupCdk {
-  /**
-   * If only JSII supported Omit<>
-   */
   export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
 
   /**
@@ -16,7 +14,7 @@ export module clickupCdk {
    * - default proprietary license
    * - default release build configuration
    * - default linting and codecov configuration
-   * - default minNodeVersion: '14.15.0'
+   * - default minNodeVersion: '14.17.0'
    * - default deps and devDeps (you can add your own, but the base will always be present)
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
