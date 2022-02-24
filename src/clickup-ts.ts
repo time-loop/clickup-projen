@@ -1,6 +1,7 @@
 import { javascript, typescript } from 'projen';
 import { codecov } from './codecov';
 
+const githubOrg = 'time-loop';
 export module clickupTs {
   export const baseDevDeps = [
     'esbuild',
@@ -75,6 +76,11 @@ export module clickupTs {
       const deps = options.deps;
       const devDeps = [...baseDevDeps, 'ts-node'].concat(...(options.devDeps ?? []));
       const gitignore = ['/.npmrc'].concat(...(options.gitignore ?? []));
+
+      const namePrefix = `@${githubOrg}/`;
+      if (!options.name.startsWith(namePrefix)) {
+        throw new Error(`name: ${options.name} does not start with ${namePrefix}`);
+      }
 
       super({
         ...defaults,

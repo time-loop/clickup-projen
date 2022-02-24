@@ -3,7 +3,7 @@ import { clickupTs } from '../src';
 describe('ClickUpTypeScriptProject', () => {
   describe('defaults', () => {
     const p = new clickupTs.ClickUpTypeScriptProject({
-      name: 'test',
+      name: '@time-loop/test',
       defaultReleaseBranch: 'main',
     });
     test('prettier is enabled', () => {
@@ -13,5 +13,13 @@ describe('ClickUpTypeScriptProject', () => {
       expect(p.jest).toBeTruthy();
     });
     // TODO: soooo many more tests need to be written here.
+  });
+  test('should throw when missing prefix', () => {
+    expect(() => {
+      new clickupTs.ClickUpTypeScriptProject({
+        name: 'nope',
+        defaultReleaseBranch: 'main',
+      });
+    }).toThrow(/does not start with/);
   });
 });
