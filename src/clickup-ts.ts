@@ -1,4 +1,5 @@
-import { javascript } from 'projen';
+import { javascript, typescript } from 'projen';
+import { codecov } from './codecov';
 
 export module clickupTs {
   export const baseDevDeps = [
@@ -51,4 +52,39 @@ export module clickupTs {
     codeCov: true,
     codeCovTokenSecret: 'CODECOV_TOKEN',
   };
+
+  /**
+   * If only JSII supported Omit<>
+   */
+  export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {}
+
+  /**
+   * ClickUp standardized CDK TypeScript App
+   *
+   * Includes:
+   * - default author information
+   * - default proprietary license
+   * - default release build configuration
+   * - default linting and codecov configuration
+   * - default minNodeVersion: '14.15.0'
+   * - default deps and devDeps (you can add your own, but the base will always be present)
+   */
+  export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
+    constructor(options: ClickUpTypeScriptProjectOptions) {
+      // const deps = [''].concat(...(options.deps ?? []));
+      const deps = options.deps;
+      const devDeps = [...baseDevDeps, 'ts-node'].concat(...(options.devDeps ?? []));
+      const gitignore = ['/.npmrc'].concat(...(options.gitignore ?? []));
+
+      super({
+        ...defaults,
+        ...options,
+        deps,
+        devDeps,
+        gitignore,
+      });
+      codecov.addCodeCovYml(this);
+      codecov.addCodeCovOnRelease(this);
+    }
+  }
 }
