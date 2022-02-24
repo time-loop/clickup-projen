@@ -67,6 +67,9 @@ export module clickupTs {
    * - default linting and codecov configuration
    * - default minNodeVersion: '14.17.0'
    * - default devDeps (you can add your own, but the base will always be present)
+   *
+   * Note that for GitHub Packages to work, the package has to be scoped into the `@time-loop` project.
+   * We handle that automatically.
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
@@ -76,8 +79,10 @@ export module clickupTs {
       const gitignore = ['/.npmrc'].concat(...(options.gitignore ?? []));
 
       const namePrefix = `@${githubOrg}/`;
-      if (!options.name.startsWith(namePrefix)) {
-        throw new Error(`name: ${options.name} does not start with ${namePrefix}`);
+      let name = options.name;
+      if (!name.startsWith(namePrefix)) {
+        name = namePrefix + name;
+        console.log(`Adding mandatory prefix ${namePrefix} to name. New name: ${name}`);
       }
 
       super({
@@ -86,6 +91,7 @@ export module clickupTs {
         deps,
         devDeps,
         gitignore,
+        name,
       });
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);

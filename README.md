@@ -27,7 +27,7 @@ yarn global add @time-loop/clickup-projen
 
 mkdir my-new-lib
 cd my-new-lib
-npx projen new --from @time-loop/clickup-projen clickupts_clickuptypescript
+npx projen new --from @time-loop/clickup-projen clickupts_clickuptypescriptproject
 # update the name to have the `@time-loop/` prefix
 npx projen
 ```
