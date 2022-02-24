@@ -14,12 +14,11 @@ describe('ClickUpTypeScriptProject', () => {
     });
     // TODO: soooo many more tests need to be written here.
   });
-  test('should throw when missing prefix', () => {
-    expect(() => {
-      new clickupTs.ClickUpTypeScriptProject({
-        name: 'nope',
-        defaultReleaseBranch: 'main',
-      });
-    }).toThrow(/does not start with/);
+  test('should add prefix when missing', () => {
+    const p = new clickupTs.ClickUpTypeScriptProject({
+      name: 'missing-prefix',
+      defaultReleaseBranch: 'main',
+    });
+    expect(p.name).toBe('@time-loop/missing-prefix');
   });
 });

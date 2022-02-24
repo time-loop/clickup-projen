@@ -5444,7 +5444,7 @@ Normally this task should synthesize the project files.
 
 ClickUp standardized TypeScript Project.
 
-Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.17.0' - default devDeps (you can add your own, but the base will always be present)
+Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.17.0' - default devDeps (you can add your own, but the base will always be present)  Note that for GitHub Packages to work, the package has to be scoped into the `@time-loop` project. We handle that automatically.
 
 #### Initializers <a name="Initializers" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.Initializer"></a>
 
