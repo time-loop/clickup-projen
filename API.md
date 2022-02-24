@@ -5,8 +5,6 @@
 
 ### ClickUpCdkTypeScriptAppOptions <a name="ClickUpCdkTypeScriptAppOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions"></a>
 
-If only JSII supported Omit<>.
-
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.Initializer"></a>
 
 ```typescript
@@ -2183,8 +2181,6 @@ Common options for all AWS Lambda functions.
 
 ### ClickUpTypeScriptProjectOptions <a name="ClickUpTypeScriptProjectOptions" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions"></a>
 
-If only JSII supported Omit<>.
-
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.Initializer"></a>
 
 ```typescript
@@ -4084,7 +4080,7 @@ NOTE: Typescript is not semantically versioned and should remain on the same min
 
 ClickUp standardized CDK TypeScript App.
 
-Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.15.0' - default deps and devDeps (you can add your own, but the base will always be present)
+Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.17.0' - default deps and devDeps (you can add your own, but the base will always be present)
 
 #### Initializers <a name="Initializers" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.Initializer"></a>
 
@@ -5446,9 +5442,9 @@ Normally this task should synthesize the project files.
 
 ### ClickUpTypeScriptProject <a name="ClickUpTypeScriptProject" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject"></a>
 
-ClickUp standardized CDK TypeScript App.
+ClickUp standardized TypeScript Project.
 
-Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.15.0' - default deps and devDeps (you can add your own, but the base will always be present)
+Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.17.0' - default devDeps (you can add your own, but the base will always be present)
 
 #### Initializers <a name="Initializers" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.Initializer"></a>
 
