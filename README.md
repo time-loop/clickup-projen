@@ -13,12 +13,10 @@
 When creating new cdk apps:
 
 ```bash
-yarn global add @time-loop/clickup-projen
-
 mkdir my-new-cdk-app
 cd my-new-cdk-app
 projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
-gh repo create time-loop/my-new-lib --private --push --source=.
+gh repo create time-loop/my-new-cdk-app --private --push --source=.
 ```
 
 ### ClickUpTypeScriptProject
@@ -26,8 +24,6 @@ gh repo create time-loop/my-new-lib --private --push --source=.
 When creating new TypeScript Libraries:
 
 ```bash
-yarn global add @time-loop/clickup-projen
-
 mkdir my-new-lib
 cd my-new-lib
 projen new --from @time-loop/clickup-projen clickupts_clickuptypescriptproject
@@ -43,7 +39,7 @@ Watch with awe and wonder as projen stamps out a project with
 - Standard prettier and eslint configs.
 - For CDK apps, CDKv2 support with `@time-loop/cdk-library`, `cdk-constants`, `cdk-iam-floyd`, `colors` and `multi-convention-namer` libraries pre-installed for your coding pleasure.
 
-## What's Left For You To DO
+## What's Left For You To Do
 
 - Create the repo in GitHub. `gh repo create time-loop/my-new-lib --private --push --source=.` will probably do what you need. Note: the names MUST MATCH.
 - Go to codecov.io and enable your new repo. https://app.codecov.io/gh/time-loop/my-new-lib/settings
@@ -70,3 +66,36 @@ Watch with awe and wonder as projen stamps out a project with
         - Include administrators ()
 
 That's it! Now go write a failing test and some code to make it pass!
+
+## Use Your New Private Library
+
+### Setup GitHub Packages Access
+
+This will tell `npm` / `yarn` / `pnpm` to find `@time-loop/*` libraries
+in the GitHub package registry.
+
+Start by creating a [PAT](https://github.com/settings/tokens) in GitHub
+(Settings => Developer Settings => Personal access tokens).
+It needs to have at least the `read:packages` permission.
+You might want to also use this token with the
+[gh](https://github.com/cli/cli) command line tool. Up to you.
+
+Add the following to your `.npmrc`:
+
+```bash
+cat <<EOF >>~/.npmrc
+
+//npm.pkg.github.com/:_authToken=ghp_your-github-token
+@time-loop:registry=https://npm.pkg.github.com/
+EOF
+```
+
+NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
+
+### Add It To Your App
+
+Now that the GitHub package repo is configured, you can just
+
+```
+yarn add @time-loop/my-new-lib --save
+```
