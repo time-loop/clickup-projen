@@ -1,7 +1,7 @@
 import { javascript, typescript } from 'projen';
 import { codecov } from './codecov';
 
-const githubOrg = 'time-loop';
+const githubOrg = process.env.GITHUB_OWNER ?? 'time-loop';
 
 export module clickupTs {
   export const baseDevDeps = [

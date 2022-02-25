@@ -13,10 +13,12 @@
 When creating new cdk apps:
 
 ```bash
-mkdir my-new-cdk-app
-cd my-new-cdk-app
+NEW_APP="my-new-cdk-app"
+mkdir "$NEW_APP"
+cd "$NEW_APP"
 projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
-gh repo create time-loop/my-new-cdk-app --private --push --source=.
+GITHUB_OWNER="time-loop"
+gh repo create "$GITHUB_OWNER/$NEW_APP" --private --push --source=.
 ```
 
 ### ClickUpTypeScriptProject
@@ -24,10 +26,12 @@ gh repo create time-loop/my-new-cdk-app --private --push --source=.
 When creating new TypeScript Libraries:
 
 ```bash
-mkdir my-new-lib
-cd my-new-lib
+NEW_LIB="my-new-lib"
+mkdir "$NEW_LIB"
+cd "$NEW_LIB"
+export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
 projen new --from @time-loop/clickup-projen clickupts_clickuptypescriptproject
-gh repo create time-loop/my-new-lib --private --push --source=.
+gh repo create "$GITHUB_OWNER/$NEW_LIB" --private --push --source=.
 ```
 
 ## What It Does
@@ -83,10 +87,11 @@ You might want to also use this token with the
 Add the following to your `.npmrc`:
 
 ```bash
+GITHUB_OWNER="time-loop"
 cat <<EOF >>~/.npmrc
 
 //npm.pkg.github.com/:_authToken=ghp_your-github-token
-@time-loop:registry=https://npm.pkg.github.com/
+@${GITHUB_OWNER}:registry=https://npm.pkg.github.com/
 EOF
 ```
 
@@ -96,6 +101,8 @@ NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
 Now that the GitHub package repo is configured, you can just
 
-```
-yarn add @time-loop/my-new-lib --save
+```bash
+NEW_LIB="my-new-lib"
+GITHUB_OWNER="time-loop"
+yarn add "@$GITHUB_OWNER/$NEW_LIB" --save
 ```
