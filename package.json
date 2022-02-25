@@ -36,12 +36,12 @@
     "organization": true
   },
   "devDependencies": {
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.4.1",
     "@types/node": "^12",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "eslint": "^8",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.4.0",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.4",
@@ -50,7 +50,7 @@
     "jest-junit": "^13",
     "jsii": "^1.54.0",
     "jsii-diff": "^1.54.0",
-    "jsii-docgen": "^6.1.6",
+    "jsii-docgen": "^6.1.14",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
     "prettier": "^2.5.1",
@@ -63,7 +63,7 @@
     "projen": "^0.52.31"
   },
   "dependencies": {
-    "projen": "^0.52.31"
+    "projen": "^0.52.48"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
