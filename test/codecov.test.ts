@@ -1,4 +1,4 @@
-import { typescript } from 'projen';
+import { typescript, Testing } from 'projen';
 
 import { codecov } from '../src/codecov';
 
@@ -8,18 +8,20 @@ describe('addCodeCovYml', () => {
     name: 'test',
   });
   codecov.addCodeCovYml(project);
+  const synth = Testing.synth(project);
   test('file added', () => {
-    expect(project).toBeTruthy();
+    expect(synth['codecov.yml']).toMatchSnapshot();
   });
 });
 
-describe('addCodeCovYml', () => {
+describe('addCodeCovOnRelease', () => {
   const project = new typescript.TypeScriptProject({
     defaultReleaseBranch: 'main',
     name: 'test',
   });
   codecov.addCodeCovOnRelease(project);
-  test('prettier is enabled', () => {
-    expect(project).toBeTruthy();
+  const synth = Testing.synth(project);
+  test('codecov job added to workflow', () => {
+    expect(synth['.github/workflows/release.yml']).toMatchSnapshot();
   });
 });
