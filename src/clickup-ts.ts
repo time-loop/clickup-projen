@@ -4,6 +4,8 @@ import { codecov } from './codecov';
 const githubOrg = process.env.GITHUB_OWNER ?? 'time-loop';
 
 export module clickupTs {
+  export const baseDeps = ['@time-loop/clickup-projen'];
+
   export const baseDevDeps = [
     'esbuild',
     'eslint-config-prettier',
@@ -73,8 +75,7 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      // const deps = [''].concat(...(options.deps ?? []));
-      const deps = options.deps;
+      const deps = baseDeps.concat(...(options.deps ?? []));
       const devDeps = [...baseDevDeps, 'ts-node'].concat(...(options.devDeps ?? []));
       const gitignore = ['/.npmrc'].concat(...(options.gitignore ?? []));
 

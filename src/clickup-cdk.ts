@@ -20,8 +20,8 @@ export module clickupCdk {
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
       const deps = [
+        ...clickupTs.baseDeps,
         '@time-loop/cdk-library',
-        '@time-loop/clickup-projen',
         'cdk-constants',
         'cdk-iam-floyd',
         'colors',
