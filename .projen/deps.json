@@ -96,11 +96,19 @@
       "type": "build"
     },
     {
+      "name": "ts-deepmerge",
+      "type": "bundled"
+    },
+    {
       "name": "projen",
       "type": "peer"
     },
     {
       "name": "projen",
+      "type": "runtime"
+    },
+    {
+      "name": "ts-deepmerge",
       "type": "runtime"
     }
   ],

@@ -1,10 +1,19 @@
 import { awscdk } from 'projen';
+import merge from 'ts-deepmerge';
 
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 
 export module clickupCdk {
   export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
+
+  export const baseDeps = [
+    '@time-loop/cdk-library',
+    'cdk-constants',
+    'cdk-iam-floyd',
+    'colors',
+    'multi-convention-namer',
+  ];
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -19,24 +28,7 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
-      const deps = [
-        ...clickupTs.baseDeps,
-        '@time-loop/cdk-library',
-        'cdk-constants',
-        'cdk-iam-floyd',
-        'colors',
-        'multi-convention-namer',
-      ].concat(...(options.deps ?? []));
-      const devDeps = clickupTs.baseDevDeps.concat(...(options.devDeps ?? []));
-      const gitignore = ['/.npmrc'].concat(...(options.gitignore ?? []));
-
-      super({
-        ...clickupTs.defaults,
-        ...options,
-        deps,
-        devDeps,
-        gitignore,
-      });
+      super(merge(clickupTs.defaults, { deps: baseDeps }, options));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
     }

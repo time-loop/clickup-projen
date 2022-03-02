@@ -1,7 +1,6 @@
 import { javascript, typescript } from 'projen';
+import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
-
-const githubOrg = process.env.GITHUB_OWNER ?? 'time-loop';
 
 export module clickupTs {
   export const baseDeps = ['@time-loop/clickup-projen'];
@@ -24,6 +23,9 @@ export module clickupTs {
     releaseToNpm: true,
     npmRegistryUrl: 'https://npm.pkg.github.com',
 
+    deps: baseDeps,
+    devDeps: baseDevDeps,
+
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',
@@ -35,6 +37,7 @@ export module clickupTs {
         ].join('\n'),
       },
     ],
+    gitignore: ['/.npmrc'],
 
     minNodeVersion: '14.17.0', // Required by @typescript-eslint/eslint-plugin@5.6.0
     workflowNodeVersion: '14.17.0',
@@ -75,25 +78,14 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      const deps = baseDeps.concat(...(options.deps ?? []));
-      const devDeps = [...baseDevDeps, 'ts-node'].concat(...(options.devDeps ?? []));
-      const gitignore = ['/.npmrc'].concat(...(options.gitignore ?? []));
-
-      const namePrefix = `@${githubOrg}/`;
+      const namePrefix = `@${process.env.GITHUB_OWNER ?? 'time-loop'}/`;
       let name = options.name;
       if (!name.startsWith(namePrefix)) {
         name = namePrefix + name;
         console.log(`Adding mandatory prefix ${namePrefix} to name. New name: ${name}`);
       }
 
-      super({
-        ...defaults,
-        ...options,
-        deps,
-        devDeps,
-        gitignore,
-        name,
-      });
+      super(merge(defaults, options, { name }));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
     }

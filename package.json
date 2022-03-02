@@ -63,8 +63,12 @@
     "projen": "^0.52.31"
   },
   "dependencies": {
-    "projen": "^0.52.48"
+    "projen": "^0.52.48",
+    "ts-deepmerge": "^2.0.1"
   },
+  "bundledDependencies": [
+    "ts-deepmerge"
+  ],
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "publishConfig": {
