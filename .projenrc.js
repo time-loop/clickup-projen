@@ -27,9 +27,10 @@ const project = new cdk.JsiiProject({
   // ],
   // gitignore: [ '/.npmrc' ],
 
+  bundledDeps: ['ts-deepmerge'],
   deps: ['projen', 'ts-deepmerge'],
-  devDeps: ['projen', 'ts-deepmerge'],
-  peerDeps: ['projen', 'ts-deepmerge'],
+  devDeps: ['projen'],
+  peerDeps: ['projen'],
 
   prettier: true,
   prettierOptions: {

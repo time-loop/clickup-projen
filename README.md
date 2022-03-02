@@ -8,6 +8,14 @@
 
 ## Usage
 
+These project types formalize a whole bunch of opinions.
+You can override things as necessary.
+Usually the way to do this is in your `.projenrc.js` file
+by passing in the initial options when creating the project.
+We use [deepmerge](https://github.com/voodoocreation/ts-deepmerge)
+on passed options to keep surprises down.
+We don't currently have a clean way of reverting an option to undefined.
+
 ### ClickUpCdkTypeScriptApp
 
 When creating new cdk apps:

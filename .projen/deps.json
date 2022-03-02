@@ -88,10 +88,6 @@
       "type": "build"
     },
     {
-      "name": "ts-deepmerge",
-      "type": "build"
-    },
-    {
       "name": "ts-jest",
       "type": "build"
     },
@@ -100,11 +96,11 @@
       "type": "build"
     },
     {
-      "name": "projen",
-      "type": "peer"
+      "name": "ts-deepmerge",
+      "type": "bundled"
     },
     {
-      "name": "ts-deepmerge",
+      "name": "projen",
       "type": "peer"
     },
     {
