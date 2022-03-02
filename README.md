@@ -109,7 +109,8 @@ Watch with awe and wonder as projen stamps out a project with
           - NOTE: Until your first PR has been pushed, none of the jobs will have executed. Until they have executed, the GitHub search for them will not be able to find them for you to add them as requirements. If you haven't already created a PR to add that badge to the README.md, you might want to do that now.
           - We usually require the following checks: `build`, `validate pr title`, `codecov/patch`, `codecov/project`.
           - *If you are moving code into a repo*, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
-          - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.        - Require conversation resolution before merging
+          - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
+        - Require conversation resolution before merging
         - Include administrators ()
 
 That's it! Now go write a failing test and some code to make it pass!
