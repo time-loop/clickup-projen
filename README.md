@@ -16,6 +16,32 @@ We use [deepmerge](https://github.com/voodoocreation/ts-deepmerge)
 on passed options to keep surprises down.
 We don't currently have a clean way of reverting an option to undefined.
 
+### Bootstrapping: Setup GitHub Packages Access
+
+This is the same step required to use `click` or `@time-loop/cdk-library`.
+In order to use this package, you need to tell your package manager to find it in GitHub Packages.
+The following will tell `npm` / `yarn` / `pnpm` to find `@time-loop/*` libraries
+in the GitHub package registry.
+
+Start by creating a [PAT](https://github.com/settings/tokens) in GitHub
+(Settings => Developer Settings => Personal access tokens).
+It needs to have at least the `read:packages` permission.
+You might want to also use this token with the
+[gh](https://github.com/cli/cli) command line tool. Up to you.
+
+Add the following to your `~/.npmrc`:
+
+```bash
+GITHUB_OWNER="time-loop"
+cat <<EOF >>~/.npmrc
+
+//npm.pkg.github.com/:_authToken=ghp_your-github-token
+@${GITHUB_OWNER}:registry=https://npm.pkg.github.com/
+EOF
+```
+
+NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
+
 ### ClickUpCdkTypeScriptApp
 
 When creating new cdk apps:
@@ -89,30 +115,6 @@ Watch with awe and wonder as projen stamps out a project with
 That's it! Now go write a failing test and some code to make it pass!
 
 ## Use Your New Private Library
-
-### Setup GitHub Packages Access
-
-This will tell `npm` / `yarn` / `pnpm` to find `@time-loop/*` libraries
-in the GitHub package registry.
-
-Start by creating a [PAT](https://github.com/settings/tokens) in GitHub
-(Settings => Developer Settings => Personal access tokens).
-It needs to have at least the `read:packages` permission.
-You might want to also use this token with the
-[gh](https://github.com/cli/cli) command line tool. Up to you.
-
-Add the following to your `.npmrc`:
-
-```bash
-GITHUB_OWNER="time-loop"
-cat <<EOF >>~/.npmrc
-
-//npm.pkg.github.com/:_authToken=ghp_your-github-token
-@${GITHUB_OWNER}:registry=https://npm.pkg.github.com/
-EOF
-```
-
-NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
 ### Add It To Your App
 
