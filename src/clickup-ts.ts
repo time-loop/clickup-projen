@@ -2,8 +2,6 @@ import { javascript, typescript } from 'projen';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
 
-const githubOrg = process.env.GITHUB_OWNER ?? 'time-loop';
-
 export module clickupTs {
   export const baseDeps = ['@time-loop/clickup-projen'];
 
@@ -80,7 +78,7 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      const namePrefix = `@${githubOrg}/`;
+      const namePrefix = `@${process.env.GITHUB_OWNER ?? 'time-loop'}/`;
       let name = options.name;
       if (!name.startsWith(namePrefix)) {
         name = namePrefix + name;
