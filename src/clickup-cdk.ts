@@ -7,13 +7,7 @@ import { codecov } from './codecov';
 export module clickupCdk {
   export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
 
-  export const baseDeps = [
-    '@time-loop/cdk-library',
-    'cdk-constants',
-    'cdk-iam-floyd',
-    'colors',
-    'multi-convention-namer',
-  ];
+  export const deps = ['@time-loop/cdk-library', 'cdk-constants', 'cdk-iam-floyd', 'colors', 'multi-convention-namer'];
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -28,9 +22,10 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
-      super(merge(clickupTs.defaults, { deps: baseDeps }, options));
+      super(merge(clickupTs.defaults, { deps, sampleCode: false }, options));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
+      // Add sample-code using SampleDir component
     }
   }
 }
