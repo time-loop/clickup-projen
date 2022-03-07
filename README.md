@@ -111,9 +111,19 @@ Watch with awe and wonder as projen stamps out a project with
           - *If you are moving code into a repo*, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
-        - Include administrators ()
+        - Include administrators (if you have to break the rules, you have to disable this first)
 
 That's it! Now go write a failing test and some code to make it pass!
+
+### New CDK App specific stuff:
+
+Your first PR (the README.md badge) will have failed. To un-break this, you need to update your `src/main.ts`
+to follow our standard pattern (ahammond has a task to update the placeholders to do this).
+Make your stack default to deploying in either `usDev` or `euDev` [environments](https://github.com/time-loop/cdk-library/blob/main/src/core/index.ts#L266)
+and a reasonable region. For example: [web-team-cdk/src/main.ts](https://github.com/time-loop/web-team-cdk/blob/main/src/main.ts).
+Then use [click]() to log into the environment and run an `npx cdk diff`.
+This will generate your `cdk.context.json`, the absence of which is what's currently breaking your build.
+You can either amend your existing PR or generate a new one, but this should get you going.
 
 ## Use Your New Private Library
 
