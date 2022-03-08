@@ -136,3 +136,12 @@ NEW_LIB="my-new-lib"
 GITHUB_OWNER="time-loop"
 yarn add "@$GITHUB_OWNER/$NEW_LIB" --save
 ```
+
+## Developing clickup-projen
+
+```bash
+NEW_APP="my-new-cdk-app"
+mkdir "$NEW_APP"
+cd "$NEW_APP"
+projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/clickup-projen@0.0.0.jsii.tgz clickupcdk_clickupcdktypescriptapp
+```
