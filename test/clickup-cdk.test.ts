@@ -9,15 +9,20 @@ describe('ClickUpCdkTypeScriptApp', () => {
       defaultReleaseBranch: 'main',
     });
     const synth = Testing.synth(p);
-    test('snapshot package.json', () => {
-      expect(synth['package.json']).toMatchSnapshot();
+    ['README.md', 'package.json', 'src/main.ts', 'src/widget.ts', 'test/widget.test.ts'].forEach((file) => {
+      test(`snapshot ${file}`, () => {
+        expect(synth[file]).toMatchSnapshot();
+      });
     });
+
     test('prettier is enabled', () => {
       expect(p.prettier).toBeTruthy();
     });
+
     test('jest is enabled', () => {
       expect(p.jest).toBeTruthy();
     });
+
     // TODO: soooo many more tests need to be written here.
   });
 });
