@@ -1,7 +1,7 @@
-import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
-import merge from 'ts-deepmerge';
 import * as fs from 'fs';
 import * as path from 'path';
+import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
+import merge from 'ts-deepmerge';
 
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
