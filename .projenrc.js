@@ -1,4 +1,6 @@
 const { cdk, javascript, YamlFile } = require('projen');
+
+const bundledDeps = ['ts-deepmerge'];
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',
   authorAddress: 'devops@clickup.com',
@@ -27,8 +29,8 @@ const project = new cdk.JsiiProject({
   // ],
   // gitignore: [ '/.npmrc' ],
 
-  bundledDeps: ['ts-deepmerge'],
-  deps: ['projen', 'ts-deepmerge'],
+  bundledDeps,
+  deps: [...bundledDeps, 'projen'],
   devDeps: ['projen'],
   peerDeps: ['projen'],
 
