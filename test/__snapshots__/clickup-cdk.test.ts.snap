@@ -164,7 +164,8 @@ app.synth();
 `;
 
 exports[`ClickUpCdkTypeScriptApp defaults snapshot src/widget.ts 1`] = `
-"import { core } from '@time-loop/cdk-library';
+"
+import { core } from '@time-loop/cdk-library';
 import { aws_iam, aws_kms, RemovalPolicy } from 'aws-cdk-lib';
 import * as statement from 'cdk-iam-floyd';
 import { Construct } from 'constructs';
