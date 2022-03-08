@@ -26,8 +26,9 @@ export module clickupCdk {
       super(merge(clickupTs.defaults, { deps, sampleCode: false }, options));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
-      // Add sample-code using SampleDir component
-      new SampleDir(this, join(__dirname), {});
+      new SampleDir(this, '/', {
+        sourceDir: join(__dirname, '..', 'sample-assets', 'clickup-cdk'),
+      });
     }
   }
 }
