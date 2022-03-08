@@ -1,7 +1,7 @@
 import { core } from '@time-loop/cdk-library';
 import { App, assertions } from 'aws-cdk-lib';
 import { Namer } from 'multi-convention-namer';
-import { WidgetStack } from './../src/widget';
+import { WidgetStack } from '../src/widget';
 
 // Minimum props required by @time-loop/cdk-library/core.StackProps
 const commonProps = {

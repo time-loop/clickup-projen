@@ -1,5 +1,5 @@
-import { awscdk, SampleDir } from 'projen';
 import { join } from 'path';
+import { awscdk, SampleDir } from 'projen';
 import merge from 'ts-deepmerge';
 
 import { clickupTs } from './clickup-ts';
