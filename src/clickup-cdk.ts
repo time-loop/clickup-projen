@@ -299,10 +299,30 @@ Object {
       "Type": "AWS::KMS::Key",
       "UpdateReplacePolicy": "Delete",
     },
+    "TestKeyParameterThisAppNameTestKeyKeyArn13E268B9": Object {
+      "Properties": Object {
+        "Name": "/ThisAppName/Test/Key/keyArn",
+        "Tags": Object {
+          "Business Unit": "product",
+          "Confidentiality": "public",
+          "DATADOG": "true",
+          "Environment": "production",
+          "Role": "app",
+          "Service": "Test",
+        },
+        "Type": "String",
+        "Value": Object {
+          "Fn::GetAtt": Array [
+            "TestKey4BC8CF8E",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::SSM::Parameter",
+    },
     "TestPolicyAC2892FA": Object {
       "Properties": Object {
         "Description": "",
-        "ManagedPolicyName": "fakeName",
         "Path": "/",
         "PolicyDocument": Object {
           "Statement": Array [
