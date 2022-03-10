@@ -23,7 +23,7 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
-      super(merge(clickupTs.defaults, { deps, sampleCode: false }, options));
+      super(merge(clickupTs.defaults, { deps, sampleCode: false, releaseToNpm: false }, options));
       new SampleCode(this);
       new SampleReadme(this, {
         contents: `[![codecov](https://codecov.io/gh/time-loop/WRITEME/branch/main/graph/badge.svg?token=WRITEME)](https://codecov.io/gh/time-loop/WRITEME)
