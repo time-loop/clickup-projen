@@ -8,8 +8,20 @@ describe('ClickUpTypeScriptProject', () => {
       defaultReleaseBranch: 'main',
     });
     const synth = Testing.synth(p);
-    test('snapshot package.json', () => {
-      expect(synth['package.json']).toMatchSnapshot();
+    // console.log(Object.getOwnPropertyNames(synth));
+    describe('snapshot', () => {
+      test('codecov.yml', () => {
+        expect(synth['codecov.yml']).toMatchSnapshot();
+      });
+      test('package.json', () => {
+        expect(synth['package.json']).toMatchSnapshot();
+      });
+      test('upgrade-main', () => {
+        expect(synth['.github/workflows/upgrade-main.yml']).toMatchSnapshot();
+      });
+      test('mergify', () => {
+        expect(synth['mergfiy.yml']).toMatchSnapshot();
+      });
     });
     test('prettier is enabled', () => {
       expect(p.prettier).toBeTruthy();
