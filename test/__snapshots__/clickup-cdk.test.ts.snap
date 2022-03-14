@@ -57,6 +57,7 @@ Object {
     "coverageDirectory": "coverage",
     "coveragePathIgnorePatterns": Array [
       "/node_modules/",
+      "/src/main.ts",
     ],
     "coverageReporters": Array [
       "json",

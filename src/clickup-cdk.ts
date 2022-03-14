@@ -9,6 +9,15 @@ export module clickupCdk {
   export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
 
   export const deps = ['@time-loop/cdk-library', 'cdk-constants', 'cdk-iam-floyd', 'colors', 'multi-convention-namer'];
+  export const defaults = {
+    deps,
+    jestOptions: {
+      jestConfig: {
+        coveragePathIgnorePatterns: ['/node_modules/', '/src/main.ts'],
+      },
+    },
+    releaseToNpm: false,
+  };
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -23,7 +32,7 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
-      super(merge(clickupTs.defaults, { deps, sampleCode: false, releaseToNpm: false }, options));
+      super(merge(clickupTs.defaults, defaults, options, { sampleCode: false }));
       new SampleCode(this);
       new SampleReadme(this, {
         contents: `[![codecov](https://codecov.io/gh/time-loop/WRITEME/branch/main/graph/badge.svg?token=WRITEME)](https://codecov.io/gh/time-loop/WRITEME)
