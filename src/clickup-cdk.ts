@@ -11,6 +11,11 @@ export module clickupCdk {
   export const deps = ['@time-loop/cdk-library', 'cdk-constants', 'cdk-iam-floyd', 'colors', 'multi-convention-namer'];
   export const defaults = {
     deps,
+    jestOptions: {
+      jestConfig: {
+        coveragePathIgnorePatterns: ['/node_modules/', '/src/main.ts'],
+      },
+    },
     releaseToNpm: false,
   };
 
