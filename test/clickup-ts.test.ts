@@ -20,7 +20,7 @@ describe('ClickUpTypeScriptProject', () => {
         expect(synth['.github/workflows/upgrade-main.yml']).toMatchSnapshot();
       });
       test('mergify', () => {
-        expect(synth['mergfiy.yml']).toMatchSnapshot();
+        expect(synth['.mergfiy.yml']).toMatchSnapshot();
       });
     });
     test('prettier is enabled', () => {
