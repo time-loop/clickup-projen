@@ -10,15 +10,13 @@ describe('ClickUpCdkTypeScriptApp', () => {
     });
     const synth = Testing.synth(p);
     ['README.md', 'package.json', 'src/main.ts', 'src/widget.ts', 'test/widget.test.ts'].forEach((file) => {
-      test(`snapshot ${file}`, () => {
+      test(file, () => {
         expect(synth[file]).toMatchSnapshot();
       });
     });
-
     test('prettier is enabled', () => {
       expect(p.prettier).toBeTruthy();
     });
-
     test('jest is enabled', () => {
       expect(p.jest).toBeTruthy();
     });
