@@ -26,6 +26,12 @@ export module clickupTs {
     deps: baseDeps,
     devDeps: baseDevDeps,
 
+    depsUpgradeOptions: {
+      workflowOptions: {
+        schedule: javascript.UpgradeDependenciesSchedule.WEEKLY,
+      },
+    },
+
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',
