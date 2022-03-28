@@ -35,7 +35,7 @@ Execute below shell script to generate your `~/.npmrc`:
 GITHUB_OWNER="time-loop"
 cat <<EOF >>~/.npmrc
 
-//npm.pkg.github.com/:_authToken=ghp_paste-your-personal-github-access-token-here
+//npm.pkg.github.com/:_authToken=ghp_paste-your-github-personal-access-token-here
 @${GITHUB_OWNER}:registry=https://npm.pkg.github.com/
 EOF
 ```
