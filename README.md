@@ -29,13 +29,13 @@ It needs to have at least the `read:packages` permission.
 You might want to also use this token with the
 [gh](https://github.com/cli/cli) command line tool. Up to you.
 
-Add the following to your `~/.npmrc`:
+Execute below shell script to generate your `~/.npmrc`:
 
 ```bash
 GITHUB_OWNER="time-loop"
 cat <<EOF >>~/.npmrc
 
-//npm.pkg.github.com/:_authToken=ghp_your-github-token
+//npm.pkg.github.com/:_authToken=ghp_paste-your-github-personal-access-token-here
 @${GITHUB_OWNER}:registry=https://npm.pkg.github.com/
 EOF
 ```
