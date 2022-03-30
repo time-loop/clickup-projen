@@ -99,7 +99,8 @@ Watch with awe and wonder as projen stamps out a project with
     - You should probably grant `admin` to your team.
       Otherwise, you should almost certainly grant `admin` to your manager.
     - If this is a `-cdk` repo, please grant `admin` to `@time-loop/devops`.
-    - You should probably grant `write` to the `@time-loop/timeloop` team.
+    - You should probably grant `write` to the `@time-loop/ft_engineering` team (these are full-time engineers).
+    - You should probably grant `write` to the `@time-loop/timeloop` team (this is a broader group).
   - Branches: https://github.com/time-loop/my-new-lib/settings/branches
     - Confirm that your default branch is `main`. We only use `master` in legacy repos we haven't yet migrated. BLM.
     - Under _Branch protection rules_ click _Add rule_.
