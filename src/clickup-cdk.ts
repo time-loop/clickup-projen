@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
@@ -65,7 +64,7 @@ export module clickupCdk {
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
       super(merge(clickupTs.defaults, defaults, options, { sampleCode: false }));
-      new SampleCode(this);
+      new AppSampleCode(this);
       new SampleReadme(this, {
         contents: `[![codecov](https://codecov.io/gh/time-loop/WRITEME/branch/main/graph/badge.svg?token=WRITEME)](https://codecov.io/gh/time-loop/WRITEME)
 
@@ -77,7 +76,7 @@ export module clickupCdk {
     }
   }
 
-  class SampleCode extends Component {
+  class AppSampleCode extends Component {
     constructor(project: ClickUpCdkTypeScriptApp) {
       super(project);
 
@@ -217,10 +216,8 @@ describe('Widget', () => {
     const template = assertions.Template.fromStack(stack);
 
     // Tests are super thin, consisting of just an assertion.
-    test('snapshot', () => {
-      // This is the fastest, most superficial test you can write.
-      // It's better than nothing. But kinda fragile.
-      expect(template.toJSON()).toMatchSnapshot();
+    test('creates resources', () => {
+      ['AWS::IAM::ManagedPolicy', 'AWS::KMS::Key'].forEach((resource) => template.hasResourceCount(resource, 1));
     });
 
     // Demonstrate super-cool matcher stuff
@@ -262,174 +259,6 @@ describe('Widget', () => {
     });
   });
 });
-`,
-        },
-      });
-      new SampleDir(project, path.join(project.testdir, '__snapshots__'), {
-        files: {
-          'widget.test.ts.snap': `// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[\`Widget default snapshot 1\`] = \`
-Object {
-  "Parameters": Object {
-    "BootstrapVersion": Object {
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
-      "Type": "AWS::SSM::Parameter::Value<String>",
-    },
-    "SsmParameterValueSomeOtherAppSomeOtherStackFooBardistributionIdC96584B6F00A464EAD1953AFF4B05118Parameter": Object {
-      "Default": "/SomeOtherApp/SomeOtherStack/FooBar/distributionId",
-      "Type": "AWS::SSM::Parameter::Value<String>",
-    },
-  },
-  "Resources": Object {
-    "TestKey4BC8CF8E": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "KeyPolicy": Object {
-          "Statement": Array [
-            Object {
-              "Action": "kms:*",
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::469006742758:root",
-                    ],
-                  ],
-                },
-              },
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "Tags": Array [
-          Object {
-            "Key": "Business Unit",
-            "Value": "product",
-          },
-          Object {
-            "Key": "Confidentiality",
-            "Value": "public",
-          },
-          Object {
-            "Key": "DATADOG",
-            "Value": "true",
-          },
-          Object {
-            "Key": "Environment",
-            "Value": "production",
-          },
-          Object {
-            "Key": "Role",
-            "Value": "app",
-          },
-          Object {
-            "Key": "Service",
-            "Value": "Test",
-          },
-        ],
-      },
-      "Type": "AWS::KMS::Key",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "TestKeyParameterThisAppNameTestKeyKeyArn13E268B9": Object {
-      "Properties": Object {
-        "Name": "/ThisAppName/Test/Key/keyArn",
-        "Tags": Object {
-          "Business Unit": "product",
-          "Confidentiality": "public",
-          "DATADOG": "true",
-          "Environment": "production",
-          "Role": "app",
-          "Service": "Test",
-        },
-        "Type": "String",
-        "Value": Object {
-          "Fn::GetAtt": Array [
-            "TestKey4BC8CF8E",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::SSM::Parameter",
-    },
-    "TestPolicyAC2892FA": Object {
-      "Properties": Object {
-        "Description": "",
-        "Path": "/",
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "kms:Decrypt*",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "TestKey4BC8CF8E",
-                  "Arn",
-                ],
-              },
-              "Sid": "DescriptiveName",
-            },
-            Object {
-              "Action": "cloudfront:CreateInvalidation",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:aws:cloudfront::*:distribution/",
-                    Object {
-                      "Ref": "SsmParameterValueSomeOtherAppSomeOtherStackFooBardistributionIdC96584B6F00A464EAD1953AFF4B05118Parameter",
-                    },
-                  ],
-                ],
-              },
-              "Sid": "GrantInvalidation",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::ManagedPolicy",
-    },
-  },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  Object {
-                    "Ref": "BootstrapVersion",
-                  },
-                ],
-              },
-            ],
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
-        },
-      ],
-    },
-  },
-}
-\`;
 `,
         },
       });
