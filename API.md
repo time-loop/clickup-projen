@@ -437,6 +437,13 @@ The README setup.
 
 ---
 
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.readme.example"></a>
+
+```typescript
+"{ filename: 'readme.md', contents: '# title' }"
+```
+
+
 ##### `stale`<sup>Optional</sup> <a name="stale" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.stale"></a>
 
 ```typescript
@@ -638,6 +645,13 @@ The recommendation is to only specify the module name here (e.g. `express`). Thi
 
 ---
 
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.deps.example"></a>
+
+```typescript
+[ 'express', 'lodash', 'foo@^2' ]
+```
+
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.description"></a>
 
 ```typescript
@@ -666,6 +680,13 @@ Build dependencies for this module.
 These dependencies will only be available in your build environment but will not be fetched when this module is consumed.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
 
 ---
+
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.devDeps.example"></a>
+
+```typescript
+[ 'typescript', '@types/express' ]
+```
+
 
 ##### `entrypoint`<sup>Optional</sup> <a name="entrypoint" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.entrypoint"></a>
 
@@ -2705,6 +2726,13 @@ The README setup.
 
 ---
 
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.readme.example"></a>
+
+```typescript
+"{ filename: 'readme.md', contents: '# title' }"
+```
+
+
 ##### `stale`<sup>Optional</sup> <a name="stale" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.stale"></a>
 
 ```typescript
@@ -2906,6 +2934,13 @@ The recommendation is to only specify the module name here (e.g. `express`). Thi
 
 ---
 
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.deps.example"></a>
+
+```typescript
+[ 'express', 'lodash', 'foo@^2' ]
+```
+
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.description"></a>
 
 ```typescript
@@ -2934,6 +2969,13 @@ Build dependencies for this module.
 These dependencies will only be available in your build environment but will not be fetched when this module is consumed.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
 
 ---
+
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.devDeps.example"></a>
+
+```typescript
+[ 'typescript', '@types/express' ]
+```
+
 
 ##### `entrypoint`<sup>Optional</sup> <a name="entrypoint" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.entrypoint"></a>
 
@@ -4862,6 +4904,13 @@ The README setup.
 
 ---
 
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.readme.example"></a>
+
+```typescript
+"{ filename: 'readme.md', contents: '# title' }"
+```
+
+
 ##### `stale`<sup>Optional</sup> <a name="stale" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.stale"></a>
 
 ```typescript
@@ -5063,6 +5112,13 @@ The recommendation is to only specify the module name here (e.g. `express`). Thi
 
 ---
 
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.deps.example"></a>
+
+```typescript
+[ 'express', 'lodash', 'foo@^2' ]
+```
+
+
 ##### `description`<sup>Optional</sup> <a name="description" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.description"></a>
 
 ```typescript
@@ -5091,6 +5147,13 @@ Build dependencies for this module.
 These dependencies will only be available in your build environment but will not be fetched when this module is consumed.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
 
 ---
+
+###### Example <a name="Example" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.devDeps.example"></a>
+
+```typescript
+[ 'typescript', '@types/express' ]
+```
+
 
 ##### `entrypoint`<sup>Optional</sup> <a name="entrypoint" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.entrypoint"></a>
 
