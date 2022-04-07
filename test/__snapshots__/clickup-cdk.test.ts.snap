@@ -16,7 +16,7 @@ Object {
     "aws-cdk-lib": "^2.1.0",
     "cdk-constants": "*",
     "cdk-iam-floyd": "*",
-    "colors": "*",
+    "chalk": "*",
     "constructs": "^10.0.5",
     "multi-convention-namer": "*",
   },

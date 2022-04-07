@@ -6,9 +6,14 @@ import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 
 export module clickupCdk {
-  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
-
-  export const deps = ['@time-loop/cdk-library', 'cdk-constants', 'cdk-iam-floyd', 'colors', 'multi-convention-namer'];
+  export const deps = [
+    ...clickupTs.deps,
+    '@time-loop/cdk-library',
+    'cdk-constants',
+    'cdk-iam-floyd',
+    'chalk',
+    'multi-convention-namer',
+  ];
   export const defaults = {
     deps,
     jestOptions: {

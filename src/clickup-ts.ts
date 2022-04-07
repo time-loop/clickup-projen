@@ -3,15 +3,10 @@ import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
 
 export module clickupTs {
-  export const baseDeps = ['@time-loop/clickup-projen'];
+  // This is not included in defaults because other projects may not always want to require it.
+  export const deps = ['@time-loop/clickup-projen'];
 
-  export const baseDevDeps = [
-    'esbuild',
-    'eslint-config-prettier',
-    'eslint-plugin-prettier',
-    'jsii-release',
-    'prettier',
-  ];
+  export const devDeps = ['esbuild', 'eslint-config-prettier', 'eslint-plugin-prettier', 'jsii-release', 'prettier'];
 
   export const defaults = {
     authorEmail: 'devops@clickup.com',
@@ -23,8 +18,7 @@ export module clickupTs {
     releaseToNpm: true,
     npmRegistryUrl: 'https://npm.pkg.github.com',
 
-    deps: baseDeps,
-    devDeps: baseDevDeps,
+    devDeps,
 
     depsUpgradeOptions: {
       workflowOptions: {
@@ -91,7 +85,7 @@ export module clickupTs {
         console.log(`Adding mandatory prefix ${namePrefix} to name. New name: ${name}`);
       }
 
-      super(merge(defaults, options, { name }));
+      super(merge(defaults, { deps }, options, { name }));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
     }
