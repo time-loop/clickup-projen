@@ -42,6 +42,20 @@ EOF
 
 NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
+
+### ClickUpCdkConstructLIbrary
+
+When creating new cdk construct libraries:
+
+```bash
+NEW_CDK_LIB='my-new-cdk-library'
+mkdir "$NEW_CDK_LIB"
+cd "$NEW_CDK_LIB"
+export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
+projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrary
+gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_LIB"
+```
+
 ### ClickUpCdkTypeScriptApp
 
 When creating new cdk apps:
@@ -137,4 +151,12 @@ NEW_APP="my-new-cdk-app"
 mkdir "$NEW_APP"
 cd "$NEW_APP"
 projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/clickup-projen@0.0.0.jsii.tgz clickupcdk_clickupcdktypescriptapp
+```
+
+```bash
+NEW_CDK_LIB='my-new-cdk-library'
+mkdir "$NEW_CDK_LIB"
+cd "$NEW_CDK_LIB"
+export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
+projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/clickup-projen@0.0.0.jsii.tgz clickupcdk_clickupcdkconstructlibrary
 ```

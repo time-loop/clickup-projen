@@ -24,6 +24,33 @@ export module clickupCdk {
     releaseToNpm: false,
   };
 
+  export interface ClickUpCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {}
+
+  /**
+   * ClickUp standardized CDK Construct Library.
+   *
+   * Note: disgusting hack to achieve "defaults" in the constructor
+   * leverages "empty string is falsy" behavior of TS.
+   * I am not proud of this.
+   * It's better than cloning the interface since projen revs pretty fast.
+   * Marginally.
+   */
+  export class ClickUpCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
+    constructor(options: ClickUpCdkConstructLibraryOptions) {
+      // JSII means I can't Omit and then re-implement the following as optional. So...
+      const authorName = options.author || clickupTs.defaults.authorName;
+      const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
+      const githubOwner = `${process.env.GITHUB_OWNER ?? 'time-loop'}`;
+      // Theoretically we should be able to just take a default here, but for some reason this is required.
+      const repositoryUrl = options.repositoryUrl || `https://github.com/${githubOwner}/${options.name}.git`;
+      super(merge(clickupTs.defaults, options, { authorName, authorAddress, repositoryUrl }));
+      codecov.addCodeCovYml(this);
+      codecov.addCodeCovOnRelease(this);
+    }
+  }
+
+  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
+
   /**
    * ClickUp standardized CDK TypeScript App
    *

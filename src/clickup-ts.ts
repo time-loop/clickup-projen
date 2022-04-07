@@ -9,7 +9,7 @@ export module clickupTs {
   export const devDeps = ['esbuild', 'eslint-config-prettier', 'eslint-plugin-prettier', 'jsii-release', 'prettier'];
 
   export const defaults = {
-    authorEmail: 'devops@clickup.com',
+    authorAddress: 'devops@clickup.com',
     authorName: 'ClickUp',
     authorOrganization: true,
     licensed: false,
