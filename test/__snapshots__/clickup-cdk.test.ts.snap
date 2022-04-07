@@ -263,10 +263,8 @@ describe('Widget', () => {
     const template = assertions.Template.fromStack(stack);
 
     // Tests are super thin, consisting of just an assertion.
-    test('snapshot', () => {
-      // This is the fastest, most superficial test you can write.
-      // It's better than nothing. But kinda fragile.
-      expect(template.toJSON()).toMatchSnapshot();
+    test('creates resources', () => {
+      ['AWS::IAM::ManagedPolicy', 'AWS::KMS::Key'].forEach((resource) => template.hasResourceCount(resource, 1));
     });
 
     // Demonstrate super-cool matcher stuff
