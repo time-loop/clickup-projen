@@ -212,7 +212,11 @@ public readonly outdir: string;
 
 The root directory of the project.
 
-Relative to this directory, all files are synthesized.  If this project has a parent, this directory is relative to the parent directory and it cannot be the same as the parent or any of it's other sub-projects.
+Relative to this directory, all files are synthesized.
+
+If this project has a parent, this directory is relative to the parent
+directory and it cannot be the same as the parent or any of it's other
+sub-projects.
 
 ---
 
@@ -293,7 +297,8 @@ public readonly autoMergeOptions: AutoMergeOptions;
 
 Configure options for automatic merging on GitHub.
 
-Has no effect if `github.mergify` is set to false.
+Has no effect if
+`github.mergify` is set to false.
 
 ---
 
@@ -420,7 +425,8 @@ public readonly projenTokenSecret: string;
 
 The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows.
 
-This token needs to have the `repo`, `workflows` and `packages` scope.
+This token needs to have the `repo`, `workflows`
+and `packages` scope.
 
 ---
 
@@ -437,7 +443,7 @@ The README setup.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.readme.example"></a>
+*Example*
 
 ```typescript
 "{ filename: 'readme.md', contents: '# title' }"
@@ -500,7 +506,8 @@ public readonly allowLibraryDependencies: boolean;
 
 Allow the project to include `peerDependencies` and `bundledDependencies`.
 
-This is normally only allowed for libraries. For apps, there's no meaning for specifying these.
+This is normally only allowed for libraries. For apps, there's no meaning
+for specifying these.
 
 ---
 
@@ -575,7 +582,9 @@ public readonly bin: {[ key: string ]: string};
 
 Binary programs vended with your module.
 
-You can use this option to add/customize how binaries are represented in your `package.json`, but unless `autoDetectBin` is `false`, every executable file under `bin` will automatically be added to this section.
+You can use this option to add/customize how binaries are represented in
+your `package.json`, but unless `autoDetectBin` is `false`, every
+executable file under `bin` will automatically be added to this section.
 
 ---
 
@@ -613,7 +622,16 @@ public readonly bundledDeps: string[];
 
 List of dependencies to bundle into this module.
 
-These modules will be added both to the `dependencies` section and `bundledDependencies` section of your `package.json`.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+These modules will be
+added both to the `dependencies` section and `bundledDependencies` section of
+your `package.json`.
+
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
@@ -641,11 +659,16 @@ public readonly deps: string[];
 
 Runtime dependencies of this module.
 
-The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.deps.example"></a>
+*Example*
 
 ```typescript
 [ 'express', 'lodash', 'foo@^2' ]
@@ -662,7 +685,8 @@ public readonly description: string;
 
 The description is just a string that helps people understand the purpose of the package.
 
-It can be used when searching for packages in a package manager as well. See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
+It can be used when searching for packages in a package manager as well.
+See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
 
 ---
 
@@ -677,11 +701,20 @@ public readonly devDeps: string[];
 
 Build dependencies for this module.
 
-These dependencies will only be available in your build environment but will not be fetched when this module is consumed.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+These dependencies will only be
+available in your build environment but will not be fetched when this
+module is consumed.
+
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.devDeps.example"></a>
+*Example*
 
 ```typescript
 [ 'typescript', '@types/express' ]
@@ -738,7 +771,8 @@ public readonly license: string;
 
 License's SPDX identifier.
 
-See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses. Use the `licensed` option if you want to no license to be specified.
+See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses.
+Use the `licensed` option if you want to no license to be specified.
 
 ---
 
@@ -887,7 +921,19 @@ public readonly peerDeps: string[];
 
 Peer dependencies for this module.
 
-Dependencies listed here are required to be installed (and satisfied) by the _consumer_ of this library. Using peer dependencies allows you to ensure that only a single module of a certain library exists in the `node_modules` tree of your consumers.  Note that prior to npm@7, peer dependencies are _not_ automatically installed, which means that adding peer dependencies to a library will be a breaking change for your customers.  Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is enabled by default), projen will automatically add a dev dependency with a pinned version for each peer dependency. This will ensure that you build & test your module against the lowest peer version required.
+Dependencies listed here are required to
+be installed (and satisfied) by the _consumer_ of this library. Using peer
+dependencies allows you to ensure that only a single module of a certain
+library exists in the `node_modules` tree of your consumers.
+
+Note that prior to npm@7, peer dependencies are _not_ automatically
+installed, which means that adding peer dependencies to a library will be a
+breaking change for your customers.
+
+Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
+enabled by default), projen will automatically add a dev dependency with a
+pinned version for each peer dependency. This will ensure that you build &
+test your module against the lowest peer version required.
 
 ---
 
@@ -928,7 +974,8 @@ public readonly scripts: {[ key: string ]: string};
 
 npm scripts to include.
 
-If a script has the same name as a standard script, the standard script will be overwritten.
+If a script has the same name as a standard script,
+the standard script will be overwritten.
 
 ---
 
@@ -968,7 +1015,8 @@ public readonly majorVersion: number;
 
 Major version to release from the default branch.
 
-If this is specified, we bump the latest version of this major version line. If not specified, we bump the global latest version.
+If this is specified, we bump the latest version of this major version line.
+If not specified, we bump the global latest version.
 
 ---
 
@@ -983,7 +1031,8 @@ public readonly npmDistTag: string;
 
 The npmDistTag to use when publishing from the default branch.
 
-To set the npm dist-tag for release branches, set the `npmDistTag` property for each branch.
+To set the npm dist-tag for release branches, set the `npmDistTag` property
+for each branch.
 
 ---
 
@@ -1037,7 +1086,8 @@ public readonly publishTasks: boolean;
 
 Define publishing tasks that can be executed manually as well as workflows.
 
-Normally, publishing only happens within automated workflows. Enable this in order to create a publishing task for each publishing activity.
+Normally, publishing only happens within automated workflows. Enable this
+in order to create a publishing task for each publishing activity.
 
 ---
 
@@ -1052,7 +1102,12 @@ public readonly releaseBranches: {[ key: string ]: BranchOptions};
 
 Defines additional release branches.
 
-A workflow will be created for each release branch which will publish releases from commits in this branch. Each release branch _must_ be assigned a major version number which is used to enforce that versions published from that branch always use that major version. If multiple branches are used, the `majorVersion` field must also be provided for the default branch.
+A workflow will be created for each
+release branch which will publish releases from commits in this branch.
+Each release branch _must_ be assigned a major version number which is used
+to enforce that versions published from that branch always use that major
+version. If multiple branches are used, the `majorVersion` field must also
+be provided for the default branch.
 
 ---
 
@@ -1125,7 +1180,10 @@ public readonly releaseTagPrefix: string;
 
 Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.
 
-Note: this prefix is used to detect the latest tagged version when bumping, so if you change this on a project with an existing version history, you may need to manually tag your latest release with the new prefix.
+Note: this prefix is used to detect the latest tagged version
+when bumping, so if you change this on a project with an existing version
+history, you may need to manually tag your latest release
+with the new prefix.
 
 ---
 
@@ -1459,7 +1517,11 @@ public readonly mutableBuild: boolean;
 
 Automatically update files modified during builds to pull-request branches.
 
-This means that any files synthesized by projen or e.g. test snapshots will always be up-to-date before a PR is merged.  Implies that PR builds do not have anti-tamper checks.
+This means
+that any files synthesized by projen or e.g. test snapshots will always be up-to-date
+before a PR is merged.
+
+Implies that PR builds do not have anti-tamper checks.
 
 ---
 
@@ -1611,7 +1673,13 @@ public readonly projenUpgradeSecret: string;
 
 Periodically submits a pull request for projen upgrades (executes `yarn projen:upgrade`).
 
-This setting is a GitHub secret name which contains a GitHub Access Token with `repo` and `workflow` permissions.  This token is used to submit the upgrade pull request, which will likely include workflow updates.  To create a personal access token see https://github.com/settings/tokens
+This setting is a GitHub secret name which contains a GitHub Access Token
+with `repo` and `workflow` permissions.
+
+This token is used to submit the upgrade pull request, which will likely
+include workflow updates.
+
+To create a personal access token see https://github.com/settings/tokens
 
 ---
 
@@ -1887,7 +1955,10 @@ public readonly testdir: string;
 
 Jest tests directory. Tests files should be named `xxx.test.ts`.
 
-If this directory is under `srcdir` (e.g. `src/test`, `src/__tests__`), then tests are going to be compiled into `lib/` and executed as javascript. If the test directory is outside of `src`, then we configure jest to compile the code in-memory.
+If this directory is under `srcdir` (e.g. `src/test`, `src/__tests__`),
+then tests are going to be compiled into `lib/` and executed as javascript.
+If the test directory is outside of `src`, then we configure jest to
+compile the code in-memory.
 
 ---
 
@@ -1941,7 +2012,8 @@ public readonly typescriptVersion: string;
 
 TypeScript version to use.
 
-NOTE: Typescript is not semantically versioned and should remain on the same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
+NOTE: Typescript is not semantically versioned and should remain on the
+same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
@@ -1995,7 +2067,8 @@ public readonly compat: boolean;
 
 Automatically run API compatibility test against the latest version published to npm after compilation.
 
-You can manually run compatibility tests using `yarn compat` if this feature is disabled. - You can ignore compatibility failures by adding lines to a ".compatignore" file.
+You can manually run compatibility tests using `yarn compat` if this feature is disabled.
+- You can ignore compatibility failures by adding lines to a ".compatignore" file.
 
 ---
 
@@ -2047,7 +2120,11 @@ public readonly excludeTypescript: string[];
 
 Accepts a list of glob patterns.
 
-Files matching any of those patterns will be excluded from the TypeScript compiler input.  By default, jsii will include all *.ts files (except .d.ts files) in the TypeScript compiler input. This can be problematic for example when the package's build or test procedure generates .ts files that cannot be compiled with jsii's compiler settings.
+Files matching any of those patterns will be excluded from the TypeScript compiler input.
+
+By default, jsii will include all *.ts files (except .d.ts files) in the TypeScript compiler input.
+This can be problematic for example when the package's build or test procedure generates .ts files
+that cannot be compiled with jsii's compiler settings.
 
 ---
 
@@ -2137,7 +2214,14 @@ public readonly catalog: Catalog;
 
 Libraries will be picked up by the construct catalog when they are published to npm as jsii modules and will be published under:.
 
-https://awscdk.io/packages/[@SCOPE/]PACKAGE@VERSION  The catalog will also post a tweet to https://twitter.com/awscdkio with the package name, description and the above link. You can disable these tweets through `{ announce: false }`.  You can also add a Twitter handle through `{ twitter: 'xx' }` which will be mentioned in the tweet.
+https://awscdk.io/packages/[@SCOPE/]PACKAGE@VERSION
+
+The catalog will also post a tweet to https://twitter.com/awscdkio with the
+package name, description and the above link. You can disable these tweets
+through `{ announce: false }`.
+
+You can also add a Twitter handle through `{ twitter: 'xx' }` which will be
+mentioned in the tweet.
 
 > [https://github.com/construct-catalog/catalog](https://github.com/construct-catalog/catalog)
 
@@ -2184,7 +2268,8 @@ public readonly cdkAssertions: boolean;
 
 Install the assertions library?
 
-Only needed for CDK 1.x. If using CDK 2.x then assertions is already included in 'aws-cdk-lib'
+Only needed for CDK 1.x. If using CDK 2.x then
+assertions is already included in 'aws-cdk-lib'
 
 ---
 
@@ -2215,7 +2300,12 @@ public readonly cdkDependenciesAsDeps: boolean;
 
 If this is enabled (default), all modules declared in `cdkDependencies` will be also added as normal `dependencies` (as well as `peerDependencies`).
 
-This is to ensure that downstream consumers actually have your CDK dependencies installed when using npm < 7 or yarn, where peer dependencies are not automatically installed. If this is disabled, `cdkDependencies` will be added to `devDependencies` to ensure they are present during development.  Note: this setting only applies to construct library projects
+This is to ensure that downstream consumers actually have your CDK dependencies installed
+when using npm < 7 or yarn, where peer dependencies are not automatically installed.
+If this is disabled, `cdkDependencies` will be added to `devDependencies` to ensure
+they are present during development.
+
+Note: this setting only applies to construct library projects
 
 ---
 
@@ -2243,7 +2333,8 @@ public readonly cdkVersionPinning: boolean;
 
 Use pinned version instead of caret version for CDK.
 
-You can use this to prevent mixed versions for your CDK dependencies and to prevent auto-updates. If you use experimental features this will let you define the moment you include breaking changes.
+You can use this to prevent mixed versions for your CDK dependencies and to prevent auto-updates.
+If you use experimental features this will let you define the moment you include breaking changes.
 
 ---
 
@@ -2501,7 +2592,11 @@ public readonly outdir: string;
 
 The root directory of the project.
 
-Relative to this directory, all files are synthesized.  If this project has a parent, this directory is relative to the parent directory and it cannot be the same as the parent or any of it's other sub-projects.
+Relative to this directory, all files are synthesized.
+
+If this project has a parent, this directory is relative to the parent
+directory and it cannot be the same as the parent or any of it's other
+sub-projects.
 
 ---
 
@@ -2582,7 +2677,8 @@ public readonly autoMergeOptions: AutoMergeOptions;
 
 Configure options for automatic merging on GitHub.
 
-Has no effect if `github.mergify` is set to false.
+Has no effect if
+`github.mergify` is set to false.
 
 ---
 
@@ -2709,7 +2805,8 @@ public readonly projenTokenSecret: string;
 
 The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows.
 
-This token needs to have the `repo`, `workflows` and `packages` scope.
+This token needs to have the `repo`, `workflows`
+and `packages` scope.
 
 ---
 
@@ -2726,7 +2823,7 @@ The README setup.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.readme.example"></a>
+*Example*
 
 ```typescript
 "{ filename: 'readme.md', contents: '# title' }"
@@ -2789,7 +2886,8 @@ public readonly allowLibraryDependencies: boolean;
 
 Allow the project to include `peerDependencies` and `bundledDependencies`.
 
-This is normally only allowed for libraries. For apps, there's no meaning for specifying these.
+This is normally only allowed for libraries. For apps, there's no meaning
+for specifying these.
 
 ---
 
@@ -2864,7 +2962,9 @@ public readonly bin: {[ key: string ]: string};
 
 Binary programs vended with your module.
 
-You can use this option to add/customize how binaries are represented in your `package.json`, but unless `autoDetectBin` is `false`, every executable file under `bin` will automatically be added to this section.
+You can use this option to add/customize how binaries are represented in
+your `package.json`, but unless `autoDetectBin` is `false`, every
+executable file under `bin` will automatically be added to this section.
 
 ---
 
@@ -2902,7 +3002,16 @@ public readonly bundledDeps: string[];
 
 List of dependencies to bundle into this module.
 
-These modules will be added both to the `dependencies` section and `bundledDependencies` section of your `package.json`.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+These modules will be
+added both to the `dependencies` section and `bundledDependencies` section of
+your `package.json`.
+
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
@@ -2930,11 +3039,16 @@ public readonly deps: string[];
 
 Runtime dependencies of this module.
 
-The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.deps.example"></a>
+*Example*
 
 ```typescript
 [ 'express', 'lodash', 'foo@^2' ]
@@ -2951,7 +3065,8 @@ public readonly description: string;
 
 The description is just a string that helps people understand the purpose of the package.
 
-It can be used when searching for packages in a package manager as well. See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
+It can be used when searching for packages in a package manager as well.
+See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
 
 ---
 
@@ -2966,11 +3081,20 @@ public readonly devDeps: string[];
 
 Build dependencies for this module.
 
-These dependencies will only be available in your build environment but will not be fetched when this module is consumed.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+These dependencies will only be
+available in your build environment but will not be fetched when this
+module is consumed.
+
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.devDeps.example"></a>
+*Example*
 
 ```typescript
 [ 'typescript', '@types/express' ]
@@ -3027,7 +3151,8 @@ public readonly license: string;
 
 License's SPDX identifier.
 
-See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses. Use the `licensed` option if you want to no license to be specified.
+See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses.
+Use the `licensed` option if you want to no license to be specified.
 
 ---
 
@@ -3176,7 +3301,19 @@ public readonly peerDeps: string[];
 
 Peer dependencies for this module.
 
-Dependencies listed here are required to be installed (and satisfied) by the _consumer_ of this library. Using peer dependencies allows you to ensure that only a single module of a certain library exists in the `node_modules` tree of your consumers.  Note that prior to npm@7, peer dependencies are _not_ automatically installed, which means that adding peer dependencies to a library will be a breaking change for your customers.  Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is enabled by default), projen will automatically add a dev dependency with a pinned version for each peer dependency. This will ensure that you build & test your module against the lowest peer version required.
+Dependencies listed here are required to
+be installed (and satisfied) by the _consumer_ of this library. Using peer
+dependencies allows you to ensure that only a single module of a certain
+library exists in the `node_modules` tree of your consumers.
+
+Note that prior to npm@7, peer dependencies are _not_ automatically
+installed, which means that adding peer dependencies to a library will be a
+breaking change for your customers.
+
+Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
+enabled by default), projen will automatically add a dev dependency with a
+pinned version for each peer dependency. This will ensure that you build &
+test your module against the lowest peer version required.
 
 ---
 
@@ -3217,7 +3354,8 @@ public readonly scripts: {[ key: string ]: string};
 
 npm scripts to include.
 
-If a script has the same name as a standard script, the standard script will be overwritten.
+If a script has the same name as a standard script,
+the standard script will be overwritten.
 
 ---
 
@@ -3257,7 +3395,8 @@ public readonly majorVersion: number;
 
 Major version to release from the default branch.
 
-If this is specified, we bump the latest version of this major version line. If not specified, we bump the global latest version.
+If this is specified, we bump the latest version of this major version line.
+If not specified, we bump the global latest version.
 
 ---
 
@@ -3272,7 +3411,8 @@ public readonly npmDistTag: string;
 
 The npmDistTag to use when publishing from the default branch.
 
-To set the npm dist-tag for release branches, set the `npmDistTag` property for each branch.
+To set the npm dist-tag for release branches, set the `npmDistTag` property
+for each branch.
 
 ---
 
@@ -3326,7 +3466,8 @@ public readonly publishTasks: boolean;
 
 Define publishing tasks that can be executed manually as well as workflows.
 
-Normally, publishing only happens within automated workflows. Enable this in order to create a publishing task for each publishing activity.
+Normally, publishing only happens within automated workflows. Enable this
+in order to create a publishing task for each publishing activity.
 
 ---
 
@@ -3341,7 +3482,12 @@ public readonly releaseBranches: {[ key: string ]: BranchOptions};
 
 Defines additional release branches.
 
-A workflow will be created for each release branch which will publish releases from commits in this branch. Each release branch _must_ be assigned a major version number which is used to enforce that versions published from that branch always use that major version. If multiple branches are used, the `majorVersion` field must also be provided for the default branch.
+A workflow will be created for each
+release branch which will publish releases from commits in this branch.
+Each release branch _must_ be assigned a major version number which is used
+to enforce that versions published from that branch always use that major
+version. If multiple branches are used, the `majorVersion` field must also
+be provided for the default branch.
 
 ---
 
@@ -3414,7 +3560,10 @@ public readonly releaseTagPrefix: string;
 
 Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.
 
-Note: this prefix is used to detect the latest tagged version when bumping, so if you change this on a project with an existing version history, you may need to manually tag your latest release with the new prefix.
+Note: this prefix is used to detect the latest tagged version
+when bumping, so if you change this on a project with an existing version
+history, you may need to manually tag your latest release
+with the new prefix.
 
 ---
 
@@ -3748,7 +3897,11 @@ public readonly mutableBuild: boolean;
 
 Automatically update files modified during builds to pull-request branches.
 
-This means that any files synthesized by projen or e.g. test snapshots will always be up-to-date before a PR is merged.  Implies that PR builds do not have anti-tamper checks.
+This means
+that any files synthesized by projen or e.g. test snapshots will always be up-to-date
+before a PR is merged.
+
+Implies that PR builds do not have anti-tamper checks.
 
 ---
 
@@ -3900,7 +4053,13 @@ public readonly projenUpgradeSecret: string;
 
 Periodically submits a pull request for projen upgrades (executes `yarn projen:upgrade`).
 
-This setting is a GitHub secret name which contains a GitHub Access Token with `repo` and `workflow` permissions.  This token is used to submit the upgrade pull request, which will likely include workflow updates.  To create a personal access token see https://github.com/settings/tokens
+This setting is a GitHub secret name which contains a GitHub Access Token
+with `repo` and `workflow` permissions.
+
+This token is used to submit the upgrade pull request, which will likely
+include workflow updates.
+
+To create a personal access token see https://github.com/settings/tokens
 
 ---
 
@@ -4176,7 +4335,10 @@ public readonly testdir: string;
 
 Jest tests directory. Tests files should be named `xxx.test.ts`.
 
-If this directory is under `srcdir` (e.g. `src/test`, `src/__tests__`), then tests are going to be compiled into `lib/` and executed as javascript. If the test directory is outside of `src`, then we configure jest to compile the code in-memory.
+If this directory is under `srcdir` (e.g. `src/test`, `src/__tests__`),
+then tests are going to be compiled into `lib/` and executed as javascript.
+If the test directory is outside of `src`, then we configure jest to
+compile the code in-memory.
 
 ---
 
@@ -4230,7 +4392,8 @@ public readonly typescriptVersion: string;
 
 TypeScript version to use.
 
-NOTE: Typescript is not semantically versioned and should remain on the same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
+NOTE: Typescript is not semantically versioned and should remain on the
+same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
@@ -4245,7 +4408,9 @@ public readonly buildCommand: string;
 
 A command to execute before synthesis.
 
-This command will be called when running `cdk synth` or when `cdk watch` identifies a change in your source code before redeployment.
+This command will be called when
+running `cdk synth` or when `cdk watch` identifies a change in your source
+code before redeployment.
 
 ---
 
@@ -4368,7 +4533,8 @@ public readonly cdkAssertions: boolean;
 
 Install the assertions library?
 
-Only needed for CDK 1.x. If using CDK 2.x then assertions is already included in 'aws-cdk-lib'
+Only needed for CDK 1.x. If using CDK 2.x then
+assertions is already included in 'aws-cdk-lib'
 
 ---
 
@@ -4399,7 +4565,12 @@ public readonly cdkDependenciesAsDeps: boolean;
 
 If this is enabled (default), all modules declared in `cdkDependencies` will be also added as normal `dependencies` (as well as `peerDependencies`).
 
-This is to ensure that downstream consumers actually have your CDK dependencies installed when using npm < 7 or yarn, where peer dependencies are not automatically installed. If this is disabled, `cdkDependencies` will be added to `devDependencies` to ensure they are present during development.  Note: this setting only applies to construct library projects
+This is to ensure that downstream consumers actually have your CDK dependencies installed
+when using npm < 7 or yarn, where peer dependencies are not automatically installed.
+If this is disabled, `cdkDependencies` will be added to `devDependencies` to ensure
+they are present during development.
+
+Note: this setting only applies to construct library projects
 
 ---
 
@@ -4427,7 +4598,8 @@ public readonly cdkVersionPinning: boolean;
 
 Use pinned version instead of caret version for CDK.
 
-You can use this to prevent mixed versions for your CDK dependencies and to prevent auto-updates. If you use experimental features this will let you define the moment you include breaking changes.
+You can use this to prevent mixed versions for your CDK dependencies and to prevent auto-updates.
+If you use experimental features this will let you define the moment you include breaking changes.
 
 ---
 
@@ -4679,7 +4851,11 @@ public readonly outdir: string;
 
 The root directory of the project.
 
-Relative to this directory, all files are synthesized.  If this project has a parent, this directory is relative to the parent directory and it cannot be the same as the parent or any of it's other sub-projects.
+Relative to this directory, all files are synthesized.
+
+If this project has a parent, this directory is relative to the parent
+directory and it cannot be the same as the parent or any of it's other
+sub-projects.
 
 ---
 
@@ -4760,7 +4936,8 @@ public readonly autoMergeOptions: AutoMergeOptions;
 
 Configure options for automatic merging on GitHub.
 
-Has no effect if `github.mergify` is set to false.
+Has no effect if
+`github.mergify` is set to false.
 
 ---
 
@@ -4887,7 +5064,8 @@ public readonly projenTokenSecret: string;
 
 The name of a secret which includes a GitHub Personal Access Token to be used by projen workflows.
 
-This token needs to have the `repo`, `workflows` and `packages` scope.
+This token needs to have the `repo`, `workflows`
+and `packages` scope.
 
 ---
 
@@ -4904,7 +5082,7 @@ The README setup.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.readme.example"></a>
+*Example*
 
 ```typescript
 "{ filename: 'readme.md', contents: '# title' }"
@@ -4967,7 +5145,8 @@ public readonly allowLibraryDependencies: boolean;
 
 Allow the project to include `peerDependencies` and `bundledDependencies`.
 
-This is normally only allowed for libraries. For apps, there's no meaning for specifying these.
+This is normally only allowed for libraries. For apps, there's no meaning
+for specifying these.
 
 ---
 
@@ -5042,7 +5221,9 @@ public readonly bin: {[ key: string ]: string};
 
 Binary programs vended with your module.
 
-You can use this option to add/customize how binaries are represented in your `package.json`, but unless `autoDetectBin` is `false`, every executable file under `bin` will automatically be added to this section.
+You can use this option to add/customize how binaries are represented in
+your `package.json`, but unless `autoDetectBin` is `false`, every
+executable file under `bin` will automatically be added to this section.
 
 ---
 
@@ -5080,7 +5261,16 @@ public readonly bundledDeps: string[];
 
 List of dependencies to bundle into this module.
 
-These modules will be added both to the `dependencies` section and `bundledDependencies` section of your `package.json`.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+These modules will be
+added both to the `dependencies` section and `bundledDependencies` section of
+your `package.json`.
+
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
@@ -5108,11 +5298,16 @@ public readonly deps: string[];
 
 Runtime dependencies of this module.
 
-The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.deps.example"></a>
+*Example*
 
 ```typescript
 [ 'express', 'lodash', 'foo@^2' ]
@@ -5129,7 +5324,8 @@ public readonly description: string;
 
 The description is just a string that helps people understand the purpose of the package.
 
-It can be used when searching for packages in a package manager as well. See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
+It can be used when searching for packages in a package manager as well.
+See https://classic.yarnpkg.com/en/docs/package-json/#toc-description
 
 ---
 
@@ -5144,11 +5340,20 @@ public readonly devDeps: string[];
 
 Build dependencies for this module.
 
-These dependencies will only be available in your build environment but will not be fetched when this module is consumed.  The recommendation is to only specify the module name here (e.g. `express`). This will behave similar to `yarn add` or `npm install` in the sense that it will add the module as a dependency to your `package.json` file with the latest version (`^`). You can specify semver requirements in the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and this will be what you `package.json` will eventually include.
+These dependencies will only be
+available in your build environment but will not be fetched when this
+module is consumed.
+
+The recommendation is to only specify the module name here (e.g.
+`express`). This will behave similar to `yarn add` or `npm install` in the
+sense that it will add the module as a dependency to your `package.json`
+file with the latest version (`^`). You can specify semver requirements in
+the same syntax passed to `npm i` or `yarn add` (e.g. `express@^2`) and
+this will be what you `package.json` will eventually include.
 
 ---
 
-###### Example <a name="Example" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.devDeps.example"></a>
+*Example*
 
 ```typescript
 [ 'typescript', '@types/express' ]
@@ -5205,7 +5410,8 @@ public readonly license: string;
 
 License's SPDX identifier.
 
-See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses. Use the `licensed` option if you want to no license to be specified.
+See https://github.com/projen/projen/tree/main/license-text for a list of supported licenses.
+Use the `licensed` option if you want to no license to be specified.
 
 ---
 
@@ -5354,7 +5560,19 @@ public readonly peerDeps: string[];
 
 Peer dependencies for this module.
 
-Dependencies listed here are required to be installed (and satisfied) by the _consumer_ of this library. Using peer dependencies allows you to ensure that only a single module of a certain library exists in the `node_modules` tree of your consumers.  Note that prior to npm@7, peer dependencies are _not_ automatically installed, which means that adding peer dependencies to a library will be a breaking change for your customers.  Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is enabled by default), projen will automatically add a dev dependency with a pinned version for each peer dependency. This will ensure that you build & test your module against the lowest peer version required.
+Dependencies listed here are required to
+be installed (and satisfied) by the _consumer_ of this library. Using peer
+dependencies allows you to ensure that only a single module of a certain
+library exists in the `node_modules` tree of your consumers.
+
+Note that prior to npm@7, peer dependencies are _not_ automatically
+installed, which means that adding peer dependencies to a library will be a
+breaking change for your customers.
+
+Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
+enabled by default), projen will automatically add a dev dependency with a
+pinned version for each peer dependency. This will ensure that you build &
+test your module against the lowest peer version required.
 
 ---
 
@@ -5395,7 +5613,8 @@ public readonly scripts: {[ key: string ]: string};
 
 npm scripts to include.
 
-If a script has the same name as a standard script, the standard script will be overwritten.
+If a script has the same name as a standard script,
+the standard script will be overwritten.
 
 ---
 
@@ -5435,7 +5654,8 @@ public readonly majorVersion: number;
 
 Major version to release from the default branch.
 
-If this is specified, we bump the latest version of this major version line. If not specified, we bump the global latest version.
+If this is specified, we bump the latest version of this major version line.
+If not specified, we bump the global latest version.
 
 ---
 
@@ -5450,7 +5670,8 @@ public readonly npmDistTag: string;
 
 The npmDistTag to use when publishing from the default branch.
 
-To set the npm dist-tag for release branches, set the `npmDistTag` property for each branch.
+To set the npm dist-tag for release branches, set the `npmDistTag` property
+for each branch.
 
 ---
 
@@ -5504,7 +5725,8 @@ public readonly publishTasks: boolean;
 
 Define publishing tasks that can be executed manually as well as workflows.
 
-Normally, publishing only happens within automated workflows. Enable this in order to create a publishing task for each publishing activity.
+Normally, publishing only happens within automated workflows. Enable this
+in order to create a publishing task for each publishing activity.
 
 ---
 
@@ -5519,7 +5741,12 @@ public readonly releaseBranches: {[ key: string ]: BranchOptions};
 
 Defines additional release branches.
 
-A workflow will be created for each release branch which will publish releases from commits in this branch. Each release branch _must_ be assigned a major version number which is used to enforce that versions published from that branch always use that major version. If multiple branches are used, the `majorVersion` field must also be provided for the default branch.
+A workflow will be created for each
+release branch which will publish releases from commits in this branch.
+Each release branch _must_ be assigned a major version number which is used
+to enforce that versions published from that branch always use that major
+version. If multiple branches are used, the `majorVersion` field must also
+be provided for the default branch.
 
 ---
 
@@ -5592,7 +5819,10 @@ public readonly releaseTagPrefix: string;
 
 Automatically add the given prefix to release tags. Useful if you are releasing on multiple branches with overlapping version numbers.
 
-Note: this prefix is used to detect the latest tagged version when bumping, so if you change this on a project with an existing version history, you may need to manually tag your latest release with the new prefix.
+Note: this prefix is used to detect the latest tagged version
+when bumping, so if you change this on a project with an existing version
+history, you may need to manually tag your latest release
+with the new prefix.
 
 ---
 
@@ -5926,7 +6156,11 @@ public readonly mutableBuild: boolean;
 
 Automatically update files modified during builds to pull-request branches.
 
-This means that any files synthesized by projen or e.g. test snapshots will always be up-to-date before a PR is merged.  Implies that PR builds do not have anti-tamper checks.
+This means
+that any files synthesized by projen or e.g. test snapshots will always be up-to-date
+before a PR is merged.
+
+Implies that PR builds do not have anti-tamper checks.
 
 ---
 
@@ -6078,7 +6312,13 @@ public readonly projenUpgradeSecret: string;
 
 Periodically submits a pull request for projen upgrades (executes `yarn projen:upgrade`).
 
-This setting is a GitHub secret name which contains a GitHub Access Token with `repo` and `workflow` permissions.  This token is used to submit the upgrade pull request, which will likely include workflow updates.  To create a personal access token see https://github.com/settings/tokens
+This setting is a GitHub secret name which contains a GitHub Access Token
+with `repo` and `workflow` permissions.
+
+This token is used to submit the upgrade pull request, which will likely
+include workflow updates.
+
+To create a personal access token see https://github.com/settings/tokens
 
 ---
 
@@ -6354,7 +6594,10 @@ public readonly testdir: string;
 
 Jest tests directory. Tests files should be named `xxx.test.ts`.
 
-If this directory is under `srcdir` (e.g. `src/test`, `src/__tests__`), then tests are going to be compiled into `lib/` and executed as javascript. If the test directory is outside of `src`, then we configure jest to compile the code in-memory.
+If this directory is under `srcdir` (e.g. `src/test`, `src/__tests__`),
+then tests are going to be compiled into `lib/` and executed as javascript.
+If the test directory is outside of `src`, then we configure jest to
+compile the code in-memory.
 
 ---
 
@@ -6408,7 +6651,8 @@ public readonly typescriptVersion: string;
 
 TypeScript version to use.
 
-NOTE: Typescript is not semantically versioned and should remain on the same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
+NOTE: Typescript is not semantically versioned and should remain on the
+same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
@@ -6418,7 +6662,11 @@ NOTE: Typescript is not semantically versioned and should remain on the same min
 
 ClickUp standardized CDK Construct Library.
 
-Note: disgusting hack to achieve "defaults" in the constructor leverages "empty string is falsy" behavior of TS. I am not proud of this. It's better than cloning the interface since projen revs pretty fast. Marginally.
+Note: disgusting hack to achieve "defaults" in the constructor
+leverages "empty string is falsy" behavior of TS.
+I am not proud of this.
+It's better than cloning the interface since projen revs pretty fast.
+Marginally.
 
 #### Initializers <a name="Initializers" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.Initializer"></a>
 
@@ -6484,7 +6732,8 @@ public addExcludeFromCleanup(globs: string): void
 
 Exclude the matching files from pre-synth cleanup.
 
-Can be used when, for example, some source files include the projen marker and we don't want them to be erased during synth.
+Can be used when, for example, some
+source files include the projen marker and we don't want them to be erased during synth.
 
 ###### `globs`<sup>Required</sup> <a name="globs" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.addExcludeFromCleanup.parameter.globs"></a>
 
@@ -6518,7 +6767,8 @@ public addPackageIgnore(pattern: string): void
 
 Exclude these files from the bundled package.
 
-Implemented by project types based on the packaging mechanism. For example, `NodeProject` delegates this to `.npmignore`.
+Implemented by project types based on the
+packaging mechanism. For example, `NodeProject` delegates this to `.npmignore`.
 
 ###### `pattern`<sup>Required</sup> <a name="pattern" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.addPackageIgnore.parameter.pattern"></a>
 
@@ -6534,7 +6784,8 @@ public addTask(name: string, props?: TaskOptions): Task
 
 Adds a new task to this project.
 
-This will fail if the project already has a task with this name.
+This will fail if the project already has
+a task with this name.
 
 ###### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.addTask.parameter.name"></a>
 
@@ -6576,7 +6827,9 @@ public annotateGenerated(glob: string): void
 
 Marks the provided file(s) as being generated.
 
-This is achieved using the github-linguist attributes. Generated files do not count against the repository statistics and language breakdown.
+This is achieved using the
+github-linguist attributes. Generated files do not count against the
+repository statistics and language breakdown.
 
 > [https://github.com/github/linguist/blob/master/docs/overrides.md](https://github.com/github/linguist/blob/master/docs/overrides.md)
 
@@ -6630,7 +6883,8 @@ public runTaskCommand(task: Task): string
 
 Returns the shell command to execute in order to run a task.
 
-This will typically be `npx projen TASK`.
+This will
+typically be `npx projen TASK`.
 
 ###### `task`<sup>Required</sup> <a name="task" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.runTaskCommand.parameter.task"></a>
 
@@ -6648,7 +6902,12 @@ public synth(): void
 
 Synthesize all project files into `outdir`.
 
-1. Call "this.preSynthesize()" 2. Delete all generated files 3. Synthesize all sub-projects 4. Synthesize all components of this project 5. Call "postSynthesize()" for all components of this project 6. Call "this.postSynthesize()"
+1. Call "this.preSynthesize()"
+2. Delete all generated files
+3. Synthesize all sub-projects
+4. Synthesize all components of this project
+5. Call "postSynthesize()" for all components of this project
+6. Call "this.postSynthesize()"
 
 ##### `tryFindFile` <a name="tryFindFile" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.tryFindFile"></a>
 
@@ -6664,7 +6923,8 @@ Finds a file at the specified relative path within this project and all its subp
 
 The file path.
 
-If this path is relative, it will be resolved from the root of _this_ project.
+If this path is relative, it will be resolved
+from the root of _this_ project.
 
 ---
 
@@ -6720,7 +6980,8 @@ public addBundledDeps(deps: string): void
 
 Defines bundled dependencies.
 
-Bundled dependencies will be added as normal dependencies as well as to the `bundledDependencies` section of your `package.json`.
+Bundled dependencies will be added as normal dependencies as well as to the
+`bundledDependencies` section of your `package.json`.
 
 ###### `deps`<sup>Required</sup> <a name="deps" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.addBundledDeps.parameter.deps"></a>
 
@@ -6728,7 +6989,11 @@ Bundled dependencies will be added as normal dependencies as well as to the `bun
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -6760,7 +7025,11 @@ Defines normal dependencies.
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -6778,7 +7047,11 @@ Defines development/test dependencies.
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -6822,7 +7095,9 @@ public addPeerDeps(deps: string): void
 
 Defines peer dependencies.
 
-When adding peer dependencies, a devDependency will also be added on the pinned version of the declared peer. This will ensure that you are testing your code against the minimum version required from your consumers.
+When adding peer dependencies, a devDependency will also be added on the
+pinned version of the declared peer. This will ensure that you are testing
+your code against the minimum version required from your consumers.
 
 ###### `deps`<sup>Required</sup> <a name="deps" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.addPeerDeps.parameter.deps"></a>
 
@@ -6830,7 +7105,11 @@ When adding peer dependencies, a devDependency will also be added on the pinned 
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -7249,7 +7528,8 @@ public readonly defaultTask: Task;
 
 This is the "default" task, the one that executes "projen".
 
-Undefined if the project is being ejected.
+Undefined if
+the project is being ejected.
 
 ---
 
@@ -7263,7 +7543,9 @@ public readonly initProject: InitProject;
 
 The options used when this project is bootstrapped via `projen new`.
 
-It includes the original set of options passed to the CLI and also the JSII FQN of the project type.
+It
+includes the original set of options passed to the CLI and also the JSII
+FQN of the project type.
 
 ---
 
@@ -7381,7 +7663,9 @@ public readonly artifactsDirectory: string;
 
 The build output directory.
 
-An npm tarball will be created under the `js` subdirectory. For example, if this is set to `dist` (the default), the npm tarball will be placed under `dist/js/boom-boom-1.2.3.tg`.
+An npm tarball will be created under the `js`
+subdirectory. For example, if this is set to `dist` (the default), the npm
+tarball will be placed under `dist/js/boom-boom-1.2.3.tg`.
 
 ---
 
@@ -7577,7 +7861,8 @@ public readonly publisher: Publisher;
 
 Package publisher.
 
-This will be `undefined` if the project does not have a release workflow.
+This will be `undefined` if the project does not have a
+release workflow.
 
 ---
 
@@ -7767,7 +8052,8 @@ public readonly DEFAULT_TASK: string;
 
 The name of the default task (the task executed when `projen` is run without arguments).
 
-Normally this task should synthesize the project files.
+Normally
+this task should synthesize the project files.
 
 ---
 
@@ -7775,7 +8061,13 @@ Normally this task should synthesize the project files.
 
 ClickUp standardized CDK TypeScript App.
 
-Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.17.0' - default deps and devDeps (you can add your own, but the base will always be present)
+Includes:
+- default author information
+- default proprietary license
+- default release build configuration
+- default linting and codecov configuration
+- default minNodeVersion: '14.17.0'
+- default deps and devDeps (you can add your own, but the base will always be present)
 
 #### Initializers <a name="Initializers" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.Initializer"></a>
 
@@ -7840,7 +8132,8 @@ public addExcludeFromCleanup(globs: string): void
 
 Exclude the matching files from pre-synth cleanup.
 
-Can be used when, for example, some source files include the projen marker and we don't want them to be erased during synth.
+Can be used when, for example, some
+source files include the projen marker and we don't want them to be erased during synth.
 
 ###### `globs`<sup>Required</sup> <a name="globs" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.addExcludeFromCleanup.parameter.globs"></a>
 
@@ -7874,7 +8167,8 @@ public addPackageIgnore(pattern: string): void
 
 Exclude these files from the bundled package.
 
-Implemented by project types based on the packaging mechanism. For example, `NodeProject` delegates this to `.npmignore`.
+Implemented by project types based on the
+packaging mechanism. For example, `NodeProject` delegates this to `.npmignore`.
 
 ###### `pattern`<sup>Required</sup> <a name="pattern" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.addPackageIgnore.parameter.pattern"></a>
 
@@ -7890,7 +8184,8 @@ public addTask(name: string, props?: TaskOptions): Task
 
 Adds a new task to this project.
 
-This will fail if the project already has a task with this name.
+This will fail if the project already has
+a task with this name.
 
 ###### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.addTask.parameter.name"></a>
 
@@ -7932,7 +8227,9 @@ public annotateGenerated(glob: string): void
 
 Marks the provided file(s) as being generated.
 
-This is achieved using the github-linguist attributes. Generated files do not count against the repository statistics and language breakdown.
+This is achieved using the
+github-linguist attributes. Generated files do not count against the
+repository statistics and language breakdown.
 
 > [https://github.com/github/linguist/blob/master/docs/overrides.md](https://github.com/github/linguist/blob/master/docs/overrides.md)
 
@@ -7986,7 +8283,8 @@ public runTaskCommand(task: Task): string
 
 Returns the shell command to execute in order to run a task.
 
-This will typically be `npx projen TASK`.
+This will
+typically be `npx projen TASK`.
 
 ###### `task`<sup>Required</sup> <a name="task" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.runTaskCommand.parameter.task"></a>
 
@@ -8004,7 +8302,12 @@ public synth(): void
 
 Synthesize all project files into `outdir`.
 
-1. Call "this.preSynthesize()" 2. Delete all generated files 3. Synthesize all sub-projects 4. Synthesize all components of this project 5. Call "postSynthesize()" for all components of this project 6. Call "this.postSynthesize()"
+1. Call "this.preSynthesize()"
+2. Delete all generated files
+3. Synthesize all sub-projects
+4. Synthesize all components of this project
+5. Call "postSynthesize()" for all components of this project
+6. Call "this.postSynthesize()"
 
 ##### `tryFindFile` <a name="tryFindFile" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.tryFindFile"></a>
 
@@ -8020,7 +8323,8 @@ Finds a file at the specified relative path within this project and all its subp
 
 The file path.
 
-If this path is relative, it will be resolved from the root of _this_ project.
+If this path is relative, it will be resolved
+from the root of _this_ project.
 
 ---
 
@@ -8076,7 +8380,8 @@ public addBundledDeps(deps: string): void
 
 Defines bundled dependencies.
 
-Bundled dependencies will be added as normal dependencies as well as to the `bundledDependencies` section of your `package.json`.
+Bundled dependencies will be added as normal dependencies as well as to the
+`bundledDependencies` section of your `package.json`.
 
 ###### `deps`<sup>Required</sup> <a name="deps" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.addBundledDeps.parameter.deps"></a>
 
@@ -8084,7 +8389,11 @@ Bundled dependencies will be added as normal dependencies as well as to the `bun
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -8116,7 +8425,11 @@ Defines normal dependencies.
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -8134,7 +8447,11 @@ Defines development/test dependencies.
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -8178,7 +8495,9 @@ public addPeerDeps(deps: string): void
 
 Defines peer dependencies.
 
-When adding peer dependencies, a devDependency will also be added on the pinned version of the declared peer. This will ensure that you are testing your code against the minimum version required from your consumers.
+When adding peer dependencies, a devDependency will also be added on the
+pinned version of the declared peer. This will ensure that you are testing
+your code against the minimum version required from your consumers.
 
 ###### `deps`<sup>Required</sup> <a name="deps" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.addPeerDeps.parameter.deps"></a>
 
@@ -8186,7 +8505,11 @@ When adding peer dependencies, a devDependency will also be added on the pinned 
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -8589,7 +8912,8 @@ public readonly defaultTask: Task;
 
 This is the "default" task, the one that executes "projen".
 
-Undefined if the project is being ejected.
+Undefined if
+the project is being ejected.
 
 ---
 
@@ -8603,7 +8927,9 @@ public readonly initProject: InitProject;
 
 The options used when this project is bootstrapped via `projen new`.
 
-It includes the original set of options passed to the CLI and also the JSII FQN of the project type.
+It
+includes the original set of options passed to the CLI and also the JSII
+FQN of the project type.
 
 ---
 
@@ -8721,7 +9047,9 @@ public readonly artifactsDirectory: string;
 
 The build output directory.
 
-An npm tarball will be created under the `js` subdirectory. For example, if this is set to `dist` (the default), the npm tarball will be placed under `dist/js/boom-boom-1.2.3.tg`.
+An npm tarball will be created under the `js`
+subdirectory. For example, if this is set to `dist` (the default), the npm
+tarball will be placed under `dist/js/boom-boom-1.2.3.tg`.
 
 ---
 
@@ -8917,7 +9245,8 @@ public readonly publisher: Publisher;
 
 Package publisher.
 
-This will be `undefined` if the project does not have a release workflow.
+This will be `undefined` if the project does not have a
+release workflow.
 
 ---
 
@@ -9131,7 +9460,8 @@ public readonly DEFAULT_TASK: string;
 
 The name of the default task (the task executed when `projen` is run without arguments).
 
-Normally this task should synthesize the project files.
+Normally
+this task should synthesize the project files.
 
 ---
 
@@ -9139,7 +9469,16 @@ Normally this task should synthesize the project files.
 
 ClickUp standardized TypeScript Project.
 
-Includes: - default author information - default proprietary license - default release build configuration - default linting and codecov configuration - default minNodeVersion: '14.17.0' - default devDeps (you can add your own, but the base will always be present)  Note that for GitHub Packages to work, the package has to be scoped into the `@time-loop` project. We handle that automatically.
+Includes:
+- default author information
+- default proprietary license
+- default release build configuration
+- default linting and codecov configuration
+- default minNodeVersion: '14.17.0'
+- default devDeps (you can add your own, but the base will always be present)
+
+Note that for GitHub Packages to work, the package has to be scoped into the `@time-loop` project.
+We handle that automatically.
 
 #### Initializers <a name="Initializers" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.Initializer"></a>
 
@@ -9203,7 +9542,8 @@ public addExcludeFromCleanup(globs: string): void
 
 Exclude the matching files from pre-synth cleanup.
 
-Can be used when, for example, some source files include the projen marker and we don't want them to be erased during synth.
+Can be used when, for example, some
+source files include the projen marker and we don't want them to be erased during synth.
 
 ###### `globs`<sup>Required</sup> <a name="globs" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.addExcludeFromCleanup.parameter.globs"></a>
 
@@ -9237,7 +9577,8 @@ public addPackageIgnore(pattern: string): void
 
 Exclude these files from the bundled package.
 
-Implemented by project types based on the packaging mechanism. For example, `NodeProject` delegates this to `.npmignore`.
+Implemented by project types based on the
+packaging mechanism. For example, `NodeProject` delegates this to `.npmignore`.
 
 ###### `pattern`<sup>Required</sup> <a name="pattern" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.addPackageIgnore.parameter.pattern"></a>
 
@@ -9253,7 +9594,8 @@ public addTask(name: string, props?: TaskOptions): Task
 
 Adds a new task to this project.
 
-This will fail if the project already has a task with this name.
+This will fail if the project already has
+a task with this name.
 
 ###### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.addTask.parameter.name"></a>
 
@@ -9295,7 +9637,9 @@ public annotateGenerated(glob: string): void
 
 Marks the provided file(s) as being generated.
 
-This is achieved using the github-linguist attributes. Generated files do not count against the repository statistics and language breakdown.
+This is achieved using the
+github-linguist attributes. Generated files do not count against the
+repository statistics and language breakdown.
 
 > [https://github.com/github/linguist/blob/master/docs/overrides.md](https://github.com/github/linguist/blob/master/docs/overrides.md)
 
@@ -9349,7 +9693,8 @@ public runTaskCommand(task: Task): string
 
 Returns the shell command to execute in order to run a task.
 
-This will typically be `npx projen TASK`.
+This will
+typically be `npx projen TASK`.
 
 ###### `task`<sup>Required</sup> <a name="task" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.runTaskCommand.parameter.task"></a>
 
@@ -9367,7 +9712,12 @@ public synth(): void
 
 Synthesize all project files into `outdir`.
 
-1. Call "this.preSynthesize()" 2. Delete all generated files 3. Synthesize all sub-projects 4. Synthesize all components of this project 5. Call "postSynthesize()" for all components of this project 6. Call "this.postSynthesize()"
+1. Call "this.preSynthesize()"
+2. Delete all generated files
+3. Synthesize all sub-projects
+4. Synthesize all components of this project
+5. Call "postSynthesize()" for all components of this project
+6. Call "this.postSynthesize()"
 
 ##### `tryFindFile` <a name="tryFindFile" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.tryFindFile"></a>
 
@@ -9383,7 +9733,8 @@ Finds a file at the specified relative path within this project and all its subp
 
 The file path.
 
-If this path is relative, it will be resolved from the root of _this_ project.
+If this path is relative, it will be resolved
+from the root of _this_ project.
 
 ---
 
@@ -9439,7 +9790,8 @@ public addBundledDeps(deps: string): void
 
 Defines bundled dependencies.
 
-Bundled dependencies will be added as normal dependencies as well as to the `bundledDependencies` section of your `package.json`.
+Bundled dependencies will be added as normal dependencies as well as to the
+`bundledDependencies` section of your `package.json`.
 
 ###### `deps`<sup>Required</sup> <a name="deps" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.addBundledDeps.parameter.deps"></a>
 
@@ -9447,7 +9799,11 @@ Bundled dependencies will be added as normal dependencies as well as to the `bun
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -9479,7 +9835,11 @@ Defines normal dependencies.
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -9497,7 +9857,11 @@ Defines development/test dependencies.
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -9541,7 +9905,9 @@ public addPeerDeps(deps: string): void
 
 Defines peer dependencies.
 
-When adding peer dependencies, a devDependency will also be added on the pinned version of the declared peer. This will ensure that you are testing your code against the minimum version required from your consumers.
+When adding peer dependencies, a devDependency will also be added on the
+pinned version of the declared peer. This will ensure that you are testing
+your code against the minimum version required from your consumers.
 
 ###### `deps`<sup>Required</sup> <a name="deps" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.addPeerDeps.parameter.deps"></a>
 
@@ -9549,7 +9915,11 @@ When adding peer dependencies, a devDependency will also be added on the pinned 
 
 Names modules to install.
 
-By default, the the dependency will be installed in the next `npx projen` run and the version will be recorded in your `package.json` file. You can upgrade manually or using `yarn add/upgrade`. If you wish to specify a version range use this syntax: `module@^7`.
+By default, the the dependency will
+be installed in the next `npx projen` run and the version will be recorded
+in your `package.json` file. You can upgrade manually or using `yarn
+add/upgrade`. If you wish to specify a version range use this syntax:
+`module@^7`.
 
 ---
 
@@ -9931,7 +10301,8 @@ public readonly defaultTask: Task;
 
 This is the "default" task, the one that executes "projen".
 
-Undefined if the project is being ejected.
+Undefined if
+the project is being ejected.
 
 ---
 
@@ -9945,7 +10316,9 @@ public readonly initProject: InitProject;
 
 The options used when this project is bootstrapped via `projen new`.
 
-It includes the original set of options passed to the CLI and also the JSII FQN of the project type.
+It
+includes the original set of options passed to the CLI and also the JSII
+FQN of the project type.
 
 ---
 
@@ -10063,7 +10436,9 @@ public readonly artifactsDirectory: string;
 
 The build output directory.
 
-An npm tarball will be created under the `js` subdirectory. For example, if this is set to `dist` (the default), the npm tarball will be placed under `dist/js/boom-boom-1.2.3.tg`.
+An npm tarball will be created under the `js`
+subdirectory. For example, if this is set to `dist` (the default), the npm
+tarball will be placed under `dist/js/boom-boom-1.2.3.tg`.
 
 ---
 
@@ -10259,7 +10634,8 @@ public readonly publisher: Publisher;
 
 Package publisher.
 
-This will be `undefined` if the project does not have a release workflow.
+This will be `undefined` if the project does not have a
+release workflow.
 
 ---
 
@@ -10415,7 +10791,8 @@ public readonly DEFAULT_TASK: string;
 
 The name of the default task (the task executed when `projen` is run without arguments).
 
-Normally this task should synthesize the project files.
+Normally
+this task should synthesize the project files.
 
 ---
 
