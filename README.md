@@ -53,7 +53,7 @@ mkdir "$NEW_CDK_LIB"
 cd "$NEW_CDK_LIB"
 export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
 projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrary
-gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_LIB"
+gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_CDK_LIB"
 ```
 
 ### ClickUpCdkTypeScriptApp
