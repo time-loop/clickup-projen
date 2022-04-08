@@ -60,6 +60,21 @@ export module clickupTs {
     codeCovTokenSecret: 'CODECOV_TOKEN',
   };
 
+  /**
+   * normalizeName - enforce GitHub required package naming conventions.
+   * @param inputName
+   * @returns normalized name
+   */
+  export function normalizeName(inputName: string): string {
+    const namePrefix = `@${process.env.GITHUB_OWNER ?? 'time-loop'}/`;
+    let name = inputName;
+    if (!name.startsWith(namePrefix)) {
+      name = namePrefix + name;
+      console.log(`Adding mandatory prefix ${namePrefix} to name. New name: ${name}`);
+    }
+    return name;
+  }
+
   export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {}
 
   /**
@@ -78,14 +93,7 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      const namePrefix = `@${process.env.GITHUB_OWNER ?? 'time-loop'}/`;
-      let name = options.name;
-      if (!name.startsWith(namePrefix)) {
-        name = namePrefix + name;
-        console.log(`Adding mandatory prefix ${namePrefix} to name. New name: ${name}`);
-      }
-
-      super(merge(defaults, { deps }, options, { name }));
+      super(merge(defaults, { deps }, options, { name: normalizeName(options.name) }));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
     }

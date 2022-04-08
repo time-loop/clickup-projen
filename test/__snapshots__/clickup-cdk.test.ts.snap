@@ -95,7 +95,7 @@ Object {
   ],
   "license": "UNLICENSED",
   "main": "lib/index.js",
-  "name": "test",
+  "name": "@time-loop/test",
   "peerDependencies": Object {
     "aws-cdk-lib": "^2.1.0",
     "constructs": "^10.0.5",
