@@ -40,9 +40,8 @@ export module clickupCdk {
       // JSII means I can't Omit and then re-implement the following as optional. So...
       const authorName = options.author || clickupTs.defaults.authorName;
       const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
-      const githubOwner = `${process.env.GITHUB_OWNER ?? 'time-loop'}`;
       // Theoretically we should be able to just take a default here, but for some reason this is required.
-      const repositoryUrl = options.repositoryUrl || `https://github.com/${githubOwner}/${options.name}.git`;
+      const repositoryUrl = options.repositoryUrl || `https://github.com/${name.substring(1)}.git`;
       super(merge(clickupTs.defaults, options, { authorName, authorAddress, name, repositoryUrl }));
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
