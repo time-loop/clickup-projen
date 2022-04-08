@@ -5,9 +5,14 @@ import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 
 export module clickupCdk {
-  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
-
-  export const deps = ['@time-loop/cdk-library', 'cdk-constants', 'cdk-iam-floyd', 'colors', 'multi-convention-namer'];
+  export const deps = [
+    ...clickupTs.deps,
+    '@time-loop/cdk-library',
+    'cdk-constants',
+    'cdk-iam-floyd',
+    'chalk',
+    'multi-convention-namer',
+  ];
   export const defaults = {
     deps,
     jestOptions: {
@@ -17,6 +22,33 @@ export module clickupCdk {
     },
     releaseToNpm: false,
   };
+
+  export interface ClickUpCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {}
+
+  /**
+   * ClickUp standardized CDK Construct Library.
+   *
+   * Note: disgusting hack to achieve "defaults" in the constructor
+   * leverages "empty string is falsy" behavior of TS.
+   * I am not proud of this.
+   * It's better than cloning the interface since projen revs pretty fast.
+   * Marginally.
+   */
+  export class ClickUpCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
+    constructor(options: ClickUpCdkConstructLibraryOptions) {
+      // JSII means I can't Omit and then re-implement the following as optional. So...
+      const authorName = options.author || clickupTs.defaults.authorName;
+      const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
+      const githubOwner = `${process.env.GITHUB_OWNER ?? 'time-loop'}`;
+      // Theoretically we should be able to just take a default here, but for some reason this is required.
+      const repositoryUrl = options.repositoryUrl || `https://github.com/${githubOwner}/${options.name}.git`;
+      super(merge(clickupTs.defaults, options, { authorName, authorAddress, repositoryUrl }));
+      codecov.addCodeCovYml(this);
+      codecov.addCodeCovOnRelease(this);
+    }
+  }
+
+  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions {}
 
   /**
    * ClickUp standardized CDK TypeScript App
