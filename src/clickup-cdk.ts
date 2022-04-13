@@ -85,7 +85,6 @@ export module clickupCdk {
         files: {
           'main.ts': `import { core } from '@time-loop/cdk-library';
 import { App } from 'aws-cdk-lib';
-import 'colors';
 import { Namer } from 'multi-convention-namer';
 
 import { WidgetStack } from './widget';
@@ -94,12 +93,12 @@ const app = new App();
 const env = process.env.AWS_PROFILE || (process.env.CI ? 'usDev' : '');
 const region = process.env.AWS_REGION || (process.env.CI ? 'us-east-1' : undefined);
 if (!env) {
-  console.log('You should probably set AWS_PROFILE before using this.'.yellow);
+  console.log('You should probably set AWS_PROFILE before using this.');
 }
 const namedEnvFactory = core.Environment.findByName(env);
 const namedEnv = namedEnvFactory(region);
 
-console.log(\`Deploying to \${JSON.stringify(namedEnv.name).blue} in \${JSON.stringify(namedEnv.region).blue}.\`);
+console.log(\`Deploying to \${JSON.stringify(namedEnv.name)} in \${JSON.stringify(namedEnv.region)}.\`);
 
 const commonProps = {
   businessUnit: core.BusinessUnit.PRODUCT,
