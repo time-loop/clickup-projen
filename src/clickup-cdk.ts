@@ -10,7 +10,7 @@ export module clickupCdk {
     '@time-loop/cdk-library',
     'cdk-constants',
     'cdk-iam-floyd',
-    'multi-convention-namer'
+    'multi-convention-namer',
   ];
   export const defaults = {
     deps,
