@@ -55,6 +55,7 @@ export module clickupTs {
       jestConfig: {
         collectCoverageFrom: ['src/**/*.ts'],
       },
+      jestVersion: '^27', // https://github.com/projen/projen/issues/1801  until we upgrade to projen >=v0.54.53
     },
     codeCov: true,
     codeCovTokenSecret: 'CODECOV_TOKEN',
