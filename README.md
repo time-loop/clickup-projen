@@ -89,7 +89,7 @@ Watch with awe and wonder as projen stamps out a project with
 - Full working CI with pre-configured access to private GitHub Packages.
 - codecov configs already in place.
 - Standard prettier and eslint configs.
-- For CDK apps, CDKv2 support with `@time-loop/cdk-library`, `cdk-constants`, `cdk-iam-floyd`, `colors` and `multi-convention-namer` libraries pre-installed for your coding pleasure.
+- For CDK apps, CDKv2 support with `@time-loop/cdk-library`, `cdk-constants`, and `multi-convention-namer` libraries pre-installed for your coding pleasure.
 
 ## What's Left For You To Do
 
