@@ -110,7 +110,6 @@ app.synth();
           'widget.ts': `
 import { core } from '@time-loop/cdk-library';
 import { aws_iam, aws_kms, RemovalPolicy } from 'aws-cdk-lib';
-import * as statement from 'cdk-iam-floyd';
 import { Construct } from 'constructs';
 import { Namer } from 'multi-convention-namer';
 
@@ -146,19 +145,24 @@ export class Widget extends Construct {
     this.policy = new aws_iam.ManagedPolicy(this, 'Policy', {
       managedPolicyName: props.managedPolicyName,
     });
+
+    // Pull the distributionId from an SSM parameter
+    const distributionId = core.Param.get(this, 'distributionId', {
+      rootId: 'SomeOtherApp',
+      stackId: 'SomeOtherStack',
+      constructId: 'FooBar',
+    });
+
+    // Note that the \`allow()\` is implicit for PolicyStatements
     this.policy.addStatements(
-      // Reference the ARN of a locally created thingy.
-      // Note that the \`allow()\` is implicit.
-      new statement.Kms({ sid: 'DescriptiveName' }).to('Decrypt*').on(key.keyArn),
-      // Have \`cdk-iam-floyd\` construct the ARN for you
-      new statement.Cloudfront({ sid: 'GrantInvalidation' }).toCreateInvalidation().onDistribution(
-        // Pull the distributionId from an SSM parameter
-        core.Param.get(this, 'distributionId', {
-          rootId: 'SomeOtherApp',
-          stackId: 'SomeOtherStack',
-          constructId: 'FooBar',
-        }),
-      ),
+      // Reference the ARN of a locally created thing.
+      new aws_iam.PolicyStatement({ sid: 'DescriptiveName', actions: ['kms:Decrypt*'], resources: [key.keyArn] }),
+      // Reference the distributionId from an SSM parameter
+      new aws_iam.PolicyStatement({
+        sid: 'GrantInvalidation',
+        actions: ['cloudfront:CreateInvalidation'],
+        resources: [\`arn:aws:cloudfront::\${distributionId}:*\`],
+      }),
     );
   }
 }
