@@ -5,13 +5,7 @@ import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 
 export module clickupCdk {
-  export const deps = [
-    ...clickupTs.deps,
-    '@time-loop/cdk-library',
-    'cdk-constants',
-    'cdk-iam-floyd',
-    'multi-convention-namer',
-  ];
+  export const deps = [...clickupTs.deps, '@time-loop/cdk-library', 'cdk-constants', 'multi-convention-namer'];
   export const defaults = {
     deps,
     jestOptions: {
