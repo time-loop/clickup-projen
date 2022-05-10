@@ -43,7 +43,7 @@ EOF
 NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
 
-### ClickUpCdkConstructLibrary
+### CdkConstructLibrary
 
 When creating new cdk construct libraries:
 
@@ -56,7 +56,7 @@ projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrar
 gh repo create --public --push --source=. "$GITHUB_OWNER/$NEW_CDK_LIB"
 ```
 
-### ClickUpCdkTypeScriptApp
+### CdkApp
 
 When creating new cdk apps:
 
@@ -69,7 +69,7 @@ GITHUB_OWNER="time-loop"
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_APP"
 ```
 
-### ClickUpTypeScriptProject
+### TypeScriptLibrary
 
 When creating new TypeScript Libraries:
 
