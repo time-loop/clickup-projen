@@ -27,6 +27,8 @@ jobs:
           //npm.pkg.github.com/:_authToken=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}
           @time-loop:registry=https://npm.pkg.github.com/
           EOF
+      - name: Make cdk-ecr-deployment sane
+        run: export FORCE_PREBUILT_LAMBDA=1
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with:
