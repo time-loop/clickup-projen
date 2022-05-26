@@ -36,6 +36,14 @@ export module clickupTs {
           'EOF',
         ].join('\n'),
       },
+      {
+        // Note that this only affects the behavior of the `ecr-cdk-deployment` construct
+        // https://constructs.dev/packages/cdk-ecr-deployment/v/2.5.1?lang=typescript
+        // used by some docker related projects.
+        // But it's otherwise harmless, so... let's make this a default.
+        name: 'Make cdk-ecr-deployment sane',
+        run: 'export FORCE_PREBUILT_LAMBDA=1',
+      },
     ],
     gitignore: ['/.npmrc'],
 
