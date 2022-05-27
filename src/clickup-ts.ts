@@ -6,7 +6,7 @@ export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
   export const deps = ['@time-loop/clickup-projen'];
 
-  export const devDeps = ['esbuild', 'eslint-config-prettier', 'eslint-plugin-prettier', 'jsii-release', 'prettier'];
+  export const devDeps = ['esbuild', 'eslint-config-prettier', 'eslint-plugin-prettier', 'jsii-release', 'prettier', 'ts-node@^10'];
 
   export const defaults = {
     authorAddress: 'devops@clickup.com',
