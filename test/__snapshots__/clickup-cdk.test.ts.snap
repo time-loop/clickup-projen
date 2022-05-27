@@ -34,6 +34,7 @@ Object {
     "projen": "*",
     "standard-version": "^9",
     "ts-jest": "*",
+    "ts-node": "^10",
     "typescript": "*",
   },
   "engines": Object {
