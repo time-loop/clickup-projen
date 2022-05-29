@@ -1,4 +1,5 @@
 import { javascript, typescript } from 'projen';
+import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
 
@@ -103,8 +104,19 @@ export module clickupTs {
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
       super(merge(defaults, { deps }, options, { name: normalizeName(options.name) }));
+      fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       codecov.addCodeCovOnRelease(this);
     }
+  }
+
+  /**
+   * Resolves resolveTypeReferenceDirective error. It can't be done in
+   * clickupTs.devDeps (something in TypeScriptProject base class constructor
+   * gives clickupTs.devDeps lower priority than to the deps derived from other
+   * packages where ts-node is mentioned?).
+   */
+  export function fixTsNodeDeps(pkg: NodePackage) {
+    pkg.addDevDeps('ts-node@^10');
   }
 }
