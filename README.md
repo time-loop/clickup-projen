@@ -52,7 +52,7 @@ NEW_CDK_LIB='my-new-cdk-library'
 mkdir "$NEW_CDK_LIB"
 cd "$NEW_CDK_LIB"
 export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
-projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrary
+npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrary
 gh repo create --public --push --source=. "$GITHUB_OWNER/$NEW_CDK_LIB"
 ```
 
@@ -64,7 +64,7 @@ When creating new cdk apps:
 NEW_APP="my-new-cdk-app"
 mkdir "$NEW_APP"
 cd "$NEW_APP"
-projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
+npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
 GITHUB_OWNER="time-loop"
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_APP"
 ```
@@ -78,7 +78,7 @@ NEW_LIB="my-new-lib"
 mkdir "$NEW_LIB"
 cd "$NEW_LIB"
 export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
-projen new --from @time-loop/clickup-projen clickupts_clickuptypescriptproject
+npx projen new --from @time-loop/clickup-projen clickupts_clickuptypescriptproject
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_LIB"
 ```
 
