@@ -42,22 +42,27 @@ EOF
 
 NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
+### Repo Naming Conventions
 
-### CdkConstructLibrary
+We create cdk construct libraries using  `cdk-*` as a prefix.
+The goal for construct libraries is to be exceptionally high quality,
+with deep test coverage and coverage numbers in the mid to high 90's.
+The expectation is that we will be Open Sourcing our construct libraries,
+and that you will be putting them on your resume because you are proud of your work.
 
-When creating new cdk construct libraries:
+We create cdk applications using `*-cdk` as a suffix.
+A cdk application deploys one pipeline and one or more stacks.
+The goal for application repos is to be reasonably thin.
+We code patterns and the majority of complexity belongs in our construct libraries.
+The application should be assembling the larger building blocks of construct libraries,
+while also adding service specific code as necessary.
+Complexity in an application is a code-smell.
 
-```bash
-NEW_CDK_LIB='my-new-cdk-library'
-mkdir "$NEW_CDK_LIB"
-cd "$NEW_CDK_LIB"
-export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
-npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrary
-gh repo create --public --push --source=. "$GITHUB_OWNER/$NEW_CDK_LIB"
-```
+We do not as yet have a naming convention for TypeScript libraries.
 
 ### CdkApp
 
+If you aren't sure, **this is probably what you are here for**.
 When creating new cdk apps:
 
 ```bash
@@ -67,6 +72,19 @@ cd "$NEW_APP"
 npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
 GITHUB_OWNER="time-loop"
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_APP"
+```
+
+### CdkConstructLibrary
+
+When creating new cdk construct libraries:
+
+```bash
+NEW_CDK_LIB='cdk-my-new-library'
+mkdir "$NEW_CDK_LIB"
+cd "$NEW_CDK_LIB"
+export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
+projen new --from @time-loop/clickup-projen clickupcdk_clickupcdkconstructlibrary
+gh repo create --public --push --source=. "$GITHUB_OWNER/$NEW_CDK_LIB"
 ```
 
 ### TypeScriptLibrary
@@ -93,8 +111,8 @@ Watch with awe and wonder as projen stamps out a project with
 
 ## What's Left For You To Do
 
-- Create the repo in GitHub. `gh repo create --private --push --source=. time-loop/my-new-lib` will probably do what you need. Note: the names MUST MATCH.
 - Go to codecov.io https://app.codecov.io/gh/time-loop/my-new-lib/settings
+  - If this is your first time using CodeCov, you will need to enable private github scopes in CodeCov.
   - Activate the repo (big green button).
   - You should probably grab the Badge Markdown and stick it in your top level `README.md` as the first line at the very top of the file. Use the `badge` tab on the left side of the screen to find it. If you do this as a PR rather than just directly committing on the main branch, it will trigger the workflows, which will be helpful later.
   - You will need the `CODECOV_TOKEN` for the next step. It looks like a uuid, for example: `abcdefgh-1234-abcd-1234-a05b70be94b1`
