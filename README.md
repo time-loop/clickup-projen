@@ -111,21 +111,21 @@ Watch with awe and wonder as projen stamps out a project with
 
 ## What's Left For You To Do
 
-- Go to codecov.io https://app.codecov.io/gh/time-loop/my-new-lib/settings
-  - If this is your first time using CodeCov, you will need to enable private github scopes in CodeCov.
+- Go to codecov.io https://app.codecov.io/gh/time-loop/my-new-repo/settings
+  - If this is your first time using CodeCov, you will need to [enable the GitHub private scope in CodeCov](docs/codecov/) before proceeding.
   - Activate the repo (big green button).
   - You should probably grab the Badge Markdown and stick it in your top level `README.md` as the first line at the very top of the file. Use the `badge` tab on the left side of the screen to find it. If you do this as a PR rather than just directly committing on the main branch, it will trigger the workflows, which will be helpful later.
-  - You will need the `CODECOV_TOKEN` for the next step. It looks like a uuid, for example: `abcdefgh-1234-abcd-1234-a05b70be94b1`
+  - You will need the `CODECOV_TOKEN` for the GitHub/Secrets/Actions step below. It looks like a uuid, for example: `abcdefgh-1234-abcd-1234-a05b70be94b1`
 - Update GitHub settings in your new repo.
-  - General: https://github.com/time-loop/my-new-lib/settings
+  - General: https://github.com/time-loop/my-new-repo/settings
     - Pull Requests, allow only squash merging (this helps keep our git history usable, and helps us achieve [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for semver generation)
     - Enable the following:
       - Always suggest updating pull request branches
       - Allow auto-merge
       - Automatically delete head branches
-  - Secrets/Actions: https://github.com/time-loop/my-new-lib/settings/secrets/actions
+  - Secrets/Actions: https://github.com/time-loop/my-new-repo/settings/secrets/actions
     - Add a _New repository secret_ with the name `CODECOV_TOKEN` and uuid secret from above.
-  - Collaborators and Teams: https://github.com/time-loop/my-new-lib/settings/access
+  - Collaborators and Teams: https://github.com/time-loop/my-new-repo/settings/access
     - You MUST either grant `write` to the `cu-infra-svc-git` machine user (who is a member of the `@time-loop/devops` team) OR you can provide your own `PROJEN_GITHUB_TOKEN` with a GitHub PAT
     - Other than the bot user, you should probably avoid granting access directly to users, but instead grant to teams.
     - You should probably grant `admin` to your team.
@@ -133,7 +133,7 @@ Watch with awe and wonder as projen stamps out a project with
     - If this is a `-cdk` repo, please grant `admin` to `@time-loop/devops`.
     - You should probably grant `write` to the `@time-loop/ft_engineering` team (these are full-time engineers).
     - You should probably grant `write` to the `@time-loop/timeloop` team (this is a broader group).
-  - Branches: https://github.com/time-loop/my-new-lib/settings/branches
+  - Branches: https://github.com/time-loop/my-new-repo/settings/branches
     - Confirm that your default branch is `main`. We only use `master` in legacy repos we haven't yet migrated. BLM.
     - Under _Branch protection rules_ click _Add rule_.
       - Branch name pattern: `main` (must match default branch above)
@@ -154,13 +154,19 @@ That's it! Now go write a failing test and some code to make it pass!
 
 ### Add It To Your App
 
-Now that the GitHub package repo is configured, you can just
+Now that the GitHub package repo is configured,
+take a look at the releases workflow. It should be running, or have already run.
+Once it completes, you should see a release published in the Releases section,
+and a package appear in the Packages section of the GitHub front page for your new repo.
+After that, you can either just
 
 ```bash
 NEW_LIB="my-new-lib"
 GITHUB_OWNER="time-loop"
 yarn add "@$GITHUB_OWNER/$NEW_LIB" --save
 ```
+
+Or add your new library in using `projen`.
 
 ## Developing clickup-projen
 
