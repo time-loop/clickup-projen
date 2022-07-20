@@ -63,7 +63,7 @@
     "projen": "^0.52.31"
   },
   "dependencies": {
-    "projen": "^0.52.48",
+    "projen": "^0.59.3",
     "ts-deepmerge": "^2.0.1"
   },
   "bundledDependencies": [
