@@ -1,6 +1,7 @@
 const { cdk, javascript, YamlFile } = require('projen');
 
 const bundledDeps = ['ts-deepmerge'];
+
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',
   authorAddress: 'devops@clickup.com',
@@ -42,6 +43,7 @@ const project = new cdk.JsiiProject({
       trailingComma: javascript.TrailingComma.ALL,
     },
   },
+  stale: true,
 
   jestOptions: {
     jestConfig: {
@@ -99,48 +101,6 @@ new YamlFile(project, 'codecov.yml', {
       behavior: 'default',
       require_changes: 'no',
     },
-  },
-});
-
-project.release.addJobs({
-  codecov: {
-    name: 'Publish CodeCov',
-    needs: [],
-    permissions: {
-      contents: 'read',
-    },
-    runsOn: 'ubuntu-latest',
-    steps: [
-      {
-        name: 'Checkout',
-        uses: 'actions/checkout@v2',
-      },
-      {
-        name: 'GitHub Packages authorization',
-        run: [
-          'cat > .npmrc <<EOF',
-          '//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}',
-          '@time-loop:registry=https://npm.pkg.github.com/',
-          'EOF',
-        ].join('\n'),
-      },
-      {
-        name: 'Install dependencies',
-        run: 'yarn install --check-files --frozen-lockfile',
-      },
-      {
-        name: 'test',
-        run: 'npx projen test',
-      },
-      {
-        name: 'Upload coverage to Codecov',
-        uses: 'codecov/codecov-action@v1',
-        with: {
-          token: '${{ secrets.CODECOV_TOKEN }}',
-          directory: 'coverage',
-        },
-      },
-    ],
   },
 });
 
