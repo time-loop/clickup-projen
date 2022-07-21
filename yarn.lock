@@ -2058,9 +2058,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.4.188:
-  version "1.4.195"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.195.tgz#139b2d95a42a3f17df217589723a1deac71d1473"
-  integrity sha512-vefjEh0sk871xNmR5whJf9TEngX+KTKS3hOHpjoMpauKkwlGwtMz1H8IaIjAT/GNnX0TbGwAdmVoXCAzXf+PPg==
+  version "1.4.196"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.196.tgz#e18cdc5c1c2c2ebf78da237d0c374cc3b244d4cb"
+  integrity sha512-uxMa/Dt7PQsLBVXwH+t6JvpHJnrsYBaxWKi/J6HE+/nBtoHENhwBoNkgkm226/Kfxeg0z1eMQLBRPPKcDH8xWA==
 
 emittery@^0.8.1:
   version "0.8.1"
@@ -4869,10 +4869,10 @@ progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-projen@^0.59.3:
-  version "0.59.3"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.59.3.tgz#e449c13ecfaebde23fd16ee6cff007d8f8db349d"
-  integrity sha512-7gPJuva0tj/BYc8C9DUw4AGm4AzssKdO73I/+hbOOWNAlcvdS6AL82jDvmePrAnRgHREVRTkatCVzQGtParQvQ==
+projen@^0.59.4:
+  version "0.59.4"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.59.4.tgz#9681ee29c69421c2dc8cc3408775df0e3a2f289e"
+  integrity sha512-IiM1dWzhRFU0NR/wHw0dENzwvbI1oSPBc4cpfMspGR1L9flbjgf7/ZxgNBLZncno8uAYX1c3ZuqFdVLG7S2geA==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
