@@ -1,4 +1,4 @@
-const { cdk, javascript, YamlFile } = require('projen');
+const { cdk, github, javascript, YamlFile } = require('projen');
 
 const bundledDeps = ['ts-deepmerge'];
 
@@ -15,6 +15,12 @@ const project = new cdk.JsiiProject({
   npmRegistryUrl: 'https://npm.pkg.github.com',
   repositoryUrl: 'https://github.com/time-loop/clickup-projen.git', // default
   npmAccess: javascript.NpmAccess.PUBLIC,
+
+  githubOptions: {
+    // TODO: we should instead be using an app for auth.
+    // projenCredentials: github.GithubCredentials.fromApp(writeme),
+    projenCredentials: github.GithubCredentials.fromPersonalAccessToken(),
+  },
 
   // We don't depend on any private resources.
   // Add a .npmrc before we try to Install dependencies
