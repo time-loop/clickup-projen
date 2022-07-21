@@ -48,8 +48,8 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc'],
 
-    minNodeVersion: '14.17.0', // Required by @typescript-eslint/eslint-plugin@5.6.0
-    workflowNodeVersion: '14.17.0',
+    minNodeVersion: '14.18.0', // Required by eslint-import-resolver-typescript@3.3.0
+    workflowNodeVersion: '14.18.0',
 
     prettier: true,
     prettierOptions: {
