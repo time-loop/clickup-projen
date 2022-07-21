@@ -22,15 +22,3 @@ describe('addCodeCovYml', () => {
     expect(synth['codecov.yml']).toMatchSnapshot();
   });
 });
-
-describe('addCodeCovOnRelease', () => {
-  const project = new typescript.TypeScriptProject({
-    defaultReleaseBranch: 'main',
-    name: 'test',
-  });
-  codecov.addCodeCovOnRelease(project);
-  const synth = Testing.synth(project);
-  test('codecov job added to workflow', () => {
-    expect(synth['.github/workflows/release.yml']).toMatchSnapshot();
-  });
-});

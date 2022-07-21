@@ -1,5 +1,4 @@
 import { typescript, YamlFile } from 'projen';
-import { JobPermission } from 'projen/lib/github/workflows-model';
 
 export module codecov {
   export const defaultCodecov = {
@@ -54,62 +53,5 @@ export module codecov {
    */
   export function addCodeCovYml(project: typescript.TypeScriptProject, override?: any): void {
     new YamlFile(project, 'codecov.yml', { obj: { ...defaultCodecov, ...override } });
-  }
-
-  /**
-   * Add a job to the onRelease workflow which publishes coverage information to CodeCov
-   * This assumes that there is already a release configured.
-   * @param project the project for which to add job.
-   */
-  export function addCodeCovOnRelease(project: typescript.TypeScriptProject): void {
-    project.release!.addJobs({
-      codecov: {
-        name: 'Publish CodeCov',
-        needs: [],
-        permissions: {
-          contents: JobPermission.READ,
-        },
-        runsOn: ['ubuntu-latest'],
-        steps: [
-          {
-            name: 'Checkout',
-            uses: 'actions/checkout@v2',
-          },
-          {
-            name: 'GitHub Packages authorization',
-            run: [
-              'cat > .npmrc <<EOF',
-              '//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}',
-              '@time-loop:registry=https://npm.pkg.github.com/',
-              'EOF',
-            ].join('\n'),
-          },
-          {
-            // Note that this only affects the behavior of the `ecr-cdk-deployment` construct
-            // https://constructs.dev/packages/cdk-ecr-deployment/v/2.5.1?lang=typescript
-            // used by some docker related projects.
-            // But it's otherwise harmless, so... let's make this a default.
-            name: 'Make cdk-ecr-deployment sane',
-            run: 'export FORCE_PREBUILT_LAMBDA=1',
-          },
-          {
-            name: 'Install dependencies',
-            run: 'yarn install --check-files --frozen-lockfile',
-          },
-          {
-            name: 'test',
-            run: 'npx projen test',
-          },
-          {
-            name: 'Upload coverage to Codecov',
-            uses: 'codecov/codecov-action@v1',
-            with: {
-              token: '${{ secrets.CODECOV_TOKEN }}',
-              directory: 'coverage',
-            },
-          },
-        ],
-      },
-    });
   }
 }
