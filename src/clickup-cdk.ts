@@ -38,7 +38,6 @@ export module clickupCdk {
       super(merge(clickupTs.defaults, options, { authorName, authorAddress, name, repositoryUrl }));
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
-      codecov.addCodeCovOnRelease(this);
     }
   }
 
@@ -67,7 +66,6 @@ export module clickupCdk {
         `,
       });
       codecov.addCodeCovYml(this);
-      codecov.addCodeCovOnRelease(this);
     }
   }
 

@@ -106,7 +106,6 @@ export module clickupTs {
       super(merge(defaults, { deps }, options, { name: normalizeName(options.name) }));
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
-      codecov.addCodeCovOnRelease(this);
     }
   }
 
