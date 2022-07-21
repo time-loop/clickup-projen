@@ -10,7 +10,6 @@ const project = new cdk.JsiiProject({
   // Apache open source license, to match projen license
 
   defaultReleaseBranch: 'main',
-  majorVersion: 1,
   // release: true, // default
   npmRegistryUrl: 'https://npm.pkg.github.com',
   repositoryUrl: 'https://github.com/time-loop/clickup-projen.git', // default
