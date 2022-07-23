@@ -100,6 +100,23 @@ npx projen new --from @time-loop/clickup-projen clickupts_clickuptypescriptproje
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_LIB"
 ```
 
+If `gh` gives you this error:
+
+```
+GraphQL: Resource protected by organization SAML enforcement. You must grant your OAuth token access to this organization. (createRepository)
+Authorize in your web browser:  https://github.com/orgs/time-loop/sso?authorization_request=foooo
+```
+
+you need to reauthenticate with:
+
+```
+$ gh auth login
+? What account do you want to log into? GitHub.com
+- Logging into github.com
+? You're already logged into github.com as XXX. Do you want to re-authenticate? Yes
+# open browser and enter the code shown here
+```
+
 ## What It Does
 
 Watch with awe and wonder as projen stamps out a project with
