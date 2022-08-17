@@ -102,18 +102,18 @@ export module clickupTs {
      *   readme: 'none',
      * }
      */
-    configFileContents?: Record<string, any>;
+    readonly configFileContents?: Record<string, any>;
     /**
      * The file path at which to create the Typedoc config file.
      * @default 'typedoc.json'
      */
-    configFilePath?: string;
+    readonly configFilePath?: string;
     /**
      * Whether to generate the documentation in rendered HTML as opposed to
      * the Markdown format.
      * @default false
      */
-    html?: boolean;
+    readonly html?: boolean;
   }
 
   /**
