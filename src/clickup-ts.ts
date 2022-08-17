@@ -171,7 +171,7 @@ export module clickupTs {
      * If defined, enables automatic generation of documentation for exposed
      * resources via typedoc after compile. NOTE: `docgen` attribute MUST also be set.
      */
-    docgenOptions?: TypedocDocgenOptions;
+    readonly docgenOptions?: TypedocDocgenOptions;
   }
 
   /**
