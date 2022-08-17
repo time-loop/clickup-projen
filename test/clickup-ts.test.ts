@@ -48,6 +48,77 @@ describe('ClickUpTypeScriptProject', () => {
       expect(p.name).toBe('@fizzle/missing-prefix');
     });
   });
+  describe('docgenOptions', () => {
+    const projenDocgenTaskName = 'docgen';
+    const clickupDocgenTaskName = 'typedocDocgen';
+    const commonOpts: clickupTs.ClickUpTypeScriptProjectOptions = {
+      name: 'random-prefix',
+      defaultReleaseBranch: 'main',
+      docgen: true,
+      docgenOptions: {
+        configFileContents: {},
+      },
+    };
+
+    test('should throw Error when docgen is not set', () => {
+      const expectedErr = 'docgen attribute must be set to utilize docgenOptions.';
+      const createProject = () => {
+        new clickupTs.ClickUpTypeScriptProject({ ...commonOpts, docgen: undefined });
+      };
+      expect(createProject).toThrowError(expectedErr);
+    });
+
+    test('should succeed when docgen is also set', () => {
+      new clickupTs.ClickUpTypeScriptProject(commonOpts);
+    });
+
+    test('should include markdown plugin by default', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+      expect(project.deps.getDependency('typedoc-plugin-markdown')).toBeDefined();
+    });
+
+    test('should include typedocDocgen task', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+      expect(project.tasks.tryFind(clickupDocgenTaskName)).toBeDefined();
+      expect(project.tasks.tryFind(projenDocgenTaskName)).toBeUndefined();
+    });
+
+    test('should not include markdown plugin when html attr is set', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject({ ...commonOpts, docgenOptions: { html: true } });
+      const getDep = () => {
+        project.deps.getDependency('typedoc-plugin-markdown');
+      };
+      expect(getDep).toThrowError();
+    });
+
+    test('should create typedoc config JSON file', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+      const matchedFiles = project.files.filter((file) => file.path === 'typedoc.json');
+      expect(matchedFiles).toHaveLength(1);
+    });
+
+    test('should use projen.TypedocDocgen when options are undefined', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject({ ...commonOpts, docgenOptions: undefined });
+      const matchedFiles = project.files.filter((file) => file.path === 'typedoc.json');
+      expect(matchedFiles).toHaveLength(0);
+      const getDep = () => {
+        project.deps.getDependency('typedoc-plugin-markdown');
+      };
+      expect(getDep).toThrowError();
+      expect(project.tasks.tryFind(projenDocgenTaskName)).toBeDefined();
+      expect(project.tasks.tryFind(clickupDocgenTaskName)).toBeUndefined();
+    });
+
+    test('respects configFilePath attr when set', () => {
+      const testOverride = 'test.json';
+      const project = new clickupTs.ClickUpTypeScriptProject({
+        ...commonOpts,
+        docgenOptions: { configFilePath: testOverride },
+      });
+      const matchedFiles = project.files.filter((file) => file.path === testOverride);
+      expect(matchedFiles).toHaveLength(1);
+    });
+  });
 });
 
 describe('normalizeName', () => {
