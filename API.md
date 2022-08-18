@@ -4878,7 +4878,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
-| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | If defined, enables automatic generation of documentation for exposed resources via typedoc after compile. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | Additional options pertaining to the typedoc config file. |
 
 ---
 
@@ -6736,18 +6736,18 @@ public readonly docgenOptions: TypedocDocgenOptions;
 
 - *Type:* @time-loop/clickup-projen.clickupTs.TypedocDocgenOptions
 
-If defined, enables automatic generation of documentation for exposed resources via typedoc after compile.
+Additional options pertaining to the typedoc config file.
 
-NOTE: `docgen` attribute MUST also be set.
+NOTE: `docgen` attribute cannot be false.
 
 ---
 
 ### TypedocDocgenOptions <a name="TypedocDocgenOptions" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions"></a>
 
-Options needed to configure `typedoc` for generation of documentation.
+Optional properties for configuring the `typedoc` documentation generator.
 
-This configuration overrides the default settings set when using the
-`docgen` attribute of projen's typescript.TypeScriptProjectOptions.
+This configuration provides further customization than what is offered by
+projen's typescript.TypedocDocgen class.
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.Initializer"></a>
 
