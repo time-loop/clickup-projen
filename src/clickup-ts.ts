@@ -86,9 +86,9 @@ export module clickupTs {
   }
 
   /**
-   * Options needed to configure `typedoc` for generation of documentation.
-   * This configuration overrides the default settings set when using the
-   * `docgen` attribute of projen's typescript.TypeScriptProjectOptions.
+   * Optional properties for configuring the `typedoc` documentation generator.
+   * This configuration provides further customization than what is offered by
+   * projen's typescript.TypedocDocgen class.
    */
   export interface TypedocDocgenOptions {
     /**
@@ -118,8 +118,8 @@ export module clickupTs {
 
   /**
    * Adds a simple Typescript documentation generator utilizing `typedoc`.
-   * Adds the necessary dependencies and automatic doc generation task
-   * post-compile.
+   * Adds the necessary dependencies and automatic doc generation task during
+   * post-compile phase.
    *
    * Do not use with JSII projects.
    */
@@ -168,8 +168,8 @@ export module clickupTs {
 
   export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {
     /**
-     * If defined, enables automatic generation of documentation for exposed
-     * resources via typedoc after compile. NOTE: `docgen` attribute MUST also be set.
+     * Additional options pertaining to the typedoc config file.
+     * NOTE: `docgen` attribute cannot be false.
      */
     readonly docgenOptions?: TypedocDocgenOptions;
   }
@@ -190,17 +190,18 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      if (options.docgenOptions && !options.docgen)
+      if (options.docgenOptions && options.docgen === false)
         throw new Error(`docgen attribute must be set to utilize docgenOptions.`);
       super(
         merge(defaults, { deps }, options, {
-          docgen: options.docgenOptions ? false : options.docgen,
+          // Disable projen's built-in docgen class
+          docgen: undefined,
           name: normalizeName(options.name),
         }),
       );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
-      if (options.docgenOptions) new TypedocDocgen(this, options.docgenOptions);
+      if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
     }
   }
 
