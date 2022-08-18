@@ -56,14 +56,6 @@ describe('ClickUpTypeScriptProject', () => {
       defaultReleaseBranch: 'main',
     };
 
-    test('throws Error when contradictory', () => {
-      const expectedErr = 'docgen attribute must be set to utilize docgenOptions.';
-      const createProject = () => {
-        new clickupTs.ClickUpTypeScriptProject({ ...commonOpts, docgen: false, docgenOptions: {} });
-      };
-      expect(createProject).toThrowError(expectedErr);
-    });
-
     test('succeeds with defaults', () => {
       new clickupTs.ClickUpTypeScriptProject(commonOpts);
     });

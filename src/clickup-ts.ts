@@ -190,8 +190,6 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      if (options.docgenOptions && options.docgen === false)
-        throw new Error(`docgen attribute must be set to utilize docgenOptions.`);
       super(
         merge(defaults, { deps }, options, {
           // Disable projen's built-in docgen class
