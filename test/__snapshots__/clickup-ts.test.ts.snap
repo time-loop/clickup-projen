@@ -201,6 +201,8 @@ Object {
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-node": "^10",
+    "typedoc": "*",
+    "typedoc-plugin-markdown": "*",
     "typescript": "*",
   },
   "engines": Object {
@@ -272,6 +274,7 @@ Object {
     "test": "npx projen test",
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",
+    "typedocDocgen": "npx projen typedocDocgen",
     "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",

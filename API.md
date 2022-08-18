@@ -4878,6 +4878,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | Additional options pertaining to the typedoc config file. |
 
 ---
 
@@ -6724,6 +6725,86 @@ TypeScript version to use.
 
 NOTE: Typescript is not semantically versioned and should remain on the
 same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
+
+---
+
+##### `docgenOptions`<sup>Optional</sup> <a name="docgenOptions" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions"></a>
+
+```typescript
+public readonly docgenOptions: TypedocDocgenOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.clickupTs.TypedocDocgenOptions
+
+Additional options pertaining to the typedoc config file.
+
+NOTE: `docgen` attribute cannot be false.
+
+---
+
+### TypedocDocgenOptions <a name="TypedocDocgenOptions" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions"></a>
+
+Optional properties for configuring the `typedoc` documentation generator.
+
+This configuration provides further customization than what is offered by
+projen's typescript.TypedocDocgen class.
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.Initializer"></a>
+
+```typescript
+import { clickupTs } from '@time-loop/clickup-projen'
+
+const typedocDocgenOptions: clickupTs.TypedocDocgenOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.property.configFileContents">configFileContents</a></code> | <code>{[ key: string ]: any}</code> | Supports all config keys enumerated in the Typedoc Options. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.property.configFilePath">configFilePath</a></code> | <code>string</code> | The file path at which to create the Typedoc config file. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.property.html">html</a></code> | <code>boolean</code> | Whether to generate the documentation in rendered HTML as opposed to the Markdown format. |
+
+---
+
+##### `configFileContents`<sup>Optional</sup> <a name="configFileContents" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.property.configFileContents"></a>
+
+```typescript
+public readonly configFileContents: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* {   $schema: 'https://typedoc.org/schema.json',   entryPoints: ['./src/index.ts'],   out: project.docsDirectory,   readme: 'none', }
+
+Supports all config keys enumerated in the Typedoc Options.
+
+https://typedoc.org/guides/options/
+
+---
+
+##### `configFilePath`<sup>Optional</sup> <a name="configFilePath" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.property.configFilePath"></a>
+
+```typescript
+public readonly configFilePath: string;
+```
+
+- *Type:* string
+- *Default:* 'typedoc.json'
+
+The file path at which to create the Typedoc config file.
+
+---
+
+##### `html`<sup>Optional</sup> <a name="html" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions.property.html"></a>
+
+```typescript
+public readonly html: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to generate the documentation in rendered HTML as opposed to the Markdown format.
 
 ---
 

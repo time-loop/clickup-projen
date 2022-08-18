@@ -48,6 +48,60 @@ describe('ClickUpTypeScriptProject', () => {
       expect(p.name).toBe('@fizzle/missing-prefix');
     });
   });
+  describe('docgen', () => {
+    const projenDocgenTaskName = 'docgen';
+    const clickupDocgenTaskName = 'typedocDocgen';
+    const commonOpts: clickupTs.ClickUpTypeScriptProjectOptions = {
+      name: 'random-prefix',
+      defaultReleaseBranch: 'main',
+    };
+
+    test('succeeds with defaults', () => {
+      new clickupTs.ClickUpTypeScriptProject(commonOpts);
+    });
+
+    test('includes markdown plugin by default', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+      expect(project.deps.getDependency('typedoc-plugin-markdown')).toBeDefined();
+    });
+
+    test('excludes markdown plugin when html attr is set', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject({ ...commonOpts, docgenOptions: { html: true } });
+      const getDep = () => {
+        project.deps.getDependency('typedoc-plugin-markdown');
+      };
+      expect(getDep).toThrowError();
+    });
+
+    test('includes typedocDocgen task by default', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+      expect(project.tasks.tryFind(clickupDocgenTaskName)).toBeDefined();
+      expect(project.tasks.tryFind(projenDocgenTaskName)).toBeUndefined();
+    });
+
+    test('contains no docgen task when docgen is false', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject({ ...commonOpts, docgen: false });
+      [clickupDocgenTaskName, projenDocgenTaskName].forEach((task) =>
+        expect(project.tasks.tryFind(task)).toBeUndefined(),
+      );
+    });
+
+    test('creates typedoc config JSON file', () => {
+      const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+      const matchedFiles = project.files.filter((file) => file.path === 'typedoc.json');
+      expect(matchedFiles).toHaveLength(1);
+    });
+
+    test('respects configFilePath attr when set', () => {
+      const testOverride = 'test.json';
+      const project = new clickupTs.ClickUpTypeScriptProject({
+        ...commonOpts,
+        docgenOptions: { configFilePath: testOverride },
+      });
+      const matchedFiles = project.files.filter((file) => file.path === testOverride);
+      expect(matchedFiles).toHaveLength(1);
+    });
+  });
 });
 
 describe('normalizeName', () => {

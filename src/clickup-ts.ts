@@ -1,4 +1,4 @@
-import { javascript, typescript } from 'projen';
+import { javascript, typescript, Component, JsonFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
@@ -85,7 +85,94 @@ export module clickupTs {
     return name;
   }
 
-  export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {}
+  /**
+   * Optional properties for configuring the `typedoc` documentation generator.
+   * This configuration provides further customization than what is offered by
+   * projen's typescript.TypedocDocgen class.
+   */
+  export interface TypedocDocgenOptions {
+    /**
+     * Supports all config keys enumerated in the Typedoc Options.
+     * https://typedoc.org/guides/options/
+     * @default
+     * {
+     *   $schema: 'https://typedoc.org/schema.json',
+     *   entryPoints: ['./src/index.ts'],
+     *   out: project.docsDirectory,
+     *   readme: 'none',
+     * }
+     */
+    readonly configFileContents?: Record<string, any>;
+    /**
+     * The file path at which to create the Typedoc config file.
+     * @default 'typedoc.json'
+     */
+    readonly configFilePath?: string;
+    /**
+     * Whether to generate the documentation in rendered HTML as opposed to
+     * the Markdown format.
+     * @default false
+     */
+    readonly html?: boolean;
+  }
+
+  /**
+   * Adds a simple Typescript documentation generator utilizing `typedoc`.
+   * Adds the necessary dependencies and automatic doc generation task during
+   * post-compile phase.
+   *
+   * Do not use with JSII projects.
+   */
+  class TypedocDocgen extends Component {
+    readonly configFile: JsonFile;
+
+    constructor(project: ClickUpTypeScriptProject, props: TypedocDocgenOptions) {
+      super(project);
+      this.configFile = this.createConfig(project, props);
+      this.createTask(project, props);
+    }
+
+    private createConfig(project: ClickUpTypeScriptProject, props: TypedocDocgenOptions): JsonFile {
+      const configFileDefaults: Record<string, any> = {
+        $schema: 'https://typedoc.org/schema.json',
+        entryPoints: ['./src/index.ts'],
+        out: project.docsDirectory,
+        readme: 'none',
+      };
+      return new JsonFile(project, props.configFilePath ?? 'typedoc.json', {
+        obj: {
+          ...configFileDefaults,
+          ...props.configFileContents, // Overrides
+          disableSources: true, // Cannot be overriden or commit loops are encountered
+        },
+        marker: false, // Disables additional Projen marker since it will not function
+      });
+    }
+
+    private createTask(project: ClickUpTypeScriptProject, props: TypedocDocgenOptions): void {
+      // Any plugins with name `typedocplugin`, `typedoc-plugin`, or `typedoc-theme`
+      // are automatically loaded when typedoc executes.
+      const plugins: string[] = props.html ? [] : ['typedoc-plugin-markdown'];
+      project.addDevDeps('typedoc', ...plugins);
+
+      // Create automatic documentation generation task...
+      const docgen = project.addTask('typedocDocgen', {
+        description: `Generate TypeScript API reference to ${project.docsDirectory} directory`,
+        exec: `typedoc`,
+      });
+
+      // ...and have it run after a successful compile
+      project.postCompileTask.spawn(docgen);
+    }
+  }
+
+  export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {
+    /**
+     * Additional options pertaining to the typedoc config file.
+     * NOTE: `docgen` attribute cannot be false.
+     */
+    readonly docgenOptions?: TypedocDocgenOptions;
+  }
 
   /**
    * ClickUp standardized TypeScript Project
@@ -103,9 +190,16 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      super(merge(defaults, { deps }, options, { name: normalizeName(options.name) }));
+      super(
+        merge(defaults, { deps }, options, {
+          // Disable projen's built-in docgen class
+          docgen: undefined,
+          name: normalizeName(options.name),
+        }),
+      );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+      if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
     }
   }
 
