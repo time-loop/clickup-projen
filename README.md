@@ -133,6 +133,8 @@ Watch with awe and wonder as projen stamps out a project with
   - Activate the repo (big green button).
   - You should probably grab the Badge Markdown and stick it in your top level `README.md` as the first line at the very top of the file. Use the `badge` tab on the left side of the screen to find it. If you do this as a PR rather than just directly committing on the main branch, it will trigger the workflows, which will be helpful later.
   - You will need the `CODECOV_TOKEN` for the GitHub/Secrets/Actions step below. It looks like a uuid, for example: `abcdefgh-1234-abcd-1234-a05b70be94b1`
+- Secrets/Actions: https://github.com/time-loop/my-new-repo/settings/secrets/actions
+  - Add a _New repository secret_ with the name `CODECOV_TOKEN` and uuid secret from above.
 - Update GitHub settings in your new repo.
   - General: https://github.com/time-loop/my-new-repo/settings
     - Pull Requests, allow only squash merging (this helps keep our git history usable, and helps us achieve [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for semver generation)
@@ -140,8 +142,6 @@ Watch with awe and wonder as projen stamps out a project with
       - Always suggest updating pull request branches
       - Allow auto-merge
       - Automatically delete head branches
-  - Secrets/Actions: https://github.com/time-loop/my-new-repo/settings/secrets/actions
-    - Add a _New repository secret_ with the name `CODECOV_TOKEN` and uuid secret from above.
   - Collaborators and Teams: https://github.com/time-loop/my-new-repo/settings/access
     - You MUST either grant `write` to the `cu-infra-svc-git` machine user (who is a member of the `@time-loop/devops` team) OR you can provide your own `PROJEN_GITHUB_TOKEN` with a GitHub PAT
     - Other than the bot user, you should probably avoid granting access directly to users, but instead grant to teams.
@@ -166,6 +166,9 @@ Watch with awe and wonder as projen stamps out a project with
         - Include administrators (if you have to break the rules, you have to disable this first)
 
 That's it! Now go write a failing test and some code to make it pass!
+
+NOTE: Implementing and using https://github.com/apps/settings would automate most of the above.
+We should do this for better compliance.
 
 ## Use Your New Private Library
 
