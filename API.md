@@ -177,6 +177,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `aws_lambda.Function` for each `.lambda.ts` handler in your source tree. If this is disabled, you either need to explicitly call `aws_lambda.Function.autoDiscover()` or define a `new aws_lambda.Function()` for each handler. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendDatadogEvent">sendDatadogEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending. |
 
 ---
 
@@ -2456,6 +2457,21 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `sendDatadogEvent`<sup>Optional</sup> <a name="sendDatadogEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendDatadogEvent"></a>
+
+```typescript
+public readonly sendDatadogEvent: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Feature flag for datadog event sending.
+
+TODO: Should probably be removed after rigorous testing.
+
+---
+
 ### ClickUpCdkTypeScriptAppOptions <a name="ClickUpCdkTypeScriptAppOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions"></a>
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.Initializer"></a>
@@ -2623,6 +2639,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendDatadogEvent">sendDatadogEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending. |
 
 ---
 
@@ -4797,6 +4814,21 @@ public readonly lambdaOptions: LambdaFunctionCommonOptions;
 - *Default:* default options
 
 Common options for all AWS Lambda functions.
+
+---
+
+##### `sendDatadogEvent`<sup>Optional</sup> <a name="sendDatadogEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendDatadogEvent"></a>
+
+```typescript
+public readonly sendDatadogEvent: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Feature flag for datadog event sending.
+
+TODO: Should probably be removed after rigorous testing.
 
 ---
 
