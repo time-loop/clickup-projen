@@ -14,6 +14,18 @@ export module clickupCdk {
       },
     },
     releaseToNpm: false,
+    pullRequestTemplateContents: [
+      '# Summary',
+      'Doing ABC actions to XYZ because IDK',
+      '',
+      '## This PR updates the following environments',
+      '- [ ] QA',
+      '- [ ] Staging',
+      '- [ ] Prod',
+      '',
+      '## Validation',
+      'The following actions will be taken to validate functionality between stages:',
+    ],
   };
 
   export interface ClickUpCdkConstructLibraryOptions extends awscdk.AwsCdkConstructLibraryOptions {}
