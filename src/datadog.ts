@@ -87,13 +87,13 @@ echo ::set-output name=repo_name::"$(echo \${{ github.repository }} | cut -d'/' 
     });
   }
 
-  function parseReleaseEventTags(tags: ReleaseEventTags | undefined): string | undefined {
+  function parseReleaseEventTags(tags?: ReleaseEventTags): string | undefined {
     if (typeof tags === 'undefined') return undefined;
     const tagsArr = Object.keys(tags).map((key) => `${key}:${tags[key]}`);
     return JSON.stringify(tagsArr);
   }
 
-  function setReleaseEventInputs(opts: ReleaseEventOptions | undefined): ReleaseEventActionOptions {
+  function setReleaseEventInputs(opts?: ReleaseEventOptions): ReleaseEventActionOptions {
     const rendered: ReleaseEventActionOptions = {
       datadog_api_key: opts?.datadog_api_key ?? '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
       datadog_us: opts?.datadog_us ?? true,

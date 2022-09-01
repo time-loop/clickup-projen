@@ -7603,6 +7603,7 @@ names of cdk modules (e.g. `@aws-cdk/aws-lambda`).
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.cdkDeps">cdkDeps</a></code> | <code>projen.awscdk.AwsCdkDeps</code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | The target CDK version for this library. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.version">version</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.datadogEvent">datadogEvent</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -8350,6 +8351,16 @@ public readonly version: string;
 
 ---
 
+##### `datadogEvent`<sup>Required</sup> <a name="datadogEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.datadogEvent"></a>
+
+```typescript
+public readonly datadogEvent: boolean;
+```
+
+- *Type:* boolean
+
+---
+
 #### Constants <a name="Constants" id="Constants"></a>
 
 | **Name** | **Type** | **Description** |
@@ -9020,6 +9031,7 @@ The list of modules to depend on.
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkDeps">cdkDeps</a></code> | <code>projen.awscdk.AwsCdkDeps</code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkTasks">cdkTasks</a></code> | <code>projen.awscdk.CdkTasks</code> | Common CDK tasks. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | The CDK version this app is using. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.datadogEvent">datadogEvent</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -9788,6 +9800,16 @@ public readonly cdkVersion: string;
 - *Type:* string
 
 The CDK version this app is using.
+
+---
+
+##### `datadogEvent`<sup>Required</sup> <a name="datadogEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.datadogEvent"></a>
+
+```typescript
+public readonly datadogEvent: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

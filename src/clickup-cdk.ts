@@ -41,7 +41,7 @@ export module clickupCdk {
    * Marginally.
    */
   export class ClickUpCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
-    readonly datadogEvent: boolean = false;
+    readonly datadogEvent: boolean;
     constructor(options: ClickUpCdkConstructLibraryOptions) {
       const name = clickupTs.normalizeName(options.name);
       // JSII means I can't Omit and then re-implement the following as optional. So...
@@ -52,10 +52,13 @@ export module clickupCdk {
       super(merge(clickupTs.defaults, options, { authorName, authorAddress, name, repositoryUrl }));
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+
+      // TODO: This is a feature flag, and should be simplified after rigorous testing.
+      // i.e., enablement should become the default (and maybe not even optional?)
       if (options.sendDatadogEvent) {
         datadog.addReleaseEvent(this);
         this.datadogEvent = true;
-      }
+      } else this.datadogEvent = false;
     }
   }
 
@@ -73,7 +76,7 @@ export module clickupCdk {
    * - default deps and devDeps (you can add your own, but the base will always be present)
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
-    readonly datadogEvent: boolean = false;
+    readonly datadogEvent: boolean;
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
       super(merge(clickupTs.defaults, defaults, options, { sampleCode: false }));
       clickupTs.fixTsNodeDeps(this.package);
@@ -85,10 +88,13 @@ export module clickupCdk {
         `,
       });
       codecov.addCodeCovYml(this);
+
+      // TODO: This is a feature flag, and should be simplified after rigorous testing.
+      // i.e., enablement should become the default (and maybe not even optional?)
       if (options.sendDatadogEvent) {
         datadog.addReleaseEvent(this);
         this.datadogEvent = true;
-      }
+      } else this.datadogEvent = false;
     }
   }
 
