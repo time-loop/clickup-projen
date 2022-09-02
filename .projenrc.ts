@@ -21,6 +21,11 @@ const project = new cdk.JsiiProject({
     // TODO: we should instead be using an app for auth.
     // projenCredentials: github.GithubCredentials.fromApp(writeme),
     projenCredentials: github.GithubCredentials.fromPersonalAccessToken(),
+    pullRequestLintOptions: {
+      // Enforce conventional commits https://www.conventionalcommits.org/
+      // https://github.com/marketplace/actions/semantic-pull-request
+      semanticTitleOptions: { requireScope: true },
+    },
   },
 
   // We don't depend on any private resources.

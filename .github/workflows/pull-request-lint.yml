@@ -25,4 +25,4 @@ jobs:
             feat
             fix
             chore
-          requireScope: false
+          requireScope: true
