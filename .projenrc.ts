@@ -1,9 +1,11 @@
-const { cdk, github, javascript, YamlFile } = require('projen');
+import { cdk, github, javascript, YamlFile } from 'projen';
+import { datadog } from './src/datadog';
 
 const bundledDeps = ['ts-deepmerge'];
 
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',
+  author: 'ClickUp DevOps',
   authorAddress: 'devops@clickup.com',
   authorName: 'ClickUp DevOps',
   authorOrganization: true,
@@ -49,6 +51,7 @@ const project = new cdk.JsiiProject({
       trailingComma: javascript.TrailingComma.ALL,
     },
   },
+  projenrcTs: true,
   stale: true,
 
   jestOptions: {
@@ -58,9 +61,6 @@ const project = new cdk.JsiiProject({
   },
   codeCov: true,
   codeCovTokenSecret: 'CODECOV_TOKEN',
-  // Enforce conventional commits https://www.conventionalcommits.org/
-  // https://github.com/marketplace/actions/semantic-pull-request
-  semanticTitleOptions: { requireScope: true },
 });
 
 new YamlFile(project, 'codecov.yml', {
@@ -110,4 +110,5 @@ new YamlFile(project, 'codecov.yml', {
   },
 });
 
+datadog.addReleaseEvent(project);
 project.synth();

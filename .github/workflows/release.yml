@@ -99,3 +99,28 @@ jobs:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: npm.pkg.github.com
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  send_datadog_release_event:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CI: "true"
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: dist
+      - name: Output event metadata
+        id: event_metadata
+        run: |-
+          echo ::set-output name=release_tag::"$(cat dist/releasetag.txt)"
+          echo ::set-output name=repo_name::"$(echo ${{ github.repository }} | cut -d'/' -f2)"
+      - name: Datadog Release Event
+        uses: Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948
+        with:
+          datadog_api_key: ${{ secrets.DD_PROJEN_RELEASE_API_KEY }}
+          datadog_us: true
+          event_title: Released ${{ steps.event_metadata.outputs.repo_name }} version ${{ steps.event_metadata.outputs.release_tag }}
+          event_text: Released ${{ steps.event_metadata.outputs.repo_name }} version ${{ steps.event_metadata.outputs.release_tag }}
+          event_priority: normal
