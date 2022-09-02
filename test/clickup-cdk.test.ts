@@ -25,6 +25,17 @@ describe('ClickUpCdkTypeScriptApp', () => {
 
     // TODO: soooo many more tests need to be written here.
   });
+  describe('feature flags', () => {
+    let p: clickupCdk.ClickUpCdkTypeScriptApp;
+    test('datadog event sending is disabled by default', () => {
+      p = new clickupCdk.ClickUpCdkTypeScriptApp(requiredParams);
+      expect(p.datadogEvent).toBeFalsy();
+    });
+    test('datadog event sending is enabled by FF', () => {
+      p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendDatadogEvent: true });
+      expect(p.datadogEvent).toBeTruthy();
+    });
+  });
 });
 
 describe('ClickUpCdkConstructLibrary', () => {
@@ -40,6 +51,26 @@ describe('ClickUpCdkConstructLibrary', () => {
       test(file, () => {
         expect(synth[file]).toMatchSnapshot();
       });
+    });
+  });
+  describe('feature flags', () => {
+    const commonProps = {
+      ...requiredParams,
+      author: '',
+      authorAddress: '',
+      repositoryUrl: '',
+    };
+    let p: clickupCdk.ClickUpCdkConstructLibrary;
+    test('datadog event sending is disabled by default', () => {
+      p = new clickupCdk.ClickUpCdkConstructLibrary(commonProps);
+      expect(p.datadogEvent).toBeFalsy();
+    });
+    test('datadog event sending is enabled by FF', () => {
+      p = new clickupCdk.ClickUpCdkConstructLibrary({
+        ...commonProps,
+        sendDatadogEvent: true,
+      });
+      expect(p.datadogEvent).toBeTruthy();
     });
   });
 });
