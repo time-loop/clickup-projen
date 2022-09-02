@@ -53,10 +53,13 @@ export module datadog {
   export function addReleaseEvent(project: NodeProject, opts?: ReleaseEventOptions) {
     project.release?.addJobs({
       send_datadog_release_event: {
+        name: 'Datadog Release Event',
         permissions: {
           contents: JobPermission.READ,
         },
         runsOn: ['ubuntu-latest'],
+        needs: ['release'],
+        if: 'needs.release.outputs.latest_commit == github.sha',
         env: {
           CI: 'true',
         },
@@ -77,7 +80,7 @@ export module datadog {
 echo ::set-output name=repo_name::"$(echo \${{ github.repository }} | cut -d'/' -f2)"`,
           },
           {
-            name: 'Datadog Release Event',
+            name: 'Send Event',
             // https://github.com/Glennmen/datadog-event-action/releases/tag/1.1.0
             uses: 'Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948',
             with: setReleaseEventInputs(opts),

@@ -1,5 +1,4 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
-import { datadog } from './src/datadog';
 
 const bundledDeps = ['ts-deepmerge'];
 
@@ -115,5 +114,4 @@ new YamlFile(project, 'codecov.yml', {
   },
 });
 
-datadog.addReleaseEvent(project);
 project.synth();
