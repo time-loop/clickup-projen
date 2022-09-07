@@ -2,40 +2,55 @@ import { JobPermission } from 'projen/lib/github/workflows-model';
 import { NodeProject } from 'projen/lib/javascript';
 
 export module datadog {
-  export interface ReleaseEventTags extends Record<string, string | boolean> {}
+  export interface ReleaseEventTags {
+    [key: string]: string;
+  }
 
+  /**
+   * Options to set for the event sent to Datadog on release.
+   */
   export interface ReleaseEventOptions {
     /**
      * @default secrets.DD_PROJEN_RELEASE_API_KEY
      */
-    readonly datadog_api_key?: string;
+    readonly datadogApiKey?: string;
     /**
      * @default The release repo and semantically versioned release number
      */
-    readonly event_title?: string;
+    readonly eventTitle?: string;
     /**
      * @default The release repo and semantically versioned release number
      */
-    readonly event_text?: string;
+    readonly eventText?: string;
     /**
      * @default normal
      */
-    readonly event_priority?: 'normal' | 'low';
+    readonly eventPriority?: 'normal' | 'low';
     /**
      * @default true
      */
-    readonly datadog_us?: boolean;
+    readonly datadogUs?: boolean;
     /**
      * Additional tags to append to the standard tags (project, release, version, actor)
      * @default undefined
      */
-    readonly event_tags?: ReleaseEventTags;
+    readonly eventTags?: ReleaseEventTags;
   }
 
-  // When passed in ReleaseEventOptions is rendered, this interface is the result
-  // which is passed directly to the GitHub Action inputs.
-  // Based on: https://github.com/Glennmen/datadog-event-action/releases/tag/1.1.0
-  interface ReleaseEventActionOptions extends Omit<ReleaseEventOptions, 'event_tags'> {
+  /**
+   * When passed in ReleaseEventOptions is rendered, this interface is the result
+   * which is passed directly to the GitHub Action inputs. JSII does not like
+   * snake_case exposed key names, hence the snake_case changes here in the
+   * unexposed interface. All types are the same as ReleaseEventOptions except
+   * where noted.
+   * Based on: https://github.com/Glennmen/datadog-event-action/releases/tag/1.1.0
+   */
+  interface ReleaseEventActionInputs {
+    readonly datadog_api_key: string;
+    readonly event_title?: string;
+    readonly event_text?: string;
+    readonly event_priority?: 'normal' | 'low';
+    readonly datadog_us?: boolean;
     /**
      * Formatted as an array of stringified, colon delimited key:value pairs.
      * Example: '["Key1:Val1", "Key2:Val2"]'
@@ -93,22 +108,22 @@ export module datadog {
     return JSON.stringify(tagsArr);
   }
 
-  function setReleaseEventInputs(project: NodeProject, opts?: ReleaseEventOptions): ReleaseEventActionOptions {
+  function setReleaseEventInputs(project: NodeProject, opts?: ReleaseEventOptions): ReleaseEventActionInputs {
     const defaultTags: ReleaseEventTags = {
       project: project.name,
-      release: true,
+      release: 'true',
       version: '${{ steps.event_metadata.outputs.release_tag }}',
       actor: '${{ github.actor }}',
     };
-    const rendered: ReleaseEventActionOptions = {
-      datadog_api_key: opts?.datadog_api_key ?? '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
-      datadog_us: opts?.datadog_us ?? true,
+    const rendered: ReleaseEventActionInputs = {
+      datadog_api_key: opts?.datadogApiKey ?? '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
+      datadog_us: opts?.datadogUs ?? true,
       event_title:
-        opts?.event_title ?? `Released ${project.name} version \${{ steps.event_metadata.outputs.release_tag }}`,
+        opts?.eventTitle ?? `Released ${project.name} version \${{ steps.event_metadata.outputs.release_tag }}`,
       event_text:
-        opts?.event_text ?? `Released ${project.name} version \${{ steps.event_metadata.outputs.release_tag }}`,
-      event_priority: opts?.event_priority ?? 'normal',
-      event_tags: parseReleaseEventTags({ ...defaultTags, ...opts?.event_tags }),
+        opts?.eventText ?? `Released ${project.name} version \${{ steps.event_metadata.outputs.release_tag }}`,
+      event_priority: opts?.eventPriority ?? 'normal',
+      event_tags: parseReleaseEventTags({ ...defaultTags, ...opts?.eventTags }),
     };
     return rendered;
   }

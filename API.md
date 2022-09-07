@@ -177,7 +177,8 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `aws_lambda.Function` for each `.lambda.ts` handler in your source tree. If this is disabled, you either need to explicitly call `aws_lambda.Function.autoDiscover()` or define a `new aws_lambda.Function()` for each handler. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendDatadogEvent">sendDatadogEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
 ---
 
@@ -2457,18 +2458,35 @@ Common options for all AWS Lambda functions.
 
 ---
 
-##### `sendDatadogEvent`<sup>Optional</sup> <a name="sendDatadogEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendDatadogEvent"></a>
+##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent"></a>
 
 ```typescript
-public readonly sendDatadogEvent: boolean;
+public readonly sendReleaseEvent: boolean;
 ```
 
 - *Type:* boolean
 - *Default:* false
 
-Feature flag for datadog event sending.
+Feature flag for datadog event sending on release.
 
 TODO: Should probably be removed after rigorous testing.
+
+---
+
+##### `sendReleaseEventOpts`<sup>Optional</sup> <a name="sendReleaseEventOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts"></a>
+
+```typescript
+public readonly sendReleaseEventOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.datadog.ReleaseEventOptions
+- *Default:* undefined
+
+Datadog event options to use on release.
+
+Only valid when
+`sendReleaseEvent` FF is toggled on.
+TODO: When `sendReleaseEvent` is no longer a feature flag, move this.
 
 ---
 
@@ -2639,7 +2657,8 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendDatadogEvent">sendDatadogEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
 ---
 
@@ -4817,18 +4836,35 @@ Common options for all AWS Lambda functions.
 
 ---
 
-##### `sendDatadogEvent`<sup>Optional</sup> <a name="sendDatadogEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendDatadogEvent"></a>
+##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent"></a>
 
 ```typescript
-public readonly sendDatadogEvent: boolean;
+public readonly sendReleaseEvent: boolean;
 ```
 
 - *Type:* boolean
 - *Default:* false
 
-Feature flag for datadog event sending.
+Feature flag for datadog event sending on release.
 
 TODO: Should probably be removed after rigorous testing.
+
+---
+
+##### `sendReleaseEventOpts`<sup>Optional</sup> <a name="sendReleaseEventOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts"></a>
+
+```typescript
+public readonly sendReleaseEventOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.datadog.ReleaseEventOptions
+- *Default:* undefined
+
+Datadog event options to use on release.
+
+Only valid when
+`sendReleaseEvent` FF is toggled on.
+TODO: When `sendReleaseEvent` is no longer a feature flag, move this.
 
 ---
 
@@ -6872,6 +6908,110 @@ Additional options pertaining to the typedoc config file.
 NOTE: `docgen` attribute cannot be false.
 
 ---
+
+### ReleaseEventOptions <a name="ReleaseEventOptions" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions"></a>
+
+Options to set for the event sent to Datadog on release.
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.Initializer"></a>
+
+```typescript
+import { datadog } from '@time-loop/clickup-projen'
+
+const releaseEventOptions: datadog.ReleaseEventOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.datadogApiKey">datadogApiKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.datadogUs">datadogUs</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventPriority">eventPriority</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventTags">eventTags</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventTags</code> | Additional tags to append to the standard tags (project, release, version, actor). |
+| <code><a href="#@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventText">eventText</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventTitle">eventTitle</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `datadogApiKey`<sup>Optional</sup> <a name="datadogApiKey" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.datadogApiKey"></a>
+
+```typescript
+public readonly datadogApiKey: string;
+```
+
+- *Type:* string
+- *Default:* secrets.DD_PROJEN_RELEASE_API_KEY
+
+---
+
+##### `datadogUs`<sup>Optional</sup> <a name="datadogUs" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.datadogUs"></a>
+
+```typescript
+public readonly datadogUs: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+---
+
+##### `eventPriority`<sup>Optional</sup> <a name="eventPriority" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventPriority"></a>
+
+```typescript
+public readonly eventPriority: string;
+```
+
+- *Type:* string
+- *Default:* normal
+
+---
+
+##### `eventTags`<sup>Optional</sup> <a name="eventTags" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventTags"></a>
+
+```typescript
+public readonly eventTags: ReleaseEventTags;
+```
+
+- *Type:* @time-loop/clickup-projen.datadog.ReleaseEventTags
+- *Default:* undefined
+
+Additional tags to append to the standard tags (project, release, version, actor).
+
+---
+
+##### `eventText`<sup>Optional</sup> <a name="eventText" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventText"></a>
+
+```typescript
+public readonly eventText: string;
+```
+
+- *Type:* string
+- *Default:* The release repo and semantically versioned release number
+
+---
+
+##### `eventTitle`<sup>Optional</sup> <a name="eventTitle" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions.property.eventTitle"></a>
+
+```typescript
+public readonly eventTitle: string;
+```
+
+- *Type:* string
+- *Default:* The release repo and semantically versioned release number
+
+---
+
+### ReleaseEventTags <a name="ReleaseEventTags" id="@time-loop/clickup-projen.datadog.ReleaseEventTags"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadog.ReleaseEventTags.Initializer"></a>
+
+```typescript
+import { datadog } from '@time-loop/clickup-projen'
+
+const releaseEventTags: datadog.ReleaseEventTags = { ... }
+```
+
 
 ### TypedocDocgenOptions <a name="TypedocDocgenOptions" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions"></a>
 
