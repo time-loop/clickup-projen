@@ -47,10 +47,10 @@ export module datadog {
    */
   interface ReleaseEventActionInputs {
     readonly datadog_api_key: string;
-    readonly event_title?: string;
-    readonly event_text?: string;
-    readonly event_priority?: 'normal' | 'low';
-    readonly datadog_us?: boolean;
+    readonly event_title: string;
+    readonly event_text: string;
+    readonly event_priority: 'normal' | 'low';
+    readonly datadog_us: boolean;
     /**
      * Formatted as an array of stringified, colon delimited key:value pairs.
      * Example: '["Key1:Val1", "Key2:Val2"]'
