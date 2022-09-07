@@ -107,12 +107,20 @@
       "type": "build"
     },
     {
+      "name": "cson-parser",
+      "type": "bundled"
+    },
+    {
       "name": "ts-deepmerge",
       "type": "bundled"
     },
     {
       "name": "projen",
       "type": "peer"
+    },
+    {
+      "name": "cson-parser",
+      "type": "runtime"
     },
     {
       "name": "projen",

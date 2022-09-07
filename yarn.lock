@@ -1592,6 +1592,11 @@ codemaker@^1.66.0:
     decamelize "^5.0.1"
     fs-extra "^10.1.0"
 
+coffeescript@1.12.7:
+  version "1.12.7"
+  resolved "https://registry.yarnpkg.com/coffeescript/-/coffeescript-1.12.7.tgz#e57ee4c4867cf7f606bfc4a0f2d550c0981ddd27"
+  integrity sha512-pLXHFxQMPklVoEekowk8b3erNynC+DVJzChxS/LCBBgR6/8AJkHivkm//zbowcfc7BTCAjryuhx6gPqPRfsFoA==
+
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz#cc2c8e94fc18bbdffe64d6534570c8a673b27f59"
@@ -1903,6 +1908,13 @@ crypto-random-string@^4.0.0:
   integrity sha512-x8dy3RnvYdlUcPOjkEHqozhiwzKNSq7GcPuXFbnyMOCHxX8V3OgIg/pYuabl2sbUPfIJaeAQB7PMOK8DFIdoRA==
   dependencies:
     type-fest "^1.0.1"
+
+cson-parser@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/cson-parser/-/cson-parser-4.0.9.tgz#eef0cf77edd057f97861ef800300c8239224eedb"
+  integrity sha512-I79SAcCYquWnEfXYj8hBqOOWKj6eH6zX1hhX3yqmS4K3bYp7jME3UFpHPzu3rUew0oyfc0s8T6IlWGXRAheHag==
+  dependencies:
+    coffeescript "1.12.7"
 
 cssom@^0.4.4:
   version "0.4.4"

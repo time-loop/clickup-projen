@@ -64,10 +64,12 @@
     "projen": "^0.61.37"
   },
   "dependencies": {
+    "cson-parser": "^4.0.9",
     "projen": "^0.61.37",
     "ts-deepmerge": "^2.0.7"
   },
   "bundledDependencies": [
+    "cson-parser",
     "ts-deepmerge"
   ],
   "main": "lib/index.js",
