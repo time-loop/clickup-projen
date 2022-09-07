@@ -52,8 +52,8 @@ export module datadog {
    */
   export function addReleaseEvent(project: NodeProject, opts?: ReleaseEventOptions) {
     project.release?.addJobs({
-      send_datadog_release_event: {
-        name: 'Datadog Release Event',
+      send_release_event: {
+        name: 'Send Release Event',
         permissions: {
           contents: JobPermission.READ,
         },
@@ -73,14 +73,12 @@ export module datadog {
             },
           },
           {
-            name: 'Output event metadata',
+            name: 'Get version',
             id: 'event_metadata',
-            // ` syntax below gives us a multiline string
-            run: `echo ::set-output name=release_tag::"$(cat ${project.release!.artifactsDirectory}/releasetag.txt)"
-echo ::set-output name=repo_name::"$(echo \${{ github.repository }} | cut -d'/' -f2)"`,
+            run: `echo ::set-output name=release_tag::"$(cat ${project.release!.artifactsDirectory}/releasetag.txt)"`,
           },
           {
-            name: 'Send Event',
+            name: 'Send Datadog event',
             // https://github.com/Glennmen/datadog-event-action/releases/tag/1.1.0
             uses: 'Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948',
             with: setReleaseEventInputs(project, opts),
@@ -106,11 +104,9 @@ echo ::set-output name=repo_name::"$(echo \${{ github.repository }} | cut -d'/' 
       datadog_api_key: opts?.datadog_api_key ?? '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
       datadog_us: opts?.datadog_us ?? true,
       event_title:
-        opts?.event_title ??
-        'Released ${{ steps.event_metadata.outputs.repo_name }} version ${{ steps.event_metadata.outputs.release_tag }}',
+        opts?.event_title ?? `Released ${project.name} version \${{ steps.event_metadata.outputs.release_tag }}`,
       event_text:
-        opts?.event_text ??
-        'Released ${{ steps.event_metadata.outputs.repo_name }} version ${{ steps.event_metadata.outputs.release_tag }}',
+        opts?.event_text ?? `Released ${project.name} version \${{ steps.event_metadata.outputs.release_tag }}`,
       event_priority: opts?.event_priority ?? 'normal',
       event_tags: parseReleaseEventTags({ ...defaultTags, ...opts?.event_tags }),
     };
