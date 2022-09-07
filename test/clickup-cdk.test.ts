@@ -32,7 +32,7 @@ describe('ClickUpCdkTypeScriptApp', () => {
       expect(p.datadogEvent).toBeFalsy();
     });
     test('datadog event sending is enabled by FF', () => {
-      p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendDatadogEvent: true });
+      p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendReleaseEvent: true });
       expect(p.datadogEvent).toBeTruthy();
     });
   });
@@ -68,7 +68,7 @@ describe('ClickUpCdkConstructLibrary', () => {
     test('datadog event sending is enabled by FF', () => {
       p = new clickupCdk.ClickUpCdkConstructLibrary({
         ...commonProps,
-        sendDatadogEvent: true,
+        sendReleaseEvent: true,
       });
       expect(p.datadogEvent).toBeTruthy();
     });
