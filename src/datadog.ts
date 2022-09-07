@@ -2,7 +2,7 @@ import { JobPermission } from 'projen/lib/github/workflows-model';
 import { NodeProject } from 'projen/lib/javascript';
 
 export module datadog {
-  export interface ReleaseEventTags extends Record<string, string> {}
+  export interface ReleaseEventTags extends Record<string, string | boolean> {}
 
   export interface ReleaseEventOptions {
     /**
@@ -26,6 +26,7 @@ export module datadog {
      */
     readonly datadog_us?: boolean;
     /**
+     * Additional tags to append to the standard tags (project, release, version, actor)
      * @default undefined
      */
     readonly event_tags?: ReleaseEventTags;
@@ -38,9 +39,8 @@ export module datadog {
     /**
      * Formatted as an array of stringified, colon delimited key:value pairs.
      * Example: '["Key1:Val1", "Key2:Val2"]'
-     * @default undefined
      */
-    readonly event_tags?: string;
+    readonly event_tags: string;
   }
 
   /**
@@ -83,20 +83,25 @@ echo ::set-output name=repo_name::"$(echo \${{ github.repository }} | cut -d'/' 
             name: 'Send Event',
             // https://github.com/Glennmen/datadog-event-action/releases/tag/1.1.0
             uses: 'Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948',
-            with: setReleaseEventInputs(opts),
+            with: setReleaseEventInputs(project, opts),
           },
         ],
       },
     });
   }
 
-  function parseReleaseEventTags(tags?: ReleaseEventTags): string | undefined {
-    if (typeof tags === 'undefined') return undefined;
+  function parseReleaseEventTags(tags: ReleaseEventTags): string {
     const tagsArr = Object.keys(tags).map((key) => `${key}:${tags[key]}`);
     return JSON.stringify(tagsArr);
   }
 
-  function setReleaseEventInputs(opts?: ReleaseEventOptions): ReleaseEventActionOptions {
+  function setReleaseEventInputs(project: NodeProject, opts?: ReleaseEventOptions): ReleaseEventActionOptions {
+    const defaultTags: ReleaseEventTags = {
+      project: project.name,
+      release: true,
+      version: '${{ steps.event_metadata.outputs.release_tag }}',
+      actor: '${{ github.actor }}',
+    };
     const rendered: ReleaseEventActionOptions = {
       datadog_api_key: opts?.datadog_api_key ?? '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
       datadog_us: opts?.datadog_us ?? true,
@@ -107,7 +112,7 @@ echo ::set-output name=repo_name::"$(echo \${{ github.repository }} | cut -d'/' 
         opts?.event_text ??
         'Released ${{ steps.event_metadata.outputs.repo_name }} version ${{ steps.event_metadata.outputs.release_tag }}',
       event_priority: opts?.event_priority ?? 'normal',
-      event_tags: parseReleaseEventTags(opts?.event_tags),
+      event_tags: parseReleaseEventTags({ ...defaultTags, ...opts?.event_tags }),
     };
     return rendered;
   }

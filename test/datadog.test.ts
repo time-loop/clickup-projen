@@ -2,6 +2,7 @@ import path from 'path';
 import { typescript, Testing } from 'projen';
 import { datadog } from '../src/datadog';
 
+// Would be cool to find a way to not use snapshots here, without getting crazy
 describe('addReleaseEvent', () => {
   test('adds job to release workflow', () => {
     const project = new typescript.TypeScriptProject({
@@ -22,7 +23,7 @@ describe('addReleaseEvent', () => {
     const synth = Testing.synth(project);
     expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
   });
-  test('adds tags when passed', () => {
+  test('adds additional tags when passed', () => {
     const project = new typescript.TypeScriptProject({
       defaultReleaseBranch: 'main',
       name: 'test',
