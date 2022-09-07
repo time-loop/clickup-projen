@@ -62,7 +62,10 @@ We do not as yet have a naming convention for TypeScript libraries.
 
 ### CdkApp
 
-If you aren't sure, **this is probably what you are here for**.
+If you aren't sure, **this is probably what you are here for**. 
+
+Make sure you are using the appropriate node version with `nvm use --lts`. 
+
 When creating new cdk apps:
 
 ```bash
