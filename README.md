@@ -167,6 +167,7 @@ Watch with awe and wonder as projen stamps out a project with
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
         - Include administrators (if you have to break the rules, you have to disable this first)
+- Setup ClickUp integration for your new repo!
 
 That's it! Now go write a failing test and some code to make it pass!
 
