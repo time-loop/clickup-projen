@@ -1,3 +1,4 @@
+import { stringify } from 'cson-parser';
 import { JobPermission } from 'projen/lib/github/workflows-model';
 import { NodeProject } from 'projen/lib/javascript';
 
@@ -105,7 +106,7 @@ export module datadog {
 
   function parseReleaseEventTags(tags: ReleaseEventTags): string {
     const tagsArr = Object.keys(tags).map((key) => `${key}:${tags[key]}`);
-    return JSON.stringify(tagsArr);
+    return stringify(tagsArr);
   }
 
   function setReleaseEventInputs(project: NodeProject, opts?: ReleaseEventOptions): ReleaseEventActionInputs {
