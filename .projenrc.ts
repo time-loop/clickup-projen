@@ -1,6 +1,6 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
 
-const bundledDeps = ['ts-deepmerge'];
+const bundledDeps = ['ts-deepmerge', 'cson-parser'];
 
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',

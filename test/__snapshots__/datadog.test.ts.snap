@@ -88,7 +88,7 @@ jobs:
           event_title: Released test-cdk version \${{ steps.event_metadata.outputs.release_tag }}
           event_text: Released test-cdk version \${{ steps.event_metadata.outputs.release_tag }}
           event_priority: normal
-          event_tags: '[\\"project:test-cdk\\",\\"release:true\\",\\"version:\${{ steps.event_metadata.outputs.release_tag }}\\",\\"actor:\${{ github.actor }}\\",\\"TestKey:TestVal\\",\\"TestKey2:TestVal2\\"]'
+          event_tags: \\"['project:test-cdk','release:true','version:\${{ steps.event_metadata.outputs.release_tag }}','actor:\${{ github.actor }}','TestKey:TestVal','TestKey2:TestVal2']\\"
 "
 `;
 
@@ -180,7 +180,7 @@ jobs:
           event_title: Released test-cdk version \${{ steps.event_metadata.outputs.release_tag }}
           event_text: Released test-cdk version \${{ steps.event_metadata.outputs.release_tag }}
           event_priority: normal
-          event_tags: '[\\"project:test-cdk\\",\\"release:true\\",\\"version:\${{ steps.event_metadata.outputs.release_tag }}\\",\\"actor:\${{ github.actor }}\\"]'
+          event_tags: \\"['project:test-cdk','release:true','version:\${{ steps.event_metadata.outputs.release_tag }}','actor:\${{ github.actor }}']\\"
 "
 `;
 
@@ -272,7 +272,7 @@ jobs:
           event_title: Test title
           event_text: Test event text
           event_priority: low
-          event_tags: '[\\"project:test-cdk\\",\\"release:true\\",\\"version:\${{ steps.event_metadata.outputs.release_tag }}\\",\\"actor:\${{ github.actor }}\\",\\"TestTag1:TestTagVal1\\",\\"TestTag2:TestTagVal2\\"]'
+          event_tags: \\"['project:test-cdk','release:true','version:\${{ steps.event_metadata.outputs.release_tag }}','actor:\${{ github.actor }}','TestTag1:TestTagVal1','TestTag2:TestTagVal2']\\"
 "
 `;
 
