@@ -46,7 +46,7 @@ export module clickupTs {
         run: 'export FORCE_PREBUILT_LAMBDA=1',
       },
     ],
-    gitignore: ['/.npmrc', '.idea'],
+    gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
     minNodeVersion: '14.18.0', // Required by eslint-import-resolver-typescript@3.3.0
     workflowNodeVersion: '14.18.0',
