@@ -22,18 +22,16 @@ describe('ClickUpCdkTypeScriptApp', () => {
     test('jest is enabled', () => {
       expect(p.jest).toBeTruthy();
     });
-
+    test('datadog event sending is enabled', () => {
+      expect(p.datadogEvent).toBeTruthy();
+    });
     // TODO: soooo many more tests need to be written here.
   });
-  describe('feature flags', () => {
+  describe('options', () => {
     let p: clickupCdk.ClickUpCdkTypeScriptApp;
-    test('datadog event sending is disabled by default', () => {
-      p = new clickupCdk.ClickUpCdkTypeScriptApp(requiredParams);
+    test('datadog event sending can be disabled', () => {
+      p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendReleaseEvent: false });
       expect(p.datadogEvent).toBeFalsy();
-    });
-    test('datadog event sending is enabled by FF', () => {
-      p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendReleaseEvent: true });
-      expect(p.datadogEvent).toBeTruthy();
     });
   });
 });
@@ -52,8 +50,11 @@ describe('ClickUpCdkConstructLibrary', () => {
         expect(synth[file]).toMatchSnapshot();
       });
     });
+    test('datadog event sending is enabled', () => {
+      expect(p.datadogEvent).toBeTruthy();
+    });
   });
-  describe('feature flags', () => {
+  describe('options', () => {
     const commonProps = {
       ...requiredParams,
       author: '',
@@ -61,16 +62,12 @@ describe('ClickUpCdkConstructLibrary', () => {
       repositoryUrl: '',
     };
     let p: clickupCdk.ClickUpCdkConstructLibrary;
-    test('datadog event sending is disabled by default', () => {
-      p = new clickupCdk.ClickUpCdkConstructLibrary(commonProps);
-      expect(p.datadogEvent).toBeFalsy();
-    });
-    test('datadog event sending is enabled by FF', () => {
+    test('datadog event sending can be disabled', () => {
       p = new clickupCdk.ClickUpCdkConstructLibrary({
         ...commonProps,
-        sendReleaseEvent: true,
+        sendReleaseEvent: false,
       });
-      expect(p.datadogEvent).toBeTruthy();
+      expect(p.datadogEvent).toBeFalsy();
     });
   });
 });
