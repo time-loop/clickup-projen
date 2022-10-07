@@ -3,6 +3,54 @@
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### ClickUpCdkCommonOptions <a name="ClickUpCdkCommonOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.Initializer"></a>
+
+```typescript
+import { clickupCdk } from '@time-loop/clickup-projen'
+
+const clickUpCdkCommonOptions: clickupCdk.ClickUpCdkCommonOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
+
+---
+
+##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent"></a>
+
+```typescript
+public readonly sendReleaseEvent: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Feature flag for datadog event sending on release.
+
+---
+
+##### `sendReleaseEventOpts`<sup>Optional</sup> <a name="sendReleaseEventOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts"></a>
+
+```typescript
+public readonly sendReleaseEventOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.datadog.ReleaseEventOptions
+- *Default:* undefined
+
+Datadog event options to use on release.
+
+Only valid when
+`sendReleaseEvent` is true.
+
+---
+
 ### ClickUpCdkConstructLibraryOptions <a name="ClickUpCdkConstructLibraryOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions"></a>
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.Initializer"></a>
@@ -2465,11 +2513,9 @@ public readonly sendReleaseEvent: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* false
+- *Default:* true
 
 Feature flag for datadog event sending on release.
-
-TODO: Should probably be removed after rigorous testing.
 
 ---
 
@@ -2485,8 +2531,7 @@ public readonly sendReleaseEventOpts: ReleaseEventOptions;
 Datadog event options to use on release.
 
 Only valid when
-`sendReleaseEvent` FF is toggled on.
-TODO: When `sendReleaseEvent` is no longer a feature flag, move this.
+`sendReleaseEvent` is true.
 
 ---
 
@@ -4843,11 +4888,9 @@ public readonly sendReleaseEvent: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* false
+- *Default:* true
 
 Feature flag for datadog event sending on release.
-
-TODO: Should probably be removed after rigorous testing.
 
 ---
 
@@ -4863,8 +4906,7 @@ public readonly sendReleaseEventOpts: ReleaseEventOptions;
 Datadog event options to use on release.
 
 Only valid when
-`sendReleaseEvent` FF is toggled on.
-TODO: When `sendReleaseEvent` is no longer a feature flag, move this.
+`sendReleaseEvent` is true.
 
 ---
 

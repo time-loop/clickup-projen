@@ -37,18 +37,18 @@ export module clickupCdk {
    * Intentionally unexposed, so long as these features are hidden behind FF.
    * I.e., you have to dig to find these potentially buggy features.
    */
-  interface ClickUpCdkFeatureFlags {
+  interface ClickUpCdkFeatureFlags {}
+
+  export interface ClickUpCdkCommonOptions extends ClickUpCdkFeatureFlags {
     /**
      * Feature flag for datadog event sending on release.
-     * TODO: Should probably be removed after rigorous testing.
      *
-     * @default false
+     * @default true
      */
     readonly sendReleaseEvent?: boolean;
     /**
      * Datadog event options to use on release. Only valid when
-     * `sendReleaseEvent` FF is toggled on.
-     * TODO: When `sendReleaseEvent` is no longer a feature flag, move this.
+     * `sendReleaseEvent` is true.
      *
      * @default undefined
      */
@@ -57,7 +57,7 @@ export module clickupCdk {
 
   export interface ClickUpCdkConstructLibraryOptions
     extends awscdk.AwsCdkConstructLibraryOptions,
-      ClickUpCdkFeatureFlags {}
+      ClickUpCdkCommonOptions {}
 
   /**
    * ClickUp standardized CDK Construct Library.
@@ -81,16 +81,16 @@ export module clickupCdk {
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
 
-      // TODO: This is a feature flag, and should be simplified after rigorous testing.
-      // i.e., enablement should become the default (and maybe not even optional?)
-      if (options.sendReleaseEvent) {
+      if (options.sendReleaseEvent === false) {
+        this.datadogEvent = false;
+      } else {
         datadog.addReleaseEvent(this, options.sendReleaseEventOpts);
         this.datadogEvent = true;
-      } else this.datadogEvent = false;
+      }
     }
   }
 
-  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkFeatureFlags {}
+  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {}
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -117,12 +117,12 @@ export module clickupCdk {
       });
       codecov.addCodeCovYml(this);
 
-      // TODO: This is a feature flag, and should be simplified after rigorous testing.
-      // i.e., enablement should become the default (and maybe not even optional?)
-      if (options.sendReleaseEvent) {
+      if (options.sendReleaseEvent === false) {
+        this.datadogEvent = false;
+      } else {
         datadog.addReleaseEvent(this, options.sendReleaseEventOpts);
         this.datadogEvent = true;
-      } else this.datadogEvent = false;
+      }
     }
   }
 
