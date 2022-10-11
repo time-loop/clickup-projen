@@ -207,3 +207,28 @@ cd "$NEW_CDK_LIB"
 export GITHUB_OWNER="time-loop" # optional, defaults to time-loop, used by clickup-projen for module name prefix
 projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/clickup-projen@0.0.0.jsii.tgz clickupcdk_clickupcdkconstructlibrary
 ```
+
+## Upgrading Dependencies...Quickly
+
+Since there will be many repos which are created as `clickup-projen` based projects, there will be many which utilize the same common dependencies. Even beyond that, sometimes waiting for the dependabot functionality takes too long depending on the frequency at which it's set to run.
+
+Sometimes, we need to push out a dependency to all consuming repos *fast*. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerUpgradeMain.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
+
+### Requirements
+
+- `gh` [CLI tool is installed](https://cli.github.com/)
+- You have access to the GitHub repos in question
+- The following env vars be set/passed on execution:
+  - `REPO_OWNER`: The organization or author who owns the repository
+  - `REPO_SUFFIX`: The suffix of any repository deemed eligible for the upgrade (for example, all repos ending in `-cdk`)
+
+The following are optional variables with defaults:
+
+- `REPO_LIMIT`: The limit to the number of repositories `gh` tool will return
+  - Default: `250`
+
+Here is an example:
+
+```bash
+> REPO_OWNER='time-loop' REPO_SUFFIX='-cdk' ./triggerUpgradeMain.sh
+```
