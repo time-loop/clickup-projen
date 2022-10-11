@@ -5,6 +5,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
+# Verifies GH CLI tool is installed
 function testGhCli() {
     if which gh 2>&1 >/dev/null; then
         echo -e 'Verified gh CLI tool is accessible.';
@@ -14,8 +15,8 @@ function testGhCli() {
     fi
 }
 
-# Finds all repos with a given suffix under time-loop org, and then iterates
-# over them and 
+# Finds all repos with a given suffix under REPO_OWNER org, then iterates over
+# them triggering an `upgrade-main` workflow for each. 
 function runUpgradeMain() {
     local owner="${REPO_OWNER}";
     local repos=($(gh repo list "${owner}" --limit "${REPO_LIMIT}" --no-archived --json name -q ".[].name | select(endswith(\"${REPO_SUFFIX}\"))"));
@@ -38,8 +39,12 @@ function runUpgradeMain() {
 }
 
 # Entrypoint
+
+# Grab necessary vars
 REPO_SUFFIX=${REPO_SUFFIX:-'-cdk'};
 REPO_LIMIT=${REPO_LIMIT:-250};
 REPO_OWNER=${REPO_OWNER:-'time-loop'};
+
+# Fire away.
 testGhCli;
 runUpgradeMain;
