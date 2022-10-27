@@ -155,6 +155,7 @@ Object {
   },
   "dependencies": Object {
     "@time-loop/cdk-library": "*",
+    "@time-loop/cdk-named-environments": "*",
     "@time-loop/clickup-projen": "*",
     "aws-cdk-lib": "^2.1.0",
     "cdk-constants": "*",
