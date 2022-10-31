@@ -198,18 +198,13 @@ export module clickupTs {
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
       super(
-        merge(
-          defaults,
-          { deps },
-          options,
+        merge(defaults, { deps }, options, {
           // Set is used here to ensure uniqueness
-          {
-            // Disable projen's built-in docgen class
-            devDeps: [...new Set(getPinnedDeps(options.peerDeps ?? []))],
-            docgen: undefined,
-            name: normalizeName(options.name),
-          },
-        ),
+          devDeps: [...new Set(getPinnedDeps(options.peerDeps ?? []))],
+          // Disable projen's built-in docgen class
+          docgen: undefined,
+          name: normalizeName(options.name),
+        }),
       );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
