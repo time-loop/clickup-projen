@@ -30,6 +30,7 @@ export module clickupCdk {
       '- [ ] Appropriate doc-strings were added to interfaces, objects and methods.',
       '',
       '## This PR updates the following environments',
+      '- [ ] Dev',
       '- [ ] QA',
       '- [ ] Staging',
       '- [ ] Prod',
