@@ -2,6 +2,7 @@ import { javascript, typescript, Component, JsonFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
+import { getPinnedDeps } from './helpers';
 
 export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
@@ -27,7 +28,6 @@ export module clickupTs {
     npmRegistryUrl: 'https://npm.pkg.github.com',
 
     devDeps,
-
     depsUpgradeOptions: {
       workflowOptions: {
         schedule: javascript.UpgradeDependenciesSchedule.WEEKLY,
@@ -198,11 +198,17 @@ export module clickupTs {
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
       super(
-        merge(defaults, { deps }, options, {
-          // Disable projen's built-in docgen class
-          docgen: undefined,
-          name: normalizeName(options.name),
-        }),
+        merge(
+          defaults,
+          { deps },
+          options,
+          { devDeps: [...new Set(getPinnedDeps(options.peerDeps ?? []))] },
+          {
+            // Disable projen's built-in docgen class
+            docgen: undefined,
+            name: normalizeName(options.name),
+          },
+        ),
       );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);

@@ -1,5 +1,6 @@
 import { Testing } from 'projen';
 import { clickupTs } from '../src';
+import { getPinnedDeps } from '../src/helpers';
 
 describe('ClickUpTypeScriptProject', () => {
   describe('defaults', () => {
@@ -100,6 +101,40 @@ describe('ClickUpTypeScriptProject', () => {
       });
       const matchedFiles = project.files.filter((file) => file.path === testOverride);
       expect(matchedFiles).toHaveLength(1);
+    });
+  });
+  describe('peerDeps', () => {
+    const commonOpts: clickupTs.ClickUpTypeScriptProjectOptions = {
+      name: 'random-prefix',
+      defaultReleaseBranch: 'main',
+      peerDeps: ['@time-loop/cdk-ecs-fargate@^1.0.3', 'ts-deepmerge@2.5.3'],
+    };
+    const project = new clickupTs.ClickUpTypeScriptProject(commonOpts);
+    const synth = Testing.synth(project);
+    const pkgJson = synth['package.json'];
+
+    it('is set correctly', () => {
+      // Need to stringify, then parse to make this accessible
+      const peerDeps: Record<string, string> = JSON.parse(JSON.stringify(pkgJson.peerDependencies));
+      expect(peerDeps).toBeDefined();
+      const actualPeerDeps = Object.entries(peerDeps).map((kvPair) => {
+        return kvPair.join('@');
+      });
+      commonOpts.peerDeps!.forEach((dep) => {
+        expect(actualPeerDeps.includes(dep)).toBeTruthy();
+      });
+    });
+    it('adds to devDeps correctly', () => {
+      // Need to stringify, then parse to make this accessible
+      const devDeps: Record<string, string> = JSON.parse(JSON.stringify(pkgJson.devDependencies));
+      expect(devDeps).toBeDefined();
+      const actualDevDeps = Object.entries(devDeps).map((kvPair) => {
+        return kvPair.join('@');
+      });
+      const expectedDevDeps = getPinnedDeps(commonOpts.peerDeps!);
+      expectedDevDeps.forEach((dep) => {
+        expect(actualDevDeps.includes(dep)).toBeTruthy();
+      });
     });
   });
 });

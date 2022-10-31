@@ -1,5 +1,6 @@
 import { Testing } from 'projen';
 import { clickupCdk } from '../src';
+import { getPinnedDeps } from '../src/helpers';
 
 const requiredParams = {
   name: 'test',
@@ -68,6 +69,39 @@ describe('ClickUpCdkConstructLibrary', () => {
         sendReleaseEvent: false,
       });
       expect(p.datadogEvent).toBeFalsy();
+    });
+    describe('peerDeps', () => {
+      const props: clickupCdk.ClickUpCdkConstructLibraryOptions = {
+        ...commonProps,
+        peerDeps: ['@time-loop/cdk-ecs-fargate@^1.0.3', 'ts-deepmerge@2.5.3'],
+      };
+      p = new clickupCdk.ClickUpCdkConstructLibrary(props);
+      const synth = Testing.synth(p);
+      const pkgJson = synth['package.json'];
+
+      it('are set correctly', () => {
+        // Need to stringify, then parse to make this accessible
+        const peerDeps: Record<string, string> = JSON.parse(JSON.stringify(pkgJson.peerDependencies));
+        expect(peerDeps).toBeDefined();
+        const actualPeerDeps = Object.entries(peerDeps).map((kvPair) => {
+          return kvPair.join('@');
+        });
+        props.peerDeps!.forEach((dep) => {
+          expect(actualPeerDeps.includes(dep)).toBeTruthy();
+        });
+      });
+      it('adds to devDeps correctly', () => {
+        // Need to stringify, then parse to make this accessible
+        const devDeps: Record<string, string> = JSON.parse(JSON.stringify(pkgJson.devDependencies));
+        expect(devDeps).toBeDefined();
+        const actualDevDeps = Object.entries(devDeps).map((kvPair) => {
+          return kvPair.join('@');
+        });
+        const expectedDevDeps = getPinnedDeps(props.peerDeps!);
+        expectedDevDeps.forEach((dep) => {
+          expect(actualDevDeps.includes(dep)).toBeTruthy();
+        });
+      });
     });
   });
 });

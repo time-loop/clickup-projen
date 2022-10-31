@@ -4,6 +4,7 @@ import merge from 'ts-deepmerge';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
+import { getPinnedDeps } from './helpers';
 
 export module clickupCdk {
   export const deps = [
@@ -83,7 +84,15 @@ export module clickupCdk {
       const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
       // Theoretically we should be able to just take a default here, but for some reason this is required.
       const repositoryUrl = options.repositoryUrl || `https://github.com/${name.substring(1)}.git`;
-      super(merge(clickupTs.defaults, options, { authorName, authorAddress, name, repositoryUrl }));
+      super(
+        merge(clickupTs.defaults, options, {
+          authorName,
+          authorAddress,
+          name,
+          repositoryUrl,
+          devDeps: [...new Set(getPinnedDeps(options.peerDeps ?? []))],
+        }),
+      );
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
 
