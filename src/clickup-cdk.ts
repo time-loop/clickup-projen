@@ -90,6 +90,7 @@ export module clickupCdk {
           authorAddress,
           name,
           repositoryUrl,
+          // Set is used here to ensure uniqueness
           devDeps: [...new Set(getPinnedDeps(options.peerDeps ?? []))],
         }),
       );

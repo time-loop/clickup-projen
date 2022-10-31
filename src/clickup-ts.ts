@@ -202,6 +202,7 @@ export module clickupTs {
           defaults,
           { deps },
           options,
+          // Set is used here to ensure uniqueness
           { devDeps: [...new Set(getPinnedDeps(options.peerDeps ?? []))] },
           {
             // Disable projen's built-in docgen class
