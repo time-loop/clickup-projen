@@ -6,7 +6,13 @@ import { codecov } from './codecov';
 import { datadog } from './datadog';
 
 export module clickupCdk {
-  export const deps = [...clickupTs.deps, '@time-loop/cdk-library', 'cdk-constants', 'multi-convention-namer'];
+  export const deps = [
+    ...clickupTs.deps,
+    '@time-loop/cdk-library',
+    '@time-loop/cdk-named-environments',
+    'cdk-constants',
+    'multi-convention-namer',
+  ];
   export const defaults = {
     deps,
     jestOptions: {
