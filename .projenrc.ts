@@ -27,6 +27,8 @@ const project = new cdk.JsiiProject({
     },
   },
 
+  gitignore: ['.idea'],
+
   // We don't depend on any private resources.
   // Add a .npmrc before we try to Install dependencies
   // workflowBootstrapSteps: [
