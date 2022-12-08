@@ -1,4 +1,4 @@
-import path from 'path';
+import { join } from 'path';
 import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
@@ -100,7 +100,12 @@ export module clickupCdk {
   }
 
   export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {
-    unitTestDir?: string;
+    /**
+     * Name of subdirectory under test directory which contains only unittests.
+     *
+     * @default undefined
+     */
+    readonly unitTestDir?: string;
   }
 
   /**
@@ -152,7 +157,7 @@ export module clickupCdk {
         const overrides = {} as { exec?: string };
         let execToBeReplaced = taskStep.exec;
         if (typeof execToBeReplaced === 'string' && execToBeReplaced?.startsWith('jest ')) {
-          overrides.exec = `${execToBeReplaced} ${path.join(this.testdir, testSubDirectory)}`;
+          overrides.exec = `${execToBeReplaced} ${join(this.testdir, testSubDirectory)}`;
         }
         return { ...taskStep, ...overrides };
       });

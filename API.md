@@ -2704,6 +2704,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.unitTestDir">unitTestDir</a></code> | <code>string</code> | Name of subdirectory under test directory which contains only unittests. |
 
 ---
 
@@ -4907,6 +4908,19 @@ Datadog event options to use on release.
 
 Only valid when
 `sendReleaseEvent` is true.
+
+---
+
+##### `unitTestDir`<sup>Optional</sup> <a name="unitTestDir" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.unitTestDir"></a>
+
+```typescript
+public readonly unitTestDir: string;
+```
+
+- *Type:* string
+- *Default:* undefined
+
+Name of subdirectory under test directory which contains only unittests.
 
 ---
 
@@ -9214,6 +9228,7 @@ The list of modules to depend on.
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkTasks">cdkTasks</a></code> | <code>projen.awscdk.CdkTasks</code> | Common CDK tasks. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | The CDK version this app is using. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.datadogEvent">datadogEvent</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.unitTestDir">unitTestDir</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -9992,6 +10007,16 @@ public readonly datadogEvent: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `unitTestDir`<sup>Optional</sup> <a name="unitTestDir" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.unitTestDir"></a>
+
+```typescript
+public readonly unitTestDir: string;
+```
+
+- *Type:* string
 
 ---
 
