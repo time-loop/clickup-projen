@@ -11,9 +11,9 @@ describe('ClickUpCdkTypeScriptApp', () => {
   describe('defaults', () => {
     const p = new clickupCdk.ClickUpCdkTypeScriptApp(requiredParams);
     const synth = Testing.synth(p);
-    ['README.md', 'package.json', 'src/main.ts', 'src/widget.ts', 'test/widget.test.ts'].forEach((file) => {
-      test(file, () => {
-        expect(synth[file]).toMatchSnapshot();
+    ['README.md', 'package.json', 'src/main.ts', 'src/widget.ts', 'test/widget.test.ts', '.projen/tasks.json'].forEach((file) => {
+        test(file, () => {
+          expect(synth[file]).toMatchSnapshot();
       });
     });
     test('prettier is enabled', () => {
