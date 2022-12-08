@@ -1,3 +1,4 @@
+import path from 'path';
 import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
@@ -77,6 +78,7 @@ export module clickupCdk {
    */
   export class ClickUpCdkConstructLibrary extends awscdk.AwsCdkConstructLibrary {
     readonly datadogEvent: boolean;
+
     constructor(options: ClickUpCdkConstructLibraryOptions) {
       const name = clickupTs.normalizeName(options.name);
       // JSII means I can't Omit and then re-implement the following as optional. So...
@@ -97,7 +99,9 @@ export module clickupCdk {
     }
   }
 
-  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {}
+  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {
+    unitTestDir?: string;
+  }
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -112,8 +116,11 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     readonly datadogEvent: boolean;
+    readonly unitTestDir?: string;
+
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
       super(merge(clickupTs.defaults, defaults, options, { sampleCode: false }));
+      this.unitTestDir = options.unitTestDir;
       clickupTs.fixTsNodeDeps(this.package);
       new AppSampleCode(this);
       new SampleReadme(this, {
@@ -122,6 +129,7 @@ export module clickupCdk {
         # my-new-app-cdk
         `,
       });
+      this.addSpecificTestsTasks();
       codecov.addCodeCovYml(this);
 
       if (options.sendReleaseEvent === false) {
@@ -130,6 +138,29 @@ export module clickupCdk {
         datadog.addReleaseEvent(this, options.sendReleaseEventOpts);
         this.datadogEvent = true;
       }
+    }
+
+    private addSpecificTestsTasks() {
+      if (this.unitTestDir !== undefined) {
+        this.addTestsTask('unit-test', this.unitTestDir);
+      }
+    }
+
+    private addTestsTask(taskName: string, testSubDirectory: string) {
+      let test = this.testTask;
+      let newSteps = test?.steps.map((taskStep) => {
+        const overrides = {} as { exec?: string };
+        let execToBeReplaced = taskStep.exec;
+        if (typeof execToBeReplaced === 'string' && execToBeReplaced?.startsWith('jest ')) {
+          overrides.exec = `${execToBeReplaced} ${path.join(this.testdir, testSubDirectory)}`;
+        }
+        return { ...taskStep, ...overrides };
+      });
+
+      this.addTask(taskName, {
+        description: 'Run unit tests only.',
+        steps: newSteps,
+      });
     }
   }
 

@@ -398,6 +398,18 @@ Object {
         },
       ],
     },
+    "unit-test": Object {
+      "description": "Run unit tests only.",
+      "name": "unit-test",
+      "steps": Array [
+        Object {
+          "exec": "jest --passWithNoTests --all --updateSnapshot --coverageProvider=v8 test/unit",
+        },
+        Object {
+          "spawn": "eslint",
+        },
+      ],
+    },
     "upgrade": Object {
       "description": "upgrade dependencies",
       "env": Object {
@@ -573,6 +585,7 @@ Object {
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",
     "unbump": "npx projen unbump",
+    "unit-test": "npx projen unit-test",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
   },
