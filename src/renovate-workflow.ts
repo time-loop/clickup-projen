@@ -2,6 +2,7 @@ import { typescript, YamlFile } from 'projen';
 
 export module renovateWorkflow {
   const defaultWorkflow = {
+    name: 'upgrade-main',
     on: {
       // Run daily to update the renovate dependency dashboard issue with new updates
       schedule: [
