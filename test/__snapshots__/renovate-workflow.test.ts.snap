@@ -34,9 +34,9 @@ jobs:
           token: x-access-token:\${{ secrets.PROJEN_GITHUB_TOKEN }}
         env:
           RENOVATE_HOST_RULES: '[{\\"matchHost\\":\\"https://npm.pkg.github.com/\\",\\"hostType\\":\\"npm\\",\\"token\\":\\"\${{ secrets.ALL_PACKAGE_READ_TOKEN }}\\"}]'
+          RENOVATE_NPMRC: \\"@\${{ github.repository_owner }}:registry=https://npm.pkg.github.com\\"
           RENOVATE_ENABLED_MANAGERS: '[\\"npm\\"]'
           RENOVATE_REPOSITORIES: '[\\"\${{ github.repository }}\\"]'
-          RENOVATE_NPMRC: \\"@\${{ github.repository_owner }}:registry=https://npm.pkg.github.com\\"
           RENOVATE_FORCE: \${{ github.event_name == 'workflow_dispatch' && '{\\"schedule\\":null}' || '' }}
 "
 `;
@@ -75,9 +75,9 @@ jobs:
           token: x-access-token:\${{ secrets.PROJEN_GITHUB_TOKEN }}
         env:
           RENOVATE_HOST_RULES: '[{\\"matchHost\\":\\"https://npm.pkg.github.com/\\",\\"hostType\\":\\"npm\\",\\"token\\":\\"\${{ secrets.ALL_PACKAGE_READ_TOKEN }}\\"}]'
+          RENOVATE_NPMRC: \\"@\${{ github.repository_owner }}:registry=https://npm.pkg.github.com\\"
           RENOVATE_ENABLED_MANAGERS: '[\\"npm\\"]'
           RENOVATE_REPOSITORIES: '[\\"\${{ github.repository }}\\"]'
-          RENOVATE_NPMRC: \\"@\${{ github.repository_owner }}:registry=https://npm.pkg.github.com\\"
           RENOVATE_FORCE: \${{ github.event_name == 'workflow_dispatch' && '{\\"schedule\\":null}' || '' }}
 foo: bar
 "
