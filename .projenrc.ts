@@ -1,4 +1,5 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
+import { renovateWorkflow } from './src/renovate-workflow';
 
 const bundledDeps = ['ts-deepmerge', 'cson-parser'];
 
@@ -60,6 +61,12 @@ const project = new cdk.JsiiProject({
   projenrcTs: true,
   stale: true,
 
+  depsUpgrade: false,
+  renovatebot: true,
+  renovatebotOptions: {
+    scheduleInterval: ['before 1am on Monday'],
+  },
+
   jestOptions: {
     jestConfig: {
       collectCoverageFrom: ['src/**/*.ts'],
@@ -115,5 +122,7 @@ new YamlFile(project, 'codecov.yml', {
     },
   },
 });
+
+renovateWorkflow.addRenovateWorkflowYml(project);
 
 project.synth();
