@@ -2,6 +2,7 @@ import { javascript, typescript, Component, JsonFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
+import { renovateWorkflow } from './renovate-workflow';
 
 export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
@@ -28,10 +29,10 @@ export module clickupTs {
 
     devDeps,
 
-    depsUpgradeOptions: {
-      workflowOptions: {
-        schedule: javascript.UpgradeDependenciesSchedule.WEEKLY,
-      },
+    depsUpgrade: false,
+    renovatebot: true,
+    renovatebotOptions: {
+      scheduleInterval: ['before 1am on Monday'],
     },
 
     workflowBootstrapSteps: [
@@ -206,6 +207,7 @@ export module clickupTs {
       );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+      renovateWorkflow.addRenovateWorkflowYml(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
     }
   }

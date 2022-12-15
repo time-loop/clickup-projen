@@ -4,6 +4,7 @@ import merge from 'ts-deepmerge';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
+import { renovateWorkflow } from './renovate-workflow';
 
 export module clickupCdk {
   export const deps = [
@@ -87,6 +88,7 @@ export module clickupCdk {
       super(merge(clickupTs.defaults, options, { authorName, authorAddress, name, repositoryUrl }));
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+      renovateWorkflow.addRenovateWorkflowYml(this);
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
@@ -123,6 +125,7 @@ export module clickupCdk {
         `,
       });
       codecov.addCodeCovYml(this);
+      renovateWorkflow.addRenovateWorkflowYml(this);
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
