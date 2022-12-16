@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --check-files
       - name: build
-        run: npx projen build
+        run: NODE_OPTIONS=--max_old_space_size=8192 npx projen build
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
