@@ -143,36 +143,119 @@ export module clickupCdk {
       // src files
       new SampleDir(project, project.srcdir, {
         files: {
-          'main.ts': `import { core } from '@time-loop/cdk-library';
-import { App } from 'aws-cdk-lib';
-import { Namer } from 'multi-convention-namer';
+          'helpers.ts': `import { Namer } from 'multi-convention-namer';
 
-import { WidgetStack } from './widget';
+export const rootName = new Namer(['sample', 'widget']);
+
+export enum EStackName {
+  Pipeline = 'pipeline',
+}`,
+
+          'main.ts': `import { App } from 'aws-cdk-lib';
+
+import { PipelineStack } from './pipeline';
 
 const app = new App();
-const env = process.env.AWS_PROFILE || (process.env.CI ? 'usDev' : '');
-const region = process.env.AWS_REGION || (process.env.CI ? 'us-east-1' : undefined);
-if (!env) {
-  console.log('You should probably set AWS_PROFILE before using this.');
-}
-const namedEnvFactory = core.Environment.findByName(env);
-const namedEnv = namedEnvFactory(region);
 
-console.log(\`Deploying to \${JSON.stringify(namedEnv.name)} in \${JSON.stringify(namedEnv.region)}.\`);
+new PipelineStack(app);
 
-const commonProps = {
+app.synth();`,
+          'pipeline.ts': `import { core, cdkPipeline } from '@time-loop/cdk-library';
+import { Stage as AwsStage, pipelines } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { Namer } from 'multi-convention-namer';
+import { EStackName, rootName } from './helpers';
+import { Stage } from './stage';
+
+export const commonProps = {
   businessUnit: core.BusinessUnit.PRODUCT,
   clickUpEnvironment: core.ClickUpEnvironment.PRODUCTION,
   clickUpRole: core.ClickUpRole.APP,
   confidentiality: core.Confidentiality.PUBLIC,
-  namedEnv,
 };
-new WidgetStack(app, new Namer(['my', 'cool', 'widget']), {
-  ...commonProps,
-  managedPolicyName: 'yarf',
-});
 
-app.synth();
+interface IHasAddStage {
+  addStage(stage: AwsStage, options?: pipelines.AddStageOpts): pipelines.StageDeployment;
+}
+
+interface AddStageProps {
+  /**
+   * Where should we add the stage?
+   *
+   * @default githubPipeline
+   */
+  to?: IHasAddStage;
+}
+
+export class PipelineStack extends core.AccountLevelStack {
+  constructor(scope: Construct, props?: core.StackProps) {
+    const rootId = rootName;
+    const stackId = rootId.addSuffix([EStackName.Pipeline]);
+    super(scope, stackId, {
+      ...commonProps,
+      namedEnv: core.Environment.usCdkPipelines('us-east-1'),
+      ...props,
+    });
+    const githubPipeline = new cdkPipeline.GitHubPipeline(this, stackId, {
+      repoString: \`time-loop/\${rootId.addSuffix(['cdk']).kebab}\`,
+    });
+
+    const addStage = (
+      namedEnvFactory: core.INamedEnvFactory,
+      regions: string[],
+      addStageProps?: AddStageProps,
+    ): Stage[] => {
+      return regions.map((region) => {
+        const namedEnv = namedEnvFactory(region);
+        const stageId = new Namer([namedEnv.name, region]);
+        const stage = new Stage(this, stageId, rootId, {
+          ...commonProps,
+          clickUpEnvironment: namedEnv.organizationalUnit, // clickUpEnvironment kinda just duplicated OU. Might as well make that formal.
+          clickUpRole: core.ClickUpRole.APP,
+          namedEnv,
+        });
+        (addStageProps?.to ?? githubPipeline).addStage(stage);
+        return stage;
+      });
+    };
+
+    // uncomment and add your team dev account
+    // addStage(core.Environment.usYourTeamDev, ['us-west-2']);
+    addStage(core.Environment.usQa, ['us-west-2']);
+
+    // Uncomment this when your code will be ready to be deployed on higher envs
+    // const staging = githubPipeline.addWave('Staging');
+    // addStage(core.Environment.globalStaging, ['us-west-2'], { to: staging });
+    //
+    // const production = githubPipeline.addWave('Prod', {
+    //   pre: [
+    //     new pipelines.ManualApprovalStep('Approve for the rest of Prod', {
+    //       comment: 'Please confirm your metrics are looking good in staging',
+    //     }),
+    //   ],
+    // });
+    // addStage(core.Environment.globalProd, ['us-west-2'], { to: production });
+  }
+}
+`,
+          'stage.ts': `
+          import { core } from '@time-loop/cdk-library';
+import { Construct } from 'constructs';
+import { Namer } from 'multi-convention-namer';
+import { WidgetStack } from './widget';
+
+export interface StageProps extends core.StageProps {}
+
+export class Stage extends core.Stage {
+  constructor(scope: Construct, stageId: Namer, rootId: Namer, props: StageProps) {
+    super(scope, stageId, props);
+
+    new WidgetStack(this, rootId, {
+      ...props,
+      managedPolicyName: 'yarf',
+    });
+  }
+}
 `,
           'widget.ts': `
 import { core } from '@time-loop/cdk-library';
@@ -257,6 +340,42 @@ export class WidgetStack extends core.Stack {
       // test files
       new SampleDir(project, project.testdir, {
         files: {
+          'pipeline.test.ts': `import { core } from '@time-loop/cdk-library';
+import { App, assertions } from 'aws-cdk-lib';
+import { PipelineStack } from '../src/pipeline';
+
+const commonProps = {
+  businessUnit: core.BusinessUnit.PRODUCT,
+  clickUpEnvironment: core.ClickUpEnvironment.PRODUCTION,
+  clickUpRole: core.ClickUpRole.APP,
+  confidentiality: core.Confidentiality.PUBLIC,
+  namedEnv: core.Environment.usQa('us-west-2'),
+};
+
+describe('PipelineStack', () => {
+  describe('default', () => {
+    const app = new App();
+    const stack = new PipelineStack(app, { ...commonProps });
+    const template = assertions.Template.fromStack(stack);
+
+    it('creates a pipeline', () => {
+      template.resourceCountIs('AWS::CodePipeline::Pipeline', 1);
+    });
+    it('with a Synth step', () => {
+      template.hasResourceProperties('AWS::CodeBuild::Project', {
+        Source: { Type: 'CODEPIPELINE' },
+        Description: assertions.Match.stringLikeRegexp('SynthStep'),
+      });
+    });
+    it('with a SelfMutate step', () => {
+      template.hasResourceProperties('AWS::CodeBuild::Project', {
+        Source: { Type: 'CODEPIPELINE' },
+        Description: assertions.Match.stringLikeRegexp('SelfMutate'),
+      });
+    });
+  });
+});
+`,
           'widget.test.ts': `import { core } from '@time-loop/cdk-library';
 import { App, assertions } from 'aws-cdk-lib';
 import { Namer } from 'multi-convention-namer';
