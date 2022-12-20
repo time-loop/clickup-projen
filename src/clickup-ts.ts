@@ -29,7 +29,10 @@ export module clickupTs {
 
     devDeps,
 
-    depsUpgrade: false,
+    depsUpgrade: true,
+    depsUpgradeOptions: {
+      workflow: false,
+    },
     renovatebot: true,
     renovatebotOptions: {
       scheduleInterval: ['before 1am on Monday'],
