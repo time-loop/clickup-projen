@@ -65,6 +65,7 @@ const project = new cdk.JsiiProject({
   renovatebot: true,
   renovatebotOptions: {
     scheduleInterval: ['before 1am on Monday'],
+    ignoreProjen: false,
   },
 
   jestOptions: {
