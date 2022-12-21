@@ -36,6 +36,7 @@ export module clickupTs {
     renovatebot: true,
     renovatebotOptions: {
       scheduleInterval: ['before 1am on Monday'],
+      ignoreProjen: false,
     },
 
     workflowBootstrapSteps: [
