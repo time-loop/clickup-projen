@@ -34,5 +34,6 @@
     "ts-jest",
     "@types/babel__traverse",
     "@types/prettier"
-  ]
+  ],
+  "rangeStrategy": "bump"
 }

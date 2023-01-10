@@ -5070,6 +5070,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.authorAddress">authorAddress</a></code> | <code>string</code> | Email address for project author. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | Additional options pertaining to the typedoc config file. |
 
 ---
@@ -6948,6 +6949,18 @@ TypeScript version to use.
 
 NOTE: Typescript is not semantically versioned and should remain on the
 same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
+
+---
+
+##### `authorAddress`<sup>Optional</sup> <a name="authorAddress" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.authorAddress"></a>
+
+```typescript
+public readonly authorAddress: string;
+```
+
+- *Type:* string
+
+Email address for project author.
 
 ---
 
