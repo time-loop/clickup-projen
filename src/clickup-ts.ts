@@ -32,6 +32,7 @@ export module clickupTs {
       ignoreProjen: false,
       overrideConfig: {
         rangeStrategy: 'bump',
+        extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
       },
     },
 
