@@ -68,6 +68,7 @@ const project = new cdk.JsiiProject({
     ignoreProjen: false,
     overrideConfig: {
       rangeStrategy: 'bump',
+      extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
     },
   },
 

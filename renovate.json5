@@ -4,7 +4,6 @@
     "before 1am on Monday"
   ],
   "extends": [
-    ":preserveSemverRanges",
     "config:base",
     "group:allNonMajor",
     "group:recommended",
