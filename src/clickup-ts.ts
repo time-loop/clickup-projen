@@ -10,7 +10,7 @@ export module clickupTs {
 
   export const devDeps = ['esbuild', 'eslint-config-prettier', 'eslint-plugin-prettier', 'jsii-release', 'prettier'];
 
-  export const defaults = {
+  export const defaults: Partial<ClickUpTypeScriptProjectOptions> = {
     authorAddress: 'devops@clickup.com',
     authorName: 'ClickUp',
     authorOrganization: true,
@@ -30,6 +30,9 @@ export module clickupTs {
     renovatebotOptions: {
       scheduleInterval: ['before 1am on Monday'],
       ignoreProjen: false,
+      overrideConfig: {
+        rangeStrategy: 'bump'
+      }
     },
 
     workflowBootstrapSteps: [
@@ -177,6 +180,11 @@ export module clickupTs {
      * NOTE: `docgen` attribute cannot be false.
      */
     readonly docgenOptions?: TypedocDocgenOptions;
+
+    /**
+     * Email address for project author
+     */
+    readonly authorAddress?: string;
   }
 
   /**
