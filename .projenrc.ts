@@ -67,8 +67,8 @@ const project = new cdk.JsiiProject({
     scheduleInterval: ['before 1am on Monday'],
     ignoreProjen: false,
     overrideConfig: {
-      rangeStrategy: 'bump'
-    }
+      rangeStrategy: 'bump',
+    },
   },
 
   jestOptions: {
