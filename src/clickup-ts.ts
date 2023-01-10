@@ -30,6 +30,10 @@ export module clickupTs {
     renovatebotOptions: {
       scheduleInterval: ['before 1am on Monday'],
       ignoreProjen: false,
+      ignore: [
+        // managed by projen
+        'node',
+      ],
       overrideConfig: {
         rangeStrategy: 'bump',
         extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],

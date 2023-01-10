@@ -32,7 +32,8 @@
     "standard-version",
     "ts-jest",
     "@types/babel__traverse",
-    "@types/prettier"
+    "@types/prettier",
+    "node"
   ],
   "rangeStrategy": "bump"
 }
