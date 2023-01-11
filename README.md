@@ -167,6 +167,10 @@ Watch with awe and wonder as projen stamps out a project with
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
         - Include administrators (if you have to break the rules, you have to disable this first)
+  - Context JSON - The last step to get the PR builds running is to copy the context.json
+    - Copy the context JSON from this repository: https://github.com/time-loop/core-cdk/blob/main/cdk.context.json
+    - Create a cdk.context.json in your repo at the root level and copy the above contents.
+    - Now you PR build and test should successfully run. 
 
 That's it! Now go write a failing test and some code to make it pass!
 
