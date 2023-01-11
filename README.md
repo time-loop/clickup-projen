@@ -10,13 +10,15 @@
 
 These project types formalize a whole bunch of opinions.
 You can override things as necessary.
-Usually the way to do this is in your `.projenrc.js` file
+Usually the way to do this is in your `.projenrc.ts` file
 by passing in the initial options when creating the project.
 We use [deepmerge](https://github.com/voodoocreation/ts-deepmerge)
 on passed options to keep surprises down.
 We don't currently have a clean way of reverting an option to undefined.
 
-### Bootstrapping: Setup GitHub Packages Access
+### Bootstrapping:
+
+#### Setup GitHub Packages Access
 
 This is the same step required to use `click` or `@time-loop/cdk-library`.
 In order to use this package, you need to tell your package manager to find it in GitHub Packages.
@@ -42,9 +44,29 @@ EOF
 
 NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
-### Repo Naming Conventions
+#### Node 14.18.0 and up.
 
-We create cdk construct libraries using  `cdk-*` as a prefix.
+Make sure you are using the appropriate node version with `nvm use --lts`.
+The lowest acceptable version is `14.18.0`, but you should probably be using the latest LTS.
+
+#### Sourcing cdk.context.json
+
+When creating new cdk apps, you will need to copy `cdk.context.json` from `core-cdk`.
+To do that, you'll want to keep an up-to-date copy of `core-cdk` around.
+
+```bash
+cd "$MY_CODE_DIR"
+# either
+gh repo clone time-loop/core-cdk
+# or...
+cd core-cdk
+git checkout main
+git pull --ff-only
+```
+
+#### Repo Naming Conventions
+
+We create cdk construct libraries using `cdk-*` as a prefix.
 The goal for construct libraries is to be exceptionally high quality,
 with deep test coverage and coverage numbers in the mid to high 90's.
 The expectation is that we will be Open Sourcing our construct libraries,
@@ -62,18 +84,23 @@ We do not as yet have a naming convention for TypeScript libraries.
 
 ### CdkApp
 
-If you aren't sure, **this is probably what you are here for**. 
+If you aren't sure, **this is probably what you are here for**.
 
-Make sure you are using the appropriate node version with `nvm use --lts`. 
+REMINDER: you should have `$MY_CODE_DIR/core-cdk` checked out and up-to-date before running this.
+See above for details
 
 When creating new cdk apps:
 
 ```bash
+cd "$MY_CODE_DIR"
 NEW_APP="my-new-cdk-app"
 mkdir "$NEW_APP"
 cd "$NEW_APP"
 npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
 GITHUB_OWNER="time-loop"
+cp ../core-cdk/cdk.context.json .
+git add cdk.context.json
+git commit -m "chore: add cdk.context.json"
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_APP"
 ```
 
@@ -163,14 +190,14 @@ Watch with awe and wonder as projen stamps out a project with
           - Require branches to be up to date before merging
           - NOTE: Until your first PR has been pushed, none of the jobs will have executed. Until they have executed, the GitHub search for them will not be able to find them for you to add them as requirements. If you haven't already created a PR to add that badge to the README.md, you might want to do that now.
           - We usually require the following checks: `build`, `validate pr title`, `codecov/patch`, `codecov/project`.
-          - *If you are moving code into a repo*, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
+          - _If you are moving code into a repo_, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
         - Include administrators (if you have to break the rules, you have to disable this first)
   - Context JSON - The last step to get the PR builds running is to copy the context.json
     - Copy the context JSON from this repository: https://github.com/time-loop/core-cdk/blob/main/cdk.context.json
     - Create a cdk.context.json in your repo at the root level and copy the above contents.
-    - Now you PR build and test should successfully run. 
+    - Now you PR build and test should successfully run.
 
 That's it! Now go write a failing test and some code to make it pass!
 
@@ -214,9 +241,11 @@ projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/click
 
 ## Upgrading Dependencies...Quickly
 
+NOTE: we need to update this to work in a `renovate` world.
+
 Since there will be many repos which are created as `clickup-projen` based projects, there will be many which utilize the same common dependencies. Even beyond that, sometimes waiting for the dependabot functionality takes too long depending on the frequency at which it's set to run.
 
-Sometimes, we need to push out a dependency to all consuming repos *fast*. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerUpgradeMain.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
+Sometimes, we need to push out a dependency to all consuming repos _fast_. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerUpgradeMain.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
 
 ### Requirements
 
