@@ -44,7 +44,7 @@ NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
 ### Repo Naming Conventions
 
-We create cdk construct libraries using  `cdk-*` as a prefix.
+We create cdk construct libraries using `cdk-*` as a prefix.
 The goal for construct libraries is to be exceptionally high quality,
 with deep test coverage and coverage numbers in the mid to high 90's.
 The expectation is that we will be Open Sourcing our construct libraries,
@@ -62,9 +62,9 @@ We do not as yet have a naming convention for TypeScript libraries.
 
 ### CdkApp
 
-If you aren't sure, **this is probably what you are here for**. 
+If you aren't sure, **this is probably what you are here for**.
 
-Make sure you are using the appropriate node version with `nvm use --lts`. 
+Make sure you are using the appropriate node version with `nvm use --lts`.
 
 When creating new cdk apps:
 
@@ -163,14 +163,14 @@ Watch with awe and wonder as projen stamps out a project with
           - Require branches to be up to date before merging
           - NOTE: Until your first PR has been pushed, none of the jobs will have executed. Until they have executed, the GitHub search for them will not be able to find them for you to add them as requirements. If you haven't already created a PR to add that badge to the README.md, you might want to do that now.
           - We usually require the following checks: `build`, `validate pr title`, `codecov/patch`, `codecov/project`.
-          - *If you are moving code into a repo*, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
+          - _If you are moving code into a repo_, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
         - Include administrators (if you have to break the rules, you have to disable this first)
   - Context JSON - The last step to get the PR builds running is to copy the context.json
     - Copy the context JSON from this repository: https://github.com/time-loop/core-cdk/blob/main/cdk.context.json
     - Create a cdk.context.json in your repo at the root level and copy the above contents.
-    - Now you PR build and test should successfully run. 
+    - Now you PR build and test should successfully run.
 
 That's it! Now go write a failing test and some code to make it pass!
 
@@ -216,7 +216,7 @@ projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/click
 
 Since there will be many repos which are created as `clickup-projen` based projects, there will be many which utilize the same common dependencies. Even beyond that, sometimes waiting for the dependabot functionality takes too long depending on the frequency at which it's set to run.
 
-Sometimes, we need to push out a dependency to all consuming repos *fast*. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerUpgradeMain.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
+Sometimes, we need to push out a dependency to all consuming repos _fast_. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerUpgradeMain.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
 
 ### Requirements
 
