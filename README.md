@@ -10,13 +10,15 @@
 
 These project types formalize a whole bunch of opinions.
 You can override things as necessary.
-Usually the way to do this is in your `.projenrc.js` file
+Usually the way to do this is in your `.projenrc.ts` file
 by passing in the initial options when creating the project.
 We use [deepmerge](https://github.com/voodoocreation/ts-deepmerge)
 on passed options to keep surprises down.
 We don't currently have a clean way of reverting an option to undefined.
 
-### Bootstrapping: Setup GitHub Packages Access
+### Bootstrapping:
+
+#### Setup GitHub Packages Access
 
 This is the same step required to use `click` or `@time-loop/cdk-library`.
 In order to use this package, you need to tell your package manager to find it in GitHub Packages.
@@ -42,7 +44,27 @@ EOF
 
 NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
-### Repo Naming Conventions
+#### Node 14.18.0 and up.
+
+Make sure you are using the appropriate node version with `nvm use --lts`.
+The lowest acceptable version is `14.18.0`, but you should probably be using the latest LTS.
+
+#### Sourcing cdk.context.json
+
+When creating new cdk apps, you will need to copy `cdk.context.json` from `core-cdk`.
+To do that, you'll want to keep an up-to-date copy of `core-cdk` around.
+
+```bash
+cd "$MY_CODE_DIR"
+# either
+gh repo clone time-loop/core-cdk
+# or...
+cd core-cdk
+git checkout main
+git pull --ff-only
+```
+
+#### Repo Naming Conventions
 
 We create cdk construct libraries using `cdk-*` as a prefix.
 The goal for construct libraries is to be exceptionally high quality,
@@ -64,16 +86,21 @@ We do not as yet have a naming convention for TypeScript libraries.
 
 If you aren't sure, **this is probably what you are here for**.
 
-Make sure you are using the appropriate node version with `nvm use --lts`.
+REMINDER: you should have `$MY_CODE_DIR/core-cdk` checked out and up-to-date before running this.
+See above for details
 
 When creating new cdk apps:
 
 ```bash
+cd "$MY_CODE_DIR"
 NEW_APP="my-new-cdk-app"
 mkdir "$NEW_APP"
 cd "$NEW_APP"
 npx projen new --from @time-loop/clickup-projen clickupcdk_clickupcdktypescriptapp
 GITHUB_OWNER="time-loop"
+cp ../core-cdk/cdk.context.json .
+git add cdk.context.json
+git commit -m "chore: add cdk.context.json"
 gh repo create --private --push --source=. "$GITHUB_OWNER/$NEW_APP"
 ```
 
@@ -213,6 +240,8 @@ projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/click
 ```
 
 ## Upgrading Dependencies...Quickly
+
+NOTE: we need to update this to work in a `renovate` world.
 
 Since there will be many repos which are created as `clickup-projen` based projects, there will be many which utilize the same common dependencies. Even beyond that, sometimes waiting for the dependabot functionality takes too long depending on the frequency at which it's set to run.
 
