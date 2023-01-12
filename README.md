@@ -241,11 +241,9 @@ projen new --from /Users/ahammond/Documents/ClickUp/clickup-projen/dist/js/click
 
 ## Upgrading Dependencies...Quickly
 
-NOTE: we need to update this to work in a `renovate` world.
-
 Since there will be many repos which are created as `clickup-projen` based projects, there will be many which utilize the same common dependencies. Even beyond that, sometimes waiting for the dependabot functionality takes too long depending on the frequency at which it's set to run.
 
-Sometimes, we need to push out a dependency to all consuming repos _fast_. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerUpgradeMain.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
+Sometimes, we need to push out a dependency to all consuming repos _fast_. Rather than iterating manually through each GitHub repository and executing the `upgrade-main` GitHub Workflow, we can run the `triggerRenovate.sh` script at the root of the repo to trigger a dependency upgrade (via PR) for each repo with a given suffix.
 
 ### Requirements
 
@@ -263,5 +261,5 @@ The following are optional variables with defaults:
 Here is an example:
 
 ```bash
-> REPO_OWNER='time-loop' REPO_SUFFIX='-cdk' ./triggerUpgradeMain.sh
+> REPO_OWNER='time-loop' REPO_SUFFIX='-cdk' ./triggerRenovate.sh
 ```
