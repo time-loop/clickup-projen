@@ -4802,10 +4802,10 @@ trim-newlines@^3.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
-ts-deepmerge@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-2.0.7.tgz#36786a9a10b5f3a6f5154007cf17bfba7251e0a7"
-  integrity sha512-3phiGcxPSSR47RBubQxPoZ+pqXsEsozLo4G4AlSrsMKTFg9TA3l+3he5BqpUi9wiuDbaHWXH/amlzQ49uEdXtg==
+ts-deepmerge@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-5.0.0.tgz#9764a1a5696de0fcaaa6f5df2194aed27a7da23e"
+  integrity sha512-K1V6dniogjom+6jsLCysv7y6/Hd04/a9DXiKFSr/7/Y6Ji+9fwFF8DzdncYNQ6VP6to8U9qbztQpIZKqYrtBgQ==
 
 ts-jest@^27:
   version "27.1.5"
