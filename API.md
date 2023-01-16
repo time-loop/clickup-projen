@@ -60,6 +60,7 @@ public readonly sendSlackWebhookOnRelease: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
 
 Should we send a slack webhook on release (required for compliance audits).
 
@@ -2586,6 +2587,7 @@ public readonly sendSlackWebhookOnRelease: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
 
 Should we send a slack webhook on release (required for compliance audits).
 
@@ -4989,6 +4991,7 @@ public readonly sendSlackWebhookOnRelease: boolean;
 ```
 
 - *Type:* boolean
+- *Default:* true
 
 Should we send a slack webhook on release (required for compliance audits).
 
