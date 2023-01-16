@@ -65,6 +65,8 @@ export module clickupCdk {
 
     /**
      * Should we send a slack webhook on release (required for compliance audits)
+     *
+     * @default true
      */
     readonly sendSlackWebhookOnRelease?: boolean;
 
