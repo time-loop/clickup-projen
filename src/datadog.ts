@@ -91,7 +91,7 @@ export module datadog {
           {
             name: 'Get version',
             id: 'event_metadata',
-            run: `echo ::set-output name=release_tag::"$(cat ${project.release!.artifactsDirectory}/releasetag.txt)"`,
+            run: `echo "release_tag=$(cat ${project.release!.artifactsDirectory}/releasetag.txt)" >> $GITHUB_OUTPUT`,
           },
           {
             name: 'Send Datadog event',

@@ -86,7 +86,7 @@ jobs:
           path: dist
       - name: Get version
         id: event_metadata
-        run: echo ::set-output name=release_tag::\\"$(cat dist/releasetag.txt)\\"
+        run: echo \\"release_tag=$(cat dist/releasetag.txt)\\" >> $GITHUB_OUTPUT
       - name: Send Datadog event
         uses: Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948
         with:
@@ -185,7 +185,7 @@ jobs:
           path: dist
       - name: Get version
         id: event_metadata
-        run: echo ::set-output name=release_tag::\\"$(cat dist/releasetag.txt)\\"
+        run: echo \\"release_tag=$(cat dist/releasetag.txt)\\" >> $GITHUB_OUTPUT
       - name: Send Datadog event
         uses: Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948
         with:
@@ -284,7 +284,7 @@ jobs:
           path: dist
       - name: Get version
         id: event_metadata
-        run: echo ::set-output name=release_tag::\\"$(cat dist/releasetag.txt)\\"
+        run: echo \\"release_tag=$(cat dist/releasetag.txt)\\" >> $GITHUB_OUTPUT
       - name: Send Datadog event
         uses: Glennmen/datadog-event-action@fb18624879901f1ff0c3c7e1e102179793bfe948
         with:
