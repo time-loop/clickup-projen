@@ -5,6 +5,7 @@ import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
 import { renovateWorkflow } from './renovate-workflow';
+import { slackAlert } from './slack-alert';
 
 export module clickupCdk {
   export const deps = [
@@ -61,6 +62,18 @@ export module clickupCdk {
      * @default undefined
      */
     readonly sendReleaseEventOpts?: datadog.ReleaseEventOptions;
+
+    /**
+     * Should we send a slack webhook on release (required for compliance audits)
+     *
+     * @default true
+     */
+    readonly sendSlackWebhookOnRelease?: boolean;
+
+    /**
+     * Slack alert on release options. Only valid when `sendSlackWebhookOnRelease` is true.
+     */
+    readonly sendSlackWebhookOnReleaseOpts?: slackAlert.ReleaseEventOptions;
   }
 
   export interface ClickUpCdkConstructLibraryOptions
@@ -95,6 +108,10 @@ export module clickupCdk {
       } else {
         datadog.addReleaseEvent(this, options.sendReleaseEventOpts);
         this.datadogEvent = true;
+      }
+
+      if (options.sendSlackWebhookOnRelease !== false) {
+        slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
       }
     }
   }
@@ -132,6 +149,10 @@ export module clickupCdk {
       } else {
         datadog.addReleaseEvent(this, options.sendReleaseEventOpts);
         this.datadogEvent = true;
+      }
+
+      if (options.sendSlackWebhookOnRelease !== false) {
+        slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
       }
     }
   }
