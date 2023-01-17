@@ -3,6 +3,7 @@ import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
 import { renovateWorkflow } from './renovate-workflow';
+import { slackAlert } from './slack-alert';
 
 export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
@@ -190,6 +191,18 @@ export module clickupTs {
      * Email address for project author
      */
     readonly authorAddress?: string;
+
+    /**
+     * Should we send a slack webhook on release (required for compliance audits)
+     *
+     * @default true
+     */
+    readonly sendSlackWebhookOnRelease?: boolean;
+
+    /**
+     * Slack alert on release options. Only valid when `sendSlackWebhookOnRelease` is true.
+     */
+    readonly sendSlackWebhookOnReleaseOpts?: slackAlert.ReleaseEventOptions;
   }
 
   /**
@@ -219,6 +232,9 @@ export module clickupTs {
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
+      if (options.sendSlackWebhookOnRelease !== false) {
+        slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
+      }
     }
   }
 
