@@ -5159,6 +5159,8 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.authorAddress">authorAddress</a></code> | <code>string</code> | Email address for project author. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | Additional options pertaining to the typedoc config file. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
 
 ---
 
@@ -7062,6 +7064,33 @@ public readonly docgenOptions: TypedocDocgenOptions;
 Additional options pertaining to the typedoc config file.
 
 NOTE: `docgen` attribute cannot be false.
+
+---
+
+##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnRelease"></a>
+
+```typescript
+public readonly sendSlackWebhookOnRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should we send a slack webhook on release (required for compliance audits).
+
+---
+
+##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnReleaseOpts"></a>
+
+```typescript
+public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
+
+Slack alert on release options.
+
+Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
