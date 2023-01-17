@@ -180,7 +180,9 @@ export module clickupTs {
     }
   }
 
-  export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {
+  export interface ClickUpTypeScriptProjectOptions
+    extends typescript.TypeScriptProjectOptions,
+      slackAlert.SendSlackOptions {
     /**
      * Additional options pertaining to the typedoc config file.
      * NOTE: `docgen` attribute cannot be false.
@@ -191,18 +193,6 @@ export module clickupTs {
      * Email address for project author
      */
     readonly authorAddress?: string;
-
-    /**
-     * Should we send a slack webhook on release (required for compliance audits)
-     *
-     * @default true
-     */
-    readonly sendSlackWebhookOnRelease?: boolean;
-
-    /**
-     * Slack alert on release options. Only valid when `sendSlackWebhookOnRelease` is true.
-     */
-    readonly sendSlackWebhookOnReleaseOpts?: slackAlert.ReleaseEventOptions;
   }
 
   /**

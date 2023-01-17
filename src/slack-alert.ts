@@ -23,6 +23,23 @@ export module slackAlert {
   }
 
   /**
+   * Options to add to interface for projects that wish to off send slack functionality.
+   */
+  export interface SendSlackOptions {
+    /**
+     * Should we send a slack webhook on release (required for compliance audits)
+     *
+     * @default true
+     */
+    readonly sendSlackWebhookOnRelease?: boolean;
+
+    /**
+     * Slack alert on release options. Only valid when `sendSlackWebhookOnRelease` is true.
+     */
+    readonly sendSlackWebhookOnReleaseOpts?: slackAlert.ReleaseEventOptions;
+  }
+
+  /**
    * Adds a 'Send Release Alert to Slack' job to the release workflow, if it exists.
    * Uses the PROJEN_RELEASE_SLACK_WEBHOOK for authentication to Datadog.
    *
