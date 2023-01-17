@@ -3,6 +3,7 @@ import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
 import { renovateWorkflow } from './renovate-workflow';
+import { slackAlert } from './slack-alert';
 
 export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
@@ -179,7 +180,9 @@ export module clickupTs {
     }
   }
 
-  export interface ClickUpTypeScriptProjectOptions extends typescript.TypeScriptProjectOptions {
+  export interface ClickUpTypeScriptProjectOptions
+    extends typescript.TypeScriptProjectOptions,
+      slackAlert.SendSlackOptions {
     /**
      * Additional options pertaining to the typedoc config file.
      * NOTE: `docgen` attribute cannot be false.
@@ -219,6 +222,9 @@ export module clickupTs {
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
+      if (options.sendSlackWebhookOnRelease !== false) {
+        slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
+      }
     }
   }
 

@@ -9,7 +9,13 @@ describe('ClickUpTypeScriptProject', () => {
     });
     const synth = Testing.synth(p);
     // console.log(Object.getOwnPropertyNames(synth));
-    ['codecov.yml', 'package.json', '.github/workflows/upgrade-main.yml', '.mergify.yml'].forEach((f) => {
+    [
+      'codecov.yml',
+      'package.json',
+      '.github/workflows/upgrade-main.yml',
+      '.mergify.yml',
+      '.github/workflows/release.yml',
+    ].forEach((f) => {
       test(f, () => {
         expect(synth[f]).toMatchSnapshot();
       });

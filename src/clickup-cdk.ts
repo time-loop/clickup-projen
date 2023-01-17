@@ -48,7 +48,7 @@ export module clickupCdk {
    */
   interface ClickUpCdkFeatureFlags {}
 
-  export interface ClickUpCdkCommonOptions extends ClickUpCdkFeatureFlags {
+  export interface ClickUpCdkCommonOptions extends ClickUpCdkFeatureFlags, slackAlert.SendSlackOptions {
     /**
      * Feature flag for datadog event sending on release.
      *
@@ -62,18 +62,6 @@ export module clickupCdk {
      * @default undefined
      */
     readonly sendReleaseEventOpts?: datadog.ReleaseEventOptions;
-
-    /**
-     * Should we send a slack webhook on release (required for compliance audits)
-     *
-     * @default true
-     */
-    readonly sendSlackWebhookOnRelease?: boolean;
-
-    /**
-     * Slack alert on release options. Only valid when `sendSlackWebhookOnRelease` is true.
-     */
-    readonly sendSlackWebhookOnReleaseOpts?: slackAlert.ReleaseEventOptions;
   }
 
   export interface ClickUpCdkConstructLibraryOptions

@@ -17,10 +17,37 @@ const clickUpCdkCommonOptions: clickupCdk.ClickUpCdkCommonOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
+
+---
+
+##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnRelease"></a>
+
+```typescript
+public readonly sendSlackWebhookOnRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should we send a slack webhook on release (required for compliance audits).
+
+---
+
+##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnReleaseOpts"></a>
+
+```typescript
+public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
+
+Slack alert on release options.
+
+Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
@@ -50,33 +77,6 @@ Datadog event options to use on release.
 
 Only valid when
 `sendReleaseEvent` is true.
-
----
-
-##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnRelease"></a>
-
-```typescript
-public readonly sendSlackWebhookOnRelease: boolean;
-```
-
-- *Type:* boolean
-- *Default:* true
-
-Should we send a slack webhook on release (required for compliance audits).
-
----
-
-##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnReleaseOpts"></a>
-
-```typescript
-public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
-```
-
-- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
-
-Slack alert on release options.
-
-Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
@@ -255,10 +255,10 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `aws_lambda.Function` for each `.lambda.ts` handler in your source tree. If this is disabled, you either need to explicitly call `aws_lambda.Function.autoDiscover()` or define a `new aws_lambda.Function()` for each handler. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
 ---
 
@@ -2551,6 +2551,33 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnRelease"></a>
+
+```typescript
+public readonly sendSlackWebhookOnRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should we send a slack webhook on release (required for compliance audits).
+
+---
+
+##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnReleaseOpts"></a>
+
+```typescript
+public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
+
+Slack alert on release options.
+
+Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
+
 ##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent"></a>
 
 ```typescript
@@ -2577,33 +2604,6 @@ Datadog event options to use on release.
 
 Only valid when
 `sendReleaseEvent` is true.
-
----
-
-##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnRelease"></a>
-
-```typescript
-public readonly sendSlackWebhookOnRelease: boolean;
-```
-
-- *Type:* boolean
-- *Default:* true
-
-Should we send a slack webhook on release (required for compliance audits).
-
----
-
-##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnReleaseOpts"></a>
-
-```typescript
-public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
-```
-
-- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
-
-Slack alert on release options.
-
-Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
@@ -2774,10 +2774,10 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaAutoDiscover">lambdaAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaFunction` for each `.lambda.ts` handler in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaExtensionAutoDiscover">lambdaExtensionAutoDiscover</a></code> | <code>boolean</code> | Automatically adds an `awscdk.LambdaExtension` for each `.lambda-extension.ts` entrypoint in your source tree. If this is disabled, you can manually add an `awscdk.AutoDiscover` component to your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
 ---
 
@@ -4955,6 +4955,33 @@ Common options for all AWS Lambda functions.
 
 ---
 
+##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnRelease"></a>
+
+```typescript
+public readonly sendSlackWebhookOnRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should we send a slack webhook on release (required for compliance audits).
+
+---
+
+##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnReleaseOpts"></a>
+
+```typescript
+public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
+
+Slack alert on release options.
+
+Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
+
 ##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent"></a>
 
 ```typescript
@@ -4981,33 +5008,6 @@ Datadog event options to use on release.
 
 Only valid when
 `sendReleaseEvent` is true.
-
----
-
-##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnRelease"></a>
-
-```typescript
-public readonly sendSlackWebhookOnRelease: boolean;
-```
-
-- *Type:* boolean
-- *Default:* true
-
-Should we send a slack webhook on release (required for compliance audits).
-
----
-
-##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnReleaseOpts"></a>
-
-```typescript
-public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
-```
-
-- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
-
-Slack alert on release options.
-
-Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
@@ -5157,6 +5157,8 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDev">tsconfigDev</a></code> | <code>projen.javascript.TypescriptConfigOptions</code> | Custom tsconfig options for the development tsconfig.json file (used for testing). |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.tsconfigDevFile">tsconfigDevFile</a></code> | <code>string</code> | The name of the development tsconfig.json file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.typescriptVersion">typescriptVersion</a></code> | <code>string</code> | TypeScript version to use. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.authorAddress">authorAddress</a></code> | <code>string</code> | Email address for project author. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | Additional options pertaining to the typedoc config file. |
 
@@ -7039,6 +7041,33 @@ same minor, so we recommend using a `~` dependency (e.g. `~1.2.3`).
 
 ---
 
+##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnRelease"></a>
+
+```typescript
+public readonly sendSlackWebhookOnRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should we send a slack webhook on release (required for compliance audits).
+
+---
+
+##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnReleaseOpts"></a>
+
+```typescript
+public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
+
+Slack alert on release options.
+
+Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
+
 ##### `authorAddress`<sup>Optional</sup> <a name="authorAddress" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.authorAddress"></a>
 
 ```typescript
@@ -7225,6 +7254,54 @@ import { datadog } from '@time-loop/clickup-projen'
 const releaseEventTags: datadog.ReleaseEventTags = { ... }
 ```
 
+
+### SendSlackOptions <a name="SendSlackOptions" id="@time-loop/clickup-projen.slackAlert.SendSlackOptions"></a>
+
+Options to add to interface for projects that wish to off send slack functionality.
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.slackAlert.SendSlackOptions.Initializer"></a>
+
+```typescript
+import { slackAlert } from '@time-loop/clickup-projen'
+
+const sendSlackOptions: slackAlert.SendSlackOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.slackAlert.SendSlackOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
+| <code><a href="#@time-loop/clickup-projen.slackAlert.SendSlackOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+
+---
+
+##### `sendSlackWebhookOnRelease`<sup>Optional</sup> <a name="sendSlackWebhookOnRelease" id="@time-loop/clickup-projen.slackAlert.SendSlackOptions.property.sendSlackWebhookOnRelease"></a>
+
+```typescript
+public readonly sendSlackWebhookOnRelease: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should we send a slack webhook on release (required for compliance audits).
+
+---
+
+##### `sendSlackWebhookOnReleaseOpts`<sup>Optional</sup> <a name="sendSlackWebhookOnReleaseOpts" id="@time-loop/clickup-projen.slackAlert.SendSlackOptions.property.sendSlackWebhookOnReleaseOpts"></a>
+
+```typescript
+public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.slackAlert.ReleaseEventOptions
+
+Slack alert on release options.
+
+Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
 
 ### TypedocDocgenOptions <a name="TypedocDocgenOptions" id="@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions"></a>
 
