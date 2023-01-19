@@ -16,8 +16,12 @@ export module renovateWorkflow {
         branches: ['main'],
         paths: ['renovate.json5', '.github/workflows/renovate.yml'],
       },
-      // Run immediately when a box to update a dependency is checked on the renovate dashboard
+      // Run immediately when a box to update a dependency is checked on the renovate dashboard issue
       issues: {
+        types: ['edited'],
+      },
+      // or when the rebase now checkbox is ticked on a renovate PR description
+      pull_request: {
         types: ['edited'],
       },
     },
@@ -40,7 +44,7 @@ export module renovateWorkflow {
             name: 'Self-hosted Renovate',
             uses: 'renovatebot/github-action@v34.56.3',
             // Skip running renovate in a loop when renovate updates the dependency dashboard issue and re-triggers this workflow
-            if: "github.event_name != 'issues' || github.actor != 'cu-infra-svc-git'",
+            if: "(github.event_name != 'issues' && github.event_name != 'pull_request') || github.actor != 'cu-infra-svc-git'",
             with: {
               // projen creates this config for us
               configurationFile: 'renovate.json5',
