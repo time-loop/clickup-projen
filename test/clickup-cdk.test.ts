@@ -11,7 +11,14 @@ describe('ClickUpCdkTypeScriptApp', () => {
   describe('defaults', () => {
     const p = new clickupCdk.ClickUpCdkTypeScriptApp(requiredParams);
     const synth = Testing.synth(p);
-    ['README.md', 'package.json', 'src/main.ts', 'src/widget.ts', 'test/widget.test.ts'].forEach((file) => {
+    [
+      'README.md',
+      'package.json',
+      'src/main.ts',
+      'src/widget.ts',
+      'test/widget.test.ts',
+      '.github/workflows/release.yml',
+    ].forEach((file) => {
       test(file, () => {
         expect(synth[file]).toMatchSnapshot();
       });
@@ -68,6 +75,12 @@ describe('ClickUpCdkConstructLibrary', () => {
         sendReleaseEvent: false,
       });
       expect(p.datadogEvent).toBeFalsy();
+    });
+    test('release_npm exists', () => {
+      p = new clickupCdk.ClickUpCdkConstructLibrary({ ...commonProps, releaseToNpm: true });
+      const synth = Testing.synth(p);
+      const releaseFile = synth['.github/workflows/release.yml'];
+      expect(releaseFile).toMatchSnapshot();
     });
   });
 });

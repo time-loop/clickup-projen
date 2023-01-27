@@ -40,10 +40,11 @@ export module clickupTs {
         extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
       },
     },
-
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',
+        // Conditional because of projen breakage: https://github.com/projen/projen/pull/2311
+        if: "${{ github.job != 'release_npm' }}",
         run: [
           'cat > .npmrc <<EOF',
           '//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}',

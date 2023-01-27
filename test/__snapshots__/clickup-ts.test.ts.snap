@@ -28,6 +28,7 @@ jobs:
           git config user.name \\"github-actions\\"
           git config user.email \\"github-actions@github.com\\"
       - name: GitHub Packages authorization
+        if: \${{ github.job != 'release_npm' }}
         run: |-
           cat > .npmrc <<EOF
           //npm.pkg.github.com/:_authToken=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}
