@@ -35,5 +35,7 @@
     "@types/prettier",
     "node"
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "bump",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0
 }

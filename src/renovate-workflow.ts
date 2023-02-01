@@ -80,12 +80,21 @@ export module renovateWorkflow {
         scheduleInterval: ['before 1am on Monday'],
         ignoreProjen: false,
         ignore: [
-          // managed by projen
-          'node',
+          'node', // managed by projen
         ],
         overrideConfig: {
-          rangeStrategy: 'bump',
+          /* override projen renovate defaults */
+          // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
           extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
+
+          /* override defaults set in config:base preset */
+          // update all dependencies, not just major versions
+          rangeStrategy: 'bump',
+          // Create PRs for all updates in one go as we only run renovate once a week
+          // as this option is designed for when renovate runs hourly
+          prHourlyLimit: 0,
+          // Have no limit on the number of renovate PRs open
+          prConcurrentLimit: 0,
         },
       },
       customOptions,
