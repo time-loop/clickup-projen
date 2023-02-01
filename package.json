@@ -48,7 +48,6 @@
     "jsii-diff": "^1.66.0",
     "jsii-docgen": "^7.0.0",
     "jsii-pacmak": "^1.66.0",
-    "json-schema": "^0.4.0",
     "prettier": "^2.7.1",
     "projen": "^0.66.0",
     "standard-version": "^9",
@@ -57,11 +56,11 @@
     "typescript": "^4.8.2"
   },
   "peerDependencies": {
-    "projen": "^0.67.7"
+    "projen": "^0.67.24"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.67.7",
+    "projen": "^0.67.24",
     "ts-deepmerge": "^2.0.7"
   },
   "bundledDependencies": [
