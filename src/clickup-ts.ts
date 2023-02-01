@@ -27,8 +27,12 @@ export module clickupTs {
     depsUpgradeOptions: {
       workflow: false,
     },
+    autoApproveUpgrades: true,
+    autoApproveOptions: {
+      allowedUsernames: [renovateWorkflow.RENOVATE_GITHUB_USERNAME],
+      label: renovateWorkflow.AUTO_APPROVE_PR_LABEL,
+    },
     renovatebot: true,
-    renovatebotOptions: renovateWorkflow.getRenovateOptions(),
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',
@@ -183,6 +187,8 @@ export module clickupTs {
      * Email address for project author
      */
     readonly authorAddress?: string;
+
+    readonly renovateOptionsConfig?: renovateWorkflow.RenovateOptionsConfig;
   }
 
   /**
@@ -206,6 +212,7 @@ export module clickupTs {
           // Disable projen's built-in docgen class
           docgen: undefined,
           name: normalizeName(options.name),
+          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
         }),
       );
       fixTsNodeDeps(this.package);

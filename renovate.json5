@@ -5,9 +5,26 @@
   ],
   "extends": [
     "config:base",
-    "group:allNonMajor",
     "group:recommended",
-    "group:monorepos"
+    "group:monorepos",
+    "github>whitesource/merge-confidence:beta"
+  ],
+  "packageRules": [
+    {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true,
+      "labels": [
+        "auto-approve"
+      ]
+    }
   ],
   "ignoreDeps": [
     "@types/jest",
@@ -25,5 +42,7 @@
   ],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
-  "prConcurrentLimit": 0
+  "prConcurrentLimit": 0,
+  "automergeType": "pr",
+  "platformAutomerge": true
 }

@@ -25,10 +25,22 @@ describe('addRenovateWorkflowYml', () => {
 
 describe('getRenovateOptions', () => {
   test('merges options', () => {
-    const options = renovateWorkflow.getRenovateOptions({ overrideConfig: { dryRun: true } });
+    const options = renovateWorkflow.getRenovateOptions({ defaultOverrides: { overrideConfig: { dryRun: true } } });
     // custom option we set
     expect(options.overrideConfig.dryRun).toBe(true);
     // default option that should be deep merged in
     expect(options.overrideConfig.rangeStrategy).toBe('bump');
+  });
+
+  test('auto merge off by default', () => {
+    const options = renovateWorkflow.getRenovateOptions();
+    expect(options.overrideConfig.packageRules[0].automerge).toBeUndefined();
+    expect(options.overrideConfig.packageRules[0].labels).toBeUndefined();
+  });
+
+  test('auto merge on', () => {
+    const options = renovateWorkflow.getRenovateOptions({ autoMergeNonBreakingUpdates: true });
+    expect(options.overrideConfig.packageRules[0].automerge).toBe(true);
+    expect(options.overrideConfig.packageRules[0].labels).toEqual([renovateWorkflow.AUTO_APPROVE_PR_LABEL]);
   });
 });

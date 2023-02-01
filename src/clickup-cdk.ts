@@ -62,6 +62,13 @@ export module clickupCdk {
      * @default undefined
      */
     readonly sendReleaseEventOpts?: datadog.ReleaseEventOptions;
+
+    /**
+     * Renovate options
+     *
+     * @default undefined
+     */
+    readonly renovateOptionsConfig?: renovateWorkflow.RenovateOptionsConfig;
   }
 
   export interface ClickUpCdkConstructLibraryOptions
@@ -86,7 +93,15 @@ export module clickupCdk {
       const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
       // Theoretically we should be able to just take a default here, but for some reason this is required.
       const repositoryUrl = options.repositoryUrl || `https://github.com/${name.substring(1)}.git`;
-      super(merge(clickupTs.defaults, options, { authorName, authorAddress, name, repositoryUrl }));
+      super(
+        merge(clickupTs.defaults, options, {
+          authorName,
+          authorAddress,
+          name,
+          repositoryUrl,
+          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+        }),
+      );
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
@@ -120,7 +135,12 @@ export module clickupCdk {
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     readonly datadogEvent: boolean;
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
-      super(merge(clickupTs.defaults, defaults, options, { sampleCode: false }));
+      super(
+        merge(clickupTs.defaults, defaults, options, {
+          sampleCode: false,
+          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+        }),
+      );
       clickupTs.fixTsNodeDeps(this.package);
       new AppSampleCode(this);
       new SampleReadme(this, {

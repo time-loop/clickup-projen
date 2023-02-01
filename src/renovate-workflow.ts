@@ -2,6 +2,10 @@ import { typescript, YamlFile, RenovatebotOptions } from 'projen';
 import merge from 'ts-deepmerge';
 
 export module renovateWorkflow {
+  export const RENOVATE_GITHUB_USERNAME = 'cu-infra-svc-git';
+
+  export const AUTO_APPROVE_PR_LABEL = 'auto-approve';
+
   const defaultWorkflow = {
     name: 'upgrade-main',
     on: {
@@ -45,7 +49,7 @@ export module renovateWorkflow {
             name: 'Self-hosted Renovate',
             uses: 'renovatebot/github-action@v34.56.3',
             // Skip running renovate in a loop when renovate updates the dependency dashboard issue and re-triggers this workflow
-            if: "(github.event_name != 'issues' && github.event_name != 'pull_request') || github.actor != 'cu-infra-svc-git'",
+            if: `(github.event_name != 'issues' && github.event_name != 'pull_request') || github.actor != '${RENOVATE_GITHUB_USERNAME}'`,
             with: {
               // projen creates this config for us
               configurationFile: 'renovate.json5',
@@ -74,7 +78,21 @@ export module renovateWorkflow {
     },
   };
 
-  export function getRenovateOptions(customOptions: Partial<RenovatebotOptions> = {}) {
+  export interface RenovateOptionsConfig {
+    /**
+     * Whether to auto merge non breaking dependency updates.
+     *
+     * Note: if you have the "Require review from Code Owners" option enabled in the branch protection rules this will not work
+     */
+    readonly autoMergeNonBreakingUpdates?: boolean;
+
+    /**
+     * Allows overriding any renovate config option default. This is deep merged into the default config
+     */
+    readonly defaultOverrides?: RenovatebotOptions;
+  }
+
+  export function getRenovateOptions(options: RenovateOptionsConfig = {}) {
     return merge(
       {
         scheduleInterval: ['before 1am on Monday'],
@@ -85,9 +103,26 @@ export module renovateWorkflow {
         overrideConfig: {
           /* override projen renovate defaults */
           // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
-          extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
-          // Disable projen default of separating dependencies from devDependencies, this just creates more PRs than necessary
-          packageRules: undefined,
+          extends: [
+            'config:base',
+            'group:recommended',
+            'group:monorepos',
+            // Add merge confidence columns to update PRs
+            'github>whitesource/merge-confidence:beta',
+          ],
+          packageRules: [
+            {
+              // copied from this preset: https://docs.renovatebot.com/presets-group/#groupallnonmajor
+              groupName: 'all non-major dependencies',
+              groupSlug: 'all-minor-patch',
+              matchPackagePatterns: ['*'],
+              matchUpdateTypes: ['minor', 'patch'],
+              // Tell renovate to enable github's auto merge feature on the PR
+              automerge: options.autoMergeNonBreakingUpdates ? true : undefined,
+              // Adding the auto-approve label will make projens auto approve workflow approve the PR so it will be auto merged
+              labels: options.autoMergeNonBreakingUpdates ? [AUTO_APPROVE_PR_LABEL] : undefined,
+            },
+          ],
 
           /* override defaults set in config:base preset */
           // update all dependencies, not just major versions
@@ -97,9 +132,13 @@ export module renovateWorkflow {
           prHourlyLimit: 0,
           // Have no limit on the number of renovate PRs open
           prConcurrentLimit: 0,
+          // Always create PRs for auto merging to make required status checks run and provide an audit trail
+          automergeType: 'pr',
+          // Use github's auto merge feature and not renovate's built in alternative
+          platformAutomerge: true,
         },
       },
-      customOptions,
+      options.defaultOverrides ?? {},
     );
   }
 

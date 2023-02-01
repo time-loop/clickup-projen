@@ -62,8 +62,15 @@ const project = new cdk.JsiiProject({
   stale: true,
 
   depsUpgrade: false,
+  autoApproveUpgrades: true,
+  autoApproveOptions: {
+    allowedUsernames: [renovateWorkflow.RENOVATE_GITHUB_USERNAME],
+    label: renovateWorkflow.AUTO_APPROVE_PR_LABEL,
+  },
   renovatebot: true,
-  renovatebotOptions: renovateWorkflow.getRenovateOptions(),
+  renovatebotOptions: renovateWorkflow.getRenovateOptions({
+    autoMergeNonBreakingUpdates: true,
+  }),
 
   jestOptions: {
     jestConfig: {
