@@ -86,6 +86,8 @@ export module renovateWorkflow {
           /* override projen renovate defaults */
           // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
           extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
+          // Disable projen default of separating dependencies from devDependencies, this just creates more PRs than necessary
+          packageRules: undefined,
 
           /* override defaults set in config:base preset */
           // update all dependencies, not just major versions

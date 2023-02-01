@@ -9,18 +9,6 @@
     "group:recommended",
     "group:monorepos"
   ],
-  "packageRules": [
-    {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
-      "groupName": "devDependencies (non-major)"
-    }
-  ],
   "ignoreDeps": [
     "@types/jest",
     "@types/node",
