@@ -7,7 +7,8 @@
     "config:base",
     "group:allNonMajor",
     "group:recommended",
-    "group:monorepos"
+    "group:monorepos",
+    "github>whitesource/merge-confidence:beta"
   ],
   "ignoreDeps": [
     "@types/jest",
