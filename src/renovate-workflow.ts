@@ -1,4 +1,5 @@
-import { typescript, YamlFile } from 'projen';
+import { typescript, YamlFile, RenovatebotOptions } from 'projen';
+import merge from 'ts-deepmerge';
 
 export module renovateWorkflow {
   const defaultWorkflow = {
@@ -72,6 +73,24 @@ export module renovateWorkflow {
       },
     },
   };
+
+  export function getRenovateOptions(customOptions: Partial<RenovatebotOptions> = {}) {
+    return merge(
+      {
+        scheduleInterval: ['before 1am on Monday'],
+        ignoreProjen: false,
+        ignore: [
+          // managed by projen
+          'node',
+        ],
+        overrideConfig: {
+          rangeStrategy: 'bump',
+          extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
+        },
+      },
+      customOptions,
+    );
+  }
 
   export function addRenovateWorkflowYml(project: typescript.TypeScriptProject, override?: any): void {
     new YamlFile(project, '.github/workflows/renovate.yml', { obj: { ...defaultWorkflow, ...override } });
