@@ -28,18 +28,7 @@ export module clickupTs {
       workflow: false,
     },
     renovatebot: true,
-    renovatebotOptions: {
-      scheduleInterval: ['before 1am on Monday'],
-      ignoreProjen: false,
-      ignore: [
-        // managed by projen
-        'node',
-      ],
-      overrideConfig: {
-        rangeStrategy: 'bump',
-        extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
-      },
-    },
+    renovatebotOptions: renovateWorkflow.getRenovateOptions(),
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',

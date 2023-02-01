@@ -22,3 +22,13 @@ describe('addRenovateWorkflowYml', () => {
     expect(synth['.github/workflows/renovate.yml']).toMatchSnapshot();
   });
 });
+
+describe('getRenovateOptions', () => {
+  test('merges options', () => {
+    const options = renovateWorkflow.getRenovateOptions({ overrideConfig: { dryRun: true } });
+    // custom option we set
+    expect(options.overrideConfig.dryRun).toBe(true);
+    // default option that should be deep merged in
+    expect(options.overrideConfig.rangeStrategy).toBe('bump');
+  });
+});
