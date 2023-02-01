@@ -85,7 +85,14 @@ export module renovateWorkflow {
         overrideConfig: {
           /* override projen renovate defaults */
           // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
-          extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
+          extends: [
+            'config:base',
+            'group:allNonMajor',
+            'group:recommended',
+            'group:monorepos',
+            // Add merge confidence columns to update PRs
+            'github>whitesource/merge-confidence:beta',
+          ],
           // Disable projen default of separating dependencies from devDependencies, this just creates more PRs than necessary
           packageRules: undefined,
 
