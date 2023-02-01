@@ -1,4 +1,5 @@
-import { typescript, YamlFile } from 'projen';
+import { typescript, YamlFile, RenovatebotOptions } from 'projen';
+import merge from 'ts-deepmerge';
 
 export module renovateWorkflow {
   const defaultWorkflow = {
@@ -72,6 +73,35 @@ export module renovateWorkflow {
       },
     },
   };
+
+  export function getRenovateOptions(customOptions: Partial<RenovatebotOptions> = {}) {
+    return merge(
+      {
+        scheduleInterval: ['before 1am on Monday'],
+        ignoreProjen: false,
+        ignore: [
+          'node', // managed by projen
+        ],
+        overrideConfig: {
+          /* override projen renovate defaults */
+          // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
+          extends: ['config:base', 'group:allNonMajor', 'group:recommended', 'group:monorepos'],
+          // Disable projen default of separating dependencies from devDependencies, this just creates more PRs than necessary
+          packageRules: undefined,
+
+          /* override defaults set in config:base preset */
+          // update all dependencies, not just major versions
+          rangeStrategy: 'bump',
+          // Create PRs for all updates in one go as we only run renovate once a week
+          // as this option is designed for when renovate runs hourly
+          prHourlyLimit: 0,
+          // Have no limit on the number of renovate PRs open
+          prConcurrentLimit: 0,
+        },
+      },
+      customOptions,
+    );
+  }
 
   export function addRenovateWorkflowYml(project: typescript.TypeScriptProject, override?: any): void {
     new YamlFile(project, '.github/workflows/renovate.yml', { obj: { ...defaultWorkflow, ...override } });
