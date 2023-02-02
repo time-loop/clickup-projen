@@ -3505,11 +3505,6 @@ json-schema-traverse@^1.0.0:
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz#ae7bcb3656ab77a73ba5c49bf654f38e6b6860e2"
   integrity sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==
 
-json-schema@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/json-schema/-/json-schema-0.4.0.tgz#f7de4cf6efab838ebaeb3236474cbba5a1930ab5"
-  integrity sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==
-
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
@@ -4150,10 +4145,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@^0.67.7:
-  version "0.67.7"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.67.7.tgz#22de7371d45988fa699cd94e83c5546a2c17d1b1"
-  integrity sha512-WJ0Spw41xosrMukHvbOpyY8vZyXb8XNU33ZDgrquWG7zWIrX7f6ajfP5UIngRc30dv9hFUowLpQXXiEvuDjHBg==
+projen@^0.67.24:
+  version "0.67.24"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.67.24.tgz#23f0ed6a3dde862b07d31dd2bbcb874b730be224"
+  integrity sha512-JAPYnDrB4KZ1YoQj08AVZXecd9QdEcdYUIvvNXd504aJPMUwSZ4vh2oeCdmVsZFmXkvKyduc/MR+v+0vbvMFrQ==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
