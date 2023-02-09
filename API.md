@@ -19,6 +19,7 @@ const clickUpCdkCommonOptions: clickupCdk.ClickUpCdkCommonOptions = { ... }
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
@@ -48,6 +49,19 @@ public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
 Slack alert on release options.
 
 Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
+
+##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.renovateOptionsConfig"></a>
+
+```typescript
+public readonly renovateOptionsConfig: RenovateOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig
+- *Default:* undefined
+
+Renovate options.
 
 ---
 
@@ -257,6 +271,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
@@ -2578,6 +2593,19 @@ Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
+##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.renovateOptionsConfig"></a>
+
+```typescript
+public readonly renovateOptionsConfig: RenovateOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig
+- *Default:* undefined
+
+Renovate options.
+
+---
+
 ##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent"></a>
 
 ```typescript
@@ -2776,6 +2804,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
 
@@ -4982,6 +5011,19 @@ Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
+##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.renovateOptionsConfig"></a>
+
+```typescript
+public readonly renovateOptionsConfig: RenovateOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig
+- *Default:* undefined
+
+Renovate options.
+
+---
+
 ##### `sendReleaseEvent`<sup>Optional</sup> <a name="sendReleaseEvent" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent"></a>
 
 ```typescript
@@ -5161,6 +5203,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.authorAddress">authorAddress</a></code> | <code>string</code> | Email address for project author. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.docgenOptions">docgenOptions</a></code> | <code>@time-loop/clickup-projen.clickupTs.TypedocDocgenOptions</code> | Additional options pertaining to the typedoc config file. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | *No description.* |
 
 ---
 
@@ -7094,6 +7137,16 @@ NOTE: `docgen` attribute cannot be false.
 
 ---
 
+##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.renovateOptionsConfig"></a>
+
+```typescript
+public readonly renovateOptionsConfig: RenovateOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig
+
+---
+
 ### ReleaseEventOptions <a name="ReleaseEventOptions" id="@time-loop/clickup-projen.datadog.ReleaseEventOptions"></a>
 
 Options to set for the event sent to Datadog on release.
@@ -7254,6 +7307,53 @@ import { datadog } from '@time-loop/clickup-projen'
 const releaseEventTags: datadog.ReleaseEventTags = { ... }
 ```
 
+
+### RenovateOptionsConfig <a name="RenovateOptionsConfig" id="@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig.Initializer"></a>
+
+```typescript
+import { renovateWorkflow } from '@time-loop/clickup-projen'
+
+const renovateOptionsConfig: renovateWorkflow.RenovateOptionsConfig = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig.property.autoMergeNonBreakingUpdates">autoMergeNonBreakingUpdates</a></code> | <code>boolean</code> | Whether to auto merge non breaking dependency updates. |
+| <code><a href="#@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig.property.defaultOverrides">defaultOverrides</a></code> | <code>projen.RenovatebotOptions</code> | Allows overriding any renovate config option default. |
+
+---
+
+##### `autoMergeNonBreakingUpdates`<sup>Optional</sup> <a name="autoMergeNonBreakingUpdates" id="@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig.property.autoMergeNonBreakingUpdates"></a>
+
+```typescript
+public readonly autoMergeNonBreakingUpdates: boolean;
+```
+
+- *Type:* boolean
+
+Whether to auto merge non breaking dependency updates.
+
+Note: if you have the "Require review from Code Owners" option enabled in the branch protection rules this will not work
+
+---
+
+##### `defaultOverrides`<sup>Optional</sup> <a name="defaultOverrides" id="@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig.property.defaultOverrides"></a>
+
+```typescript
+public readonly defaultOverrides: RenovatebotOptions;
+```
+
+- *Type:* projen.RenovatebotOptions
+
+Allows overriding any renovate config option default.
+
+This is deep merged into the default config
+
+---
 
 ### SendSlackOptions <a name="SendSlackOptions" id="@time-loop/clickup-projen.slackAlert.SendSlackOptions"></a>
 
