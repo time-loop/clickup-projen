@@ -1,6 +1,7 @@
 import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
+import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
@@ -69,6 +70,13 @@ export module clickupCdk {
      * @default undefined
      */
     readonly renovateOptionsConfig?: renovateWorkflow.RenovateOptionsConfig;
+
+    /**
+     * Cdk diff options
+     *
+     * @default undefined
+     */
+    readonly cdkDiffOptionsConfig?: cdkDiffWorkflow.CDKDiffOptionsConfig;
   }
 
   export interface ClickUpCdkConstructLibraryOptions
@@ -100,11 +108,15 @@ export module clickupCdk {
           name,
           repositoryUrl,
           renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+          cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
         }),
       );
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
+      if (options.cdkDiffOptionsConfig) {
+        cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
+      }
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
@@ -151,6 +163,9 @@ export module clickupCdk {
       });
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
+      if (options.cdkDiffOptionsConfig) {
+        cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
+      }
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
