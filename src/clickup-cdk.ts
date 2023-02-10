@@ -166,6 +166,7 @@ export module clickupCdk {
       renovateWorkflow.addRenovateWorkflowYml(this);
       if (options.cdkDiffOptionsConfig) {
         cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
+        cdkDiffWorkflow.AddCdkLogParserDependency(this.package);
       }
 
       if (options.sendReleaseEvent === false) {

@@ -61,7 +61,7 @@ export module cdkDiffWorkflow {
             },
             {
               name: 'diff qa',
-              run: "set -o pipefail\n./node_modules/.bin/cdk diff $QA_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-qa.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
+              run: "set -o pipefail\n./node_modules/.bin/cdk diff $QA_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-qa.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
             },
             {
               name: 'configure staging aws credentials',
@@ -74,7 +74,7 @@ export module cdkDiffWorkflow {
             },
             {
               name: 'diff staging',
-              run: "set -o pipefail\n./node_modules/.bin/cdk diff $STG_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-staging.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
+              run: "set -o pipefail\n./node_modules/.bin/cdk diff $STG_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-staging.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
             },
             {
               name: 'configure prod aws credentials',
@@ -87,7 +87,7 @@ export module cdkDiffWorkflow {
             },
             {
               name: 'diff prod',
-              run: "set -o pipefail\n./node_modules/.bin/cdk diff $PROD_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-prod.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
+              run: "set -o pipefail\n./node_modules/.bin/cdk diff $PROD_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-prod.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
             },
             {
               name: 'cdk-notify',
