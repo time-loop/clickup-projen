@@ -20,6 +20,7 @@ const cDKDiffOptionsConfig: cdkDiffWorkflow.CDKDiffOptionsConfig = { ... }
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcProdRoleArn">oidcProdRoleArn</a></code> | <code>string</code> | Name of the Prod OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcQaRoleArn">oidcQaRoleArn</a></code> | <code>string</code> | Name of the QA OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcStagingRoleArn">oidcStagingRoleArn</a></code> | <code>string</code> | Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.createOidcRoleStack">createOidcRoleStack</a></code> | <code>boolean</code> | Detrmines if the OIDC role stack should be created. |
 
 ---
 
@@ -62,6 +63,18 @@ public readonly oidcStagingRoleArn: string;
 Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff.
 
 Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+
+---
+
+##### `createOidcRoleStack`<sup>Optional</sup> <a name="createOidcRoleStack" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.createOidcRoleStack"></a>
+
+```typescript
+public readonly createOidcRoleStack: boolean;
+```
+
+- *Type:* boolean
+
+Detrmines if the OIDC role stack should be created.
 
 ---
 
