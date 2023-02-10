@@ -25,7 +25,6 @@ jobs:
           ref: \${{ github.event.pull_request.head.ref }}
           repository: \${{ github.event.pull_request.head.repo.full_name }}
       - name: GitHub Packages authorization
-        if: \${{ github.job != 'release_npm' }}
         run: |-
           cat > .npmrc <<EOF
           //npm.pkg.github.com/:_authToken=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}
@@ -34,7 +33,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14.18.0
+          node-version: 14.x
       - name: Install dependencies
         run: yarn install --check-files
       - name: ls stacks in each env
@@ -56,7 +55,7 @@ jobs:
         run: |
           set -o pipefail
           ./node_modules/.bin/cdk diff $QA_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-qa.log)
-          ./node_modules/.bin/ts-node cdkLogParser.ts cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV
+          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV
       - name: configure staging aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -67,7 +66,7 @@ jobs:
         run: |
           set -o pipefail
           ./node_modules/.bin/cdk diff $STG_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-staging.log)
-          ./node_modules/.bin/ts-node cdkLogParser.ts cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV
+          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV
       - name: configure prod aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -78,10 +77,10 @@ jobs:
         run: |
           set -o pipefail
           ./node_modules/.bin/cdk diff $PROD_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-prod.log)
-          ./node_modules/.bin/ts-node cdkLogParser.ts cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV
+          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV
       - name: cdk-notify
         run: |
-          curl -L \\"https://github.com/karlderkaefer/cdk-notifier/releases/latest/download/cdk-notifier_$(uname)_amd64.gz\\" -o cdk-notifier.gz
+          curl -L \\"https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz\\" -o cdk-notifier.gz
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'Qa Stacks'
           ./cdk-notifier --log-file ./cdk-staging.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'Staging Stacks'
