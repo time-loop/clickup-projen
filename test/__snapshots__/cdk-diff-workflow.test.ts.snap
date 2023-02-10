@@ -55,7 +55,7 @@ jobs:
         run: |
           set -o pipefail
           ./node_modules/.bin/cdk diff $QA_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-qa.log)
-          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV
+          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV
       - name: configure staging aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -66,7 +66,7 @@ jobs:
         run: |
           set -o pipefail
           ./node_modules/.bin/cdk diff $STG_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-staging.log)
-          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV
+          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV
       - name: configure prod aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -77,7 +77,7 @@ jobs:
         run: |
           set -o pipefail
           ./node_modules/.bin/cdk diff $PROD_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-prod.log)
-          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/src/cdkLogParser.ts cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV
+          ./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV
       - name: cdk-notify
         run: |
           curl -L \\"https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz\\" -o cdk-notifier.gz
