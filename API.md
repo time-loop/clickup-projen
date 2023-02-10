@@ -3,6 +3,68 @@
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### CDKDiffOptionsConfig <a name="CDKDiffOptionsConfig" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.Initializer"></a>
+
+```typescript
+import { cdkDiffWorkflow } from '@time-loop/clickup-projen'
+
+const cDKDiffOptionsConfig: cdkDiffWorkflow.CDKDiffOptionsConfig = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcProdRoleArn">oidcProdRoleArn</a></code> | <code>string</code> | Name of the Prod OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcQaRoleArn">oidcQaRoleArn</a></code> | <code>string</code> | Name of the QA OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcStagingRoleArn">oidcStagingRoleArn</a></code> | <code>string</code> | Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+
+---
+
+##### `oidcProdRoleArn`<sup>Required</sup> <a name="oidcProdRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcProdRoleArn"></a>
+
+```typescript
+public readonly oidcProdRoleArn: string;
+```
+
+- *Type:* string
+
+Name of the Prod OIDC role name which contains neccesasry IAM policies to run the CDK diff.
+
+Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+
+---
+
+##### `oidcQaRoleArn`<sup>Required</sup> <a name="oidcQaRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcQaRoleArn"></a>
+
+```typescript
+public readonly oidcQaRoleArn: string;
+```
+
+- *Type:* string
+
+Name of the QA OIDC role name which contains neccesasry IAM policies to run the CDK diff.
+
+Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+
+---
+
+##### `oidcStagingRoleArn`<sup>Required</sup> <a name="oidcStagingRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcStagingRoleArn"></a>
+
+```typescript
+public readonly oidcStagingRoleArn: string;
+```
+
+- *Type:* string
+
+Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff.
+
+Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+
+---
+
 ### ClickUpCdkCommonOptions <a name="ClickUpCdkCommonOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions"></a>
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.Initializer"></a>
@@ -19,6 +81,7 @@ const clickUpCdkCommonOptions: clickupCdk.ClickUpCdkCommonOptions = { ... }
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.cdkDiffOptionsConfig">cdkDiffOptionsConfig</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig</code> | Cdk diff options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
@@ -49,6 +112,19 @@ public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
 Slack alert on release options.
 
 Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
+
+##### `cdkDiffOptionsConfig`<sup>Optional</sup> <a name="cdkDiffOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.cdkDiffOptionsConfig"></a>
+
+```typescript
+public readonly cdkDiffOptionsConfig: CDKDiffOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig
+- *Default:* undefined
+
+Cdk diff options.
 
 ---
 
@@ -271,6 +347,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.cdkDiffOptionsConfig">cdkDiffOptionsConfig</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig</code> | Cdk diff options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
@@ -2593,6 +2670,19 @@ Only valid when `sendSlackWebhookOnRelease` is true.
 
 ---
 
+##### `cdkDiffOptionsConfig`<sup>Optional</sup> <a name="cdkDiffOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.cdkDiffOptionsConfig"></a>
+
+```typescript
+public readonly cdkDiffOptionsConfig: CDKDiffOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig
+- *Default:* undefined
+
+Cdk diff options.
+
+---
+
 ##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.renovateOptionsConfig"></a>
 
 ```typescript
@@ -2804,6 +2894,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.lambdaOptions">lambdaOptions</a></code> | <code>projen.awscdk.LambdaFunctionCommonOptions</code> | Common options for all AWS Lambda functions. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.cdkDiffOptionsConfig">cdkDiffOptionsConfig</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig</code> | Cdk diff options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
@@ -5008,6 +5099,19 @@ public readonly sendSlackWebhookOnReleaseOpts: ReleaseEventOptions;
 Slack alert on release options.
 
 Only valid when `sendSlackWebhookOnRelease` is true.
+
+---
+
+##### `cdkDiffOptionsConfig`<sup>Optional</sup> <a name="cdkDiffOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.cdkDiffOptionsConfig"></a>
+
+```typescript
+public readonly cdkDiffOptionsConfig: CDKDiffOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig
+- *Default:* undefined
+
+Cdk diff options.
 
 ---
 
