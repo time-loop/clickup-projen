@@ -84,3 +84,39 @@ describe('ClickUpCdkConstructLibrary', () => {
     });
   });
 });
+
+describe('cdk-diff additions - ClickUpCdkTypeScriptApp', () => {
+  const p = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+    cdkDiffOptionsConfig: {
+      oidcQaRoleArn: 'squad-github-actions-oidc-role-name-qa',
+      oidcStagingRoleArn: 'squad-github-actions-oidc-role-name-staging',
+      oidcProdRoleArn: 'squad-github-actions-oidc-role-name-prod',
+      createOidcRoleStack: true,
+    },
+  });
+  const synth = Testing.synth(p);
+  ['package.json', 'src/github-actions-oidc-permissions.ts'].forEach((file) => {
+    test(file, () => {
+      expect(synth[file]).toMatchSnapshot();
+    });
+  });
+});
+
+describe('cdk-diff additions - ClickUpCdkTypeScriptApp', () => {
+  const p = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+    cdkDiffOptionsConfig: {
+      oidcQaRoleArn: 'squad-github-actions-oidc-role-name-qa',
+      oidcStagingRoleArn: 'squad-github-actions-oidc-role-name-staging',
+      oidcProdRoleArn: 'squad-github-actions-oidc-role-name-prod',
+      createOidcRoleStack: true,
+    },
+  });
+  const synth = Testing.synth(p);
+  ['package.json', 'src/github-actions-oidc-permissions.ts'].forEach((file) => {
+    test(file, () => {
+      expect(synth[file]).toMatchSnapshot();
+    });
+  });
+});

@@ -1,4 +1,4 @@
-import { typescript, YamlFile } from 'projen';
+import { SampleFile, typescript, YamlFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 
 export module cdkDiffWorkflow {
@@ -176,6 +176,11 @@ export module cdkDiffWorkflow {
      * Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
      */
     readonly oidcProdRoleArn: string;
+
+    /**
+     * Detrmines if the OIDC role stack should be created
+     */
+    readonly createOidcRoleStack?: boolean;
   }
 
   export function getCDKDiffOptions(options?: CDKDiffOptionsConfig) {
@@ -194,5 +199,63 @@ export module cdkDiffWorkflow {
 
   export function AddCdkLogParserDependency(pkg: NodePackage) {
     pkg.addDevDeps('@time-loop/cdk-log-parser@0.0.0');
+  }
+
+  export function addOidcRoleStack(project: typescript.TypeScriptProject): void {
+    new SampleFile(project, `${project.srcdir}/github-actions-oidc-permissions.ts`, {
+      contents: `import { core } from '@time-loop/cdk-library';
+import { aws_iam, Stage } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import { Namer } from 'multi-convention-namer';
+
+export class GitHubActionsOIDCPermissions extends core.Stack {
+  static asStage(scope: Construct, stageName: string, stageProps: core.StageProps): Stage {
+    return new (class extends Stage {
+      constructor() {
+        super(scope, stageName, stageProps);
+        new GitHubActionsOIDCPermissions(this, stageProps);
+      }
+    })();
+  }
+  constructor(scope: Construct, props: core.StackProps) {
+    const projectName = '${project.name}';
+    let id = new Namer([...projectName.split('-'), 'github', 'actions']);
+    super(scope, id, props);
+
+    const githubActionsRoleName = id.addSuffix(['role']).kebab;
+    const githubActionsRole = new aws_iam.Role(this, githubActionsRoleName, {
+      roleName: githubActionsRoleName,
+      assumedBy: new aws_iam.FederatedPrincipal(
+        \`arn:aws:iam::\${this.account}:oidc-provider/token.actions.githubusercontent.com\`,
+        {
+          StringEquals: {
+            'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+          },
+          StringLike: {
+            'token.actions.githubusercontent.com:sub': \`repo:time-loop/\${projectName}:*\`,
+          },
+        },
+        'sts:AssumeRoleWithWebIdentity',
+      ),
+    });
+
+    const githubActionsPolicyName = id.addSuffix(['policy']).kebab;
+    const githubActionsPolicy = new aws_iam.Policy(this, githubActionsPolicyName, {
+      policyName: githubActionsPolicyName,
+      statements: [
+        new aws_iam.PolicyStatement({
+          effect: aws_iam.Effect.ALLOW,
+          actions: ['cloudformation:Describe*', 'cloudformation:List*', 'cloudformation:Get*'],
+          resources: ['*'],
+        }),
+      ],
+    });
+
+    // Attach IAM policy to IAM role
+    githubActionsPolicy.attachToRole(githubActionsRole);
+  }
+}
+`,
+    });
   }
 }

@@ -114,10 +114,6 @@ export module clickupCdk {
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
-      if (options.cdkDiffOptionsConfig) {
-        cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
-        cdkDiffWorkflow.AddCdkLogParserDependency(this.package);
-      }
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
@@ -167,6 +163,9 @@ export module clickupCdk {
       if (options.cdkDiffOptionsConfig) {
         cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
         cdkDiffWorkflow.AddCdkLogParserDependency(this.package);
+        if (options.cdkDiffOptionsConfig.createOidcRoleStack) {
+          cdkDiffWorkflow.addOidcRoleStack(this);
+        }
       }
 
       if (options.sendReleaseEvent === false) {

@@ -3,7 +3,7 @@ import { typescript, Testing } from 'projen';
 import { cdkDiffWorkflow } from '../src/cdk-diff-workflow';
 
 describe('addCdkDiffWorkflowYml', () => {
-  test('file added', () => {
+  test('cdk diff.yml file added', () => {
     const project = new typescript.TypeScriptProject({
       defaultReleaseBranch: 'main',
       name: 'test',
