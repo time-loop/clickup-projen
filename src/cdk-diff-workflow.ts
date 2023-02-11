@@ -19,7 +19,6 @@ export module cdkDiffWorkflow {
           'runs-on': 'ubuntu-latest',
           env: {
             CI: 'true',
-            GITHUB_PR_NUMBER: '${{github.event.pull_request.number}}',
             REPO_NAME: '${{ github.event.repository.name }}',
           },
           steps: [
@@ -46,87 +45,16 @@ export module cdkDiffWorkflow {
               name: 'Install dependencies',
               run: 'yarn install --check-files',
             },
-            {
-              name: 'ls stacks in each env',
-              run: './node_modules/.bin/cdk ls -l -j > cdk-ls.json\nQA_STACKS=$(jq -r \'[.[].id | select(contains("Qa")) ] | join(" ")\' cdk-ls.json)\nSTG_STACKS=$(jq -r \'[.[].id | select(contains("Staging")) ] | join(" ")\' cdk-ls.json)\nPROD_STACKS=$(jq -r \'[.[].id | select(contains("Prod")) ] | join(" ")\' cdk-ls.json)\necho "QA_STACKS=$QA_STACKS" >> $GITHUB_ENV\necho "STG_STACKS=$STG_STACKS" >> $GITHUB_ENV\necho "PROD_STACKS=$PROD_STACKS" >> $GITHUB_ENV\n',
-            },
-            {
-              name: 'configure qa aws credentials',
-              uses: 'aws-actions/configure-aws-credentials@v1',
-              with: {
-                'role-to-assume': options.oidcQaRoleArn,
-                'role-duration-seconds': 900,
-                'aws-region': 'us-west-2',
-              },
-            },
-            {
-              name: 'diff qa',
-              run: "set -o pipefail\n./node_modules/.bin/cdk diff $QA_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-qa.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-qa.log && echo 'QA_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
-            },
-            {
-              name: 'configure staging aws credentials',
-              uses: 'aws-actions/configure-aws-credentials@v1',
-              with: {
-                'role-to-assume': options.oidcStagingRoleArn,
-                'role-duration-seconds': 900,
-                'aws-region': 'us-west-2',
-              },
-            },
-            {
-              name: 'diff staging',
-              run: "set -o pipefail\n./node_modules/.bin/cdk diff $STG_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-staging.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-staging.log && echo 'STAGING_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
-            },
-            {
-              name: 'configure prod aws credentials',
-              uses: 'aws-actions/configure-aws-credentials@v1',
-              with: {
-                'role-to-assume': options.oidcProdRoleArn,
-                'role-duration-seconds': 900,
-                'aws-region': 'us-west-2',
-              },
-            },
-            {
-              name: 'diff prod',
-              run: "set -o pipefail\n./node_modules/.bin/cdk diff $PROD_STACKS --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-prod.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-prod.log && echo 'PROD_HAS_NO_DIFF=true' >> $GITHUB_ENV\n",
-            },
-            {
-              name: 'cdk-notify',
-              run: "curl -L \"https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz\" -o cdk-notifier.gz\ngunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz\n./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token ${{ secrets.GITHUB_TOKEN }} --pull-request-id ${{ github.event.pull_request.number }} -t 'Qa Stacks'\n./cdk-notifier --log-file ./cdk-staging.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token ${{ secrets.GITHUB_TOKEN }} --pull-request-id ${{ github.event.pull_request.number }} -t 'Staging Stacks'\n./cdk-notifier --log-file ./cdk-prod.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token ${{ secrets.GITHUB_TOKEN }} --pull-request-id ${{ github.event.pull_request.number }} -t 'Production Stacks'\n",
-            },
-            {
-              name: 'Apply qa has no diff label based on diff status',
-              if: "env.QA_HAS_NO_DIFF == 'true'",
-              uses: 'actions/github-script@v6',
-              with: {
-                'github-token': '${{ secrets.GITHUB_TOKEN }}',
-                script:
-                  'github.rest.issues.addLabels({\n  issue_number: context.issue.number,\n  owner: context.repo.owner,\n  repo: context.repo.repo,\n  labels: ["no-qa-changes"]\n})\n',
-              },
-            },
-            {
-              name: 'Apply staging has no diff label based on diff status',
-              if: "env.STAGING_HAS_NO_DIFF == 'true'",
-              uses: 'actions/github-script@v6',
-              with: {
-                'github-token': '${{ secrets.GITHUB_TOKEN }}',
-                script:
-                  'github.rest.issues.addLabels({\n  issue_number: context.issue.number,\n  owner: context.repo.owner,\n  repo: context.repo.repo,\n  labels: ["no-staging-changes"]\n})\n',
-              },
-            },
-            {
-              name: 'Apply prod has no diff label based on diff status',
-              if: "env.PROD_HAS_NO_DIFF == 'true'",
-              uses: 'actions/github-script@v6',
-              with: {
-                'github-token': '${{ secrets.GITHUB_TOKEN }}',
-                script:
-                  'github.rest.issues.addLabels({\n  issue_number: context.issue.number,\n  owner: context.repo.owner,\n  repo: context.repo.repo,\n  labels: ["no-prod-changes"]\n})\n',
-              },
-            },
+            createStackCaptureStep(options.envsToDiff),
+            ...createDiffSteps(options.envsToDiff).flat(),
+            createCdkNotifierStep(options.envsToDiff),
+            ...createLabelSteps(options.envsToDiff),
             {
               name: 'Should auto merge',
               id: 'should-auto-merge',
-              if: "env.QA_HAS_NO_DIFF == 'true' && env.STAGING_HAS_NO_DIFF == 'true' && env.PROD_HAS_NO_DIFF == 'true' && github.event.pull_request.user.login == 'cu-infra-svc-git'",
+              if: `${getAutoMergeConditions(
+                options.envsToDiff,
+              )} && github.event.pull_request.user.login == 'cu-infra-svc-git'`,
               run: 'echo "auto-merge=true" >> $GITHUB_OUTPUT',
             },
             {
@@ -154,28 +82,147 @@ export module cdkDiffWorkflow {
 
     return defaultWorkflow;
   }
+  function getStacksEnvVarForGivenEnv(envName: string) {
+    return `STACKS_TO_DIFF_${envName.toUpperCase()}`;
+  }
+
+  function createStackCaptureStep(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return {
+      name: 'capture stacks to diff',
+      run: ['./node_modules/.bin/cdk ls -l -j > cdk-ls.json', ...createEnvVarsToCaptureStacksToDiff(envsToDiff)].join(
+        '\n',
+      ),
+    };
+  }
+
+  function createEnvVarsToCaptureStacksToDiff(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    const stacksToDiff = envsToDiff.map((env) => {
+      const envVar = getStacksEnvVarForGivenEnv(env.name);
+      if ('stackSearchString' in env) {
+        return `${envVar}=$(jq -r \'[.[].id | select(contains("${env.stackSearchString}")) ] | join(" ")\' cdk-ls.json)\necho "${envVar}=$${envVar}" >> $GITHUB_ENV`;
+      } else {
+        return `${envVar}="${env.stacks.join(' ')}"\necho "${envVar}=$${envVar}" >> $GITHUB_ENV`;
+      }
+    });
+
+    return stacksToDiff;
+  }
+
+  function createDiffSteps(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return envsToDiff.map((env) => {
+      const envVar = getStacksEnvVarForGivenEnv(env.name);
+      return [
+        {
+          name: `configure ${env.name} aws credentials`,
+          uses: 'aws-actions/configure-aws-credentials@v1',
+          with: {
+            'role-to-assume': env.oidcRoleArn,
+            'role-duration-seconds': 900,
+            'aws-region': 'us-west-2',
+          },
+        },
+
+        {
+          name: `diff ${env.name}`,
+          run: `set -o pipefail\n./node_modules/.bin/cdk diff $${envVar} --progress=events --staging false -e --ignore-errors --version-reporting false &> >(tee cdk-${
+            env.name
+          }.log)\n./node_modules/.bin/ts-node ./node_modules/@time-loop/cdk-log-parser/lib/cdkLogParser.js cdk-${
+            env.name
+          }.log && echo '${env.name.toUpperCase()}_HAS_NO_DIFF=true' >> $GITHUB_ENV || echo 'Diffs present!'\n`,
+        },
+      ];
+    });
+  }
+
+  function createCdkNotifierStep(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return {
+      name: 'cdk-notify',
+      run: [...createDownloadCdkNotifierStep(), ...createCdkNotifierSteps(envsToDiff)].join('\n'),
+    };
+  }
+
+  function createDownloadCdkNotifierStep() {
+    return [
+      'curl -L "https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz" -o cdk-notifier.gz',
+      'gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz',
+    ];
+  }
+
+  function createCdkNotifierSteps(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return envsToDiff.map((env) => {
+      return `./cdk-notifier --log-file ./cdk-${env.name}.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t '${env.name} Stacks - If truncated please see the action for the full log!'`;
+    });
+  }
+
+  function createLabelSteps(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return envsToDiff.map((env) => {
+      return {
+        name: `Apply '${env.labelToApplyWhenNoDiffPresent}' label based on diff status`,
+        if: `env.${env.name.toUpperCase()}_HAS_NO_DIFF == 'true'`,
+        uses: 'actions/github-script@v6',
+        with: {
+          'github-token': '${{ secrets.GITHUB_TOKEN }}',
+          script: [
+            'github.rest.issues.addLabels({',
+            'issue_number: context.issue.number,',
+            'owner: context.repo.owner,',
+            'repo: context.repo.repo,',
+            `labels: ["${env.labelToApplyWhenNoDiffPresent}"]`,
+            '})',
+          ].join('\n'),
+        },
+      };
+    });
+  }
+
+  function getAutoMergeConditions(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return envsToDiff.map((env) => `env.${env.name.toUpperCase()}_HAS_NO_DIFF == 'true'`).join(' && ');
+  }
+
+  interface BaseEnvToDiff {
+    /**
+     * Unique name for the cdk diff action
+     *
+     * This will be used to create the output file name, header on comments, and more
+     * Example: `qa`, `staging`, `prod`
+     */
+    name: string;
+
+    /**
+     * Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff
+     *
+     * Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+     */
+    readonly oidcRoleArn: string;
+
+    /**
+     * Label that will be applied to the PR when there are no changes in the diff
+     * Example: `no-qa-changes`
+     */
+    readonly labelToApplyWhenNoDiffPresent: string;
+  }
+
+  interface EnvToDiff extends BaseEnvToDiff {
+    /**
+     * String to search for stacks to diff
+     * Example: `Qa`, 'Staging', 'Prod'
+     */
+    readonly stackSearchString: string;
+  }
+
+  interface ExplicitStacksEnvToDiff extends BaseEnvToDiff {
+    /**
+     * Explicit stacks given instead of using stackSearchString to find stacks via cdk ls
+     * Example: `['stack1', 'stack2']`
+     */
+    readonly stacks: string[];
+  }
 
   export interface CDKDiffOptionsConfig {
     /**
-     * Name of the QA OIDC role name which contains neccesasry IAM policies to run the CDK diff
-     *
-     * Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+     * Collection of environments to cdk diff
      */
-    readonly oidcQaRoleArn: string;
-
-    /**
-     * Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff
-     *
-     * Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
-     */
-    readonly oidcStagingRoleArn: string;
-
-    /**
-     * Name of the Prod OIDC role name which contains neccesasry IAM policies to run the CDK diff
-     *
-     * Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
-     */
-    readonly oidcProdRoleArn: string;
+    readonly envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[];
 
     /**
      * Detrmines if the OIDC role stack should be created

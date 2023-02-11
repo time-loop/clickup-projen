@@ -2,16 +2,90 @@ import { typescript, Testing } from 'projen';
 
 import { cdkDiffWorkflow } from '../src/cdk-diff-workflow';
 
-describe('addCdkDiffWorkflowYml', () => {
-  test('cdk diff.yml file added', () => {
+describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
+  test('a single env to diff', () => {
     const project = new typescript.TypeScriptProject({
       defaultReleaseBranch: 'main',
       name: 'test',
     });
     cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
-      oidcQaRoleArn: 'squad-github-actions-oidc-role-name-qa',
-      oidcStagingRoleArn: 'squad-github-actions-oidc-role-name-staging',
-      oidcProdRoleArn: 'squad-github-actions-oidc-role-name-prod',
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stackSearchString: 'Qa',
+        },
+      ],
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
+  });
+
+  test('a single env to diff - single explicit stack given to diff', () => {
+    const project = new typescript.TypeScriptProject({
+      defaultReleaseBranch: 'main',
+      name: 'test',
+    });
+    cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stacks: ['UsQaSquadNameDynamoDBTableNameStack'],
+        },
+      ],
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
+  });
+
+  test('a single env to diff - multiple stacks given to diff', () => {
+    const project = new typescript.TypeScriptProject({
+      defaultReleaseBranch: 'main',
+      name: 'test',
+    });
+    cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stacks: ['UsQaSquadNameDynamoDBTableNameStack', 'UsQaSquadNameS3BucketNameStack'],
+        },
+      ],
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
+  });
+
+  test('multiple envs to diff', () => {
+    const project = new typescript.TypeScriptProject({
+      defaultReleaseBranch: 'main',
+      name: 'test',
+    });
+    cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stackSearchString: 'Qa',
+        },
+        {
+          name: 'staging',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-staging',
+          labelToApplyWhenNoDiffPresent: 'staging-no-changes',
+          stackSearchString: 'Staging',
+        },
+        {
+          name: 'prod',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-prod',
+          labelToApplyWhenNoDiffPresent: 'prod-no-changes',
+          stackSearchString: 'Prod',
+        },
+      ],
     });
     const synth = Testing.synth(project);
     expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
