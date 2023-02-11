@@ -17,52 +17,20 @@ const cDKDiffOptionsConfig: cdkDiffWorkflow.CDKDiffOptionsConfig = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcProdRoleArn">oidcProdRoleArn</a></code> | <code>string</code> | Name of the Prod OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
-| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcQaRoleArn">oidcQaRoleArn</a></code> | <code>string</code> | Name of the QA OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
-| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcStagingRoleArn">oidcStagingRoleArn</a></code> | <code>string</code> | Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.envsToDiff">envsToDiff</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff \| @time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff[]</code> | Collection of environments to cdk diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.createOidcRoleStack">createOidcRoleStack</a></code> | <code>boolean</code> | Detrmines if the OIDC role stack should be created. |
 
 ---
 
-##### `oidcProdRoleArn`<sup>Required</sup> <a name="oidcProdRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcProdRoleArn"></a>
+##### `envsToDiff`<sup>Required</sup> <a name="envsToDiff" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.envsToDiff"></a>
 
 ```typescript
-public readonly oidcProdRoleArn: string;
+public readonly envsToDiff: EnvToDiff | ExplicitStacksEnvToDiff[];
 ```
 
-- *Type:* string
+- *Type:* @time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff | @time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff[]
 
-Name of the Prod OIDC role name which contains neccesasry IAM policies to run the CDK diff.
-
-Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
-
----
-
-##### `oidcQaRoleArn`<sup>Required</sup> <a name="oidcQaRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcQaRoleArn"></a>
-
-```typescript
-public readonly oidcQaRoleArn: string;
-```
-
-- *Type:* string
-
-Name of the QA OIDC role name which contains neccesasry IAM policies to run the CDK diff.
-
-Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
-
----
-
-##### `oidcStagingRoleArn`<sup>Required</sup> <a name="oidcStagingRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.oidcStagingRoleArn"></a>
-
-```typescript
-public readonly oidcStagingRoleArn: string;
-```
-
-- *Type:* string
-
-Name of the Staging OIDC role name which contains neccesasry IAM policies to run the CDK diff.
-
-Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+Collection of environments to cdk diff.
 
 ---
 
@@ -7261,6 +7229,154 @@ public readonly renovateOptionsConfig: RenovateOptionsConfig;
 ```
 
 - *Type:* @time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig
+
+---
+
+### EnvToDiff <a name="EnvToDiff" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.Initializer"></a>
+
+```typescript
+import { cdkDiffWorkflow } from '@time-loop/clickup-projen'
+
+const envToDiff: cdkDiffWorkflow.EnvToDiff = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.labelToApplyWhenNoDiffPresent">labelToApplyWhenNoDiffPresent</a></code> | <code>string</code> | Label that will be applied to the PR when there are no changes in the diff Example: `no-qa-changes`. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.name">name</a></code> | <code>string</code> | Unique name for the cdk diff action. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.oidcRoleArn">oidcRoleArn</a></code> | <code>string</code> | Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.stackSearchString">stackSearchString</a></code> | <code>string</code> | String to search for stacks to diff Example: `Qa`, 'Staging', 'Prod'. |
+
+---
+
+##### `labelToApplyWhenNoDiffPresent`<sup>Required</sup> <a name="labelToApplyWhenNoDiffPresent" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.labelToApplyWhenNoDiffPresent"></a>
+
+```typescript
+public readonly labelToApplyWhenNoDiffPresent: string;
+```
+
+- *Type:* string
+
+Label that will be applied to the PR when there are no changes in the diff Example: `no-qa-changes`.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Unique name for the cdk diff action.
+
+This will be used to create the output file name, header on comments, and more
+Example: `qa`, `staging`, `prod`
+
+---
+
+##### `oidcRoleArn`<sup>Required</sup> <a name="oidcRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.oidcRoleArn"></a>
+
+```typescript
+public readonly oidcRoleArn: string;
+```
+
+- *Type:* string
+
+Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff.
+
+Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+
+---
+
+##### `stackSearchString`<sup>Required</sup> <a name="stackSearchString" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.stackSearchString"></a>
+
+```typescript
+public readonly stackSearchString: string;
+```
+
+- *Type:* string
+
+String to search for stacks to diff Example: `Qa`, 'Staging', 'Prod'.
+
+---
+
+### ExplicitStacksEnvToDiff <a name="ExplicitStacksEnvToDiff" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.Initializer"></a>
+
+```typescript
+import { cdkDiffWorkflow } from '@time-loop/clickup-projen'
+
+const explicitStacksEnvToDiff: cdkDiffWorkflow.ExplicitStacksEnvToDiff = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.labelToApplyWhenNoDiffPresent">labelToApplyWhenNoDiffPresent</a></code> | <code>string</code> | Label that will be applied to the PR when there are no changes in the diff Example: `no-qa-changes`. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.name">name</a></code> | <code>string</code> | Unique name for the cdk diff action. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.oidcRoleArn">oidcRoleArn</a></code> | <code>string</code> | Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.stacks">stacks</a></code> | <code>string[]</code> | Explicit stacks given instead of using stackSearchString to find stacks via cdk ls Example: `['stack1', 'stack2']`. |
+
+---
+
+##### `labelToApplyWhenNoDiffPresent`<sup>Required</sup> <a name="labelToApplyWhenNoDiffPresent" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.labelToApplyWhenNoDiffPresent"></a>
+
+```typescript
+public readonly labelToApplyWhenNoDiffPresent: string;
+```
+
+- *Type:* string
+
+Label that will be applied to the PR when there are no changes in the diff Example: `no-qa-changes`.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Unique name for the cdk diff action.
+
+This will be used to create the output file name, header on comments, and more
+Example: `qa`, `staging`, `prod`
+
+---
+
+##### `oidcRoleArn`<sup>Required</sup> <a name="oidcRoleArn" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.oidcRoleArn"></a>
+
+```typescript
+public readonly oidcRoleArn: string;
+```
+
+- *Type:* string
+
+Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff.
+
+Example arn: `arn:aws:iam::123123123123:role/squad-github-actions-permissions-squad-cdk-github-actions-role`
+
+---
+
+##### `stacks`<sup>Required</sup> <a name="stacks" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.stacks"></a>
+
+```typescript
+public readonly stacks: string[];
+```
+
+- *Type:* string[]
+
+Explicit stacks given instead of using stackSearchString to find stacks via cdk ls Example: `['stack1', 'stack2']`.
 
 ---
 

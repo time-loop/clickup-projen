@@ -186,7 +186,7 @@ export module cdkDiffWorkflow {
      * This will be used to create the output file name, header on comments, and more
      * Example: `qa`, `staging`, `prod`
      */
-    name: string;
+    readonly name: string;
 
     /**
      * Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff
@@ -202,7 +202,7 @@ export module cdkDiffWorkflow {
     readonly labelToApplyWhenNoDiffPresent: string;
   }
 
-  interface EnvToDiff extends BaseEnvToDiff {
+  export interface EnvToDiff extends BaseEnvToDiff {
     /**
      * String to search for stacks to diff
      * Example: `Qa`, 'Staging', 'Prod'
@@ -210,7 +210,7 @@ export module cdkDiffWorkflow {
     readonly stackSearchString: string;
   }
 
-  interface ExplicitStacksEnvToDiff extends BaseEnvToDiff {
+  export interface ExplicitStacksEnvToDiff extends BaseEnvToDiff {
     /**
      * Explicit stacks given instead of using stackSearchString to find stacks via cdk ls
      * Example: `['stack1', 'stack2']`
