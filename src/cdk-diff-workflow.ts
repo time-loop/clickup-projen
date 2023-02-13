@@ -245,7 +245,7 @@ export module cdkDiffWorkflow {
   }
 
   export function AddCdkLogParserDependency(pkg: NodePackage) {
-    pkg.addDevDeps('@time-loop/cdk-log-parser@0.0.0');
+    pkg.addDevDeps('@time-loop/cdk-log-parser@0.0.1');
   }
 
   export function addOidcRoleStack(project: typescript.TypeScriptProject): void {
