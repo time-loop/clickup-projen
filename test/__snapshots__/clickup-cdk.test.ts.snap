@@ -797,7 +797,7 @@ Object {
     "multi-convention-namer": "*",
   },
   "devDependencies": Object {
-    "@time-loop/cdk-log-parser": "0.0.1",
+    "@time-loop/cdk-log-parser": "0.0.4",
     "@types/jest": "^27",
     "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
