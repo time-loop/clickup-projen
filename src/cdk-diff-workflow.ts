@@ -75,6 +75,15 @@ export module cdkDiffWorkflow {
                 'github-token': '${{ secrets.GITHUB_TOKEN }}',
               },
             },
+            {
+              name: 'Save processed diff logs',
+              uses: 'actions/upload-artifact@v3.1.2',
+              with: {
+                name: 'ProcessedDiffLogs',
+                path: '*.log',
+                'retention-days': 3,
+              },
+            },
           ],
         },
       },
