@@ -38,7 +38,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 14.21.3",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
@@ -181,7 +181,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14.21.3
+          node-version: 14.18.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -214,7 +214,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.21.3
+          node-version: 14.18.0
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -244,7 +244,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.21.3
+          node-version: 14.18.0
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -370,7 +370,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14.21.3
+          node-version: 14.18.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -403,7 +403,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.21.3
+          node-version: 14.18.0
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -516,7 +516,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 14.21.3",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
@@ -822,7 +822,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 14.21.3",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
