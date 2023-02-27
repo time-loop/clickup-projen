@@ -167,6 +167,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.name">name</a></code> | <code>string</code> | This is the name of your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.commitGenerated">commitGenerated</a></code> | <code>boolean</code> | Whether to commit the managed files by default. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.gitOptions">gitOptions</a></code> | <code>projen.GitOptions</code> | Configuration options for git. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.logging">logging</a></code> | <code>projen.LoggerOptions</code> | Configure logging options such as verbosity. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.outdir">outdir</a></code> | <code>string</code> | The root directory of the project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.parent">parent</a></code> | <code>projen.Project</code> | The parent project, if this project is part of a bigger project. |
@@ -358,6 +359,18 @@ public readonly commitGenerated: boolean;
 - *Default:* true
 
 Whether to commit the managed files by default.
+
+---
+
+##### `gitOptions`<sup>Optional</sup> <a name="gitOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.gitOptions"></a>
+
+```typescript
+public readonly gitOptions: GitOptions;
+```
+
+- *Type:* projen.GitOptions
+
+Configuration options for git.
 
 ---
 
@@ -2722,6 +2735,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.name">name</a></code> | <code>string</code> | This is the name of your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.commitGenerated">commitGenerated</a></code> | <code>boolean</code> | Whether to commit the managed files by default. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.gitOptions">gitOptions</a></code> | <code>projen.GitOptions</code> | Configuration options for git. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.logging">logging</a></code> | <code>projen.LoggerOptions</code> | Configure logging options such as verbosity. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.outdir">outdir</a></code> | <code>string</code> | The root directory of the project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.parent">parent</a></code> | <code>projen.Project</code> | The parent project, if this project is part of a bigger project. |
@@ -2905,6 +2919,18 @@ public readonly commitGenerated: boolean;
 - *Default:* true
 
 Whether to commit the managed files by default.
+
+---
+
+##### `gitOptions`<sup>Optional</sup> <a name="gitOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.gitOptions"></a>
+
+```typescript
+public readonly gitOptions: GitOptions;
+```
+
+- *Type:* projen.GitOptions
+
+Configuration options for git.
 
 ---
 
@@ -5154,6 +5180,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.name">name</a></code> | <code>string</code> | This is the name of your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.commitGenerated">commitGenerated</a></code> | <code>boolean</code> | Whether to commit the managed files by default. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.gitOptions">gitOptions</a></code> | <code>projen.GitOptions</code> | Configuration options for git. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.logging">logging</a></code> | <code>projen.LoggerOptions</code> | Configure logging options such as verbosity. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.outdir">outdir</a></code> | <code>string</code> | The root directory of the project. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.parent">parent</a></code> | <code>projen.Project</code> | The parent project, if this project is part of a bigger project. |
@@ -5315,6 +5342,18 @@ public readonly commitGenerated: boolean;
 - *Default:* true
 
 Whether to commit the managed files by default.
+
+---
+
+##### `gitOptions`<sup>Optional</sup> <a name="gitOptions" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.gitOptions"></a>
+
+```typescript
+public readonly gitOptions: GitOptions;
+```
+
+- *Type:* projen.GitOptions
+
+Configuration options for git.
 
 ---
 
