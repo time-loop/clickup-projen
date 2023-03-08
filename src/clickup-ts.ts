@@ -2,6 +2,7 @@ import { javascript, typescript, Component, JsonFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { codecov } from './codecov';
+import { codeqlWorkflow } from './codeql-workflow';
 import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
 
@@ -218,6 +219,7 @@ export module clickupTs {
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
+      codeqlWorkflow.addCodeqlWorkflowYml(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
       if (options.sendSlackWebhookOnRelease !== false) {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
