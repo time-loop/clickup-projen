@@ -20,7 +20,6 @@ export module codeqlWorkflow {
     jobs: {
       analyze: {
         name: 'Analyze',
-        if: "github.event.pull_request.draft == false && github.event.pull_request.user.login != 'clickup-backend-bot' && github.event.pull_request.user.login != 'dependabot'",
         'runs-on': 'ubuntu-latest',
         permissions: {
           actions: 'read',
@@ -28,7 +27,6 @@ export module codeqlWorkflow {
           'security-events': 'write',
         },
         strategy: {
-          'fail-fast': 'false',
           matrix: {
             language: ['javascript'],
           },
@@ -36,18 +34,18 @@ export module codeqlWorkflow {
         steps: [
           {
             name: 'Checkout repository',
-            uses: 'actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b', // tag=v3.0.2
+            uses: 'actions/checkout@v3',
           },
           {
             name: 'Initialize CodeQL',
-            uses: 'github/codeql-action/init@32dc499307d133bb5085bae78498c0ac2cf762d5', // tag=v2.2.5
+            uses: 'github/codeql-action/init@v2',
             with: {
               languages: '${{ matrix.language }}',
             },
           },
           {
             name: 'Perform CodeQL Analysis',
-            uses: 'github/codeql-action/analyze@32dc499307d133bb5085bae78498c0ac2cf762d5', // tag=v2.2.5
+            uses: 'github/codeql-action/analyze@v2',
           },
         ],
       },
