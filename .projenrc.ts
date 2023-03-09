@@ -1,4 +1,5 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
+import { codeqlWorkflow } from './src/codeql-workflow';
 import { renovateWorkflow } from './src/renovate-workflow';
 
 const bundledDeps = ['ts-deepmerge', 'cson-parser'];
@@ -129,5 +130,6 @@ new YamlFile(project, 'codecov.yml', {
 });
 
 renovateWorkflow.addRenovateWorkflowYml(project);
+codeqlWorkflow.addCodeqlWorkflowYml(project);
 
 project.synth();
