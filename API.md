@@ -222,6 +222,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.scopedPackagesOptions">scopedPackagesOptions</a></code> | <code>projen.javascript.ScopedPackagesOptions[]</code> | Options for privately hosted scoped packages. |
@@ -1179,6 +1180,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmVersion`<sup>Optional</sup> <a name="pnpmVersion" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.pnpmVersion"></a>
+
+```typescript
+public readonly pnpmVersion: string;
+```
+
+- *Type:* string
+- *Default:* "7"
+
+The version of PNPM to use if using PNPM as a package manager.
 
 ---
 
@@ -2790,6 +2804,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.scopedPackagesOptions">scopedPackagesOptions</a></code> | <code>projen.javascript.ScopedPackagesOptions[]</code> | Options for privately hosted scoped packages. |
@@ -3739,6 +3754,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmVersion`<sup>Optional</sup> <a name="pnpmVersion" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.pnpmVersion"></a>
+
+```typescript
+public readonly pnpmVersion: string;
+```
+
+- *Type:* string
+- *Default:* "7"
+
+The version of PNPM to use if using PNPM as a package manager.
 
 ---
 
@@ -5235,6 +5263,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.packageName">packageName</a></code> | <code>string</code> | The "name" in package.json. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.peerDependencyOptions">peerDependencyOptions</a></code> | <code>projen.javascript.PeerDependencyOptions</code> | Options for `peerDeps`. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.peerDeps">peerDeps</a></code> | <code>string[]</code> | Peer dependencies for this module. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.pnpmVersion">pnpmVersion</a></code> | <code>string</code> | The version of PNPM to use if using PNPM as a package manager. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.repository">repository</a></code> | <code>string</code> | The repository is the location where the actual code for your package lives. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.repositoryDirectory">repositoryDirectory</a></code> | <code>string</code> | If the package.json for your package is not in the root directory (for example if it is part of a monorepo), you can specify the directory in which it lives. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.scopedPackagesOptions">scopedPackagesOptions</a></code> | <code>projen.javascript.ScopedPackagesOptions[]</code> | Options for privately hosted scoped packages. |
@@ -6162,6 +6191,19 @@ Unless `peerDependencyOptions.pinnedDevDependency` is disabled (it is
 enabled by default), projen will automatically add a dev dependency with a
 pinned version for each peer dependency. This will ensure that you build &
 test your module against the lowest peer version required.
+
+---
+
+##### `pnpmVersion`<sup>Optional</sup> <a name="pnpmVersion" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.pnpmVersion"></a>
+
+```typescript
+public readonly pnpmVersion: string;
+```
+
+- *Type:* string
+- *Default:* "7"
+
+The version of PNPM to use if using PNPM as a package manager.
 
 ---
 
@@ -8385,7 +8427,7 @@ names of cdk modules (e.g. `@aws-cdk/aws-lambda`).
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.buildWorkflow">buildWorkflow</a></code> | <code>projen.build.BuildWorkflow</code> | The PR build GitHub workflow. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.buildWorkflowJobId">buildWorkflowJobId</a></code> | <code>string</code> | The job ID of the build workflow. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.jest">jest</a></code> | <code>projen.javascript.Jest</code> | The Jest configuration (if enabled). |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.maxNodeVersion">maxNodeVersion</a></code> | <code>string</code> | Maximum node version required by this pacakge. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.maxNodeVersion">maxNodeVersion</a></code> | <code>string</code> | Maximum node version required by this package. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.minNodeVersion">minNodeVersion</a></code> | <code>string</code> | Minimum node.js version required by this package. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.npmignore">npmignore</a></code> | <code>projen.IgnoreFile</code> | The .npmignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibrary.property.prettier">prettier</a></code> | <code>projen.javascript.Prettier</code> | *No description.* |
@@ -8930,7 +8972,7 @@ public readonly maxNodeVersion: string;
 
 - *Type:* string
 
-Maximum node version required by this pacakge.
+Maximum node version required by this package.
 
 ---
 
@@ -9811,7 +9853,7 @@ The list of modules to depend on.
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.buildWorkflow">buildWorkflow</a></code> | <code>projen.build.BuildWorkflow</code> | The PR build GitHub workflow. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.buildWorkflowJobId">buildWorkflowJobId</a></code> | <code>string</code> | The job ID of the build workflow. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.jest">jest</a></code> | <code>projen.javascript.Jest</code> | The Jest configuration (if enabled). |
-| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.maxNodeVersion">maxNodeVersion</a></code> | <code>string</code> | Maximum node version required by this pacakge. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.maxNodeVersion">maxNodeVersion</a></code> | <code>string</code> | Maximum node version required by this package. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.minNodeVersion">minNodeVersion</a></code> | <code>string</code> | Minimum node.js version required by this package. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.npmignore">npmignore</a></code> | <code>projen.IgnoreFile</code> | The .npmignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.prettier">prettier</a></code> | <code>projen.javascript.Prettier</code> | *No description.* |
@@ -10358,7 +10400,7 @@ public readonly maxNodeVersion: string;
 
 - *Type:* string
 
-Maximum node version required by this pacakge.
+Maximum node version required by this package.
 
 ---
 
@@ -11249,7 +11291,7 @@ The command to execute.
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.buildWorkflow">buildWorkflow</a></code> | <code>projen.build.BuildWorkflow</code> | The PR build GitHub workflow. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.buildWorkflowJobId">buildWorkflowJobId</a></code> | <code>string</code> | The job ID of the build workflow. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.jest">jest</a></code> | <code>projen.javascript.Jest</code> | The Jest configuration (if enabled). |
-| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.maxNodeVersion">maxNodeVersion</a></code> | <code>string</code> | Maximum node version required by this pacakge. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.maxNodeVersion">maxNodeVersion</a></code> | <code>string</code> | Maximum node version required by this package. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.minNodeVersion">minNodeVersion</a></code> | <code>string</code> | Minimum node.js version required by this package. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.npmignore">npmignore</a></code> | <code>projen.IgnoreFile</code> | The .npmignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProject.property.prettier">prettier</a></code> | <code>projen.javascript.Prettier</code> | *No description.* |
@@ -11790,7 +11832,7 @@ public readonly maxNodeVersion: string;
 
 - *Type:* string
 
-Maximum node version required by this pacakge.
+Maximum node version required by this package.
 
 ---
 
