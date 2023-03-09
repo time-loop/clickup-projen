@@ -5,6 +5,8 @@ export module renovateWorkflow {
   export const RENOVATE_GITHUB_USERNAME = 'cu-infra-svc-git';
 
   export const AUTO_APPROVE_PR_LABEL = 'auto-approve';
+  export const DEFAULT_RENOVATE_PR_LABEL = 'renovate';
+  export const OPTIONAL_RENOVATE_PR_LABEL = 'optional';
 
   const defaultWorkflow = {
     name: 'upgrade-main',
@@ -120,11 +122,11 @@ export module renovateWorkflow {
               // Tell renovate to enable github's auto merge feature on the PR
               automerge: options.autoMergeNonBreakingUpdates ? true : undefined,
               // Adding the auto-approve label will make projens auto approve workflow approve the PR so it will be auto merged
-              labels: options.autoMergeNonBreakingUpdates ? [AUTO_APPROVE_PR_LABEL] : undefined,
+              addLabels: [options.autoMergeNonBreakingUpdates ? [AUTO_APPROVE_PR_LABEL] : undefined],
             },
             {
               matchDepTypes: ['optionalDependencies'],
-              addLabels: ['optional'],
+              addLabels: [OPTIONAL_RENOVATE_PR_LABEL],
             },
           ],
 
@@ -143,7 +145,7 @@ export module renovateWorkflow {
         },
       },
       options.defaultOverrides ?? {
-        labels: ['renovate'],
+        labels: [DEFAULT_RENOVATE_PR_LABEL],
       },
     );
   }

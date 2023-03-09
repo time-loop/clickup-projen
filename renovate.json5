@@ -24,8 +24,10 @@
         "patch"
       ],
       "automerge": true,
-      "labels": [
-        "auto-approve"
+      "addLabels": [
+        [
+          "auto-approve"
+        ]
       ]
     },
     {
