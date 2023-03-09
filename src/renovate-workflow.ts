@@ -122,6 +122,10 @@ export module renovateWorkflow {
               // Adding the auto-approve label will make projens auto approve workflow approve the PR so it will be auto merged
               labels: options.autoMergeNonBreakingUpdates ? [AUTO_APPROVE_PR_LABEL] : undefined,
             },
+            {
+              matchDepTypes: ['optionalDependencies'],
+              addLabels: ['optional'],
+            },
           ],
 
           /* override defaults set in config:base preset */
@@ -138,7 +142,9 @@ export module renovateWorkflow {
           platformAutomerge: true,
         },
       },
-      options.defaultOverrides ?? {},
+      options.defaultOverrides ?? {
+        labels: ['renovate'],
+      },
     );
   }
 
