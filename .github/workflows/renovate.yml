@@ -32,7 +32,7 @@ jobs:
         if: (github.event_name != 'issues' && github.event_name != 'pull_request') || github.actor != 'cu-infra-svc-git'
         with:
           configurationFile: renovate.json5
-          token: x-access-token:${{ secrets.PROJEN_GITHUB_TOKEN }}
+          token: x-access-token:${{ secrets.RENOVATEBOT_GITHUB_TOKEN }}
         env:
           RENOVATE_HOST_RULES: '[{"matchHost":"https://npm.pkg.github.com/","hostType":"npm","token":"${{ secrets.ALL_PACKAGE_READ_TOKEN }}"}]'
           RENOVATE_NPMRC: "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com"
