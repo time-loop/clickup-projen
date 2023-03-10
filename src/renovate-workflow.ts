@@ -94,9 +94,7 @@ export module renovateWorkflow {
             with: {
               // github project url
               'project-url': `https://github.com/orgs/time-loop/projects/${GITHUB_PROJECT_NUMBER}`,
-              // We cannot use the default GITHUB_TOKEN to auth as explained here:
-              // https://github.com/renovatebot/github-action#token
-              token: 'x-access-token:${{ secrets.PROJEN_GITHUB_TOKEN }}',
+              'github-token': 'x-access-token:${{ secrets.PROJEN_GITHUB_TOKEN }}',
               labeled: DEFAULT_RENOVATE_PR_LABEL,
             },
           },
