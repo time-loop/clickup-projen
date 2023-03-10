@@ -7,7 +7,6 @@ export module renovateWorkflow {
   export const AUTO_APPROVE_PR_LABEL = 'auto-approve';
   export const DEFAULT_RENOVATE_PR_LABEL = 'renovate';
   export const OPTIONAL_RENOVATE_PR_LABEL = 'optional';
-  export const GITHUB_PROJECT_NUMBER = '3';
 
   const defaultWorkflow = {
     name: 'upgrade-main',
@@ -74,28 +73,6 @@ export module renovateWorkflow {
               // otherwise the user has to then go and check the box on the dependency dashboard to
               // receive updates and this is kind of confusing
               RENOVATE_FORCE: "${{ github.event_name == 'workflow_dispatch' && '{\"schedule\":null}' || '' }}",
-            },
-          },
-        ],
-      },
-      'add-to-project': {
-        'runs-on': 'ubuntu-latest',
-        permissions: {
-          contents: 'read',
-        },
-        steps: [
-          {
-            name: 'Checkout',
-            uses: 'actions/checkout@v3',
-          },
-          {
-            name: 'Add issue to project',
-            uses: 'actions/add-to-project@v0.4.1',
-            with: {
-              // github project url
-              'project-url': `https://github.com/orgs/time-loop/projects/${GITHUB_PROJECT_NUMBER}`,
-              'github-token': 'x-access-token:${{ secrets.PROJEN_GITHUB_TOKEN }}',
-              labeled: DEFAULT_RENOVATE_PR_LABEL,
             },
           },
         ],
