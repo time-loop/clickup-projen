@@ -35,12 +35,14 @@ describe('getRenovateOptions', () => {
   test('auto merge off by default', () => {
     const options = renovateWorkflow.getRenovateOptions();
     expect(options.overrideConfig.packageRules[0].automerge).toBeUndefined();
-    expect(options.overrideConfig.packageRules[0].labels).toBeUndefined();
+    expect(options.overrideConfig.packageRules[0].addLabels[0]).toBeUndefined();
+    expect(options.labels).toEqual([renovateWorkflow.DEFAULT_RENOVATE_PR_LABEL]);
   });
 
   test('auto merge on', () => {
     const options = renovateWorkflow.getRenovateOptions({ autoMergeNonBreakingUpdates: true });
     expect(options.overrideConfig.packageRules[0].automerge).toBe(true);
-    expect(options.overrideConfig.packageRules[0].labels).toEqual([renovateWorkflow.AUTO_APPROVE_PR_LABEL]);
+    expect(options.overrideConfig.packageRules[0].addLabels[0]).toEqual([renovateWorkflow.AUTO_APPROVE_PR_LABEL]);
+    expect(options.labels).toEqual([renovateWorkflow.DEFAULT_RENOVATE_PR_LABEL]);
   });
 });
