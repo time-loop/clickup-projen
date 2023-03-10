@@ -58,7 +58,7 @@ export module renovateWorkflow {
               // Run projen as the cu-infra-svc-git user
               // We cannot use the default GITHUB_TOKEN to auth as explained here:
               // https://github.com/renovatebot/github-action#token
-              token: 'x-access-token:${{ secrets.PROJEN_GITHUB_TOKEN }}',
+              token: 'x-access-token:${{ secrets.RENOVATEBOT_GITHUB_TOKEN }}',
             },
             env: {
               // Private github packages auth
