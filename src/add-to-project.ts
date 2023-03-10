@@ -13,9 +13,8 @@ export module addToProjectWorkflow {
         types: ['opened', 'labeled'],
       },
     },
-    // Prevent renovate running multiple times in parallel due to several subsequent trigger events occurring
     concurrency: {
-      group: "${{ github.workflow }}-${{ github.event_name == 'workflow_dispatch' && github.event_name || '' }}",
+      group: '${{ github.workflow }}-${{ github.ref_name }}',
     },
     jobs: {
       'add-to-project': {
@@ -25,16 +24,12 @@ export module addToProjectWorkflow {
         },
         steps: [
           {
-            name: 'Checkout',
-            uses: 'actions/checkout@v3',
-          },
-          {
-            name: 'Add issue to project',
+            name: 'Add to project',
             uses: 'actions/add-to-project@v0.4.1',
             with: {
               // github project url
               'project-url': `https://github.com/orgs/time-loop/projects/${GITHUB_PROJECT_NUMBER}`,
-              'github-token': 'x-access-token:${{ secrets.PROJEN_GITHUB_TOKEN }}',
+              'github-token': '${{ secrets.PROJEN_GITHUB_TOKEN }}',
               labeled: DEFAULT_RENOVATE_PR_LABEL,
             },
           },
