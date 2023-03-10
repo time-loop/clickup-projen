@@ -42,7 +42,7 @@ describe('getRenovateOptions', () => {
   test('auto merge on', () => {
     const options = renovateWorkflow.getRenovateOptions({ autoMergeNonBreakingUpdates: true });
     expect(options.overrideConfig.packageRules[0].automerge).toBe(true);
-    expect(options.overrideConfig.packageRules[0].addLabels[0]).toEqual([renovateWorkflow.AUTO_APPROVE_PR_LABEL]);
+    expect(options.overrideConfig.packageRules[0].addLabels[0]).toEqual(renovateWorkflow.AUTO_APPROVE_PR_LABEL);
     expect(options.labels).toEqual([renovateWorkflow.DEFAULT_RENOVATE_PR_LABEL]);
   });
 });
