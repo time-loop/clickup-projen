@@ -1,4 +1,5 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
+import { addToProjectWorkflow } from './src/add-to-project';
 import { codeqlWorkflow } from './src/codeql-workflow';
 import { renovateWorkflow } from './src/renovate-workflow';
 
@@ -131,5 +132,6 @@ new YamlFile(project, 'codecov.yml', {
 
 renovateWorkflow.addRenovateWorkflowYml(project);
 codeqlWorkflow.addCodeqlWorkflowYml(project);
+addToProjectWorkflow.addAddToProjectWorkflowYml(project);
 
 project.synth();

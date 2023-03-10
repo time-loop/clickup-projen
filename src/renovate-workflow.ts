@@ -122,7 +122,7 @@ export module renovateWorkflow {
               // Tell renovate to enable github's auto merge feature on the PR
               automerge: options.autoMergeNonBreakingUpdates ? true : undefined,
               // Adding the auto-approve label will make projens auto approve workflow approve the PR so it will be auto merged
-              addLabels: [options.autoMergeNonBreakingUpdates ? [AUTO_APPROVE_PR_LABEL] : undefined],
+              addLabels: [options.autoMergeNonBreakingUpdates ? AUTO_APPROVE_PR_LABEL : undefined],
             },
             {
               matchDepTypes: ['optionalDependencies'],
