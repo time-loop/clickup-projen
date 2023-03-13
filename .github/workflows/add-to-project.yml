@@ -18,5 +18,5 @@ jobs:
         uses: actions/add-to-project@v0.4.1
         with:
           project-url: https://github.com/orgs/time-loop/projects/3
-          github-token: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          github-token: ${{ secrets.RENOVATEBOT_GITHUB_TOKEN }}
           labeled: renovate
