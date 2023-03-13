@@ -3520,10 +3520,10 @@ jsii-diff@^1.77.0:
     log4js "^6.8.0"
     yargs "^16.2.0"
 
-jsii-docgen@^7.1.23:
-  version "7.1.23"
-  resolved "https://registry.yarnpkg.com/jsii-docgen/-/jsii-docgen-7.1.23.tgz#b23d4084120ff1169eb2e678efc27f715468cd72"
-  integrity sha512-HntO497QlxkAaR5slEexf/DPr9U4FM3RWBCxg2wS/oO69ww2Ke2gNlkDggAYZJJlA1VkgKO4Tfm2IvAYGKuVFA==
+jsii-docgen@^7.1.24:
+  version "7.1.24"
+  resolved "https://registry.yarnpkg.com/jsii-docgen/-/jsii-docgen-7.1.24.tgz#70e76ea36b4f3493d353d7d0d4b411a86fdedb3c"
+  integrity sha512-m7/8URXtjfqz7Wmr9HfszqbXnLYrrBb8Es/POwATm+KU+m/2AedrUqkAHvKRqF7c57g2JnBdafyQW0QyOxU1nw==
   dependencies:
     "@jsii/spec" "^1.77.0"
     case "^1.6.3"
@@ -4255,10 +4255,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@^0.67.83:
-  version "0.67.83"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.67.83.tgz#ec9b29f36425368381a253772e90a273f1721283"
-  integrity sha512-M0AfniPM7f5oEqpHwpsnMPTvcGARr6pDUVeBi11LzwuQyxy/yJOcxKcO7+LqOOWfNJexxfPLsm36vHn9D4/P/A==
+projen@^0.67.85:
+  version "0.67.85"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.67.85.tgz#e7e6e4958ca3eb035a63406e0ceb1b9ca5e3e6e1"
+  integrity sha512-882z5DrGui4jMZCiKV1vpinQG/0I/jXVFDxG3QpBcbKirJnu8cPjTxLEVS+DHIJ4b/IHsrU1JlrmABkXMZgLCA==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
