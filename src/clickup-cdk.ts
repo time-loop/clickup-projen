@@ -117,6 +117,7 @@ export module clickupCdk {
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       codeqlWorkflow.addCodeqlWorkflowYml(this);
+      addToProjectWorkflow.addAddToProjectWorkflowYml(this);
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
