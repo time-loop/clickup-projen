@@ -29,7 +29,7 @@ export module addToProjectWorkflow {
             with: {
               // github project url
               'project-url': `https://github.com/orgs/time-loop/projects/${GITHUB_PROJECT_NUMBER}`,
-              'github-token': '${{ secrets.PROJEN_GITHUB_TOKEN }}',
+              'github-token': '${{ secrets.RENOVATEBOT_GITHUB_TOKEN }}',
               labeled: DEFAULT_RENOVATE_PR_LABEL,
             },
           },
