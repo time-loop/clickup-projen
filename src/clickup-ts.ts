@@ -13,11 +13,19 @@ export module clickupTs {
 
   export const devDeps = ['esbuild', 'eslint-config-prettier', 'eslint-plugin-prettier', 'jsii-release', 'prettier'];
 
-  export const defaults: Partial<ClickUpTypeScriptProjectOptions> = {
+  // We need to be picky about our typing here.
+  // We don't want a default name
+  // (you'd think we could deduce it from the github repo name, but that won't work with CodeBuild checkouts by default)
+  // We need to also get rid of the `| undefined` to make deep merge happy.
+  export const defaults: Omit<ClickUpTypeScriptProjectOptions, 'name'> & {
+    authorAddress: string;
+    authorName: string;
+  } = {
     authorAddress: 'devops@clickup.com',
     authorName: 'ClickUp',
     authorOrganization: true,
     licensed: false,
+    defaultReleaseBranch: 'main',
 
     release: true,
     releaseToNpm: true,
