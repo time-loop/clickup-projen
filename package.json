@@ -61,7 +61,7 @@
   "dependencies": {
     "cson-parser": "^4.0.9",
     "projen": "^0.67.85",
-    "ts-deepmerge": "^2.0.7"
+    "ts-deepmerge": "^6.0.2"
   },
   "bundledDependencies": [
     "cson-parser",
