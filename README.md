@@ -175,7 +175,7 @@ Watch with awe and wonder as projen stamps out a project with
   - Activate the repo (big green button).
   - You should probably grab the Badge Markdown and stick it in your top level `README.md` as the first line at the very top of the file. Use the `badge` tab on the left side of the screen to find it. If you do this as a PR rather than just directly committing on the main branch, it will trigger the workflows, which will be helpful later.
 - Secrets/Actions: https://github.com/time-loop/my-new-repo/settings/secrets/actions
-  - Add a _New repository secret_ with the name `CODECOV_TOKEN` and uuid secret from above.
+  - Add a _New repository secret_ with the name `CODECOV_TOKEN` and a uuid from CodeCov https://app.codecov.io/gh/time-loop/my-new-repo/settings.
 - Update GitHub settings in your new repo.
   - General: https://github.com/time-loop/my-new-repo/settings
     - Pull Requests, allow only squash merging (this helps keep our git history usable, and helps us achieve [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for semver generation)
