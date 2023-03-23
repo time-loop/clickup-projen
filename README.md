@@ -44,10 +44,22 @@ EOF
 
 NOTE: There are also some `@clickup/*` libraries in ye olde `npmjs.com`.
 
+#### NPM
+
+Install the latest NPM version:
+
+```
+npm i -g npm@latest
+```
+
 #### Node 14.18.0 and up.
 
 Make sure you are using the appropriate node version with `nvm use --lts`.
 The lowest acceptable version is `14.18.0`, but you should probably be using the latest LTS.
+
+```
+nvm install --lts && npm use --lts.
+```
 
 #### Sourcing cdk.context.json
 
@@ -162,9 +174,8 @@ Watch with awe and wonder as projen stamps out a project with
   - If this is your first time using CodeCov, you will need to [enable the GitHub private scope in CodeCov](docs/codecov/) before proceeding.
   - Activate the repo (big green button).
   - You should probably grab the Badge Markdown and stick it in your top level `README.md` as the first line at the very top of the file. Use the `badge` tab on the left side of the screen to find it. If you do this as a PR rather than just directly committing on the main branch, it will trigger the workflows, which will be helpful later.
-  - You will need the `CODECOV_TOKEN` for the GitHub/Secrets/Actions step below. It looks like a uuid, for example: `abcdefgh-1234-abcd-1234-a05b70be94b1`
 - Secrets/Actions: https://github.com/time-loop/my-new-repo/settings/secrets/actions
-  - Add a _New repository secret_ with the name `CODECOV_TOKEN` and uuid secret from above.
+  - Add a _New repository secret_ with the name `CODECOV_TOKEN` and a uuid from CodeCov https://app.codecov.io/gh/time-loop/my-new-repo/settings.
 - Update GitHub settings in your new repo.
   - General: https://github.com/time-loop/my-new-repo/settings
     - Pull Requests, allow only squash merging (this helps keep our git history usable, and helps us achieve [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for semver generation)
