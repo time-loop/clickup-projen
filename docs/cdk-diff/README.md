@@ -93,6 +93,8 @@ Note that the only files you manually edited were `.projenrc.ts` and `/src/pipel
  11 files changed, 354 insertions(+), 3 deletions(-)
 ```
 
+## Why is it broken?
+
 Understand that when you initially push this, the `cdk-diff` job will fail.
 This is expected. It's failing because the OIDC role stacks haven't yet been deployed.
 If you have admin access, you can deploy these manually,
