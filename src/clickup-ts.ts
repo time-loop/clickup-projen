@@ -58,8 +58,8 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
-    minNodeVersion: '14.18.0', // Required by eslint-import-resolver-typescript@3.3.0
-    workflowNodeVersion: '14.18.0',
+    minNodeVersion: '16.20.0', // Required by eslint-import-resolver-typescript@3.3.0
+    workflowNodeVersion: '16.20.0',
 
     prettier: true,
     prettierOptions: {

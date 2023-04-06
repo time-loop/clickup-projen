@@ -38,7 +38,7 @@ export module cdkDiffWorkflow {
               name: 'Setup Node.js',
               uses: 'actions/setup-node@v3',
               with: {
-                'node-version': '14.x',
+                'node-version': '16.x',
               },
             },
             {
