@@ -24,19 +24,19 @@ Details follow.
 +    envsToDiff: [
 +      {
 +        name: 'qa',
-+        oidcRoleArn: `arn:aws:iam::123412341234:role/${name}-github-actions-role`,
++        oidcRoleArn: `arn:aws:iam::${core.Environment.usQa.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-qa',
 +        stackSearchString: 'Qa',
 +      },
 +      {
 +        name: 'staging',
-+        oidcRoleArn: `arn:aws:iam::432143214321:role/${name}-github-actions-role`,
++        oidcRoleArn: `arn:aws:iam::${core.Environment.globalStaging.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-staging',
 +        stackSearchString: 'Staging',
 +      },
 +      {
 +        name: 'prod',
-+        oidcRoleArn: `arn:aws:iam::432143214321:role/${name}-github-actions-role`,
++        oidcRoleArn: `arn:aws:iam::${core.Environment.globalProd.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-prod',
 +        stackSearchString: 'Prod',
 +      },
