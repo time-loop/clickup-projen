@@ -167,6 +167,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.name">name</a></code> | <code>string</code> | This is the name of your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.commitGenerated">commitGenerated</a></code> | <code>boolean</code> | Whether to commit the managed files by default. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.gitIgnoreOptions">gitIgnoreOptions</a></code> | <code>projen.IgnoreFileOptions</code> | Configuration options for .gitignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.gitOptions">gitOptions</a></code> | <code>projen.GitOptions</code> | Configuration options for git. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.logging">logging</a></code> | <code>projen.LoggerOptions</code> | Configure logging options such as verbosity. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.outdir">outdir</a></code> | <code>string</code> | The root directory of the project. |
@@ -268,6 +269,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.mutableBuild">mutableBuild</a></code> | <code>boolean</code> | Automatically update files modified during builds to pull-request branches. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.npmignore">npmignore</a></code> | <code>string[]</code> | Additional entries to .npmignore. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.npmignoreEnabled">npmignoreEnabled</a></code> | <code>boolean</code> | Defines an .npmignore file. Normally this is only needed for libraries that are packaged as tarballs. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.npmIgnoreOptions">npmIgnoreOptions</a></code> | <code>projen.IgnoreFileOptions</code> | Configuration options for .npmignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.package">package</a></code> | <code>boolean</code> | Defines a `package` task that will produce an npm tarball under the artifacts directory (e.g. `dist`). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.prettier">prettier</a></code> | <code>boolean</code> | Setup prettier. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.prettierOptions">prettierOptions</a></code> | <code>projen.javascript.PrettierOptions</code> | Prettier options. |
@@ -360,6 +362,18 @@ public readonly commitGenerated: boolean;
 - *Default:* true
 
 Whether to commit the managed files by default.
+
+---
+
+##### `gitIgnoreOptions`<sup>Optional</sup> <a name="gitIgnoreOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.gitIgnoreOptions"></a>
+
+```typescript
+public readonly gitIgnoreOptions: IgnoreFileOptions;
+```
+
+- *Type:* projen.IgnoreFileOptions
+
+Configuration options for .gitignore file.
 
 ---
 
@@ -538,7 +552,7 @@ public readonly clobber: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* true
+- *Default:* true, but false for subprojects
 
 Add a `clobber` task which resets the repo to origin.
 
@@ -1827,6 +1841,18 @@ Defines an .npmignore file. Normally this is only needed for libraries that are 
 
 ---
 
+##### `npmIgnoreOptions`<sup>Optional</sup> <a name="npmIgnoreOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.npmIgnoreOptions"></a>
+
+```typescript
+public readonly npmIgnoreOptions: IgnoreFileOptions;
+```
+
+- *Type:* projen.IgnoreFileOptions
+
+Configuration options for .npmignore file.
+
+---
+
 ##### `package`<sup>Optional</sup> <a name="package" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.package"></a>
 
 ```typescript
@@ -2749,6 +2775,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.name">name</a></code> | <code>string</code> | This is the name of your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.commitGenerated">commitGenerated</a></code> | <code>boolean</code> | Whether to commit the managed files by default. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.gitIgnoreOptions">gitIgnoreOptions</a></code> | <code>projen.IgnoreFileOptions</code> | Configuration options for .gitignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.gitOptions">gitOptions</a></code> | <code>projen.GitOptions</code> | Configuration options for git. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.logging">logging</a></code> | <code>projen.LoggerOptions</code> | Configure logging options such as verbosity. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.outdir">outdir</a></code> | <code>string</code> | The root directory of the project. |
@@ -2850,6 +2877,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.mutableBuild">mutableBuild</a></code> | <code>boolean</code> | Automatically update files modified during builds to pull-request branches. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.npmignore">npmignore</a></code> | <code>string[]</code> | Additional entries to .npmignore. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.npmignoreEnabled">npmignoreEnabled</a></code> | <code>boolean</code> | Defines an .npmignore file. Normally this is only needed for libraries that are packaged as tarballs. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.npmIgnoreOptions">npmIgnoreOptions</a></code> | <code>projen.IgnoreFileOptions</code> | Configuration options for .npmignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.package">package</a></code> | <code>boolean</code> | Defines a `package` task that will produce an npm tarball under the artifacts directory (e.g. `dist`). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.prettier">prettier</a></code> | <code>boolean</code> | Setup prettier. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.prettierOptions">prettierOptions</a></code> | <code>projen.javascript.PrettierOptions</code> | Prettier options. |
@@ -2934,6 +2962,18 @@ public readonly commitGenerated: boolean;
 - *Default:* true
 
 Whether to commit the managed files by default.
+
+---
+
+##### `gitIgnoreOptions`<sup>Optional</sup> <a name="gitIgnoreOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.gitIgnoreOptions"></a>
+
+```typescript
+public readonly gitIgnoreOptions: IgnoreFileOptions;
+```
+
+- *Type:* projen.IgnoreFileOptions
+
+Configuration options for .gitignore file.
 
 ---
 
@@ -3112,7 +3152,7 @@ public readonly clobber: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* true
+- *Default:* true, but false for subprojects
 
 Add a `clobber` task which resets the repo to origin.
 
@@ -4401,6 +4441,18 @@ Defines an .npmignore file. Normally this is only needed for libraries that are 
 
 ---
 
+##### `npmIgnoreOptions`<sup>Optional</sup> <a name="npmIgnoreOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.npmIgnoreOptions"></a>
+
+```typescript
+public readonly npmIgnoreOptions: IgnoreFileOptions;
+```
+
+- *Type:* projen.IgnoreFileOptions
+
+Configuration options for .npmignore file.
+
+---
+
 ##### `package`<sup>Optional</sup> <a name="package" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.package"></a>
 
 ```typescript
@@ -5208,6 +5260,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.name">name</a></code> | <code>string</code> | This is the name of your project. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.commitGenerated">commitGenerated</a></code> | <code>boolean</code> | Whether to commit the managed files by default. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.gitIgnoreOptions">gitIgnoreOptions</a></code> | <code>projen.IgnoreFileOptions</code> | Configuration options for .gitignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.gitOptions">gitOptions</a></code> | <code>projen.GitOptions</code> | Configuration options for git. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.logging">logging</a></code> | <code>projen.LoggerOptions</code> | Configure logging options such as verbosity. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.outdir">outdir</a></code> | <code>string</code> | The root directory of the project. |
@@ -5309,6 +5362,7 @@ const clickUpTypeScriptProjectOptions: clickupTs.ClickUpTypeScriptProjectOptions
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.mutableBuild">mutableBuild</a></code> | <code>boolean</code> | Automatically update files modified during builds to pull-request branches. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.npmignore">npmignore</a></code> | <code>string[]</code> | Additional entries to .npmignore. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.npmignoreEnabled">npmignoreEnabled</a></code> | <code>boolean</code> | Defines an .npmignore file. Normally this is only needed for libraries that are packaged as tarballs. |
+| <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.npmIgnoreOptions">npmIgnoreOptions</a></code> | <code>projen.IgnoreFileOptions</code> | Configuration options for .npmignore file. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.package">package</a></code> | <code>boolean</code> | Defines a `package` task that will produce an npm tarball under the artifacts directory (e.g. `dist`). |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.prettier">prettier</a></code> | <code>boolean</code> | Setup prettier. |
 | <code><a href="#@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.prettierOptions">prettierOptions</a></code> | <code>projen.javascript.PrettierOptions</code> | Prettier options. |
@@ -5371,6 +5425,18 @@ public readonly commitGenerated: boolean;
 - *Default:* true
 
 Whether to commit the managed files by default.
+
+---
+
+##### `gitIgnoreOptions`<sup>Optional</sup> <a name="gitIgnoreOptions" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.gitIgnoreOptions"></a>
+
+```typescript
+public readonly gitIgnoreOptions: IgnoreFileOptions;
+```
+
+- *Type:* projen.IgnoreFileOptions
+
+Configuration options for .gitignore file.
 
 ---
 
@@ -5549,7 +5615,7 @@ public readonly clobber: boolean;
 ```
 
 - *Type:* boolean
-- *Default:* true
+- *Default:* true, but false for subprojects
 
 Add a `clobber` task which resets the repo to origin.
 
@@ -6835,6 +6901,18 @@ public readonly npmignoreEnabled: boolean;
 - *Default:* true
 
 Defines an .npmignore file. Normally this is only needed for libraries that are packaged as tarballs.
+
+---
+
+##### `npmIgnoreOptions`<sup>Optional</sup> <a name="npmIgnoreOptions" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.property.npmIgnoreOptions"></a>
+
+```typescript
+public readonly npmIgnoreOptions: IgnoreFileOptions;
+```
+
+- *Type:* projen.IgnoreFileOptions
+
+Configuration options for .npmignore file.
 
 ---
 

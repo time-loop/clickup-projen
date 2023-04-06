@@ -32,7 +32,12 @@ export module cdkDiffWorkflow {
             },
             {
               name: 'GitHub Packages authorization',
-              run: 'cat > .npmrc <<EOF\n//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}\n@time-loop:registry=https://npm.pkg.github.com/\nEOF',
+              run: [
+                'cat > .npmrc <<EOF',
+                '//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}',
+                '@time-loop:registry=https://npm.pkg.github.com/',
+                'EOF',
+              ].join('\n'),
             },
             {
               name: 'Setup Node.js',

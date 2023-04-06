@@ -1,10 +1,10 @@
 import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
+import { addToProjectWorkflow } from './add-to-project';
 import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
-import { codeqlWorkflow } from './codeql-workflow';
 import { datadog } from './datadog';
 import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
@@ -115,7 +115,7 @@ export module clickupCdk {
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
-      codeqlWorkflow.addCodeqlWorkflowYml(this);
+      addToProjectWorkflow.addAddToProjectWorkflowYml(this);
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
@@ -162,7 +162,7 @@ export module clickupCdk {
       });
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
-      codeqlWorkflow.addCodeqlWorkflowYml(this);
+      addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       if (options.cdkDiffOptionsConfig) {
         cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
         cdkDiffWorkflow.AddCdkLogParserDependency(this.package);
