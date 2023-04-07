@@ -24,19 +24,19 @@ Details follow.
 +    envsToDiff: [
 +      {
 +        name: 'qa',
-+        oidcRoleArn: `arn:aws:iam::123412341234:role/${name}-github-actions-role`,
++        oidcRoleArn: `arn:aws:iam::${core.Environment.usQa.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-qa',
 +        stackSearchString: 'Qa',
 +      },
 +      {
 +        name: 'staging',
-+        oidcRoleArn: `arn:aws:iam::432143214321:role/${name}-github-actions-role`,
++        oidcRoleArn: `arn:aws:iam::${core.Environment.globalStaging.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-staging',
 +        stackSearchString: 'Staging',
 +      },
 +      {
 +        name: 'prod',
-+        oidcRoleArn: `arn:aws:iam::432143214321:role/${name}-github-actions-role`,
++        oidcRoleArn: `arn:aws:iam::${core.Environment.globalProd.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-prod',
 +        stackSearchString: 'Prod',
 +      },
@@ -92,6 +92,8 @@ Note that the only files you manually edited were `.projenrc.ts` and `/src/pipel
  yarn.lock                              | 116 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
  11 files changed, 354 insertions(+), 3 deletions(-)
 ```
+
+## Why is it broken?
 
 Understand that when you initially push this, the `cdk-diff` job will fail.
 This is expected. It's failing because the OIDC role stacks haven't yet been deployed.
