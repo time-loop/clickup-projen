@@ -1,7 +1,7 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
 import { addToProjectWorkflow } from './src/add-to-project';
-import { renovateWorkflow } from './src/renovate-workflow';
 import { gitHubSettings } from './src/github-settings';
+import { renovateWorkflow } from './src/renovate-workflow';
 
 const bundledDeps = ['ts-deepmerge', 'cson-parser'];
 

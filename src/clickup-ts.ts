@@ -3,8 +3,8 @@ import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { addToProjectWorkflow } from './add-to-project';
 import { codecov } from './codecov';
-import { renovateWorkflow } from './renovate-workflow';
 import { gitHubSettings } from './github-settings';
+import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
 
 export module clickupTs {

@@ -6,8 +6,8 @@ import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
-import { renovateWorkflow } from './renovate-workflow';
 import { gitHubSettings } from './github-settings';
+import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
 
 export module clickupCdk {
