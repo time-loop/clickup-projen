@@ -1,6 +1,7 @@
 import { cdk, github, javascript, YamlFile } from 'projen';
 import { addToProjectWorkflow } from './src/add-to-project';
 import { renovateWorkflow } from './src/renovate-workflow';
+import { semgrepWorkflow } from './src/semgrep-workflow';
 
 const bundledDeps = ['ts-deepmerge', 'cson-parser'];
 
@@ -130,6 +131,7 @@ new YamlFile(project, 'codecov.yml', {
 });
 
 renovateWorkflow.addRenovateWorkflowYml(project);
+semgrepWorkflow.addSemgrepWorkflowYml(project);
 addToProjectWorkflow.addAddToProjectWorkflowYml(project);
 
 project.synth();

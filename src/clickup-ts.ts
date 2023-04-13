@@ -4,6 +4,7 @@ import merge from 'ts-deepmerge';
 import { addToProjectWorkflow } from './add-to-project';
 import { codecov } from './codecov';
 import { renovateWorkflow } from './renovate-workflow';
+import { semgrepWorkflow } from './semgrep-workflow';
 import { slackAlert } from './slack-alert';
 
 export module clickupTs {
@@ -227,6 +228,7 @@ export module clickupTs {
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
+      semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
       if (options.sendSlackWebhookOnRelease !== false) {
