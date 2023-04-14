@@ -3,8 +3,10 @@ import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { addToProjectWorkflow } from './add-to-project';
 import { codecov } from './codecov';
+import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
+import { parameters } from './utils/parameters';
 
 export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
@@ -65,8 +67,8 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
-    minNodeVersion: '16.20.0',
-    workflowNodeVersion: '16.20.0',
+    minNodeVersion: parameters.PROJEN_NODE_VERSION, 
+    workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
     prettier: true,
     prettierOptions: {
@@ -226,6 +228,7 @@ export module clickupTs {
       );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+      nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});

@@ -1,6 +1,7 @@
-import { cdk, github, javascript, YamlFile } from 'projen';
+import { cdk, github, javascript, TextFile, YamlFile } from 'projen';
 import { addToProjectWorkflow } from './src/add-to-project';
 import { renovateWorkflow } from './src/renovate-workflow';
+import { parameters } from './src/utils/parameters';
 
 const bundledDeps = ['ts-deepmerge', 'cson-parser'];
 
@@ -130,6 +131,10 @@ new YamlFile(project, 'codecov.yml', {
       require_changes: 'no',
     },
   },
+});
+
+new TextFile(project, '.node-version', {
+  lines: [parameters.PROJEN_NODE_VERSION],
 });
 
 renovateWorkflow.addRenovateWorkflowYml(project);
