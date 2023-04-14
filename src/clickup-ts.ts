@@ -67,7 +67,7 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
-    minNodeVersion: parameters.PROJEN_NODE_VERSION, 
+    minNodeVersion: parameters.PROJEN_NODE_VERSION,
     workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
     prettier: true,

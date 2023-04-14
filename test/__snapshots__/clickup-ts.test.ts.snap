@@ -39,7 +39,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.0
+          node-version: 14.18.0
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -72,7 +72,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.0
+          node-version: 14.18.0
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -98,7 +98,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.0
+          node-version: 14.18.0
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -220,7 +220,7 @@ Object {
   },
   "devDependencies": Object {
     "@types/jest": "^27",
-    "@types/node": "^16",
+    "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "esbuild": "*",
@@ -244,7 +244,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 16.20.0",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
