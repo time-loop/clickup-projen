@@ -11,9 +11,11 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
     branches:
       - main
+      - master
 jobs:
   semgrep:
     name: Scan
@@ -40,9 +42,11 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
     branches:
       - main
+      - master
 jobs:
   semgrep:
     name: Scan
