@@ -12,6 +12,7 @@
     ".github/workflows/stale.yml",
     ".gitignore",
     ".mergify.yml",
+    ".node-version",
     ".prettierignore",
     ".prettierrc.json",
     ".projen/deps.json",
