@@ -19,8 +19,8 @@ const project = new cdk.JsiiProject({
   repositoryUrl: 'https://github.com/time-loop/clickup-projen.git', // default
   npmAccess: javascript.NpmAccess.PUBLIC,
 
-  minNodeVersion: '16.20.0',
-  workflowNodeVersion: '16.20.0',
+  minNodeVersion: parameters.PROJEN_NODE_VERSION,
+  workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
   githubOptions: {
     // TODO: we should instead be using an app for auth.
