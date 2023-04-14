@@ -6,6 +6,7 @@ import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
+import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
 
@@ -114,6 +115,7 @@ export module clickupCdk {
       );
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+      nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
 
@@ -161,6 +163,7 @@ export module clickupCdk {
         `,
       });
       codecov.addCodeCovYml(this);
+      nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       if (options.cdkDiffOptionsConfig) {
