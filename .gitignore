@@ -55,7 +55,7 @@ junit.xml
 tsconfig.json
 !/API.md
 !/codecov.yml
-!/.node-version
+!/.nvmrc
 !/.github/workflows/renovate.yml
 !/.github/workflows/add-to-project.yml
 !/renovate.json5
