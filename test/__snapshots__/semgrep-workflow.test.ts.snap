@@ -6,12 +6,7 @@ exports[`addSemgrepWorkflowYml file added 1`] = `
 name: Semgrep
 on:
   schedule:
-    - cron: 0 0 * * SAT
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
-      - master
+    - cron: 0 0 * * MON-FRI
   pull_request:
     branches:
       - main
@@ -37,12 +32,7 @@ exports[`addSemgrepWorkflowYml override 1`] = `
 name: Semgrep
 on:
   schedule:
-    - cron: 0 0 * * SAT
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
-      - master
+    - cron: 0 0 * * MON-FRI
   pull_request:
     branches:
       - main

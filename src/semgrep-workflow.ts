@@ -6,13 +6,9 @@ export module semgrepWorkflow {
     on: {
       schedule: [
         {
-          cron: '0 0 * * SAT',
+          cron: '0 0 * * MON-FRI',
         },
       ],
-      workflow_dispatch: {},
-      push: {
-        branches: ['main', 'master'],
-      },
       pull_request: {
         branches: ['main', 'master'],
       },
