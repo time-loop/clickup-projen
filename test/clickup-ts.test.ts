@@ -26,6 +26,9 @@ describe('ClickUpTypeScriptProject', () => {
     test('jest is enabled', () => {
       expect(p.jest).toBeTruthy();
     });
+    test('min node version is 14', () => {
+      expect(synth['package.json'].engines.node).toBe('>= 14.0.0');
+    });
     // TODO: soooo many more tests need to be written here.
   });
   describe('name', () => {

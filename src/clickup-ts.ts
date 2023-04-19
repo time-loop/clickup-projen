@@ -67,7 +67,8 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
-    minNodeVersion: parameters.PROJEN_NODE_VERSION, // Required by eslint-import-resolver-typescript@3.3.0
+    // should always be looser than `workflowNodeVersion` otherwise the projen workflow will fail before it can mutate itself
+    minNodeVersion: '14.0.0',
     workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
     prettier: true,
