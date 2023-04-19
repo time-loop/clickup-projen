@@ -10,7 +10,7 @@ describe('addGitHubSettingsYml', () => {
     });
     gitHubSettings.addGitHubSettingsYml(project);
     const synth = Testing.synth(project);
-    expect(synth['.github/workflows/semgrep.yml']).toMatchSnapshot();
+    expect(synth['.github/settings.yml']).toMatchSnapshot();
   });
   test('override', () => {
     const project = new typescript.TypeScriptProject({
@@ -19,6 +19,6 @@ describe('addGitHubSettingsYml', () => {
     });
     gitHubSettings.addGitHubSettingsYml(project, { foo: 'bar' });
     const synth = Testing.synth(project);
-    expect(synth['.github/workflows/semgrep.yml']).toMatchSnapshot();
+    expect(synth['.github/settings.yml']).toMatchSnapshot();
   });
 });
