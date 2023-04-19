@@ -3,9 +3,11 @@ import { NodePackage } from 'projen/lib/javascript';
 import merge from 'ts-deepmerge';
 import { addToProjectWorkflow } from './add-to-project';
 import { codecov } from './codecov';
+import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
 import { semgrepWorkflow } from './semgrep-workflow';
 import { slackAlert } from './slack-alert';
+import { parameters } from './utils/parameters';
 
 export module clickupTs {
   // This is not included in defaults because other projects may not always want to require it.
@@ -66,8 +68,8 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
-    minNodeVersion: '14.18.0', // Required by eslint-import-resolver-typescript@3.3.0
-    workflowNodeVersion: '14.18.0',
+    minNodeVersion: parameters.PROJEN_NODE_VERSION, // Required by eslint-import-resolver-typescript@3.3.0
+    workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
     prettier: true,
     prettierOptions: {
@@ -227,6 +229,7 @@ export module clickupTs {
       );
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
+      nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
