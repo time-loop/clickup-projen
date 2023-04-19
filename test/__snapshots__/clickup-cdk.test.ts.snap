@@ -38,7 +38,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 14.21.3",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
@@ -516,7 +516,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 14.21.3",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
@@ -822,7 +822,7 @@ Object {
     "typescript": "*",
   },
   "engines": Object {
-    "node": ">= 14.21.3",
+    "node": ">= 14.18.0",
   },
   "jest": Object {
     "clearMocks": true,
