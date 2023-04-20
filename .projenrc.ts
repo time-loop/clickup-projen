@@ -133,7 +133,7 @@ new YamlFile(project, 'codecov.yml', {
   },
 });
 
-new TextFile(project, '.node-version', {
+new TextFile(project, '.nvmrc', {
   lines: [parameters.PROJEN_NODE_VERSION],
 });
 

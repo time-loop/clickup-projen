@@ -10,6 +10,6 @@ describe('addNodeVersionFile', () => {
     });
     nodeVersion.addNodeVersionFile(project);
     const synth = Testing.synth(project);
-    expect(synth['.node-version']).toMatchSnapshot();
+    expect(synth['.nvmrc']).toMatchSnapshot();
   });
 });

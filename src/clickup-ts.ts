@@ -67,7 +67,8 @@ export module clickupTs {
     ],
     gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
-    minNodeVersion: parameters.PROJEN_NODE_VERSION,
+    // should always be looser than `workflowNodeVersion` otherwise the projen workflow will fail before it can mutate itself
+    minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
     workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
     prettier: true,
