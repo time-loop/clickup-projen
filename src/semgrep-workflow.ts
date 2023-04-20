@@ -17,6 +17,9 @@ export module semgrepWorkflow {
       semgrep: {
         name: 'Scan',
         'runs-on': 'ubuntu-latest',
+        container: {
+          image: 'returntocorp/semgrep',
+        },
         steps: [
           {
             name: 'Checkout repository',
