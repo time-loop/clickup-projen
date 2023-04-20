@@ -9,6 +9,7 @@
     ".github/workflows/pull-request-lint.yml",
     ".github/workflows/release.yml",
     ".github/workflows/renovate.yml",
+    ".github/workflows/semgrep.yml",
     ".github/workflows/stale.yml",
     ".gitignore",
     ".mergify.yml",

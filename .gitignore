@@ -57,5 +57,6 @@ tsconfig.json
 !/codecov.yml
 !/.nvmrc
 !/.github/workflows/renovate.yml
+!/.github/workflows/semgrep.yml
 !/.github/workflows/add-to-project.yml
 !/renovate.json5

@@ -8,6 +8,7 @@ import { codecov } from './codecov';
 import { datadog } from './datadog';
 import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
+import { semgrepWorkflow } from './semgrep-workflow';
 import { slackAlert } from './slack-alert';
 
 export module clickupCdk {
@@ -117,6 +118,7 @@ export module clickupCdk {
       codecov.addCodeCovYml(this);
       nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
+      semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
 
       if (options.sendReleaseEvent === false) {
@@ -165,6 +167,7 @@ export module clickupCdk {
       codecov.addCodeCovYml(this);
       nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
+      semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       if (options.cdkDiffOptionsConfig) {
         cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
