@@ -10,13 +10,12 @@ export module semgrepWorkflow {
         },
       ],
       pull_request: {
-        branches: ['main', 'master'],
+        branches: ['main'],
       },
     },
     jobs: {
       semgrep: {
         name: 'Scan',
-        if: "github.actor != 'dependabot[bot]",
         'runs-on': 'ubuntu-latest',
         steps: [
           {

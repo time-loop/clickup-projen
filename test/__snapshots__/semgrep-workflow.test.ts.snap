@@ -10,11 +10,9 @@ on:
   pull_request:
     branches:
       - main
-      - master
 jobs:
   semgrep:
     name: Scan
-    if: github.actor != 'dependabot[bot]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -36,11 +34,9 @@ on:
   pull_request:
     branches:
       - main
-      - master
 jobs:
   semgrep:
     name: Scan
-    if: github.actor != 'dependabot[bot]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
