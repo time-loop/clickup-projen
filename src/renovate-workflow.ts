@@ -99,9 +99,6 @@ export module renovateWorkflow {
       {
         scheduleInterval: ['before 1am on Monday'],
         ignoreProjen: false,
-        ignore: [
-          'node', // managed by projen
-        ],
         overrideConfig: {
           /* override projen renovate defaults */
           // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
@@ -128,6 +125,12 @@ export module renovateWorkflow {
               matchDepTypes: ['optionalDependencies'],
               addLabels: [OPTIONAL_RENOVATE_PR_LABEL],
             },
+          ],
+          ignoreDeps: [
+            'node', // managed by projen
+            '@types/prettier', // set in resolutions by projen
+            '@types/babel__traverse', // set in resolutions by projen
+            ...(options.defaultOverrides?.ignore ?? []),
           ],
 
           /* override defaults set in config:base preset */

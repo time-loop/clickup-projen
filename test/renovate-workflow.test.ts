@@ -45,4 +45,17 @@ describe('getRenovateOptions', () => {
     expect(options.overrideConfig.packageRules[0].addLabels[0]).toEqual(renovateWorkflow.AUTO_APPROVE_PR_LABEL);
     expect(options.labels).toEqual([renovateWorkflow.DEFAULT_RENOVATE_PR_LABEL]);
   });
+
+  test('ignores deps', () => {
+    const options = renovateWorkflow.getRenovateOptions({ defaultOverrides: { ignore: ['jest'] } });
+    // custom option we set
+    expect(options.overrideConfig.ignoreDeps).toMatchInlineSnapshot(`
+      Array [
+        "node",
+        "@types/prettier",
+        "@types/babel__traverse",
+        "jest",
+      ]
+    `);
+  });
 });

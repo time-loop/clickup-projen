@@ -38,18 +38,9 @@
     }
   ],
   "ignoreDeps": [
-    "@types/jest",
-    "@types/node",
-    "@typescript-eslint/eslint-plugin",
-    "@typescript-eslint/parser",
-    "eslint",
-    "jest-junit",
-    "jest",
-    "standard-version",
-    "ts-jest",
-    "@types/babel__traverse",
+    "node",
     "@types/prettier",
-    "node"
+    "@types/babel__traverse"
   ],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
