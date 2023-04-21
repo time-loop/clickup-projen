@@ -33,7 +33,7 @@ describe('ClickUpCdkTypeScriptApp', () => {
     });
     test('cdkVersion defaults to 2.69.0', () => {
       expect(p.cdkVersion).toEqual('2.69.0');
-    })
+    });
     // TODO: soooo many more tests need to be written here.
   });
   describe('options', () => {
@@ -41,6 +41,13 @@ describe('ClickUpCdkTypeScriptApp', () => {
     test('datadog event sending can be disabled', () => {
       p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendReleaseEvent: false });
       expect(p.datadogEvent).toBeFalsy();
+    });
+    test('cdkVersion < 2.69.0 warns', () => {
+      p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, cdkVersion: '2.68.0' });
+      expect(p.cdkVersion).toEqual('2.68.0');
+      expect(p.logger.warn).toHaveBeenCalledWith(
+        'Please use cdkVersion >= 2.69.0 to ensure your pipeline is node v16+ compatible. NOTE: this is now an optional parameter.',
+      );
     });
   });
 });
