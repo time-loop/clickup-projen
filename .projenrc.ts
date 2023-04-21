@@ -4,7 +4,7 @@ import { renovateWorkflow } from './src/renovate-workflow';
 import { semgrepWorkflow } from './src/semgrep-workflow';
 import { parameters } from './src/utils/parameters';
 
-const bundledDeps = ['ts-deepmerge', 'cson-parser'];
+const bundledDeps = ['cson-parser', 'ts-deepmerge', 'semver'];
 
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',
@@ -50,7 +50,7 @@ const project = new cdk.JsiiProject({
 
   bundledDeps,
   deps: [...bundledDeps, 'projen'],
-  devDeps: ['projen'],
+  devDeps: ['@types/semver', 'projen'],
   peerDeps: ['projen'],
 
   prettier: true,

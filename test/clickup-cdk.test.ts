@@ -3,7 +3,6 @@ import { clickupCdk } from '../src';
 
 const requiredParams = {
   name: 'test',
-  cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
 };
 
@@ -32,6 +31,9 @@ describe('ClickUpCdkTypeScriptApp', () => {
     test('datadog event sending is enabled', () => {
       expect(p.datadogEvent).toBeTruthy();
     });
+    test('cdkVersion defaults to 2.69.0', () => {
+      expect(p.cdkVersion).toEqual('2.69.0');
+    })
     // TODO: soooo many more tests need to be written here.
   });
   describe('options', () => {

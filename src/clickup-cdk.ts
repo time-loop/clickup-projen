@@ -1,4 +1,5 @@
 import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
+import { lt as semverLt } from 'semver';
 import merge from 'ts-deepmerge';
 
 import { addToProjectWorkflow } from './add-to-project';
@@ -134,7 +135,16 @@ export module clickupCdk {
     }
   }
 
-  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {}
+  export interface ClickUpCdkTypeScriptAppOptions
+    extends Omit<awscdk.AwsCdkTypeScriptAppOptions, 'cdkLibrary'>,
+      ClickUpCdkCommonOptions {
+    /**
+     * Minimum version of cdkLibrary required for this repo
+     *
+     * @default '2.69.0'
+     */
+    cdkLibrary?: string;
+  }
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -150,6 +160,12 @@ export module clickupCdk {
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     readonly datadogEvent: boolean;
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
+      if (options.cdkVersion && semverLt(options.cdkVersion, '2.69.0')) {
+        console.warn(
+          'Please use cdkVersion >= 2.69.0 to ensure your pipeline is node v16+ compatible. NOTE: this is now an optional parameter.',
+        );
+      }
+
       super(
         merge(clickupTs.defaults, defaults, options, {
           sampleCode: false,
