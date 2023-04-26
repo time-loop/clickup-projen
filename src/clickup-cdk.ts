@@ -44,6 +44,18 @@ export module clickupCdk {
       '## Validation',
       'The following actions will be taken to validate functionality between stages:',
     ],
+    workflowBootstrapOptions: [
+      {
+        if: `always()`,
+        name: `configure cdkPipelines aws credentials`,
+        uses: 'aws-actions/configure-aws-credentials@v1',
+        with: {
+          'role-to-assume': env.oidcRoleArn, // WRITEME!!!
+          'role-duration-seconds': 900,
+          'aws-region': 'us-east-1',
+        },
+      },
+    ],
   };
 
   /**
