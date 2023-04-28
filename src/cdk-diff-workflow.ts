@@ -1,5 +1,6 @@
 import { SampleFile, typescript, YamlFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
+import { parameters } from './utils/parameters';
 
 export module cdkDiffWorkflow {
   function createCdkDiffWorkflow(options: CDKDiffOptionsConfig) {
@@ -43,7 +44,7 @@ export module cdkDiffWorkflow {
               name: 'Setup Node.js',
               uses: 'actions/setup-node@v3',
               with: {
-                'node-version': '16.x',
+                'node-version': parameters.PROJEN_NODE_VERSION,
               },
             },
             {
