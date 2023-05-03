@@ -10,8 +10,9 @@ Details follow.
 ## Edit your .projenrc.ts
 
 ```diff
++import { core } from '@time-loop/cdk-library';
  import { clickupCdk } from '@time-loop/clickup-projen';
- 
+
 +const name = 'foo-cdk';
  const project = new clickupCdk.ClickUpCdkTypeScriptApp({
 -  name: 'foo-cdk',
@@ -57,7 +58,7 @@ This is to make sure you OIDC stages don't conflict with your service.
 ```diff
        repoString: `time-loop/${id.addSuffix(['cdk']).kebab}`,
      });
- 
+
 +    const oidcPermissions = githubPipeline.addWave('OIDC-GitHub-Actions-Permissions');
 +    [core.Environment.usQa, core.Environment.globalProd].forEach((factory) => {
 +      const namedEnv = factory('us-east-1');
