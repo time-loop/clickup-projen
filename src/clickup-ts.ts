@@ -229,6 +229,7 @@ export module clickupTs {
         }),
       );
       fixTsNodeDeps(this.package);
+      addResolutions(this.package);
       codecov.addCodeCovYml(this);
       nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
@@ -249,5 +250,15 @@ export module clickupTs {
    */
   export function fixTsNodeDeps(pkg: NodePackage) {
     pkg.addDevDeps('ts-node@^10');
+  }
+
+  /**
+   * npm-check-updates dropped support for node 14 in a breaking change which breaks some of our node 14 CDK pipelines
+   * Until they fix the issue, we need to add a resolution to the package.json to force the use of an older version that supports node 14
+   * See https://github.com/raineorshine/npm-check-updates/issues/1300 for more info
+   * @param pkg
+   */
+  export function addResolutions(pkg: NodePackage) {
+    pkg.addPackageResolutions('npm-check-updates@16.10.8');
   }
 }
