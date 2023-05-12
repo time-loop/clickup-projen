@@ -115,7 +115,6 @@ export module clickupCdk {
         }),
       );
       clickupTs.fixTsNodeDeps(this.package);
-      clickupTs.addResolutions(this.package);
       codecov.addCodeCovYml(this);
       nodeVersion.addNodeVersionFile(this);
       renovateWorkflow.addRenovateWorkflowYml(this);
@@ -158,7 +157,6 @@ export module clickupCdk {
         }),
       );
       clickupTs.fixTsNodeDeps(this.package);
-      clickupTs.addResolutions(this.package);
       new AppSampleCode(this);
       new SampleReadme(this, {
         contents: `[![codecov](https://codecov.io/gh/time-loop/WRITEME/branch/main/graph/badge.svg?token=WRITEME)](https://codecov.io/gh/time-loop/WRITEME)

@@ -111,7 +111,6 @@ Object {
   "resolutions": Object {
     "@types/babel__traverse": "7.18.2",
     "@types/prettier": "2.6.0",
-    "npm-check-updates": "16.10.8",
   },
   "scripts": Object {
     "build": "npx projen build",
@@ -568,9 +567,6 @@ Object {
   "publishConfig": Object {
     "registry": "https://npm.pkg.github.com/",
   },
-  "resolutions": Object {
-    "npm-check-updates": "16.10.8",
-  },
   "scripts": Object {
     "build": "npx projen build",
     "bump": "npx projen bump",
@@ -876,9 +872,6 @@ Object {
   "name": "test",
   "publishConfig": Object {
     "registry": "https://npm.pkg.github.com/",
-  },
-  "resolutions": Object {
-    "npm-check-updates": "16.10.8",
   },
   "scripts": Object {
     "build": "npx projen build",
