@@ -148,6 +148,7 @@ exports[`ClickUpTypeScriptProject defaults .mergify.yml 1`] = `
 
 queue_rules:
   - name: default
+    update_method: merge
     conditions:
       - \\"#approved-reviews-by>=1\\"
       - -label~=(do-not-merge)
@@ -231,7 +232,7 @@ Object {
     "eslint-plugin-import": "*",
     "eslint-plugin-prettier": "*",
     "jest": "^27",
-    "jest-junit": "^13",
+    "jest-junit": "^15",
     "jsii-release": "*",
     "npm-check-updates": "^16",
     "prettier": "*",
