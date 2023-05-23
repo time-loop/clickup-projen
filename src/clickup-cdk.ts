@@ -1,4 +1,4 @@
-import { awscdk, Component, SampleDir, SampleReadme } from 'projen';
+import { awscdk, Component, JsonPatch, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
 import { addToProjectWorkflow } from './add-to-project';
@@ -120,6 +120,19 @@ export module clickupCdk {
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
+
+      // Release workflow needs to start by being auth'd to fetch packages,
+      // BUT THEN NEEDS TO PUSH, so it changes auth midstream.
+      // So... let's clean up after the install step.
+      // Install step is currently 8th, Release is 11th.
+      // Split the difference in the hopes that this keeps working despite change.
+      const releaseYaml = this.tryFindObjectFile('.github/workflows/release.yml');
+      releaseYaml?.patch(
+        JsonPatch.add('/jobs/release_npm/steps/8', {
+          name: 'Remove .npmrc file for release',
+          run: 'rm .npmrc',
+        }),
+      );
 
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
