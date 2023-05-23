@@ -26,6 +26,7 @@ export module clickupCdk {
         coveragePathIgnorePatterns: ['/node_modules/', '/src/main.ts'],
       },
     },
+    jsiiVersion: '5.0.*',
     releaseToNpm: false,
     pullRequestTemplateContents: [
       '# Summary',
@@ -105,7 +106,7 @@ export module clickupCdk {
       // Theoretically we should be able to just take a default here, but for some reason this is required.
       const repositoryUrl = options.repositoryUrl || `https://github.com/${name.substring(1)}.git`;
       super(
-        merge(clickupTs.defaults, { jsiiVersion: '5.0.*' }, options, {
+        merge(clickupTs.defaults, options, {
           authorName,
           authorAddress,
           name,
