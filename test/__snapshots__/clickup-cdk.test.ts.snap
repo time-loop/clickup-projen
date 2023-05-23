@@ -24,7 +24,7 @@ Object {
     "eslint-plugin-prettier": "*",
     "jest": "^27",
     "jest-junit": "^15",
-    "jsii": "5.0.*",
+    "jsii": "1.x",
     "jsii-diff": "*",
     "jsii-docgen": "*",
     "jsii-pacmak": "*",
@@ -107,6 +107,10 @@ Object {
   "repository": Object {
     "type": "git",
     "url": "https://github.com/time-loop/test.git",
+  },
+  "resolutions": Object {
+    "@types/babel__traverse": "7.18.2",
+    "@types/prettier": "2.6.0",
   },
   "scripts": Object {
     "build": "npx projen build",
