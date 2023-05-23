@@ -169,9 +169,10 @@ jobs:
         run: |-
           git config user.name \\"github-actions\\"
           git config user.email \\"github-actions@github.com\\"
+      - name: Override NPM_TOKEN
+        if: \${{ github.job != 'release_npm' }}
+        run: echo \\"NPM_TOKEN=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}\\" >> $GITHUB_ENV
       - name: GitHub Packages authorization
-        env:
-          NPM_TOKEN: \${{ secrets.ALL_PACKAGE_READ_TOKEN }}
         run: |-
           cat > .npmrc <<EOF
           //npm.pkg.github.com/:_authToken=\${NPM_TOKEN}
@@ -254,9 +255,10 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Override NPM_TOKEN
+        if: \${{ github.job != 'release_npm' }}
+        run: echo \\"NPM_TOKEN=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}\\" >> $GITHUB_ENV
       - name: GitHub Packages authorization
-        env:
-          NPM_TOKEN: \${{ secrets.ALL_PACKAGE_READ_TOKEN }}
         run: |-
           cat > .npmrc <<EOF
           //npm.pkg.github.com/:_authToken=\${NPM_TOKEN}
@@ -360,9 +362,10 @@ jobs:
         run: |-
           git config user.name \\"github-actions\\"
           git config user.email \\"github-actions@github.com\\"
+      - name: Override NPM_TOKEN
+        if: \${{ github.job != 'release_npm' }}
+        run: echo \\"NPM_TOKEN=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}\\" >> $GITHUB_ENV
       - name: GitHub Packages authorization
-        env:
-          NPM_TOKEN: \${{ secrets.ALL_PACKAGE_READ_TOKEN }}
         run: |-
           cat > .npmrc <<EOF
           //npm.pkg.github.com/:_authToken=\${NPM_TOKEN}

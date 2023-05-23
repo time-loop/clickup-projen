@@ -47,9 +47,14 @@ export module clickupTs {
     renovatebot: true,
     workflowBootstrapSteps: [
       {
+        // Generally we want NPM_TOKEN to let us read packages from the org scope.
+        // But when we're publishing, we need to use the provided token, which has write access.
+        if: "${{ github.job != 'release_npm' }}",
+        name: 'Override NPM_TOKEN',
+        run: 'echo "NPM_TOKEN=${{ secrets.ALL_PACKAGE_READ_TOKEN }}" >> $GITHUB_ENV',
+      },
+      {
         name: 'GitHub Packages authorization',
-        // This does some env var obverloading where the release step also defines NPM_TOKEN with the action token that allows uploading
-        env: { NPM_TOKEN: '${{ secrets.ALL_PACKAGE_READ_TOKEN }}' },
         run: [
           'cat > .npmrc <<EOF',
           '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}',
