@@ -48,11 +48,11 @@ export module clickupTs {
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',
-        // Conditional because of projen breakage: https://github.com/projen/projen/pull/2311
-        if: "${{ github.job != 'release_npm' }}",
+        // This does some env var obverloading where the release step also defines NPM_TOKEN with the action token that allows uploading
+        env: { NPM_TOKEN: '${{ secrets.ALL_PACKAGE_READ_TOKEN }}' },
         run: [
           'cat > .npmrc <<EOF',
-          '//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}',
+          '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}',
           '@time-loop:registry=https://npm.pkg.github.com/',
           'EOF',
         ].join('\n'),
