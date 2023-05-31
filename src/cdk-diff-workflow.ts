@@ -104,9 +104,10 @@ export module cdkDiffWorkflow {
   function createStackCaptureStep(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
     return {
       name: 'capture stacks to diff',
-      run: ['./node_modules/.bin/cdk ls -l -j > cdk-ls.json', ...createEnvVarsToCaptureStacksToDiff(envsToDiff)].join(
-        '\n',
-      ),
+      run: [
+        './node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json',
+        ...createEnvVarsToCaptureStacksToDiff(envsToDiff),
+      ].join('\n'),
     };
   }
 
