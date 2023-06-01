@@ -54,6 +54,7 @@ export module cdkDiffWorkflow {
             createStackCaptureStep(options.envsToDiff),
             ...createDiffSteps(options.envsToDiff).flat(),
             createCdkNotifierStep(options.envsToDiff),
+            ...createLabelRemovalSteps(options.envsToDiff),
             ...createLabelSteps(options.envsToDiff),
             {
               name: 'Should auto merge',
@@ -104,9 +105,10 @@ export module cdkDiffWorkflow {
   function createStackCaptureStep(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
     return {
       name: 'capture stacks to diff',
-      run: ['./node_modules/.bin/cdk ls -l -j > cdk-ls.json', ...createEnvVarsToCaptureStacksToDiff(envsToDiff)].join(
-        '\n',
-      ),
+      run: [
+        './node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json',
+        ...createEnvVarsToCaptureStacksToDiff(envsToDiff),
+      ].join('\n'),
     };
   }
 
@@ -190,6 +192,36 @@ export module cdkDiffWorkflow {
     });
   }
 
+  function createLabelRemovalSteps(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
+    return envsToDiff.map((env) => {
+      return {
+        name: `Remove '${env.labelToApplyWhenNoDiffPresent}' label based on diff status given a previous commit may have had no diff but the current one does`,
+        if: `env.${env.name.toUpperCase()}_HAS_NO_DIFF != 'true'`,
+        uses: 'actions/github-script@v6',
+        with: {
+          'github-token': '${{ secrets.GITHUB_TOKEN }}',
+          script: [
+            'const labels = await github.paginate(',
+            'github.rest.issues.listLabelsOnIssue, {',
+            'issue_number: context.issue.number,',
+            'owner: context.repo.owner,',
+            'repo: context.repo.repo,',
+            '}',
+            ')',
+            `if (labels.find(label => label.name === "${env.labelToApplyWhenNoDiffPresent}")) {`,
+            'github.rest.issues.removeLabel({',
+            'owner: context.repo.owner,',
+            'repo: context.repo.repo,',
+            'issue_number: context.issue.number,',
+            `name: "${env.labelToApplyWhenNoDiffPresent}"`,
+            '})',
+            '}',
+          ].join('\n'),
+        },
+      };
+    });
+  }
+
   function getAutoMergeConditions(envsToDiff: (EnvToDiff | ExplicitStacksEnvToDiff)[]) {
     return envsToDiff.map((env) => `env.${env.name.toUpperCase()}_HAS_NO_DIFF == 'true'`).join(' && ');
   }
@@ -260,7 +292,7 @@ export module cdkDiffWorkflow {
   }
 
   export function AddCdkLogParserDependency(pkg: NodePackage) {
-    pkg.addDevDeps('@time-loop/cdk-log-parser@^0.0.4');
+    pkg.addDevDeps('@time-loop/cdk-log-parser@latest');
   }
 
   export function addOidcRoleStack(project: typescript.TypeScriptProject): void {

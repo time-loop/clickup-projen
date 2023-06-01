@@ -37,7 +37,7 @@ jobs:
         run: yarn install --check-files
       - name: capture stacks to diff
         run: |-
-          ./node_modules/.bin/cdk ls -l -j > cdk-ls.json
+          ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
           STACKS_TO_DIFF_QA=\\"UsQaSquadNameDynamoDBTableNameStack UsQaSquadNameS3BucketNameStack\\"
           echo \\"STACKS_TO_DIFF_QA=$STACKS_TO_DIFF_QA\\" >> $GITHUB_ENV
       - name: configure qa aws credentials
@@ -56,6 +56,27 @@ jobs:
           curl -L \\"https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz\\" -o cdk-notifier.gz
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
+      - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
+        if: env.QA_HAS_NO_DIFF != 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const labels = await github.paginate(
+            github.rest.issues.listLabelsOnIssue, {
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            }
+            )
+            if (labels.find(label => label.name === \\"qa-no-changes\\")) {
+            github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: \\"qa-no-changes\\"
+            })
+            }
       - name: Apply 'qa-no-changes' label based on diff status
         if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
@@ -130,7 +151,7 @@ jobs:
         run: yarn install --check-files
       - name: capture stacks to diff
         run: |-
-          ./node_modules/.bin/cdk ls -l -j > cdk-ls.json
+          ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
           STACKS_TO_DIFF_QA=\\"UsQaSquadNameDynamoDBTableNameStack\\"
           echo \\"STACKS_TO_DIFF_QA=$STACKS_TO_DIFF_QA\\" >> $GITHUB_ENV
       - name: configure qa aws credentials
@@ -149,6 +170,27 @@ jobs:
           curl -L \\"https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz\\" -o cdk-notifier.gz
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
+      - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
+        if: env.QA_HAS_NO_DIFF != 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const labels = await github.paginate(
+            github.rest.issues.listLabelsOnIssue, {
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            }
+            )
+            if (labels.find(label => label.name === \\"qa-no-changes\\")) {
+            github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: \\"qa-no-changes\\"
+            })
+            }
       - name: Apply 'qa-no-changes' label based on diff status
         if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
@@ -223,7 +265,7 @@ jobs:
         run: yarn install --check-files
       - name: capture stacks to diff
         run: |-
-          ./node_modules/.bin/cdk ls -l -j > cdk-ls.json
+          ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
           STACKS_TO_DIFF_QA=$(jq -r '[.[].id | select(contains(\\"Qa\\")) ] | join(\\" \\")' cdk-ls.json)
           echo \\"STACKS_TO_DIFF_QA=$STACKS_TO_DIFF_QA\\" >> $GITHUB_ENV
       - name: configure qa aws credentials
@@ -242,6 +284,27 @@ jobs:
           curl -L \\"https://github.com/karlderkaefer/cdk-notifier/releases/download/v2.3.2/cdk-notifier_$(uname)_amd64.gz\\" -o cdk-notifier.gz
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
+      - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
+        if: env.QA_HAS_NO_DIFF != 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const labels = await github.paginate(
+            github.rest.issues.listLabelsOnIssue, {
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            }
+            )
+            if (labels.find(label => label.name === \\"qa-no-changes\\")) {
+            github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: \\"qa-no-changes\\"
+            })
+            }
       - name: Apply 'qa-no-changes' label based on diff status
         if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
@@ -316,7 +379,7 @@ jobs:
         run: yarn install --check-files
       - name: capture stacks to diff
         run: |-
-          ./node_modules/.bin/cdk ls -l -j > cdk-ls.json
+          ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
           STACKS_TO_DIFF_QA=$(jq -r '[.[].id | select(contains(\\"Qa\\")) ] | join(\\" \\")' cdk-ls.json)
           echo \\"STACKS_TO_DIFF_QA=$STACKS_TO_DIFF_QA\\" >> $GITHUB_ENV
           STACKS_TO_DIFF_STAGING=$(jq -r '[.[].id | select(contains(\\"Staging\\")) ] | join(\\" \\")' cdk-ls.json)
@@ -363,6 +426,69 @@ jobs:
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
           ./cdk-notifier --log-file ./cdk-staging.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'staging Stacks - If truncated please see the action for the full log!'
           ./cdk-notifier --log-file ./cdk-prod.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'prod Stacks - If truncated please see the action for the full log!'
+      - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
+        if: env.QA_HAS_NO_DIFF != 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const labels = await github.paginate(
+            github.rest.issues.listLabelsOnIssue, {
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            }
+            )
+            if (labels.find(label => label.name === \\"qa-no-changes\\")) {
+            github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: \\"qa-no-changes\\"
+            })
+            }
+      - name: Remove 'staging-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
+        if: env.STAGING_HAS_NO_DIFF != 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const labels = await github.paginate(
+            github.rest.issues.listLabelsOnIssue, {
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            }
+            )
+            if (labels.find(label => label.name === \\"staging-no-changes\\")) {
+            github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: \\"staging-no-changes\\"
+            })
+            }
+      - name: Remove 'prod-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
+        if: env.PROD_HAS_NO_DIFF != 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          script: |-
+            const labels = await github.paginate(
+            github.rest.issues.listLabelsOnIssue, {
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            }
+            )
+            if (labels.find(label => label.name === \\"prod-no-changes\\")) {
+            github.rest.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            name: \\"prod-no-changes\\"
+            })
+            }
       - name: Apply 'qa-no-changes' label based on diff status
         if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
