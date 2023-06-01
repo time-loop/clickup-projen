@@ -57,7 +57,7 @@ jobs:
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
       - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
-        if: env.QA_HAS_NO_DIFF !== 'true'
+        if: env.QA_HAS_NO_DIFF != 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -78,7 +78,7 @@ jobs:
             })
             }
       - name: Apply 'qa-no-changes' label based on diff status
-        if: env.QA_HAS_NO_DIFF === 'true'
+        if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -171,7 +171,7 @@ jobs:
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
       - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
-        if: env.QA_HAS_NO_DIFF !== 'true'
+        if: env.QA_HAS_NO_DIFF != 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -192,7 +192,7 @@ jobs:
             })
             }
       - name: Apply 'qa-no-changes' label based on diff status
-        if: env.QA_HAS_NO_DIFF === 'true'
+        if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -285,7 +285,7 @@ jobs:
           gunzip cdk-notifier.gz && chmod +x cdk-notifier && rm -rf cdk-notifier.gz
           ./cdk-notifier --log-file ./cdk-qa.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'qa Stacks - If truncated please see the action for the full log!'
       - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
-        if: env.QA_HAS_NO_DIFF !== 'true'
+        if: env.QA_HAS_NO_DIFF != 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -306,7 +306,7 @@ jobs:
             })
             }
       - name: Apply 'qa-no-changes' label based on diff status
-        if: env.QA_HAS_NO_DIFF === 'true'
+        if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -427,7 +427,7 @@ jobs:
           ./cdk-notifier --log-file ./cdk-staging.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'staging Stacks - If truncated please see the action for the full log!'
           ./cdk-notifier --log-file ./cdk-prod.log --repo $REPO_NAME --owner $GITHUB_REPOSITORY_OWNER --token \${{ secrets.GITHUB_TOKEN }} --pull-request-id \${{ github.event.pull_request.number }} -t 'prod Stacks - If truncated please see the action for the full log!'
       - name: Remove 'qa-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
-        if: env.QA_HAS_NO_DIFF !== 'true'
+        if: env.QA_HAS_NO_DIFF != 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -448,7 +448,7 @@ jobs:
             })
             }
       - name: Remove 'staging-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
-        if: env.STAGING_HAS_NO_DIFF !== 'true'
+        if: env.STAGING_HAS_NO_DIFF != 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -469,7 +469,7 @@ jobs:
             })
             }
       - name: Remove 'prod-no-changes' label based on diff status given a previous commit may have had no diff but the current one does
-        if: env.PROD_HAS_NO_DIFF !== 'true'
+        if: env.PROD_HAS_NO_DIFF != 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -490,7 +490,7 @@ jobs:
             })
             }
       - name: Apply 'qa-no-changes' label based on diff status
-        if: env.QA_HAS_NO_DIFF === 'true'
+        if: env.QA_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -502,7 +502,7 @@ jobs:
             labels: [\\"qa-no-changes\\"]
             })
       - name: Apply 'staging-no-changes' label based on diff status
-        if: env.STAGING_HAS_NO_DIFF === 'true'
+        if: env.STAGING_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
@@ -514,7 +514,7 @@ jobs:
             labels: [\\"staging-no-changes\\"]
             })
       - name: Apply 'prod-no-changes' label based on diff status
-        if: env.PROD_HAS_NO_DIFF === 'true'
+        if: env.PROD_HAS_NO_DIFF == 'true'
         uses: actions/github-script@v6
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}

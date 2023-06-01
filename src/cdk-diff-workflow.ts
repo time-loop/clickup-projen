@@ -175,7 +175,7 @@ export module cdkDiffWorkflow {
     return envsToDiff.map((env) => {
       return {
         name: `Apply '${env.labelToApplyWhenNoDiffPresent}' label based on diff status`,
-        if: `env.${env.name.toUpperCase()}_HAS_NO_DIFF === 'true'`,
+        if: `env.${env.name.toUpperCase()}_HAS_NO_DIFF == 'true'`,
         uses: 'actions/github-script@v6',
         with: {
           'github-token': '${{ secrets.GITHUB_TOKEN }}',
@@ -196,7 +196,7 @@ export module cdkDiffWorkflow {
     return envsToDiff.map((env) => {
       return {
         name: `Remove '${env.labelToApplyWhenNoDiffPresent}' label based on diff status given a previous commit may have had no diff but the current one does`,
-        if: `env.${env.name.toUpperCase()}_HAS_NO_DIFF !== 'true'`,
+        if: `env.${env.name.toUpperCase()}_HAS_NO_DIFF != 'true'`,
         uses: 'actions/github-script@v6',
         with: {
           'github-token': '${{ secrets.GITHUB_TOKEN }}',
