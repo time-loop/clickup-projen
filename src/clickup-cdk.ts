@@ -1,4 +1,4 @@
-import { awscdk, Component, JsonPatch, SampleDir, SampleReadme } from 'projen';
+import { awscdk, Component, javascript, JsonPatch, SampleDir, SampleReadme } from 'projen';
 import merge from 'ts-deepmerge';
 
 import { addToProjectWorkflow } from './add-to-project';
@@ -163,6 +163,10 @@ export module clickupCdk {
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     readonly datadogEvent: boolean;
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
+      if (options.packageManager === javascript.NodePackageManager.PNPM) {
+        throw new Error('pnpm not supported by cdkPipelines: https://staging.clickup.com/t/333/CLK-252116');
+      }
+
       super(
         merge(clickupTs.defaults, defaults, options, {
           sampleCode: false,
