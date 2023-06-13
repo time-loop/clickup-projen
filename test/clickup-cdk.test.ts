@@ -1,4 +1,4 @@
-import { Testing } from 'projen';
+import { Testing, javascript } from 'projen';
 import { clickupCdk } from '../src';
 
 const requiredParams = {
@@ -39,6 +39,15 @@ describe('ClickUpCdkTypeScriptApp', () => {
     test('datadog event sending can be disabled', () => {
       p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendReleaseEvent: false });
       expect(p.datadogEvent).toBeFalsy();
+    });
+
+    test('pnpm throws', () => {
+      expect(() => {
+        new clickupCdk.ClickUpCdkTypeScriptApp({
+          ...requiredParams,
+          packageManager: javascript.NodePackageManager.PNPM,
+        });
+      }).toThrowError(/pnpm not supported by cdkPipelines/);
     });
   });
 });
