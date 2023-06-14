@@ -2,6 +2,7 @@ import { awscdk, Component, javascript, JsonPatch, SampleDir, SampleReadme } fro
 import merge from 'ts-deepmerge';
 
 import { addToProjectWorkflow } from './add-to-project';
+import { cdkContextJson } from './cdk-context-json';
 import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
@@ -147,7 +148,14 @@ export module clickupCdk {
     }
   }
 
-  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {}
+  export interface ClickUpCdkTypeScriptAppOptions extends awscdk.AwsCdkTypeScriptAppOptions, ClickUpCdkCommonOptions {
+    /**
+     * Add support for cdk.context.json lookups?
+     * This allows GitHub PRs to lookup missing things from your cdk.context.json
+     * file and then commit a self-mutation so that your PRs don't break.
+     */
+    readonly cdkContextJsonOptions?: cdkContextJson.Options;
+  }
 
   /**
    * ClickUp standardized CDK TypeScript App
@@ -191,6 +199,15 @@ export module clickupCdk {
         cdkDiffWorkflow.AddCdkLogParserDependency(this.package);
         if (options.cdkDiffOptionsConfig.createOidcRoleStack) {
           cdkDiffWorkflow.addOidcRoleStack(this);
+        }
+      }
+
+      if (options.cdkContextJsonOptions) {
+        if (options.cdkContextJsonOptions.injectionOptions) {
+          cdkContextJson.injectAwsAuthIntoBuild(this, options.cdkContextJsonOptions.injectionOptions);
+        }
+        if (options.cdkContextJsonOptions.createOidcRoleStack) {
+          cdkContextJson.addOidcRoleStack(this);
         }
       }
 
