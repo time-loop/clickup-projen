@@ -3267,6 +3267,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.cdkContextJsonOptions">cdkContextJsonOptions</a></code> | <code>@time-loop/clickup-projen.cdkContextJson.Options</code> | Add support for cdk.context.json lookups? This allows GitHub PRs to lookup missing things from your cdk.context.json file and then commit a self-mutation so that your PRs don't break. |
 
 ---
 
@@ -5604,6 +5605,18 @@ Only valid when
 
 ---
 
+##### `cdkContextJsonOptions`<sup>Optional</sup> <a name="cdkContextJsonOptions" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.cdkContextJsonOptions"></a>
+
+```typescript
+public readonly cdkContextJsonOptions: Options;
+```
+
+- *Type:* @time-loop/clickup-projen.cdkContextJson.Options
+
+Add support for cdk.context.json lookups? This allows GitHub PRs to lookup missing things from your cdk.context.json file and then commit a self-mutation so that your PRs don't break.
+
+---
+
 ### ClickUpTypeScriptProjectOptions <a name="ClickUpTypeScriptProjectOptions" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions"></a>
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.clickupTs.ClickUpTypeScriptProjectOptions.Initializer"></a>
@@ -7927,6 +7940,116 @@ public readonly stacks: string[];
 - *Type:* string[]
 
 Explicit stacks given instead of using stackSearchString to find stacks via cdk ls Example: `['stack1', 'stack2']`.
+
+---
+
+### InjectionOptions <a name="InjectionOptions" id="@time-loop/clickup-projen.cdkContextJson.InjectionOptions"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkContextJson.InjectionOptions.Initializer"></a>
+
+```typescript
+import { cdkContextJson } from '@time-loop/clickup-projen'
+
+const injectionOptions: cdkContextJson.InjectionOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkContextJson.InjectionOptions.property.lookupAccountId">lookupAccountId</a></code> | <code>string</code> | The account number where the role the GH actions will assume lives. |
+| <code><a href="#@time-loop/clickup-projen.cdkContextJson.InjectionOptions.property.awsRegion">awsRegion</a></code> | <code>string</code> | Which region should GH Auth into? |
+| <code><a href="#@time-loop/clickup-projen.cdkContextJson.InjectionOptions.property.roleDurationSeconds">roleDurationSeconds</a></code> | <code>number</code> | How long should the requested role be valid. |
+
+---
+
+##### `lookupAccountId`<sup>Required</sup> <a name="lookupAccountId" id="@time-loop/clickup-projen.cdkContextJson.InjectionOptions.property.lookupAccountId"></a>
+
+```typescript
+public readonly lookupAccountId: string;
+```
+
+- *Type:* string
+
+The account number where the role the GH actions will assume lives.
+
+This is usually the same account running cdk-pipelines,
+but can be any account which has been configured with
+
+```ts
+cdk bootstrap --trust-for-lookup $this_account_number ...
+```
+
+---
+
+##### `awsRegion`<sup>Optional</sup> <a name="awsRegion" id="@time-loop/clickup-projen.cdkContextJson.InjectionOptions.property.awsRegion"></a>
+
+```typescript
+public readonly awsRegion: string;
+```
+
+- *Type:* string
+- *Default:* 'us-west-2'
+
+Which region should GH Auth into?
+
+---
+
+##### `roleDurationSeconds`<sup>Optional</sup> <a name="roleDurationSeconds" id="@time-loop/clickup-projen.cdkContextJson.InjectionOptions.property.roleDurationSeconds"></a>
+
+```typescript
+public readonly roleDurationSeconds: number;
+```
+
+- *Type:* number
+- *Default:* 900 15min seems pretty generous.
+
+How long should the requested role be valid.
+
+---
+
+### Options <a name="Options" id="@time-loop/clickup-projen.cdkContextJson.Options"></a>
+
+Options to support cdk.context.json management.
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkContextJson.Options.Initializer"></a>
+
+```typescript
+import { cdkContextJson } from '@time-loop/clickup-projen'
+
+const options: cdkContextJson.Options = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkContextJson.Options.property.createOidcRoleStack">createOidcRoleStack</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.cdkContextJson.Options.property.injectionOptions">injectionOptions</a></code> | <code>@time-loop/clickup-projen.cdkContextJson.InjectionOptions</code> | You must configure this if you want to self-mutation cdk.context.json. |
+
+---
+
+##### `createOidcRoleStack`<sup>Optional</sup> <a name="createOidcRoleStack" id="@time-loop/clickup-projen.cdkContextJson.Options.property.createOidcRoleStack"></a>
+
+```typescript
+public readonly createOidcRoleStack: boolean;
+```
+
+- *Type:* boolean
+- *Default:* do not create stack SampleCode for OIDC role
+
+---
+
+##### `injectionOptions`<sup>Optional</sup> <a name="injectionOptions" id="@time-loop/clickup-projen.cdkContextJson.Options.property.injectionOptions"></a>
+
+```typescript
+public readonly injectionOptions: InjectionOptions;
+```
+
+- *Type:* @time-loop/clickup-projen.cdkContextJson.InjectionOptions
+- *Default:* do not modify the build workflow to authorize against AWS.
+
+You must configure this if you want to self-mutation cdk.context.json.
 
 ---
 
