@@ -4,6 +4,9 @@ import { NodeProject } from 'projen/lib/javascript';
 
 export module datadog {
   export interface ReleaseEventTags {
+    /**
+     *   @jsii ignore
+     */
     [key: string]: string;
   }
 
