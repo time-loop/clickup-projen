@@ -38,18 +38,13 @@
     }
   ],
   "ignoreDeps": [
-    "@types/jest",
     "@types/node",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
     "eslint",
     "jest-junit",
-    "jest",
     "jsii",
     "standard-version",
-    "ts-jest",
-    "@types/babel__traverse",
-    "@types/prettier",
     "node"
   ],
   "rangeStrategy": "bump",

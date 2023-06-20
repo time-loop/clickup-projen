@@ -12,6 +12,7 @@ const project = new cdk.JsiiProject({
   authorAddress: 'devops@clickup.com',
   authorName: 'ClickUp DevOps',
   authorOrganization: true,
+  jsiiVersion: '5.0.x',
   // Apache open source license, to match projen license
 
   defaultReleaseBranch: 'main',
