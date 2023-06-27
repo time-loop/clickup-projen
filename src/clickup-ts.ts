@@ -66,7 +66,7 @@ export module clickupTs {
         run: 'export FORCE_PREBUILT_LAMBDA=1',
       },
     ],
-    gitignore: ['/.npmrc', '.idea', '.yalc', 'yalc.lock'],
+    gitignore: ['*.code-workspace', '/.npmrc', '.idea', '.yalc', 'yalc.lock'],
 
     // should always be looser than `workflowNodeVersion` otherwise the projen workflow will fail before it can mutate itself
     minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
