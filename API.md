@@ -205,7 +205,7 @@ Watch with awe and wonder as projen stamps out a project with
           - _If you are moving code into a repo_, chances are that it's UT coverage isn't 90+%. In those cases, hold off on requiring the `codecov/*` checks until you have merged your import PR. Otherwise these checks will fail since you will be significantly reducing your coverage from the 100% that the hello-world placeholder starts off with. The default threshold for codecov status checks is 10%. That means you can reduce coverage by up to 10% on a PR before these checks will trigger.
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
-        - Include administrators (if you have to break the rules, you have to disable this first)
+        - Do not allow bypassing the above settings (if you have to break the rules, you have to disable this first)
   - Context JSON - The last step to get the PR builds running is to copy the context.json
     - Copy the context JSON from this repository: https://github.com/time-loop/core-cdk/blob/main/cdk.context.json
     - Create a cdk.context.json in your repo at the root level and copy the above contents.
