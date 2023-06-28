@@ -206,7 +206,10 @@ Watch with awe and wonder as projen stamps out a project with
           - Do not require the `Publish CodeCov` job. That job only runs on the `main` branch and is used to update the baseline coverage numbers.
         - Require conversation resolution before merging
         - Include administrators (if you have to break the rules, you have to disable this first)
-  - Context JSON - The last step to get the PR builds running is to copy the context.json
+  - [Enable cdk-diff support](docs/cdk-diff/). Read the docs for this, particularly the warning at the very bottom. The OIDC roles involved don't require a cdk.context.json file and can be deployed with the self-mutation step 1, described next.
+  - [Enable cdk.context.json self-mutation](docs/cdk-context-json/). Note this takes 2 steps, and the first one must run to completion before you do the second. Just do the first step here. After your repo is bootstrap'd and your pipeline has run to completion at least once (and deployed OIDC roles), you can follow up with the second step to enable self-mutation.
+  NOTE: You can do this instead of the cdk.context.json step below, as long as you comment out ALL your other deploy steps except OIDC role deployers. This is probably the Right Way for us to be bootstrapping repos going forward, but we haven't done it enough to be sure yet.
+  - Context JSON - The last step to get the PR builds running is to do something about your `cdk.context.json`. See the above note about self-mutation for a way to avoid doing this entirely.
     - Copy the context JSON from this repository: https://github.com/time-loop/core-cdk/blob/main/cdk.context.json
     - Create a cdk.context.json in your repo at the root level and copy the above contents.
     - Now you PR build and test should successfully run.
