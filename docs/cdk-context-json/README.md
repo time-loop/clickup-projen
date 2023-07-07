@@ -2,15 +2,15 @@
 
 ## Edit your .projenrc.ts
 
+DO NOT just add the `injectionOptions` stuff from step 2.
+You need to get this merged and the OIDC role deployed first.
+
 ```diff
 @@ -7,23 +8,30 @@ const project = new clickupCdk.ClickUpCdkTypeScriptApp({
    defaultReleaseBranch: 'main',
    projenrcTs: true,
  
 +  cdkContextJsonOptions: {
-+    injectionOptions: {
-+      lookupAccountId: core.Environment.usCdkPipelines.account,
-+    },
 +    createOidcRoleStack: true,
 +  },
 +
