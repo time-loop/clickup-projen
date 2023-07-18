@@ -81,6 +81,13 @@ export module clickupCdk {
      * @default undefined
      */
     readonly cdkDiffOptionsConfig?: cdkDiffWorkflow.CDKDiffOptionsConfig;
+
+    /**
+     * Datadog Service Catalog options
+     *
+     * @default undefined
+     */
+    // readonly serviceCatalogOptions?: datadogServiceCatalog.ServiceCatalogOptions;
   }
 
   export interface ClickUpCdkConstructLibraryOptions
@@ -145,6 +152,10 @@ export module clickupCdk {
       if (options.sendSlackWebhookOnRelease !== false) {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
       }
+
+      /*if (options.serviceCatalogOptions){
+        datadogServiceCatalog.addServiceCatalogEvent(this, options.serviceCatalogOptions);
+      }*/
     }
   }
 

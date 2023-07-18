@@ -43,6 +43,7 @@
     "@typescript-eslint/parser",
     "eslint",
     "jest-junit",
+    "jsii-rosetta",
     "jsii",
     "standard-version",
     "node"
