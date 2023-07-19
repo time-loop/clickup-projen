@@ -87,10 +87,10 @@ jobs:
       - name: Get version
         id: event_metadata
         run: echo \\"release_tag=$(cat dist/releasetag.txt)\\" >> $GITHUB_OUTPUT
-      - name: Publish DD Service Catalog - test-service
+      - name: Publish DD Service Catalog for test-service
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
-          service-version: v2.1
+          service-version: \\"2.1\\"
           datadog-hostname: app.datadoghq.com
           datadog-key: \${{ secrets.DATADOG_API_KEY }}
           datadog-app-key: \${{ secrets.DATADOG_APPLICATION_KEY }}
@@ -101,20 +101,22 @@ jobs:
           lifecycle: unit-test
           team: testing
           pagerdutyUrl: https://test.pagerduty.com
-      - name: Publish DD Service Catalog - test-cdk
+          slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
+      - name: Publish DD Service Catalog for test-cdk
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
-          service-version: v2.1
+          service-version: \\"2.1\\"
           datadog-hostname: app.datadoghq.com
           datadog-key: \${{ secrets.DATADOG_API_KEY }}
           datadog-app-key: \${{ secrets.DATADOG_APPLICATION_KEY }}
           service-name: test-cdk
-          description: undefined
-          application: undefined
-          tier: undefined
-          lifecycle: undefined
+          description: Not Provided
+          application: clickup
+          tier: low
+          lifecycle: Not Provided
           team: testing
-          pagerdutyUrl: undefined
+          pagerdutyUrl: Not Provided
+          slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
 "
 `;
 

@@ -1,5 +1,6 @@
 import { JobPermission, JobStep } from 'projen/lib/github/workflows-model';
 import { NodeProject } from 'projen/lib/javascript';
+import { defaultServiceCatalogValues } from './utils/parameters';
 
 export module datadogServiceCatalog {
   export interface ServiceInfo {
@@ -114,9 +115,9 @@ export module datadogServiceCatalog {
    * Adds 'Send to Datadog Service Catalog' job to the release workflow.
    *
    * @param project The NodeProject to which the release event workflow will be added
-   * @param opts Optional: Service information that will be included in the DD Service Catalog.
+   * @param options Optional: Service information that will be included in the DD Service Catalog.
    */
-  export function addServiceCatalogEvent(project: NodeProject, opts?: ServiceCatalogOptions) {
+  export function addServiceCatalogEvent(project: NodeProject, options?: ServiceCatalogOptions) {
     project.release?.addJobs({
       send_service_catalog: {
         name: 'Send to Datadog Service Catalog',
@@ -143,32 +144,40 @@ export module datadogServiceCatalog {
             id: 'event_metadata',
             run: `echo "release_tag=$(cat ${project.release!.artifactsDirectory}/releasetag.txt)" >> $GITHUB_OUTPUT`,
           },
-          ...createServiceCatalogJobSteps(project, opts),
+          ...createServiceCatalogJobSteps(project, options),
         ],
       },
     });
   }
 
+  /**
+   * Creates one JobStep for each serviceInfo record in the ServiceCatalogOptions.
+   *
+   * @param project
+   * @param options
+   * @returns
+   */
   function createServiceCatalogJobSteps(project: NodeProject, options?: ServiceCatalogOptions): JobStep[] {
     let steps: JobStep[] = [];
 
     for (const serviceInfo of options?.serviceInfo ?? []) {
       const serviceName = serviceInfo?.serviceName ?? project.name;
       const step: JobStep = {
-        name: `Publish DD Service Catalog - ${serviceName}`,
+        name: `Publish DD Service Catalog for ${serviceName}`,
         uses: 'arcxp/datadog-service-catalog-metadata-provider@v2',
         with: {
-          'service-version': 'v2.1',
-          'datadog-hostname': 'app.datadoghq.com',
-          'datadog-key': '${{ secrets.DATADOG_API_KEY }}',
-          'datadog-app-key': '${{ secrets.DATADOG_APPLICATION_KEY }}',
+          'service-version': `${defaultServiceCatalogValues.SERVICE_VERSION}`,
+          'datadog-hostname': `${defaultServiceCatalogValues.DATADOG_HOSTNAME}`,
+          'datadog-key': `${defaultServiceCatalogValues.DATADOG_KEY}`,
+          'datadog-app-key': `${defaultServiceCatalogValues.DATADOG_APP_KEY}`,
           'service-name': `${serviceName}`,
-          description: `${serviceInfo.description}` ?? 'not-defined',
-          application: `${serviceInfo.application}` ?? 'clickup',
-          tier: `${serviceInfo.tier}` ?? 'low',
-          lifecycle: `${serviceInfo.lifecycle}` ?? 'not-defined',
-          team: `${serviceInfo.team}` ?? 'not-defined',
-          pagerdutyUrl: `${serviceInfo.pagerdutyUrl}` ?? 'not-defined',
+          description: `${serviceInfo.description ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
+          application: `${serviceInfo.application ?? defaultServiceCatalogValues.APPLICATION}`,
+          tier: `${serviceInfo.tier ?? defaultServiceCatalogValues.TIER}`,
+          lifecycle: `${serviceInfo.lifecycle ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
+          team: `${serviceInfo.team ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
+          pagerdutyUrl: `${serviceInfo.pagerdutyUrl ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
+          'slack-support-channel': `${defaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
         },
       };
       steps.push(step);
