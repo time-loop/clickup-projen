@@ -8414,7 +8414,7 @@ const serviceCatalogOptions: datadogServiceCatalog.ServiceCatalogOptions = { ...
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceInfo">serviceInfo</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ServiceInfo[]</code> | Information about the service that will be published to the service catalog. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceTags">serviceTags</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ServiceTags</code> | The list of tags that are associated with the service. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceTags">serviceTags</a></code> | <code>{[ key: string ]: string}</code> | The list of tags that are associated with the service. |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.squadContacts">squadContacts</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.SquadContact[]</code> | The list of contacts for the service. |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.squadLinks">squadLinks</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.SquadLink[]</code> | A list of links associated with the service. |
 
@@ -8435,10 +8435,10 @@ Information about the service that will be published to the service catalog.
 ##### `serviceTags`<sup>Optional</sup> <a name="serviceTags" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceTags"></a>
 
 ```typescript
-public readonly serviceTags: ServiceTags;
+public readonly serviceTags: {[ key: string ]: string};
 ```
 
-- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.ServiceTags
+- *Type:* {[ key: string ]: string}
 - *Default:* undefined
 
 The list of tags that are associated with the service.
@@ -8506,6 +8506,7 @@ public readonly application: string;
 ```
 
 - *Type:* string
+- *Default:* 'clickup'
 
 The application/product that this service assists.
 
@@ -8518,6 +8519,7 @@ public readonly description: string;
 ```
 
 - *Type:* string
+- *Default:* 'Not Provided'
 
 Some details on what this service does.
 
@@ -8530,7 +8532,7 @@ public readonly lifecycle: string;
 ```
 
 - *Type:* string
-- *Default:* 'not-defined'
+- *Default:* 'Not Provided'
 
 Where is this service in the development cycle (development, staging, production, deprecated).
 
@@ -8543,6 +8545,7 @@ public readonly pagerdutyUrl: string;
 ```
 
 - *Type:* string
+- *Default:* 'Not Provided'
 
 The PagerDuty URL for the service.
 
@@ -8585,36 +8588,6 @@ public readonly tier: string;
 - *Default:* 'low'
 
 How important is this service for business functionality (low, medium, high, critical).
-
----
-
-### ServiceTags <a name="ServiceTags" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceTags"></a>
-
-#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceTags.Initializer"></a>
-
-```typescript
-import { datadogServiceCatalog } from '@time-loop/clickup-projen'
-
-const serviceTags: datadogServiceCatalog.ServiceTags = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceTags.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | The list of tags that are associated with the service. |
-
----
-
-##### `tags`<sup>Required</sup> <a name="tags" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceTags.property.tags"></a>
-
-```typescript
-public readonly tags: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: string}
-
-The list of tags that are associated with the service.
 
 ---
 

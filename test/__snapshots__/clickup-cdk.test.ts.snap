@@ -1134,6 +1134,14 @@ jobs:
           team: testing
           pagerdutyUrl: https://test.pagerduty.com
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
+          contacts: undefined
+          links: undefined
+          tags: |-
+            
+            - project:test,
+            - release:true,
+            - version:\${{ steps.event_metadata.outputs.release_tag }},
+            - actor:\${{ github.actor }}
       - name: Publish DD Service Catalog for test
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
@@ -1149,6 +1157,14 @@ jobs:
           team: testing
           pagerdutyUrl: Not Provided
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
+          contacts: undefined
+          links: undefined
+          tags: |-
+            
+            - project:test,
+            - release:true,
+            - version:\${{ steps.event_metadata.outputs.release_tag }},
+            - actor:\${{ github.actor }}
 "
 `;
 

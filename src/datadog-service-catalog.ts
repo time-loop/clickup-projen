@@ -11,10 +11,12 @@ export module datadogServiceCatalog {
     readonly serviceName?: string;
     /**
      * Some details on what this service does
+     * @default 'Not Provided'
      */
     readonly description?: string;
     /**
      * The application/product that this service assists
+     * @default 'clickup'
      */
     readonly application?: string;
     /**
@@ -23,7 +25,7 @@ export module datadogServiceCatalog {
     readonly team?: string;
     /**
      * Where is this service in the development cycle (development, staging, production, deprecated)
-     * @default 'not-defined'
+     * @default 'Not Provided'
      */
     readonly lifecycle?: string;
     /**
@@ -33,6 +35,7 @@ export module datadogServiceCatalog {
     readonly tier?: string;
     /**
      * The PagerDuty URL for the service.
+     * @default 'Not Provided'
      */
     readonly pagerdutyUrl?: string;
   }
@@ -80,12 +83,7 @@ export module datadogServiceCatalog {
      */
     readonly url: string;
   }
-  export interface ServiceTags {
-    /**
-     *  The list of tags that are associated with the service.
-     */
-    readonly tags: Record<string, string>;
-  }
+
   /**
    * Service Catalog Options.
    */
@@ -108,16 +106,16 @@ export module datadogServiceCatalog {
      * The list of tags that are associated with the service.
      * @default undefined
      */
-    readonly serviceTags?: ServiceTags;
+    readonly serviceTags?: Record<string, string>;
   }
 
   /**
    * Adds 'Send to Datadog Service Catalog' job to the release workflow.
    *
    * @param project The NodeProject to which the release event workflow will be added
-   * @param options Optional: Service information that will be included in the DD Service Catalog.
+   * @param options Service information that will be included in the DD Service Catalog.
    */
-  export function addServiceCatalogEvent(project: NodeProject, options?: ServiceCatalogOptions) {
+  export function addServiceCatalogEvent(project: NodeProject, options: ServiceCatalogOptions) {
     project.release?.addJobs({
       send_service_catalog: {
         name: 'Send to Datadog Service Catalog',
@@ -157,10 +155,10 @@ export module datadogServiceCatalog {
    * @param options
    * @returns
    */
-  function createServiceCatalogJobSteps(project: NodeProject, options?: ServiceCatalogOptions): JobStep[] {
+  function createServiceCatalogJobSteps(project: NodeProject, options: ServiceCatalogOptions): JobStep[] {
     let steps: JobStep[] = [];
-
-    for (const serviceInfo of options?.serviceInfo ?? []) {
+    const serviceTags = mergeServiceTags(project, options.serviceTags);
+    for (const serviceInfo of options.serviceInfo ?? []) {
       const serviceName = serviceInfo?.serviceName ?? project.name;
       const step: JobStep = {
         name: `Publish DD Service Catalog for ${serviceName}`,
@@ -178,10 +176,43 @@ export module datadogServiceCatalog {
           team: `${serviceInfo.team ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
           pagerdutyUrl: `${serviceInfo.pagerdutyUrl ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
           'slack-support-channel': `${defaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
+          contacts: `${options.squadContacts?.map(
+            (contact) => `
+- name: ${contact.name},
+  type: ${contact.type},
+  contact: ${contact.contact},`,
+          )}`,
+          links: `${options.squadLinks?.map(
+            (link) => ` 
+- name: ${link.name},
+  type: ${link.type},
+  url: ${link.url},`,
+          )}`,
+          tags: `${Object.keys(serviceTags).map(
+            (key) => `
+- ${key}:${serviceTags[key]}`,
+          )}`,
         },
       };
       steps.push(step);
     }
     return steps;
+  }
+
+  /**
+   * return the service tags that will be send to Datadog.
+   *
+   * @param project
+   * @param userTags
+   * @returns
+   */
+  function mergeServiceTags(project: NodeProject, userTags?: Record<string, string>): Record<string, string> {
+    const defaultTags: Record<string, string> = {
+      project: project.name,
+      release: 'true',
+      version: '${{ steps.event_metadata.outputs.release_tag }}',
+      actor: '${{ github.actor }}',
+    };
+    return { ...defaultTags, ...userTags };
   }
 }
