@@ -7,6 +7,7 @@ import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
 import { datadog } from './datadog';
+import { datadogServiceCatalog } from './datadog-service-catalog';
 import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
 import { semgrepWorkflow } from './semgrep-workflow';
@@ -87,7 +88,7 @@ export module clickupCdk {
      *
      * @default undefined
      */
-    // readonly serviceCatalogOptions?: datadogServiceCatalog.ServiceCatalogOptions;
+    readonly serviceCatalogOptions?: datadogServiceCatalog.ServiceCatalogOptions;
   }
 
   export interface ClickUpCdkConstructLibraryOptions
@@ -152,10 +153,6 @@ export module clickupCdk {
       if (options.sendSlackWebhookOnRelease !== false) {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
       }
-
-      /*if (options.serviceCatalogOptions){
-        datadogServiceCatalog.addServiceCatalogEvent(this, options.serviceCatalogOptions);
-      }*/
     }
   }
 
@@ -231,6 +228,10 @@ export module clickupCdk {
 
       if (options.sendSlackWebhookOnRelease !== false) {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
+      }
+
+      if (options.serviceCatalogOptions) {
+        datadogServiceCatalog.addServiceCatalogEvent(this, options.serviceCatalogOptions);
       }
     }
   }

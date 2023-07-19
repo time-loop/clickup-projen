@@ -44,15 +44,15 @@ export module datadogServiceCatalog {
     /**
      * The name of the contact.
      */
-    name: string;
+    readonly name: string;
     /**
      * The type of the contact. Acceptable values are: email, slack, and microsoft-teams
      */
-    type: SquadContactType;
+    readonly type: SquadContactType;
     /**
      * The actual contact information for the contact. For example, if the type is email, this would be the email address.
      */
-    contact: string;
+    readonly contact: string;
   }
   export enum SquadLinkType {
     DOC = 'doc',
@@ -69,21 +69,21 @@ export module datadogServiceCatalog {
     /**
      * The name of the link.
      */
-    name: string;
+    readonly name: string;
     /**
      * The type for the link. Acceptable values are: 'doc', 'wiki', 'runbook', 'url', 'repo', 'dashboard', 'oncall', 'code', and 'link'
      */
-    type: SquadLinkType;
+    readonly type: SquadLinkType;
     /**
      * The URL of the link.
      */
-    url: string;
+    readonly url: string;
   }
   export interface ServiceTags {
     /**
      *  The list of tags that are associated with the service.
      */
-    tags: Record<string, string>;
+    readonly tags: Record<string, string>;
   }
   /**
    * Service Catalog Options.
@@ -163,12 +163,12 @@ export module datadogServiceCatalog {
           'datadog-key': '${{ secrets.DATADOG_API_KEY }}',
           'datadog-app-key': '${{ secrets.DATADOG_APPLICATION_KEY }}',
           'service-name': `${serviceName}`,
-          description: `${serviceInfo.description}` ?? '',
+          description: `${serviceInfo.description}` ?? 'not-defined',
           application: `${serviceInfo.application}` ?? 'clickup',
           tier: `${serviceInfo.tier}` ?? 'low',
           lifecycle: `${serviceInfo.lifecycle}` ?? 'not-defined',
-          team: `${serviceInfo.team}`,
-          pagerdutyUrl: `${serviceInfo.pagerdutyUrl}` ?? '',
+          team: `${serviceInfo.team}` ?? 'not-defined',
+          pagerdutyUrl: `${serviceInfo.pagerdutyUrl}` ?? 'not-defined',
         },
       };
       steps.push(step);

@@ -1,3 +1,4 @@
+import path from 'path';
 import { Testing, javascript } from 'projen';
 import { clickupCdk } from '../src';
 
@@ -115,4 +116,36 @@ describe('cdk-diff additions - ClickUpCdkTypeScriptApp', () => {
       expect(synth[file]).toMatchSnapshot();
     });
   });
+});
+
+test('sending service catalog options', () => {
+  const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+    serviceCatalogOptions: {
+      serviceInfo: [
+        {
+          serviceName: 'test-service',
+          description: 'test description test-service 1',
+          application: 'clickup',
+          tier: 'critical',
+          lifecycle: 'unit-test',
+          team: 'testing',
+          pagerdutyUrl: 'https://test.pagerduty.com',
+        },
+        {
+          team: 'testing',
+        },
+      ],
+    },
+  });
+  const synth = Testing.synth(project);
+  expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
+});
+
+test('without service catalog options', () => {
+  const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+  });
+  const synth = Testing.synth(project);
+  expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
 });
