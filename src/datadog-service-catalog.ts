@@ -71,7 +71,7 @@ export module datadogServiceCatalog {
      */
     readonly name: string;
     /**
-     * The type for the link. Acceptable values are: 'doc', 'wiki', 'runbook', 'url', 'repo', 'dashboard', 'oncall', 'code', and 'link'
+     * The type for the link. Acceptable values are: 'doc', 'runbook', 'repo', 'dashboard', and 'other'
      */
     readonly type: SquadLinkType;
     /**

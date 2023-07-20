@@ -8693,7 +8693,7 @@ public readonly type: SquadLinkType;
 
 The type for the link.
 
-Acceptable values are: 'doc', 'wiki', 'runbook', 'url', 'repo', 'dashboard', 'oncall', 'code', and 'link'
+Acceptable values are: 'doc', 'runbook', 'repo', 'dashboard', and 'other'
 
 ---
 
