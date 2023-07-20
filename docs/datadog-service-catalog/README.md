@@ -92,7 +92,7 @@ You should include the `serviceCatalogOptions` configuration block in the  `.pro
 
 ### Validate the release.yml file
 
-After you have run `npx projen` you will see one adition job in the `.github/workflows/release.yml` called `send_service_catalog` as follow. 
+After you have run `npx projen` you will see an additional job in the `.github/workflows/release.yml` called `send_service_catalog` as follow. 
 
 ```diff
 +++ b/.github/workflows/release.yml
