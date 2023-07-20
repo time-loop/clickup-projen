@@ -60,14 +60,10 @@ export module datadogServiceCatalog {
   }
   export enum SquadLinkType {
     DOC = 'doc',
-    WIKI = 'wiki',
     RUNBOOK = 'runbook',
-    URL = 'url',
     REPO = 'repo',
     DASHBOARD = 'dashboard',
-    ONCALL = 'oncall',
-    CODE = 'code',
-    LINK = 'link',
+    OTHER = 'other',
   }
   export interface SquadLink {
     /**
@@ -178,15 +174,15 @@ export module datadogServiceCatalog {
           'slack-support-channel': `${defaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
           contacts: `${options.squadContacts?.map(
             (contact) => `
-- name: ${contact.name},
-  type: ${contact.type},
-  contact: ${contact.contact},`,
+- type: ${contact.type}
+  contact: ${contact.contact}
+  name: ${contact.name}`,
           )}`,
           links: `${options.squadLinks?.map(
             (link) => ` 
-- name: ${link.name},
-  type: ${link.type},
-  url: ${link.url},`,
+- type: ${link.type}
+  url: ${link.url}
+  name: ${link.name}`,
           )}`,
           tags: `${Object.keys(serviceTags).map(
             (key) => `

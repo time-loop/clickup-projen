@@ -104,17 +104,17 @@ jobs:
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
           contacts: |-
             
-            - name: contact test,
-              type: email,
-              contact: contacttest@clickup.com,
+            - type: email
+              contact: contacttest@clickup.com
+              name: contact test
           links: |2-
              
-            - name: link test,
-              type: url,
-              url: https://test.clickup.com,, 
-            - name: staging link test,
-              type: url,
-              url: https://staging.clickup.com,
+            - type: other
+              url: https://test.clickup.com
+              name: link test, 
+            - type: other
+              url: https://staging.clickup.com
+              name: staging link test
           tags: |-
             
             - project:test-cdk,

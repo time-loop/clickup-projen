@@ -43,12 +43,12 @@ describe('addReleaseEvent', () => {
     squadLinks: [
       {
         name: 'link test',
-        type: datadogServiceCatalog.SquadLinkType.URL,
+        type: datadogServiceCatalog.SquadLinkType.OTHER,
         url: 'https://test.clickup.com',
       },
       {
         name: 'staging link test',
-        type: datadogServiceCatalog.SquadLinkType.URL,
+        type: datadogServiceCatalog.SquadLinkType.OTHER,
         url: 'https://staging.clickup.com',
       },
     ],

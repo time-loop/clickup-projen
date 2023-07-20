@@ -13202,14 +13202,10 @@ this task should synthesize the project files.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.DOC">DOC</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.WIKI">WIKI</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.RUNBOOK">RUNBOOK</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.URL">URL</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.REPO">REPO</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.DASHBOARD">DASHBOARD</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.ONCALL">ONCALL</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.CODE">CODE</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.LINK">LINK</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.OTHER">OTHER</a></code> | *No description.* |
 
 ---
 
@@ -13218,17 +13214,7 @@ this task should synthesize the project files.
 ---
 
 
-##### `WIKI` <a name="WIKI" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.WIKI"></a>
-
----
-
-
 ##### `RUNBOOK` <a name="RUNBOOK" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.RUNBOOK"></a>
-
----
-
-
-##### `URL` <a name="URL" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.URL"></a>
 
 ---
 
@@ -13243,17 +13229,7 @@ this task should synthesize the project files.
 ---
 
 
-##### `ONCALL` <a name="ONCALL" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.ONCALL"></a>
-
----
-
-
-##### `CODE` <a name="CODE" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.CODE"></a>
-
----
-
-
-##### `LINK` <a name="LINK" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.LINK"></a>
+##### `OTHER` <a name="OTHER" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.OTHER"></a>
 
 ---
 
