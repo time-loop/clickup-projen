@@ -34,7 +34,7 @@ function runUpgradeMain() {
             echo -e "${RED}Trigger for renovate workflow on repo ${repo} failed.${NC}\n";
         fi
         # Lets not slam the Github API and get rate limited
-        sleep 30
+        sleep 5
     done
     echo -e "\nTotal failure count is: ${RC}";
     return $RC;
