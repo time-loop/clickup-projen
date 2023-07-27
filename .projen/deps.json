@@ -10,6 +10,10 @@
       "type": "build"
     },
     {
+      "name": "@types/semver",
+      "type": "build"
+    },
+    {
       "name": "@typescript-eslint/eslint-plugin",
       "version": "^5",
       "type": "build"
@@ -100,6 +104,10 @@
       "type": "bundled"
     },
     {
+      "name": "semver",
+      "type": "bundled"
+    },
+    {
       "name": "ts-deepmerge",
       "type": "bundled"
     },
@@ -113,6 +121,10 @@
     },
     {
       "name": "projen",
+      "type": "runtime"
+    },
+    {
+      "name": "semver",
       "type": "runtime"
     },
     {
