@@ -29,6 +29,7 @@ Object {
     "jsii-docgen": "*",
     "jsii-pacmak": "*",
     "jsii-release": "*",
+    "jsii-rosetta": "5.0.*",
     "npm-check-updates": "^16",
     "prettier": "*",
     "projen": "*",
