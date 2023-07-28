@@ -161,6 +161,22 @@ export module datadogServiceCatalog {
     const serviceTags = mergeServiceTags(project, options.serviceTags);
     for (const serviceInfo of options.serviceInfo ?? []) {
       const serviceName = serviceInfo?.serviceName ?? project.name;
+      const contacts = `${options.contacts?.map(
+            (contact) => `
+- type: ${contact.type}
+  contact: ${contact.contact}
+  name: ${contact.name}`,
+          )}`;
+      const links = `${options.links?.map(
+            (link) => ` 
+- type: ${link.type}
+  url: ${link.url}
+  name: ${link.name}`,
+          )}`;
+      const tags = `${Object.keys(serviceTags).map(
+            (key) => `
+- ${key}:${serviceTags[key]}`,
+          )}`;
       const step: JobStep = {
         name: `Publish DD Service Catalog for ${serviceName}`,
         uses: 'arcxp/datadog-service-catalog-metadata-provider@v2',
@@ -177,23 +193,9 @@ export module datadogServiceCatalog {
           team: `${serviceInfo.team ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
           pagerdutyUrl: `${serviceInfo.pagerdutyUrl ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
           'slack-support-channel': `${DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
-          contacts: `${options.contacts?.map(
-            (contact) => `
-- type: ${contact.type}
-  contact: ${contact.contact}
-  name: ${contact.name}`,
-          )}`,
-          links: `${options.links?.map(
-            (link) => ` 
-- type: ${link.type}
-  url: ${link.url}
-  name: ${link.name}`,
-          )}`,
-          tags: `${Object.keys(serviceTags).map(
-            (key) => `
-- ${key}:${serviceTags[key]}`,
-          )}`,
-        },
+          contacts,
+          links,
+          tags,
       };
       steps.push(step);
     }
