@@ -1,4 +1,5 @@
 import { awscdk, Component, javascript, JsonPatch, SampleDir, SampleReadme } from 'projen';
+import * as semver from 'semver';
 import merge from 'ts-deepmerge';
 
 import { addToProjectWorkflow } from './add-to-project';
@@ -183,8 +184,22 @@ export module clickupCdk {
         throw new Error('pnpm not supported by cdkPipelines: https://staging.clickup.com/t/333/CLK-252116');
       }
 
+      // AWS turned off node12 support. cdk changed the node version for their asset bundling in
+      // https://github.com/aws/aws-cdk/releases/tag/v2.64.0
+      // This cdkVersion is actually the minimum version that's compatible. It only affects devDeps.
+      // This really only affects users when they try to deploy directly from their laptop.
+      // When deploying from cdkPipelines, it will use whatever version the library is currently on per yarn.lock.
+      let cdkVersion = undefined;
+      if (semver.lt(options.cdkVersion, '2.64.0')) {
+        cdkVersion = '2.87.0'; // Arbitrary newish version. Most developers will want the latest.
+        console.warn(
+          `Your cdkVersion of ${options.cdkVersion} is less than 2.64.0. We recommend using latest, which you can find at https://github.com/aws/aws-cdk/releases . Until you explicitly set something, we are pushing to ${cdkVersion}`,
+        );
+      }
+
       super(
         merge(clickupTs.defaults, defaults, options, {
+          cdkVersion: cdkVersion ?? options.cdkVersion,
           sampleCode: false,
           renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
         }),

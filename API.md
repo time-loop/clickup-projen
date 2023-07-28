@@ -213,6 +213,9 @@ Watch with awe and wonder as projen stamps out a project with
     - Copy the context JSON from this repository: https://github.com/time-loop/core-cdk/blob/main/cdk.context.json
     - Create a cdk.context.json in your repo at the root level and copy the above contents.
     - Now you PR build and test should successfully run.
+  - AWS Resource Tagging: <https://staging.clickup.com/333/v/dc/ad-723897>
+    - Review the [CDK Tagging Configuration](https://staging.clickup.com/333/v/dc/ad-757629/ad-2428217) documentation. Note that `cdk-library` includes default values for required tags, but you will need to ensure your tags are set correctly (e.g. confidentiality default is `public`, which is rarely the correct value for a given resource).
+    - If not using CDK for your project, review [AWS Resource Tagging](https://staging.clickup.com/333/v/dc/ad-723897) to ensure any AWS resources created by the repository are tagged correctly with required tags. These tags make our lives easier, and are required to meet compliance obligations.
 
 That's it! Now go write a failing test and some code to make it pass!
 
