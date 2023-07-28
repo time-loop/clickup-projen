@@ -8536,7 +8536,7 @@ const serviceCatalogOptions: datadogServiceCatalog.ServiceCatalogOptions = { ...
 | --- | --- | --- |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.contacts">contacts</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo[]</code> | The list of contacts for the service. |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.links">links</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo[]</code> | A list of links associated with the service. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceInfo">serviceInfo</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ServiceInfo[]</code> | Information about the service that will be published to the service catalog. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceInfo">serviceInfo</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ServiceInfo[]</code> | Information about the services that will be published to the service catalog. |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceTags">serviceTags</a></code> | <code>{[ key: string ]: string}</code> | The list of tags that are associated with the service. |
 
 ---
@@ -8579,7 +8579,7 @@ public readonly serviceInfo: ServiceInfo[];
 
 - *Type:* @time-loop/clickup-projen.datadogServiceCatalog.ServiceInfo[]
 
-Information about the service that will be published to the service catalog.
+Information about the services that will be published to the service catalog.
 
 ---
 

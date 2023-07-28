@@ -1,6 +1,7 @@
 import path from 'path';
 import { Testing, javascript } from 'projen';
 import { clickupCdk } from '../src';
+import { datadogServiceCatalog } from '../src/datadog-service-catalog';
 
 const requiredParams = {
   name: 'test',
@@ -118,7 +119,71 @@ describe('cdk-diff additions - ClickUpCdkTypeScriptApp', () => {
   });
 });
 
-test('sending service catalog options', () => {
+const serviceInfo = [
+  {
+    serviceName: 'test-service',
+    description: 'test description test-service 1',
+    application: 'clickup',
+    tier: 'critical',
+    lifecycle: 'unit-test',
+    team: 'testing',
+    pagerdutyUrl: 'https://test.pagerduty.com',
+  },
+];
+
+const contacts = [
+  {
+    name: 'contact test',
+    type: datadogServiceCatalog.ContactType.EMAIL,
+    contact: 'contacttest@clickup.com',
+  },
+];
+
+const links = [
+  {
+    name: 'link test',
+    type: datadogServiceCatalog.LinkType.OTHER,
+    url: 'https://test.clickup.com',
+  },
+];
+
+test('sending service catalog options serviceInfo', () => {
+  const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+    serviceCatalogOptions: {
+      serviceInfo: serviceInfo,
+    },
+  });
+  const synth = Testing.synth(project);
+  expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
+});
+
+test('sending service catalog options serviceInfo and contacts', () => {
+  const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+    serviceCatalogOptions: {
+      serviceInfo: serviceInfo,
+      contacts: contacts,
+    },
+  });
+  const synth = Testing.synth(project);
+  expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
+});
+
+test('sending service catalog options serviceInfo, contacts and links', () => {
+  const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+    ...requiredParams,
+    serviceCatalogOptions: {
+      serviceInfo: serviceInfo,
+      contacts: contacts,
+      links: links,
+    },
+  });
+  const synth = Testing.synth(project);
+  expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
+});
+
+test('sending service catalog options with 2 serviceInfo, 1 contacts and 1 links', () => {
   const project = new clickupCdk.ClickUpCdkTypeScriptApp({
     ...requiredParams,
     serviceCatalogOptions: {
@@ -133,9 +198,17 @@ test('sending service catalog options', () => {
           pagerdutyUrl: 'https://test.pagerduty.com',
         },
         {
+          serviceName: 'test-service-2',
+          description: 'test description test-service 2',
+          application: 'clickup',
+          tier: 'critical',
+          lifecycle: 'unit-test',
           team: 'testing',
+          pagerdutyUrl: 'https://test.pagerduty.com',
         },
       ],
+      contacts: contacts,
+      links: links,
     },
   });
   const synth = Testing.synth(project);
