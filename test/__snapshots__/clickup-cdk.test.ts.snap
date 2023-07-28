@@ -1107,8 +1107,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    env:
-      CI: \\"true\\"
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
