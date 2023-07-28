@@ -1,8 +1,17 @@
 import { JobPermission, JobStep } from 'projen/lib/github/workflows-model';
 import { NodeProject } from 'projen/lib/javascript';
-import { defaultServiceCatalogValues } from './utils/parameters';
 
 export module datadogServiceCatalog {
+  export enum DefaultServiceCatalogValues {
+    SERVICE_VERSION = '2.1',
+    DATADOG_HOSTNAME = 'app.datadoghq.com',
+    DATADOG_KEY = '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
+    DATADOG_APP_KEY = '${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}',
+    SLACK_SUPPORT_CHANNEL = 'https://click-up.slack.com/archives/C043T0JBJKY',
+    APPLICATION = 'clickup',
+    TIER = 'low',
+    NOT_PROVIDED = 'Not Provided',
+  }
   export interface ServiceInfo {
     /**
      * The name of the service. This must be unique across all services.
@@ -39,12 +48,12 @@ export module datadogServiceCatalog {
      */
     readonly pagerdutyUrl?: string;
   }
-  export enum SquadContactType {
+  export enum ContactType {
     EMAIL = 'email',
     SLACK = 'slack',
     MICROSOFT_TEAMS = 'microsoft-teams',
   }
-  export interface SquadContact {
+  export interface ContactInfo {
     /**
      * The name of the contact.
      */
@@ -52,20 +61,20 @@ export module datadogServiceCatalog {
     /**
      * The type of the contact. Acceptable values are: email, slack, and microsoft-teams
      */
-    readonly type: SquadContactType;
+    readonly type: ContactType;
     /**
      * The actual contact information for the contact. For example, if the type is email, this would be the email address.
      */
     readonly contact: string;
   }
-  export enum SquadLinkType {
+  export enum LinkType {
     DOC = 'doc',
     RUNBOOK = 'runbook',
     REPO = 'repo',
     DASHBOARD = 'dashboard',
     OTHER = 'other',
   }
-  export interface SquadLink {
+  export interface LinkInfo {
     /**
      * The name of the link.
      */
@@ -73,7 +82,7 @@ export module datadogServiceCatalog {
     /**
      * The type for the link. Acceptable values are: 'doc', 'runbook', 'repo', 'dashboard', and 'other'
      */
-    readonly type: SquadLinkType;
+    readonly type: LinkType;
     /**
      * The URL of the link.
      */
@@ -92,12 +101,12 @@ export module datadogServiceCatalog {
      * The list of contacts for the service. Each of these contacts is an object with the following properties: name, type, and contact.
      * @default undefined
      */
-    readonly squadContacts?: SquadContact[];
+    readonly contacts?: ContactInfo[];
     /**
      * A list of links associated with the service. Each of these links is an object with the following properties: name, type, and url.
      * @default undefined
      */
-    readonly squadLinks?: SquadLink[];
+    readonly links?: LinkInfo[];
     /**
      * The list of tags that are associated with the service.
      * @default undefined
@@ -160,25 +169,25 @@ export module datadogServiceCatalog {
         name: `Publish DD Service Catalog for ${serviceName}`,
         uses: 'arcxp/datadog-service-catalog-metadata-provider@v2',
         with: {
-          'service-version': `${defaultServiceCatalogValues.SERVICE_VERSION}`,
-          'datadog-hostname': `${defaultServiceCatalogValues.DATADOG_HOSTNAME}`,
-          'datadog-key': `${defaultServiceCatalogValues.DATADOG_KEY}`,
-          'datadog-app-key': `${defaultServiceCatalogValues.DATADOG_APP_KEY}`,
+          'service-version': `${DefaultServiceCatalogValues.SERVICE_VERSION}`,
+          'datadog-hostname': `${DefaultServiceCatalogValues.DATADOG_HOSTNAME}`,
+          'datadog-key': `${DefaultServiceCatalogValues.DATADOG_KEY}`,
+          'datadog-app-key': `${DefaultServiceCatalogValues.DATADOG_APP_KEY}`,
           'service-name': `${serviceName}`,
-          description: `${serviceInfo.description ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
-          application: `${serviceInfo.application ?? defaultServiceCatalogValues.APPLICATION}`,
-          tier: `${serviceInfo.tier ?? defaultServiceCatalogValues.TIER}`,
-          lifecycle: `${serviceInfo.lifecycle ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
-          team: `${serviceInfo.team ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
-          pagerdutyUrl: `${serviceInfo.pagerdutyUrl ?? defaultServiceCatalogValues.NOT_PROVIDED}`,
-          'slack-support-channel': `${defaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
-          contacts: `${options.squadContacts?.map(
+          description: `${serviceInfo.description ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
+          application: `${serviceInfo.application ?? DefaultServiceCatalogValues.APPLICATION}`,
+          tier: `${serviceInfo.tier ?? DefaultServiceCatalogValues.TIER}`,
+          lifecycle: `${serviceInfo.lifecycle ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
+          team: `${serviceInfo.team ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
+          pagerdutyUrl: `${serviceInfo.pagerdutyUrl ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
+          'slack-support-channel': `${DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
+          contacts: `${options.contacts?.map(
             (contact) => `
 - type: ${contact.type}
   contact: ${contact.contact}
   name: ${contact.name}`,
           )}`,
-          links: `${options.squadLinks?.map(
+          links: `${options.links?.map(
             (link) => ` 
 - type: ${link.type}
   url: ${link.url}

@@ -7886,6 +7886,66 @@ public readonly renovateOptionsConfig: RenovateOptionsConfig;
 
 ---
 
+### ContactInfo <a name="ContactInfo" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.Initializer"></a>
+
+```typescript
+import { datadogServiceCatalog } from '@time-loop/clickup-projen'
+
+const contactInfo: datadogServiceCatalog.ContactInfo = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.property.contact">contact</a></code> | <code>string</code> | The actual contact information for the contact. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.property.name">name</a></code> | <code>string</code> | The name of the contact. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.property.type">type</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ContactType</code> | The type of the contact. |
+
+---
+
+##### `contact`<sup>Required</sup> <a name="contact" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.property.contact"></a>
+
+```typescript
+public readonly contact: string;
+```
+
+- *Type:* string
+
+The actual contact information for the contact.
+
+For example, if the type is email, this would be the email address.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the contact.
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo.property.type"></a>
+
+```typescript
+public readonly type: ContactType;
+```
+
+- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.ContactType
+
+The type of the contact.
+
+Acceptable values are: email, slack, and microsoft-teams
+
+---
+
 ### EnvToDiff <a name="EnvToDiff" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff"></a>
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.Initializer"></a>
@@ -8096,6 +8156,64 @@ public readonly roleDurationSeconds: number;
 - *Default:* 900 15min seems pretty generous.
 
 How long should the requested role be valid.
+
+---
+
+### LinkInfo <a name="LinkInfo" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.Initializer"></a>
+
+```typescript
+import { datadogServiceCatalog } from '@time-loop/clickup-projen'
+
+const linkInfo: datadogServiceCatalog.LinkInfo = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.property.name">name</a></code> | <code>string</code> | The name of the link. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.property.type">type</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.LinkType</code> | The type for the link. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.property.url">url</a></code> | <code>string</code> | The URL of the link. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the link.
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.property.type"></a>
+
+```typescript
+public readonly type: LinkType;
+```
+
+- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.LinkType
+
+The type for the link.
+
+Acceptable values are: 'doc', 'runbook', 'repo', 'dashboard', and 'other'
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+The URL of the link.
 
 ---
 
@@ -8416,10 +8534,40 @@ const serviceCatalogOptions: datadogServiceCatalog.ServiceCatalogOptions = { ...
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.contacts">contacts</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ContactInfo[]</code> | The list of contacts for the service. |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.links">links</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.LinkInfo[]</code> | A list of links associated with the service. |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceInfo">serviceInfo</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.ServiceInfo[]</code> | Information about the service that will be published to the service catalog. |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.serviceTags">serviceTags</a></code> | <code>{[ key: string ]: string}</code> | The list of tags that are associated with the service. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.squadContacts">squadContacts</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.SquadContact[]</code> | The list of contacts for the service. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.squadLinks">squadLinks</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.SquadLink[]</code> | A list of links associated with the service. |
+
+---
+
+##### `contacts`<sup>Optional</sup> <a name="contacts" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.contacts"></a>
+
+```typescript
+public readonly contacts: ContactInfo[];
+```
+
+- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.ContactInfo[]
+- *Default:* undefined
+
+The list of contacts for the service.
+
+Each of these contacts is an object with the following properties: name, type, and contact.
+
+---
+
+##### `links`<sup>Optional</sup> <a name="links" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.links"></a>
+
+```typescript
+public readonly links: LinkInfo[];
+```
+
+- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.LinkInfo[]
+- *Default:* undefined
+
+A list of links associated with the service.
+
+Each of these links is an object with the following properties: name, type, and url.
 
 ---
 
@@ -8445,36 +8593,6 @@ public readonly serviceTags: {[ key: string ]: string};
 - *Default:* undefined
 
 The list of tags that are associated with the service.
-
----
-
-##### `squadContacts`<sup>Optional</sup> <a name="squadContacts" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.squadContacts"></a>
-
-```typescript
-public readonly squadContacts: SquadContact[];
-```
-
-- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.SquadContact[]
-- *Default:* undefined
-
-The list of contacts for the service.
-
-Each of these contacts is an object with the following properties: name, type, and contact.
-
----
-
-##### `squadLinks`<sup>Optional</sup> <a name="squadLinks" id="@time-loop/clickup-projen.datadogServiceCatalog.ServiceCatalogOptions.property.squadLinks"></a>
-
-```typescript
-public readonly squadLinks: SquadLink[];
-```
-
-- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.SquadLink[]
-- *Default:* undefined
-
-A list of links associated with the service.
-
-Each of these links is an object with the following properties: name, type, and url.
 
 ---
 
@@ -8591,124 +8709,6 @@ public readonly tier: string;
 - *Default:* 'low'
 
 How important is this service for business functionality (low, medium, high, critical).
-
----
-
-### SquadContact <a name="SquadContact" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContact"></a>
-
-#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.Initializer"></a>
-
-```typescript
-import { datadogServiceCatalog } from '@time-loop/clickup-projen'
-
-const squadContact: datadogServiceCatalog.SquadContact = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.property.contact">contact</a></code> | <code>string</code> | The actual contact information for the contact. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.property.name">name</a></code> | <code>string</code> | The name of the contact. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.property.type">type</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType</code> | The type of the contact. |
-
----
-
-##### `contact`<sup>Required</sup> <a name="contact" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.property.contact"></a>
-
-```typescript
-public readonly contact: string;
-```
-
-- *Type:* string
-
-The actual contact information for the contact.
-
-For example, if the type is email, this would be the email address.
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
-The name of the contact.
-
----
-
-##### `type`<sup>Required</sup> <a name="type" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContact.property.type"></a>
-
-```typescript
-public readonly type: SquadContactType;
-```
-
-- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.SquadContactType
-
-The type of the contact.
-
-Acceptable values are: email, slack, and microsoft-teams
-
----
-
-### SquadLink <a name="SquadLink" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLink"></a>
-
-#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.Initializer"></a>
-
-```typescript
-import { datadogServiceCatalog } from '@time-loop/clickup-projen'
-
-const squadLink: datadogServiceCatalog.SquadLink = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.property.name">name</a></code> | <code>string</code> | The name of the link. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.property.type">type</a></code> | <code>@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType</code> | The type for the link. |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.property.url">url</a></code> | <code>string</code> | The URL of the link. |
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
-The name of the link.
-
----
-
-##### `type`<sup>Required</sup> <a name="type" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.property.type"></a>
-
-```typescript
-public readonly type: SquadLinkType;
-```
-
-- *Type:* @time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType
-
-The type for the link.
-
-Acceptable values are: 'doc', 'runbook', 'repo', 'dashboard', and 'other'
-
----
-
-##### `url`<sup>Required</sup> <a name="url" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLink.property.url"></a>
-
-```typescript
-public readonly url: string;
-```
-
-- *Type:* string
-
-The URL of the link.
 
 ---
 
@@ -13171,68 +13171,125 @@ this task should synthesize the project files.
 
 ## Enums <a name="Enums" id="Enums"></a>
 
-### SquadContactType <a name="SquadContactType" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType"></a>
+### ContactType <a name="ContactType" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactType"></a>
 
 #### Members <a name="Members" id="Members"></a>
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType.EMAIL">EMAIL</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType.SLACK">SLACK</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType.MICROSOFT_TEAMS">MICROSOFT_TEAMS</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ContactType.EMAIL">EMAIL</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ContactType.SLACK">SLACK</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.ContactType.MICROSOFT_TEAMS">MICROSOFT_TEAMS</a></code> | *No description.* |
 
 ---
 
-##### `EMAIL` <a name="EMAIL" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType.EMAIL"></a>
-
----
-
-
-##### `SLACK` <a name="SLACK" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType.SLACK"></a>
+##### `EMAIL` <a name="EMAIL" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactType.EMAIL"></a>
 
 ---
 
 
-##### `MICROSOFT_TEAMS` <a name="MICROSOFT_TEAMS" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadContactType.MICROSOFT_TEAMS"></a>
+##### `SLACK` <a name="SLACK" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactType.SLACK"></a>
 
 ---
 
 
-### SquadLinkType <a name="SquadLinkType" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType"></a>
+##### `MICROSOFT_TEAMS` <a name="MICROSOFT_TEAMS" id="@time-loop/clickup-projen.datadogServiceCatalog.ContactType.MICROSOFT_TEAMS"></a>
+
+---
+
+
+### DefaultServiceCatalogValues <a name="DefaultServiceCatalogValues" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues"></a>
 
 #### Members <a name="Members" id="Members"></a>
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.DOC">DOC</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.RUNBOOK">RUNBOOK</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.REPO">REPO</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.DASHBOARD">DASHBOARD</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.OTHER">OTHER</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.SERVICE_VERSION">SERVICE_VERSION</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_HOSTNAME">DATADOG_HOSTNAME</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_KEY">DATADOG_KEY</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_APP_KEY">DATADOG_APP_KEY</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL">SLACK_SUPPORT_CHANNEL</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.APPLICATION">APPLICATION</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.TIER">TIER</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.NOT_PROVIDED">NOT_PROVIDED</a></code> | *No description.* |
 
 ---
 
-##### `DOC` <a name="DOC" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.DOC"></a>
-
----
-
-
-##### `RUNBOOK` <a name="RUNBOOK" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.RUNBOOK"></a>
-
----
-
-
-##### `REPO` <a name="REPO" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.REPO"></a>
+##### `SERVICE_VERSION` <a name="SERVICE_VERSION" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.SERVICE_VERSION"></a>
 
 ---
 
 
-##### `DASHBOARD` <a name="DASHBOARD" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.DASHBOARD"></a>
+##### `DATADOG_HOSTNAME` <a name="DATADOG_HOSTNAME" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_HOSTNAME"></a>
 
 ---
 
 
-##### `OTHER` <a name="OTHER" id="@time-loop/clickup-projen.datadogServiceCatalog.SquadLinkType.OTHER"></a>
+##### `DATADOG_KEY` <a name="DATADOG_KEY" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_KEY"></a>
+
+---
+
+
+##### `DATADOG_APP_KEY` <a name="DATADOG_APP_KEY" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_APP_KEY"></a>
+
+---
+
+
+##### `SLACK_SUPPORT_CHANNEL` <a name="SLACK_SUPPORT_CHANNEL" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL"></a>
+
+---
+
+
+##### `APPLICATION` <a name="APPLICATION" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.APPLICATION"></a>
+
+---
+
+
+##### `TIER` <a name="TIER" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.TIER"></a>
+
+---
+
+
+##### `NOT_PROVIDED` <a name="NOT_PROVIDED" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.NOT_PROVIDED"></a>
+
+---
+
+
+### LinkType <a name="LinkType" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkType.DOC">DOC</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkType.RUNBOOK">RUNBOOK</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkType.REPO">REPO</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkType.DASHBOARD">DASHBOARD</a></code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.LinkType.OTHER">OTHER</a></code> | *No description.* |
+
+---
+
+##### `DOC` <a name="DOC" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkType.DOC"></a>
+
+---
+
+
+##### `RUNBOOK` <a name="RUNBOOK" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkType.RUNBOOK"></a>
+
+---
+
+
+##### `REPO` <a name="REPO" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkType.REPO"></a>
+
+---
+
+
+##### `DASHBOARD` <a name="DASHBOARD" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkType.DASHBOARD"></a>
+
+---
+
+
+##### `OTHER` <a name="OTHER" id="@time-loop/clickup-projen.datadogServiceCatalog.LinkType.OTHER"></a>
 
 ---
 

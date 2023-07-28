@@ -1124,8 +1124,8 @@ jobs:
         with:
           service-version: \\"2.1\\"
           datadog-hostname: app.datadoghq.com
-          datadog-key: \${{ secrets.DATADOG_API_KEY }}
-          datadog-app-key: \${{ secrets.DATADOG_APPLICATION_KEY }}
+          datadog-key: \${{ secrets.DD_PROJEN_RELEASE_API_KEY }}
+          datadog-app-key: \${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}
           service-name: test-service
           description: test description test-service 1
           application: clickup
@@ -1147,8 +1147,8 @@ jobs:
         with:
           service-version: \\"2.1\\"
           datadog-hostname: app.datadoghq.com
-          datadog-key: \${{ secrets.DATADOG_API_KEY }}
-          datadog-app-key: \${{ secrets.DATADOG_APPLICATION_KEY }}
+          datadog-key: \${{ secrets.DD_PROJEN_RELEASE_API_KEY }}
+          datadog-app-key: \${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}
           service-name: test
           description: Not Provided
           application: clickup

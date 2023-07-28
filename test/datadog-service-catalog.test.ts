@@ -33,22 +33,22 @@ describe('addReleaseEvent', () => {
         pagerdutyUrl: 'https://test.pagerduty.com',
       },
     ],
-    squadContacts: [
+    contacts: [
       {
         name: 'contact test',
-        type: datadogServiceCatalog.SquadContactType.EMAIL,
+        type: datadogServiceCatalog.ContactType.EMAIL,
         contact: 'contacttest@clickup.com',
       },
     ],
-    squadLinks: [
+    links: [
       {
         name: 'link test',
-        type: datadogServiceCatalog.SquadLinkType.OTHER,
+        type: datadogServiceCatalog.LinkType.OTHER,
         url: 'https://test.clickup.com',
       },
       {
         name: 'staging link test',
-        type: datadogServiceCatalog.SquadLinkType.OTHER,
+        type: datadogServiceCatalog.LinkType.OTHER,
         url: 'https://staging.clickup.com',
       },
     ],
