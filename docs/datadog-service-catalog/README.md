@@ -91,7 +91,7 @@ You should include the `serviceCatalogOptions` configuration block in the `.proj
 
 ### Configure multiple services in the same project.
 
-If your `cdk-project` is managing multiple services, you can include all the related information in the **serviceInfo[]** array as follows:
+If your `my-repo-cdk` is managing multiple services, you can include all the related information in the **serviceInfo[]** array as follows:
 
 ```diff
 @@ -1,5 +1,5 @@
