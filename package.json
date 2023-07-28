@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/jest": "^27",
     "@types/node": "^16",
+    "@types/semver": "^7.5.0",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "eslint": "^8",
@@ -61,10 +62,12 @@
   "dependencies": {
     "cson-parser": "^4.0.9",
     "projen": "^0.71.151",
+    "semver": "^7.5.4",
     "ts-deepmerge": "^6.2.0"
   },
   "bundledDependencies": [
     "cson-parser",
+    "semver",
     "ts-deepmerge"
   ],
   "main": "lib/index.js",
