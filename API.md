@@ -8627,7 +8627,7 @@ public readonly application: string;
 ```
 
 - *Type:* string
-- *Default:* 'clickup'
+- *Default:* 'Not Provided'
 
 The application/product that this service assists.
 
