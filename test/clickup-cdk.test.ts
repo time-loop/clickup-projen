@@ -183,32 +183,15 @@ test('sending service catalog options serviceInfo, contacts and links', () => {
   expect(synth[path.join('.github', 'workflows', 'release.yml')]).toMatchSnapshot();
 });
 
-test('sending service catalog options with 2 serviceInfo, 1 contacts and 1 links', () => {
+test('sending service catalog options with default values in serviceInfo, contacts and links', () => {
   const project = new clickupCdk.ClickUpCdkTypeScriptApp({
     ...requiredParams,
     serviceCatalogOptions: {
       serviceInfo: [
         {
-          serviceName: 'test-service',
-          description: 'test description test-service 1',
-          application: 'clickup',
-          tier: 'critical',
-          lifecycle: 'unit-test',
           team: 'testing',
-          pagerdutyUrl: 'https://test.pagerduty.com',
-        },
-        {
-          serviceName: 'test-service-2',
-          description: 'test description test-service 2',
-          application: 'clickup',
-          tier: 'critical',
-          lifecycle: 'unit-test',
-          team: 'testing',
-          pagerdutyUrl: 'https://test.pagerduty.com',
         },
       ],
-      contacts: contacts,
-      links: links,
     },
   });
   const synth = Testing.synth(project);
