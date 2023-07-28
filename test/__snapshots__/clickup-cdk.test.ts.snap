@@ -29,7 +29,6 @@ Object {
     "jsii-docgen": "*",
     "jsii-pacmak": "*",
     "jsii-release": "*",
-    "jsii-rosetta": "5.0.*",
     "npm-check-updates": "^16",
     "prettier": "*",
     "projen": "*",
@@ -1505,8 +1504,8 @@ jobs:
             - type: email
               contact: contacttest@clickup.com
               name: contact test
-          links: |2-
-             
+          links: |-
+            
             - type: other
               url: https://test.clickup.com
               name: link test

@@ -105,11 +105,11 @@ jobs:
             - type: email
               contact: contacttest@clickup.com
               name: contact test
-          links: |2-
-             
+          links: |-
+            
             - type: other
               url: https://test.clickup.com
-              name: link test, 
+              name: link test,
             - type: other
               url: https://staging.clickup.com
               name: staging link test
