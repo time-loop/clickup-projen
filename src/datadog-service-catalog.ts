@@ -171,7 +171,7 @@ export module datadogServiceCatalog {
           'datadog-app-key': `${DefaultServiceCatalogValues.DATADOG_APP_KEY}`,
           'service-name': `${serviceName}`,
           description: `${serviceInfo.description ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
-          application: `${serviceInfo.application ?? DefaultServiceCatalogValues. NOT_PROVIDED}`,
+          application: `${serviceInfo.application ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
           tier: `${serviceInfo.tier ?? DefaultServiceCatalogValues.TIER}`,
           lifecycle: `${serviceInfo.lifecycle ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
           team: `${serviceInfo.team ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,

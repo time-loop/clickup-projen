@@ -241,7 +241,7 @@ jobs:
           datadog-app-key: \${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}
           service-name: test-cdk
           description: Not Provided
-          application: clickup
+          application: Not Provided
           tier: low
           lifecycle: Not Provided
           team: testing

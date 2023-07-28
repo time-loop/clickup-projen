@@ -13209,7 +13209,6 @@ this task should synthesize the project files.
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_KEY">DATADOG_KEY</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.DATADOG_APP_KEY">DATADOG_APP_KEY</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL">SLACK_SUPPORT_CHANNEL</a></code> | *No description.* |
-| <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.APPLICATION">APPLICATION</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.TIER">TIER</a></code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.NOT_PROVIDED">NOT_PROVIDED</a></code> | *No description.* |
 
@@ -13236,11 +13235,6 @@ this task should synthesize the project files.
 
 
 ##### `SLACK_SUPPORT_CHANNEL` <a name="SLACK_SUPPORT_CHANNEL" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL"></a>
-
----
-
-
-##### `APPLICATION` <a name="APPLICATION" id="@time-loop/clickup-projen.datadogServiceCatalog.DefaultServiceCatalogValues.APPLICATION"></a>
 
 ---
 
