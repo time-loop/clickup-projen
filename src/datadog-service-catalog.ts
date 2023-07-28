@@ -24,7 +24,7 @@ export module datadogServiceCatalog {
     readonly description?: string;
     /**
      * The application/product that this service assists
-     * @default 'clickup'
+     * @default 'Not Provided'
      */
     readonly application?: string;
     /**
