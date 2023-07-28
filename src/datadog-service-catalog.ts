@@ -8,7 +8,6 @@ export module datadogServiceCatalog {
     DATADOG_KEY = '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
     DATADOG_APP_KEY = '${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}',
     SLACK_SUPPORT_CHANNEL = 'https://click-up.slack.com/archives/C043T0JBJKY',
-    APPLICATION = 'clickup',
     TIER = 'low',
     NOT_PROVIDED = 'Not Provided',
   }
