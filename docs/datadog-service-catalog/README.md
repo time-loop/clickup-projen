@@ -8,7 +8,7 @@ To use this feature you must guarantee following points:
 - Your GitHub project must have the ***DATADOG_API_KEY*** secret defined.
 - Your GitHub project must have the ***DATADOG_APPLICATION_KEY*** secret defined.
 
-> Note: The organization should define those secrets, but we suggest verifying them before enabling this feature in your project. 
+> Note: These secrets should be managed at the organization level. We suggest verifying their presence before enabling this feature in your project. If the secrets are not present, the `release` workflow will fail.
 
 
 ## Enable the datadog-service-catalog feature
