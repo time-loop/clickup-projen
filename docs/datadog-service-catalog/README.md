@@ -41,19 +41,19 @@ You should include the `serviceCatalogOptions` configuration block in the `.proj
 +    contacts: [
 +      {
 +        name: 'Contact name',
-+        type: datadogServiceCatalog.SquadContactType.EMAIL,
++        type: datadogServiceCatalog.ContactType.EMAIL,
 +        contact: 'contacttest@clickup.com',
 +      },
 +    ],
 +    links: [
 +      {
 +        name: 'link test',
-+        type: datadogServiceCatalog.SquadLinkType.OTHER,
++        type: datadogServiceCatalog.LinkType.OTHER,
 +        url: 'https://test.clickup.com',
 +      },
 +      {
 +        name: 'staging link test',
-+        type: datadogServiceCatalog.SquadLinkType.OTHER,
++        type: datadogServiceCatalog.LinkType.OTHER,
 +        url: 'https://staging.clickup.com',
 +      },
 +    ],
@@ -129,19 +129,19 @@ If your `my-repo-cdk` is managing multiple services, you can include all the rel
 +    contacts: [
 +      {
 +        name: 'Contact name',
-+        type: datadogServiceCatalog.SquadContactType.EMAIL,
++        type: datadogServiceCatalog.ContactType.EMAIL,
 +        contact: 'contacttest@clickup.com',
 +      },
 +    ],
 +    links: [
 +      {
 +        name: 'link test',
-+        type: datadogServiceCatalog.SquadLinkType.OTHER,
++        type: datadogServiceCatalog.LinkType.OTHER,
 +        url: 'https://test.clickup.com',
 +      },
 +      {
 +        name: 'staging link test',
-+        type: datadogServiceCatalog.SquadLinkType.OTHER,
++        type: datadogServiceCatalog.LinkType.OTHER,
 +        url: 'https://staging.clickup.com',
 +      },
 +    ],
