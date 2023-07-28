@@ -119,7 +119,7 @@ If your `my-repo-cdk` is managing multiple services, you can include all the rel
 +      {
 +        serviceName: 'service-name-2',
 +        description: 'description of service-name-2',
-+        application: 'application-name' #default values clickup',
++        application: 'application-name',
 +        tier: 'critical',
 +        lifecycle: 'developing',
 +        team: 'other team',
