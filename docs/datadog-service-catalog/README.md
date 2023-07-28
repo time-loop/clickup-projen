@@ -123,7 +123,7 @@ If your `my-repo-cdk` is managing multiple services, you can include all the rel
 +        tier: 'critical',
 +        lifecycle: 'developing',
 +        team: 'other team',
-+        pagerdutyUrl: 'https://pagerduty.url.com', #pager duty url
++        pagerdutyUrl: 'https://pagerduty.url.com',
 +      },
 +    ],
 +    contacts: [
