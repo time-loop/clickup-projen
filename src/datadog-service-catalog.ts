@@ -161,22 +161,26 @@ export module datadogServiceCatalog {
     const serviceTags = mergeServiceTags(project, options.serviceTags);
     for (const serviceInfo of options.serviceInfo ?? []) {
       const serviceName = serviceInfo?.serviceName ?? project.name;
+
       const contacts = `${options.contacts?.map(
-            (contact) => `
+        (contact) => `
 - type: ${contact.type}
   contact: ${contact.contact}
   name: ${contact.name}`,
-          )}`;
+      )}`;
+
       const links = `${options.links?.map(
-            (link) => ` 
+        (link) => `
 - type: ${link.type}
   url: ${link.url}
   name: ${link.name}`,
-          )}`;
+      )}`;
+
       const tags = `${Object.keys(serviceTags).map(
-            (key) => `
+        (key) => `
 - ${key}:${serviceTags[key]}`,
-          )}`;
+      )}`;
+
       const step: JobStep = {
         name: `Publish DD Service Catalog for ${serviceName}`,
         uses: 'arcxp/datadog-service-catalog-metadata-provider@v2',
@@ -196,6 +200,7 @@ export module datadogServiceCatalog {
           contacts,
           links,
           tags,
+        },
       };
       steps.push(step);
     }
