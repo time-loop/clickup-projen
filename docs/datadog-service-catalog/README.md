@@ -114,7 +114,7 @@ If your `my-repo-cdk` is managing multiple services, you can include all the rel
 +        tier: 'lower',
 +        lifecycle: 'testing',
 +        team: 'cloud platform',
-+        pagerdutyUrl: 'https://pagerduty.url.com', #pager duty url
++        pagerdutyUrl: 'https://pagerduty.url.com', // pager duty url
 +      },
 +      {
 +        serviceName: 'service-name-2',
