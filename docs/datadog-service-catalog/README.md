@@ -68,31 +68,30 @@ You should include the `serviceCatalogOptions` configuration block in the `.proj
 
 ### serviceCatalogOptions block definition
 
-| field                      | description                                                                                           | required | default                                          |
-| -------------------------- | ----------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------ |
-| serviceCatalogOptions{}    | parent configuration block to enable                                                                  | No       | `undefined`                                      |
-| serviceInfo[]              | Information about the service that will be published to the service catalog                           | No       |                                                  |
-| serviceInfo[].serviceName  | The name of the service. This must be unique across all services.                                     | No       | `project.name`                                   |
-| serviceInfo[].description  | Some details on what this service does                                                                | No       | Not Provided                                     |
-| serviceInfo[].application  | The application/product that this service assists                                                     | No       | `clickup`                                        |
-| serviceInfo[].team         | Which squad owns this service                                                                         | No       |                                                  |
-| serviceInfo[].lifecycle    | Where is this service in the development cycle (`development`, `staging`, `production`, `deprecated`) | No       | Not Provided                                     |
-| serviceInfo[].tier         | How important is this service for business functionality (`low`, `medium`, `high`, `critical`)        | No       | `low`                                            |
-| serviceInfo[].pagerdutyUrl | The PagerDuty URL for the service.                                                                    | No       | Not Provided                                     |
-| contacts[]                 | The list of contacts for the service.                                                                 | No       | `undefined`                                      |
-| contacts[].name            | The name of the contact.                                                                              | Yes      |                                                  |
-| contacts[].type            | The type of the contact. Acceptable values are: `email`, `slack`, and `microsoft-teams`               | Yes      |                                                  |
-| contacts[].contact         | The actual contact information for the contact                                                        | Yes      |                                                  |
-| links[]                    | A list of links associated with the service.                                                          | No       | `undefined`                                      |
-| links[].name               | The name of the link                                                                                  | Yes      |                                                  |
-| links[].type               | The type for the link. Acceptable values are: `doc`, `runbook`, `repo`, `dashboard` and `other`       | Yes      |                                                  |
-| links[].url                | The URL of the link.                                                                                  | Yes      |                                                  |
-| serviceTags{}              | The list of tags that are associated with the service. Record<string, string>                         | No       | `project`, `release`, `version` and `actor` tags |
+| field                      | description                                                                                                                        | required | default                                          |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------ |
+| serviceCatalogOptions{}    | parent configuration block to enable                                                                                               | No       | `undefined`                                      |
+| serviceInfo[]              | Information about the service that will be published to the service catalog                                                        | No       |                                                  |
+| serviceInfo[].serviceName  | The name of the service. This must be unique across all services. (this value could override existing Service Catalog information) | No       | `project.name`                                   |
+| serviceInfo[].description  | Some details on what this service does                                                                                             | No       | Not Provided                                     |
+| serviceInfo[].application  | The application/product that this service assists                                                                                  | No       | `clickup`                                        |
+| serviceInfo[].team         | Which squad owns this service                                                                                                      | No       |                                                  |
+| serviceInfo[].lifecycle    | Where is this service in the development cycle (`development`, `staging`, `production`, `deprecated`)                              | No       | Not Provided                                     |
+| serviceInfo[].tier         | How important is this service for business functionality (`low`, `medium`, `high`, `critical`)                                     | No       | `low`                                            |
+| serviceInfo[].pagerdutyUrl | The PagerDuty URL for the service.                                                                                                 | No       | Not Provided                                     |
+| contacts[]                 | The list of contacts for the service.                                                                                              | No       | `undefined`                                      |
+| contacts[].name            | The name of the contact.                                                                                                           | Yes      |                                                  |
+| contacts[].type            | The type of the contact. Acceptable values are: `email`, `slack`, and `microsoft-teams`                                            | Yes      |                                                  |
+| contacts[].contact         | The actual contact information for the contact                                                                                     | Yes      |                                                  |
+| links[]                    | A list of links associated with the service.                                                                                       | No       | `undefined`                                      |
+| links[].name               | The name of the link                                                                                                               | Yes      |                                                  |
+| links[].type               | The type for the link. Acceptable values are: `doc`, `runbook`, `repo`, `dashboard` and `other`                                    | Yes      |                                                  |
+| links[].url                | The URL of the link.                                                                                                               | Yes      |                                                  |
+| serviceTags{}              | The list of tags that are associated with the service. Record<string, string>                                                      | No       | `project`, `release`, `version` and `actor` tags |
 
 ### Configure multiple services in the same project.
 
 If your `cdk-project` is managing multiple services, you can include all the related information in the **serviceInfo[]** array as follows:
-
 
 ```diff
 @@ -1,5 +1,5 @@
@@ -115,7 +114,7 @@ If your `cdk-project` is managing multiple services, you can include all the rel
 +        tier: 'lower',
 +        lifecycle: 'testing',
 +        team: 'cloud platform',
-+        pagerdutyUrl: 'https://pagerduty.url.com', #pager duty url 
++        pagerdutyUrl: 'https://pagerduty.url.com', #pager duty url
 +      },
 +      {
 +        serviceName: 'service-name-2',
@@ -124,7 +123,7 @@ If your `cdk-project` is managing multiple services, you can include all the rel
 +        tier: 'critical',
 +        lifecycle: 'developing',
 +        team: 'other team',
-+        pagerdutyUrl: 'https://pagerduty.url.com', #pager duty url 
++        pagerdutyUrl: 'https://pagerduty.url.com', #pager duty url
 +      },
 +    ],
 +    contacts: [
@@ -150,6 +149,8 @@ If your `cdk-project` is managing multiple services, you can include all the rel
 +  },
  });
 ```
+
+> **Note**: Ensure `serviceName` is unique to avoid override Service Catalog information in DataDog
 
 
 ### Validate the release.yml file
@@ -187,10 +188,10 @@ After you have run `npx projen` you will see an additional job in the `.github/w
 +      # Service information will be here
 ```
 
-
 If multiple services have been configured in your project, the release.yml file will show one step per each service following the next name pattern `Publish DD Service Catalog for {serviceName}`
 
 for example:
+
 ```diff
 +++ b/.github/workflows/release.yml
 @@ -137,3 +137,57 @@ jobs:

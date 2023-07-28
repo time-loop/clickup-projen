@@ -94,7 +94,7 @@ export module datadogServiceCatalog {
    */
   export interface ServiceCatalogOptions {
     /**
-     * Information about the service that will be published to the service catalog.
+     * Information about the services that will be published to the service catalog.
      */
     readonly serviceInfo?: ServiceInfo[];
     /**
@@ -130,9 +130,6 @@ export module datadogServiceCatalog {
         runsOn: ['ubuntu-latest'],
         needs: ['release'],
         if: 'needs.release.outputs.latest_commit == github.sha',
-        env: {
-          CI: 'true',
-        },
         steps: [
           {
             name: 'Download build artifacts',
