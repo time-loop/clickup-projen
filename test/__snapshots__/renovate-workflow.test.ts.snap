@@ -92,44 +92,44 @@ foo: bar
 `;
 
 exports[`getRenovateOptions defaults 1`] = `
-Object {
-  "ignore": Array [
+{
+  "ignore": [
     "node",
     "@time-loop/clickup-projen",
   ],
   "ignoreProjen": true,
-  "labels": Array [
+  "labels": [
     "renovate",
   ],
-  "overrideConfig": Object {
+  "overrideConfig": {
     "automergeType": "pr",
-    "extends": Array [
+    "extends": [
       "config:base",
       "group:recommended",
       "group:monorepos",
       "github>whitesource/merge-confidence:beta",
     ],
-    "packageRules": Array [
-      Object {
-        "addLabels": Array [
+    "packageRules": [
+      {
+        "addLabels": [
           undefined,
         ],
         "automerge": undefined,
         "groupName": "all non-major dependencies",
         "groupSlug": "all-minor-patch",
-        "matchPackagePatterns": Array [
+        "matchPackagePatterns": [
           "*",
         ],
-        "matchUpdateTypes": Array [
+        "matchUpdateTypes": [
           "minor",
           "patch",
         ],
       },
-      Object {
-        "addLabels": Array [
+      {
+        "addLabels": [
           "optional",
         ],
-        "matchDepTypes": Array [
+        "matchDepTypes": [
           "optionalDependencies",
         ],
       },
@@ -139,7 +139,7 @@ Object {
     "prHourlyLimit": 0,
     "rangeStrategy": "bump",
   },
-  "scheduleInterval": Array [
+  "scheduleInterval": [
     "before 1am on Monday",
   ],
 }
