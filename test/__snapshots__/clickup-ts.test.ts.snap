@@ -315,6 +315,7 @@ exports[`ClickUpTypeScriptProject defaults package.json 1`] = `
     "test:watch": "npx projen test:watch",
     "typedocDocgen": "npx projen typedocDocgen",
     "unbump": "npx projen unbump",
+    "update-projen": "npx projen update-projen",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
   },

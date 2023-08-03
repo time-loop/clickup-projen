@@ -45,6 +45,7 @@
     "jest-junit",
     "jsii-rosetta",
     "jsii",
+    "npm-check-updates",
     "standard-version",
     "node",
     "@time-loop/clickup-projen",
