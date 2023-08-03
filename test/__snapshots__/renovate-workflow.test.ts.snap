@@ -90,3 +90,57 @@ jobs:
 foo: bar
 "
 `;
+
+exports[`getRenovateOptions defaults 1`] = `
+{
+  "ignore": [
+    "node",
+    "@time-loop/clickup-projen",
+  ],
+  "ignoreProjen": true,
+  "labels": [
+    "renovate",
+  ],
+  "overrideConfig": {
+    "automergeType": "pr",
+    "extends": [
+      "config:base",
+      "group:recommended",
+      "group:monorepos",
+      "github>whitesource/merge-confidence:beta",
+    ],
+    "packageRules": [
+      {
+        "addLabels": [
+          undefined,
+        ],
+        "automerge": undefined,
+        "groupName": "all non-major dependencies",
+        "groupSlug": "all-minor-patch",
+        "matchPackagePatterns": [
+          "*",
+        ],
+        "matchUpdateTypes": [
+          "minor",
+          "patch",
+        ],
+      },
+      {
+        "addLabels": [
+          "optional",
+        ],
+        "matchDepTypes": [
+          "optionalDependencies",
+        ],
+      },
+    ],
+    "platformAutomerge": true,
+    "prConcurrentLimit": 0,
+    "prHourlyLimit": 0,
+    "rangeStrategy": "bump",
+  },
+  "scheduleInterval": [
+    "before 1am on Monday",
+  ],
+}
+`;

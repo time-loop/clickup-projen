@@ -47,7 +47,9 @@
     "jsii",
     "npm-check-updates",
     "standard-version",
-    "node"
+    "node",
+    "@time-loop/clickup-projen",
+    "projen"
   ],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
