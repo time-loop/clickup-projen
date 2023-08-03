@@ -24,6 +24,11 @@ describe('addRenovateWorkflowYml', () => {
 });
 
 describe('getRenovateOptions', () => {
+  test('defaults', () => {
+    const options = renovateWorkflow.getRenovateOptions();
+    expect(options).toMatchSnapshot();
+  });
+
   test('merges options', () => {
     const options = renovateWorkflow.getRenovateOptions({ defaultOverrides: { overrideConfig: { dryRun: true } } });
     // custom option we set

@@ -46,7 +46,9 @@
     "jsii-rosetta",
     "jsii",
     "standard-version",
-    "node"
+    "node",
+    "@time-loop/clickup-projen",
+    "projen"
   ],
   "rangeStrategy": "bump",
   "prHourlyLimit": 0,
