@@ -7,6 +7,7 @@ import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
 import { semgrepWorkflow } from './semgrep-workflow';
 import { slackAlert } from './slack-alert';
+import { updateProjen } from './update-projen';
 import { parameters } from './utils/parameters';
 
 export module clickupTs {
@@ -233,6 +234,7 @@ export module clickupTs {
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
+      updateProjen.addWorkflows(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
       if (options.sendSlackWebhookOnRelease !== false) {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
