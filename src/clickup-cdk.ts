@@ -185,7 +185,7 @@ export module clickupCdk {
       // When deploying from cdkPipelines, it will use whatever version the library is currently on per yarn.lock.
       let cdkVersion = undefined;
       if (semver.lt(options.cdkVersion, '2.64.0')) {
-        cdkVersion = '2.87.0'; // Arbitrary newish version. Most developers will want the latest.
+        cdkVersion = '2.90.0'; // https://github.com/aws/aws-cdk/issues/26325
         console.warn(
           `Your cdkVersion of ${options.cdkVersion} is less than 2.64.0. We recommend using latest, which you can find at https://github.com/aws/aws-cdk/releases . Until you explicitly set something, we are pushing to ${cdkVersion}`,
         );
