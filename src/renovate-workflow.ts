@@ -98,9 +98,10 @@ export module renovateWorkflow {
     return merge(
       {
         scheduleInterval: ['before 1am on Monday'],
-        ignoreProjen: false,
+        ignoreProjen: true,
         ignore: [
           'node', // managed by projen
+          '@time-loop/clickup-projen', // managed as part of the projen upgrade workflow
         ],
         overrideConfig: {
           /* override projen renovate defaults */

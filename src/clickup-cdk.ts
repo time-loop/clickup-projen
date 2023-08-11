@@ -13,6 +13,7 @@ import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
 import { semgrepWorkflow } from './semgrep-workflow';
 import { slackAlert } from './slack-alert';
+import { updateProjen } from './update-projen';
 
 export module clickupCdk {
   export const deps = [
@@ -130,6 +131,7 @@ export module clickupCdk {
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
+      updateProjen.addWorkflows(this);
 
       // Release workflow needs to start by being auth'd to fetch packages,
       // BUT THEN NEEDS TO PUSH, so it changes auth midstream.
@@ -217,6 +219,7 @@ export module clickupCdk {
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
+      updateProjen.addWorkflows(this);
       if (options.cdkDiffOptionsConfig) {
         cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
         cdkDiffWorkflow.AddCdkLogParserDependency(this.package);

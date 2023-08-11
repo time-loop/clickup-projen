@@ -2,6 +2,7 @@ import { cdk, github, javascript, TextFile, YamlFile } from 'projen';
 import { addToProjectWorkflow } from './src/add-to-project';
 import { renovateWorkflow } from './src/renovate-workflow';
 import { semgrepWorkflow } from './src/semgrep-workflow';
+import { updateProjen } from './src/update-projen';
 import { parameters } from './src/utils/parameters';
 
 const bundledDeps = ['cson-parser', 'semver', 'ts-deepmerge'];
@@ -139,5 +140,6 @@ new TextFile(project, '.nvmrc', {
 renovateWorkflow.addRenovateWorkflowYml(project);
 semgrepWorkflow.addSemgrepWorkflowYml(project);
 addToProjectWorkflow.addAddToProjectWorkflowYml(project);
+updateProjen.addWorkflows(project);
 
 project.synth();
