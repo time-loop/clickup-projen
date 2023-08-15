@@ -115,19 +115,18 @@ export module clickupCdk {
       const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
       // Theoretically we should be able to just take a default here, but for some reason this is required.
       const repositoryUrl = options.repositoryUrl || `https://github.com/${name.substring(1)}.git`;
-      super(
-        merge(clickupTs.defaults, { jsiiVersion: '5.0.*' }, options, {
-          authorName,
-          authorAddress,
-          name,
-          repositoryUrl,
-          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
-          cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
-        }),
-      );
+      const mergedOptions = merge(clickupTs.defaults, { jsiiVersion: '5.0.*' }, options, {
+        authorName,
+        authorAddress,
+        name,
+        repositoryUrl,
+        renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+        cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
+      });
+      super(mergedOptions);
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
-      nodeVersion.addNodeVersionFile(this);
+      nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
@@ -181,6 +180,8 @@ export module clickupCdk {
    */
   export class ClickUpCdkTypeScriptApp extends awscdk.AwsCdkTypeScriptApp {
     readonly datadogEvent: boolean;
+    readonly workflowNodeVersion?: string;
+
     constructor(options: ClickUpCdkTypeScriptAppOptions) {
       if (options.packageManager === javascript.NodePackageManager.PNPM) {
         throw new Error('pnpm not supported by cdkPipelines: https://staging.clickup.com/t/333/CLK-252116');
@@ -199,13 +200,13 @@ export module clickupCdk {
         );
       }
 
-      super(
-        merge(clickupTs.defaults, defaults, options, {
-          cdkVersion: cdkVersion ?? options.cdkVersion,
-          sampleCode: false,
-          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
-        }),
-      );
+      const mergedOptions = merge(clickupTs.defaults, defaults, options, {
+        cdkVersion: cdkVersion ?? options.cdkVersion,
+        sampleCode: false,
+        renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+      });
+      super(mergedOptions);
+      this.workflowNodeVersion = mergedOptions.workflowNodeVersion
       clickupTs.fixTsNodeDeps(this.package);
       new AppSampleCode(this);
       new SampleReadme(this, {
@@ -215,13 +216,16 @@ export module clickupCdk {
         `,
       });
       codecov.addCodeCovYml(this);
-      nodeVersion.addNodeVersionFile(this);
+      nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       updateProjen.addWorkflows(this);
       if (options.cdkDiffOptionsConfig) {
-        cdkDiffWorkflow.addCdkDiffWorkflowYml(this, options.cdkDiffOptionsConfig);
+        cdkDiffWorkflow.addCdkDiffWorkflowYml(this, {
+          ...options.cdkDiffOptionsConfig,
+          nodeVersion: options.workflowNodeVersion,
+        });
         cdkDiffWorkflow.AddCdkLogParserDependency(this.package);
         if (options.cdkDiffOptionsConfig.createOidcRoleStack) {
           cdkDiffWorkflow.addOidcRoleStack(this);

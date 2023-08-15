@@ -1,10 +1,13 @@
-import { typescript, Testing } from 'projen';
+import { Testing } from 'projen';
+// import * as Yaml from 'yaml';
 
 import { cdkDiffWorkflow } from '../src/cdk-diff-workflow';
+import { clickupCdk } from '../src/clickup-cdk';
 
 describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
   test('a single env to diff', () => {
-    const project = new typescript.TypeScriptProject({
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
       defaultReleaseBranch: 'main',
       name: 'test',
     });
@@ -22,8 +25,30 @@ describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
     expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
   });
 
+  test('node20', () => {
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
+      defaultReleaseBranch: 'main',
+      name: 'test',
+      workflowNodeVersion: '20.5.1',
+    });
+    cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stackSearchString: 'Qa',
+        },
+      ],
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
+  });
+
   test('a single env to diff - single explicit stack given to diff', () => {
-    const project = new typescript.TypeScriptProject({
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
       defaultReleaseBranch: 'main',
       name: 'test',
     });
@@ -42,7 +67,8 @@ describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
   });
 
   test('a single env to diff - multiple stacks given to diff', () => {
-    const project = new typescript.TypeScriptProject({
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
       defaultReleaseBranch: 'main',
       name: 'test',
     });
@@ -61,7 +87,8 @@ describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
   });
 
   test('multiple envs to diff', () => {
-    const project = new typescript.TypeScriptProject({
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
       defaultReleaseBranch: 'main',
       name: 'test',
     });

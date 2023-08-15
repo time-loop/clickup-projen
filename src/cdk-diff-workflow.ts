@@ -1,6 +1,7 @@
-import { SampleFile, typescript, YamlFile } from 'projen';
+import { SampleFile, YamlFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
-import { parameters } from './utils/parameters';
+import { clickupCdk } from './clickup-cdk';
+import { NodeVersion, parameters } from './utils/parameters';
 
 export module cdkDiffWorkflow {
   function createCdkDiffWorkflow(options: CDKDiffOptionsConfig) {
@@ -44,7 +45,7 @@ export module cdkDiffWorkflow {
               name: 'Setup Node.js',
               uses: 'actions/setup-node@v3',
               with: {
-                'node-version': parameters.PROJEN_NODE_VERSION,
+                'node-version': options.nodeVersion ?? parameters.PROJEN_NODE_VERSION,
               },
             },
             {
@@ -265,7 +266,7 @@ export module cdkDiffWorkflow {
     readonly stacks: string[];
   }
 
-  export interface CDKDiffOptionsConfig {
+  export interface CDKDiffOptionsConfig extends NodeVersion {
     /**
      * Collection of environments to cdk diff
      */
@@ -282,12 +283,12 @@ export module cdkDiffWorkflow {
   }
 
   export function addCdkDiffWorkflowYml(
-    project: typescript.TypeScriptProject,
+    project: clickupCdk.ClickUpCdkTypeScriptApp,
     options: CDKDiffOptionsConfig,
     override?: any,
   ): void {
     new YamlFile(project, '.github/workflows/cdk-diff.yml', {
-      obj: { ...createCdkDiffWorkflow(options), ...override },
+      obj: { ...createCdkDiffWorkflow({nodeVersion: project.workflowNodeVersion, ...options}), ...override },
     });
   }
 
@@ -295,7 +296,7 @@ export module cdkDiffWorkflow {
     pkg.addDevDeps('@time-loop/cdk-log-parser@latest');
   }
 
-  export function addOidcRoleStack(project: typescript.TypeScriptProject): void {
+  export function addOidcRoleStack(project: clickupCdk.ClickUpCdkTypeScriptApp): void {
     new SampleFile(project, `${project.srcdir}/github-actions-oidc-permissions.ts`, {
       contents: `import { core } from '@time-loop/cdk-library';
 import { aws_iam, Stage } from 'aws-cdk-lib';

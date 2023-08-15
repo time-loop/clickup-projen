@@ -220,17 +220,16 @@ export module clickupTs {
    */
   export class ClickUpTypeScriptProject extends typescript.TypeScriptProject {
     constructor(options: ClickUpTypeScriptProjectOptions) {
-      super(
-        merge(defaults, { deps }, options, {
-          // Disable projen's built-in docgen class
-          docgen: undefined,
-          name: normalizeName(options.name),
-          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
-        }),
-      );
+      const mergedOptions = merge(defaults, { deps }, options, {
+        // Disable projen's built-in docgen class
+        docgen: undefined,
+        name: normalizeName(options.name),
+        renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+      });
+      super(mergedOptions);
       fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
-      nodeVersion.addNodeVersionFile(this);
+      nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
       semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
