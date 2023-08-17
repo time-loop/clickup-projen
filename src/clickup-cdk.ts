@@ -206,7 +206,7 @@ export module clickupCdk {
         renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
       });
       super(mergedOptions);
-      this.workflowNodeVersion = mergedOptions.workflowNodeVersion
+      this.workflowNodeVersion = mergedOptions.workflowNodeVersion;
       clickupTs.fixTsNodeDeps(this.package);
       new AppSampleCode(this);
       new SampleReadme(this, {

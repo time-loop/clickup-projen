@@ -1,7 +1,8 @@
 import { SampleFile, YamlFile } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 import { clickupCdk } from './clickup-cdk';
-import { NodeVersion, parameters } from './utils/parameters';
+import { OptionalNodeVersion } from './optional-node-version';
+import { parameters } from './utils/parameters';
 
 export module cdkDiffWorkflow {
   function createCdkDiffWorkflow(options: CDKDiffOptionsConfig) {
@@ -266,7 +267,7 @@ export module cdkDiffWorkflow {
     readonly stacks: string[];
   }
 
-  export interface CDKDiffOptionsConfig extends NodeVersion {
+  export interface CDKDiffOptionsConfig extends OptionalNodeVersion {
     /**
      * Collection of environments to cdk diff
      */
@@ -288,7 +289,7 @@ export module cdkDiffWorkflow {
     override?: any,
   ): void {
     new YamlFile(project, '.github/workflows/cdk-diff.yml', {
-      obj: { ...createCdkDiffWorkflow({nodeVersion: project.workflowNodeVersion, ...options}), ...override },
+      obj: { ...createCdkDiffWorkflow({ nodeVersion: project.workflowNodeVersion, ...options }), ...override },
     });
   }
 
