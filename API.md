@@ -301,8 +301,22 @@ const cDKDiffOptionsConfig: cdkDiffWorkflow.CDKDiffOptionsConfig = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.nodeVersion">nodeVersion</a></code> | <code>string</code> | Specify a nodeVersion. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.envsToDiff">envsToDiff</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff \| @time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff[]</code> | Collection of environments to cdk diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.createOidcRoleStack">createOidcRoleStack</a></code> | <code>boolean</code> | Detrmines if the OIDC role stack should be created. |
+
+---
+
+##### `nodeVersion`<sup>Optional</sup> <a name="nodeVersion" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.nodeVersion"></a>
+
+```typescript
+public readonly nodeVersion: string;
+```
+
+- *Type:* string
+- *Default:* should be parameters.PROJEN_NODE_VERSION
+
+Specify a nodeVersion.
 
 ---
 
@@ -8217,6 +8231,37 @@ The URL of the link.
 
 ---
 
+### OptionalNodeVersion <a name="OptionalNodeVersion" id="@time-loop/clickup-projen.OptionalNodeVersion"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.OptionalNodeVersion.Initializer"></a>
+
+```typescript
+import { OptionalNodeVersion } from '@time-loop/clickup-projen'
+
+const optionalNodeVersion: OptionalNodeVersion = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.OptionalNodeVersion.property.nodeVersion">nodeVersion</a></code> | <code>string</code> | Specify a nodeVersion. |
+
+---
+
+##### `nodeVersion`<sup>Optional</sup> <a name="nodeVersion" id="@time-loop/clickup-projen.OptionalNodeVersion.property.nodeVersion"></a>
+
+```typescript
+public readonly nodeVersion: string;
+```
+
+- *Type:* string
+- *Default:* should be parameters.PROJEN_NODE_VERSION
+
+Specify a nodeVersion.
+
+---
+
 ### Options <a name="Options" id="@time-loop/clickup-projen.cdkContextJson.Options"></a>
 
 Options to support cdk.context.json management.
@@ -10933,6 +10978,7 @@ The list of modules to depend on.
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkTasks">cdkTasks</a></code> | <code>projen.awscdk.CdkTasks</code> | Common CDK tasks. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.cdkVersion">cdkVersion</a></code> | <code>string</code> | The CDK version this app is using. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.datadogEvent">datadogEvent</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.workflowNodeVersion">workflowNodeVersion</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -11735,6 +11781,16 @@ public readonly datadogEvent: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `workflowNodeVersion`<sup>Optional</sup> <a name="workflowNodeVersion" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptApp.property.workflowNodeVersion"></a>
+
+```typescript
+public readonly workflowNodeVersion: string;
+```
+
+- *Type:* string
 
 ---
 
