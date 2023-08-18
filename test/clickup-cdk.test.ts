@@ -5,7 +5,7 @@ import { datadogServiceCatalog } from '../src/datadog-service-catalog';
 
 const requiredParams = {
   name: 'test',
-  cdkVersion: '2.1.0',
+  cdkVersion: '2.91.0',
   defaultReleaseBranch: 'main',
 };
 
@@ -50,6 +50,20 @@ describe('ClickUpCdkTypeScriptApp', () => {
           packageManager: javascript.NodePackageManager.PNPM,
         });
       }).toThrowError(/pnpm not supported by cdkPipelines/);
+    });
+
+    describe('node20', () => {
+      p = new clickupCdk.ClickUpCdkTypeScriptApp({
+        ...requiredParams,
+        minNodeVersion: '20.5.1',
+        workflowNodeVersion: '20.5.1',
+      });
+      const synth = Testing.synth(p);
+      ['.nvmrc', 'package.json', '.github/workflows/release.yml'].forEach((file) => {
+        test(file, () => {
+          expect(synth[file]).toMatchSnapshot();
+        });
+      });
     });
   });
 });

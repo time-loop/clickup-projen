@@ -134,7 +134,7 @@ new YamlFile(project, 'codecov.yml', {
 });
 
 new TextFile(project, '.nvmrc', {
-  lines: [parameters.PROJEN_NODE_VERSION],
+  lines: [project.minNodeVersion ?? parameters.PROJEN_NODE_VERSION],
 });
 
 renovateWorkflow.addRenovateWorkflowYml(project);
