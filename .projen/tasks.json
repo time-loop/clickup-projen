@@ -265,25 +265,13 @@
           "exec": "yarn upgrade npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --dep dev --upgrade --target=minor --filter='projen,@time-loop/clickup-projen'"
-        },
-        {
-          "exec": "npm-check-updates --dep bundle --upgrade --target=minor --filter='projen,@time-loop/clickup-projen'"
-        },
-        {
-          "exec": "npm-check-updates --dep peer --upgrade --target=minor --filter='projen,@time-loop/clickup-projen'"
-        },
-        {
-          "exec": "npm-check-updates --dep prod --upgrade --target=minor --filter='projen,@time-loop/clickup-projen'"
-        },
-        {
-          "exec": "npm-check-updates --dep optional --upgrade --target=minor --filter='projen,@time-loop/clickup-projen'"
+          "exec": "npm-check-updates --upgrade --target=minor --filter=projen,@time-loop/clickup-projen"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade projen projen projen"
+          "exec": "yarn upgrade projen @time-loop/clickup-projen"
         },
         {
           "exec": "npx projen"
