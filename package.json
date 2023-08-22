@@ -54,18 +54,18 @@
     "jsii-rosetta": "5.0.x",
     "npm-check-updates": "^16",
     "prettier": "^3.0.1",
-    "projen": "^0.71.151",
+    "projen": "^0.72.20",
     "standard-version": "^9",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "projen": "^0.71.151"
+    "projen": "^0.72.20"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.71.151",
+    "projen": "^0.72.20",
     "semver": "^7.5.4",
     "ts-deepmerge": "^6.2.0"
   },
