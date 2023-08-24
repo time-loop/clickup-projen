@@ -1,5 +1,7 @@
 # cdk-context-json
 
+The context lookup function workflow updates the `cdk.context.json` file by adding missing shard config automatically instead of manual update. However, if the build or the UTs fail then this workflow will not update the `cdk.context.json` for the missing shard config. The errors resulting in the build/unit test failures shall be addressed in order for this workflow to succeed and this is the default behaviour of this workflow(see this Ref PR with the mentioned default behaviour: https://github.com/time-loop/core-cdk/pull/251).
+
 ## Edit your .projenrc.ts
 
 DO NOT just add the `injectionOptions` stuff from step 2.
