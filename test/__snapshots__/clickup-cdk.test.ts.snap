@@ -180,7 +180,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -213,7 +213,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -243,7 +243,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -373,7 +373,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -406,7 +406,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1272,7 +1272,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1305,7 +1305,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1454,7 +1454,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1487,7 +1487,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1640,7 +1640,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1673,7 +1673,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1830,7 +1830,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1863,7 +1863,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -2012,7 +2012,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -2045,7 +2045,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.20.2
+          node-version: 18.17.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
