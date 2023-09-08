@@ -202,6 +202,7 @@ jobs:
         with:
           service-name: test
           version: \${{ steps.event_metadata.outputs.release_tag }}
+          harness-account-identifier: \${{ secrets.HARNESS_ACCOUNT_IDENTIFIER }}
 "
 `;
 
@@ -695,6 +696,10 @@ on:
         description: The version number that was created for the deploy.
         required: true
         type: string
+      harness-account-identifier:
+        description: Harness account identifier for Harness pipelines.
+        required: true
+        type: string
 env:
   DOCKER_TAG_COMMIT: git-sha-\${{ inputs.service-name }}-\${GITHUB_SHA}
   DOCKER_TAG_BASE: git-ref-\${{ inputs.service-name }}-\${GITHUB_BASE_REF//\\//-}
@@ -709,7 +714,7 @@ jobs:
     permissions:
       contents: read
     env:
-      ACCOUNT_IDENTIFIER: NYVU0wI4R0ijpWK5Gyl5pQ
+      ACCOUNT_IDENTIFIER: \${{ inputs.harness-account-identifier }}
       ORG_IDENTIFIER: ClickUp
       PROJECT_IDENTIFIER: clickupbackend
     outputs:
