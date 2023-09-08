@@ -328,6 +328,13 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: dist
       - name: Get version
         id: event_metadata
         run: echo "release_tag=$(cat dist/releasetag.txt)" >> $GITHUB_OUTPUT
@@ -1022,6 +1029,7 @@ exports[`ClickUpTypeScriptEcsServiceProject default action metadata has appropri
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
+    "clean-dist": "npx projen clean-dist",
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "default": "npx projen default",
