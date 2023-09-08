@@ -24,6 +24,11 @@ export module ecsServiceDeployWorkflow {
               required: true,
               type: 'string',
             },
+            'harness-account-identifier': {
+              description: 'Harness account identifier for Harness pipelines.',
+              required: true,
+              type: 'string',
+            },
           },
         },
       },
@@ -217,8 +222,7 @@ export module ecsServiceDeployWorkflow {
           contents: 'read',
         },
         env: {
-          // FIXME: Should not be hardcoded in source like this.
-          ACCOUNT_IDENTIFIER: 'NYVU0wI4R0ijpWK5Gyl5pQ',
+          ACCOUNT_IDENTIFIER: '${{ inputs.harness-account-identifier }}',
           ORG_IDENTIFIER: 'ClickUp',
           PROJECT_IDENTIFIER: 'clickupbackend',
         },

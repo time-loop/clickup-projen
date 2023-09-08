@@ -31,6 +31,7 @@ export module ecsServiceCDWorkflow {
             with: {
               'service-name': project.serviceName,
               version: '${{ steps.event_metadata.outputs.release_tag }}',
+              'harness-account-identifier': '${{ secrets.HARNESS_ACCOUNT_IDENTIFIER }}',
             },
           },
         ],
