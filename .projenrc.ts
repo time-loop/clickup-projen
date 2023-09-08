@@ -51,7 +51,7 @@ const project = new cdk.JsiiProject({
   // gitignore: [ '/.npmrc' ],
 
   bundledDeps,
-  deps: [...bundledDeps, 'projen', 'semver'],
+  deps: [...bundledDeps, 'projen', 'semver', 'multi-convention-namer'],
   devDeps: ['projen', '@types/semver'],
   peerDeps: ['projen'],
 
@@ -85,6 +85,10 @@ const project = new cdk.JsiiProject({
   codeCov: true,
   codeCovTokenSecret: 'CODECOV_TOKEN',
 });
+
+project.projectBuild.postCompileTask.exec('rm -r ./lib/samples; cp -r ./src/samples ./lib/', {});
+
+//project.addScripts({ compile: 'rm -rf ./lib/ && npx projen compile && cp -r ./src/samples ./lib/samples' });
 
 new YamlFile(project, 'codecov.yml', {
   obj: {
