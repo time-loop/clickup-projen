@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e -o pipefail
+cd $(dirname "${BASH_SOURCE[0]}")
+
+# Perform basic healthcheck: Check that the express service is running and can
+# response on basic http request. We are not checking the full health and only
+# checking that node is up and running. We must check the response status AND
+# the content, since our backend returns a gif for any non-defined URL.
+
+# TODO: Do a curl against your service, check for thumbs up like so:
+curl --fail http://localhost:80/<%SERVICE_HEALTHCHECK_PATH%> | grep "Thumbs up" || exit 1
+
+# TODO: Set up worker-type healthchecks in case ECS does not have load balancer
+# attached to it which performs full healthcheck.

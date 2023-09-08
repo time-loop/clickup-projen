@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euox pipefail
+
+cd $(dirname "${BASH_SOURCE[0]}")
+cd ../../
+
+pnpm ci:install
+pnpm exec nx build <%SERVICE_NAME%>
+
+# To use `--secrets` it requires BuildKit. Enabling this.
+# https://docs.docker.com/develop/develop-images/build_enhancements/#to-enable-buildkit-builds
+export DOCKER_BUILDKIT=1
+
+exec docker build --secret id=npmrc,src=$HOME/.npmrc -t <%SERVICE_NAME%>:1.0 -f ./Dockerfile . $@

@@ -1,0 +1,189 @@
+# Deploys the ClickUp monolith in `src` and all microservices in `apps` to ECS
+# This is done in a single parent workflow to make it easier to track deploys
+
+name: Deploy ClickUp to ECS
+
+on:
+    pull_request:
+        types: [opened, synchronize]
+        branches:
+            - master
+            - staging
+            - stage1
+            - production
+    push:
+        branches:
+            - master
+            - staging
+            - stage1
+            - production
+
+env:
+    FORCE_COLOR: 3 # fix terminal color output
+    GIT_TAG_PREFIX: backend
+    RELEASE_BRANCH_ORDER_CONFIG_PATH: .github/apps/clickup/release-branch-order.yml
+
+permissions:
+    contents: read
+    actions: read
+
+# Disabled for now as GitHub actions takes several minutes to cancel the previous running new job and we don't want to wait that long
+# TODO - follow up with github support to see if there's a way to speed this up
+#concurrency:
+#    # Save on build credits by cancelling previous runs for commits to PRs
+#    # We always build everything on commits to main branches as we control the deploy concurrency
+#    # in a child job so we can build newer commits in advance and start their deploy sooner
+#    group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'push' && github.run_id || '' }}
+#    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+    create-release-tag:
+        name: Create release tag
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: read
+        outputs:
+            new-tag: ${{ steps.create-release-tag.outputs.new-tag }}
+            old-tag: ${{ steps.create-release-tag.outputs.old-tag }}
+            is-hotfix: ${{ steps.create-release-tag.outputs.is-hotfix }}
+            new-version: ${{ steps.create-release-tag.outputs.new-version }}
+        steps:
+            - name: Create release tag
+              uses: time-loop/github-actions/dist/create-release-tag@create-release-tag+2.0.1
+              # Can't skip the entire job or it will prevent all dependent jobs from running
+              if: github.event_name == 'push'
+              id: 'create-release-tag'
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  # A github token with admin permissions that can create tags and trigger other workflows
+                  github-admin-token: ${{ secrets.MACHINE_USER_GITHUB_TOKEN }}
+                  # A prefix to use for all git tags e.g. the tags would look like backend@2.130.0
+                  tag-prefix: ${{ env.GIT_TAG_PREFIX }}
+                  # The major version number to use for all git tags, increment when we market a new major release of clickup
+                  major-version-number: 2
+                  # Initial version number to start from. Follows same versioning base as the frontend
+                  initial-version: 2.133.0
+                  # Path to the config file that defines the order of the release branches
+                  release-branch-order-config-path: ${{ env.RELEASE_BRANCH_ORDER_CONFIG_PATH }}
+    create-release-notes:
+        name: Create release notes
+        runs-on: ubuntu-latest
+        needs: [create-release-tag]
+        if: github.event_name == 'push'
+        permissions:
+            contents: write
+            pull-requests: read
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+              with:
+                  fetch-depth: 0
+            - name: Create release notes
+              uses: time-loop/github-actions/dist/create-release-notes@create-release-notes+0.8.1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  # All commits between these 2 tags will appear in the release notes
+                  last-release-git-tag: ${{ needs.create-release-tag.outputs.old-tag }}
+                  new-release-git-tag: ${{ needs.create-release-tag.outputs.new-tag }}
+                  # The same prefix you passed to the create-release-tag action
+                  tag-prefix: ${{ env.GIT_TAG_PREFIX }}
+                  # Determines if this is a hotfix release or a main branch promotion from master -> staging -> stage1 -> production
+                  is-hotfix: ${{ needs.create-release-tag.outputs.is-hotfix }}
+                  # Slack webhook where to send a release notification to
+                  release-notification-slack-webhook: ${{ secrets.RELEASE_PR_SLACK_WEBHOOK }}
+                  # Path to the config file that defines the order of the release branches
+                  release-branch-order-config-path: ${{ env.RELEASE_BRANCH_ORDER_CONFIG_PATH }}
+    read-microservices:
+        name: Read microservices
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        outputs:
+            matrix: ${{ steps.set-defaults.outputs.result }}
+        env:
+            microservices-path: .github/apps/clickup/microservices.json
+        steps:
+            - name: Checkout
+              uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+            - name: Validate microservices
+              uses: walbo/validate-json@1c24a27a740a698944ff5b697cb8010a72c55c6b # v1.1.0
+              with:
+                  files: ${{ env.microservices-path }}
+                  schema: .github/apps/clickup/microservices.schema.json
+                  schema-version: draft-07
+                  fail-on-missing-schema: true
+                  print-valid-files: true
+            - name: Read microservices
+              id: read-microservices
+              uses: time-loop/github-actions/dist/load-json-file@load-json-file+0.1.4
+              with:
+                  json-path: ${{github.workspace}}/.github/apps/clickup/microservices.json
+            - name: Set defaults
+              uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975 # v6.4.0
+              id: set-defaults
+              with:
+                  script: |
+                      const services = ${{ steps.read-microservices.outputs.json-string }}.map(service => {
+                        // Envs list must be stringified within the stringified result
+                        // in order to be usable as an input to the microservice job.
+                        var envs = JSON.stringify(["qa", "staging", "production"]);
+                        if (service.envs) {
+                            envs = JSON.stringify(service.envs);
+                        }
+                        return {
+                          // Set defaults for any missing properties otherwise github actions matrix will hang
+                          "skip-health-check": false,
+                          "is-nest-app": true,
+                          "skip-vulnerability-scan": false,
+                          ...service,
+                          envs,
+                        };
+                      });
+                      const result = JSON.stringify(services);
+                      console.log('result: ' + result);
+                      return result;
+                  result-encoding: string
+
+    deploy-microservice:
+        name: Deploy ${{ matrix.service.name }}
+        needs: [create-release-tag, read-microservices]
+        uses: ./.github/workflows/ecs-service-deploy-image.yml
+        secrets: inherit
+        permissions:
+            actions: read
+            contents: read
+            packages: read
+        strategy:
+            fail-fast: false
+            matrix:
+                service: ${{ fromJson(needs.read-microservices.outputs.matrix) }}
+        with:
+            version: ${{ needs.create-release-tag.outputs.new-version }}
+            service-name: ${{ matrix.service.name }}
+            skip-health-check: ${{ matrix.service.skip-health-check }}
+            is-nest-app: ${{ matrix.service.is-nest-app }}
+            skip-vulnerability-scan: ${{ matrix.service.skip-vulnerability-scan }}
+            envs: ${{ matrix.service.envs }}
+    # We add this job so that we can make the workflow a required check in the branch protection settings
+    deploy-completed:
+        name: ClickUp ECS deploy completed
+        needs: [deploy-microservice]
+        runs-on: ubuntu-latest
+        if: always() # Always run, so we never skip this required check
+        steps:
+            - name: Note Pipeline Success
+              # TODO: We should do something useful here in the future. DD events?
+              run: |
+                  msgPrefix="Deploy #${{ github.run_id }} finished"
+                  failure="${{ contains(needs.*.result, 'failure') }}"
+                  cancelled="${{ contains(needs.*.result, 'cancelled') }}"
+                  echo "Previous jobs failure: ${failure}"
+                  echo "Previous jobs cancelled: ${cancelled}"
+                  if [[ "$failure" != "true" ]] && [[ "$cancelled" != "true" ]]; then
+                    echo "${msgPrefix}, all jobs succeeded."
+                    exit 0
+                  else
+                    echo "${msgPrefix}, but with failures. Check left sidebar summary to see which jobs failed."
+                    exit 1
+                  fi

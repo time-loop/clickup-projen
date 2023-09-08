@@ -1,0 +1,526 @@
+# Re-usable workflow that can build and deploy a single micro service to ECS.
+# This workflow is called from .github/workflows/ecs-publish-images.yml
+
+name: Build and Deploy Service Image to ECR
+
+on:
+    workflow_call:
+        inputs:
+            service-name:
+                required: true
+                type: string
+            docker-build-args:
+                required: false
+                description: Build arguments passed to the docker build command
+                type: string
+                default: |-
+                    --progress=plain \
+                    --secret "id=npmrc,src=${HOME}/.npmrc" \
+                    --iidfile /tmp/IMAGE_ID
+            is-nest-app:
+                type: boolean
+                default: true
+            skip-health-check:
+                type: boolean
+                default: false
+            skip-vulnerability-scan:
+                type: boolean
+                default: false
+            version:
+                description: 'The version number that was created for the deploy.'
+                required: true
+                type: string
+            envs:
+                description: 'Stringified list of environments to which the service can deploy.'
+                required: true
+                type: string
+
+env:
+    DOCKER_TAG_COMMIT: git-sha-${{ inputs.service-name }}-${GITHUB_SHA}
+    DOCKER_TAG_BASE: git-ref-${{ inputs.service-name }}-${GITHUB_BASE_REF//\//-}
+    DOCKER_TAG_HEAD: git-ref-${{ inputs.service-name }}-${GITHUB_HEAD_REF//\//-}
+    DOCKER_TAG_CUR: git-ref-${{ inputs.service-name }}-${GITHUB_REF_NAME//\//-}
+    DOCKER_TAG_DRAFT_COMMIT: draft-git-sha-${{ inputs.service-name }}-${GITHUB_SHA}
+    DOCKER_TAG_DRAFT_CUR: draft-git-ref-${{ inputs.service-name }}-${GITHUB_REF_NAME//\//-}
+
+jobs:
+    formatting:
+        name: Generate Harness Webhook URLs
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        env:
+            ACCOUNT_IDENTIFIER: NYVU0wI4R0ijpWK5Gyl5pQ
+            ORG_IDENTIFIER: ClickUp
+            PROJECT_IDENTIFIER: clickupbackend
+        outputs:
+            harness-webhook-url-qa: ${{ steps.qa.outputs.webhook-url }}
+            harness-webhook-url-staging: ${{ steps.staging.outputs.webhook-url }}
+            harness-webhook-url-prod: ${{ steps.prod.outputs.webhook-url }}
+        steps:
+            - name: Generate QA webhook URL
+              id: qa
+              run: |
+                  export SERVICE_ID=$(echo "${{ inputs.service-name }}" | sed 's/-/_/g')
+                  export QA_WEBHOOK_URL=$(echo "https://app.harness.io/gateway/pipeline/api/webhook/custom/v2?accountIdentifier=${ACCOUNT_IDENTIFIER}&orgIdentifier=${ORG_IDENTIFIER}&projectIdentifier=${PROJECT_IDENTIFIER}&pipelineIdentifier=qa_${SERVICE_ID}_deploy&triggerIdentifier=customwebhook_qa_${SERVICE_ID}")
+                  echo $QA_WEBHOOK_URL
+                  echo "webhook-url=$QA_WEBHOOK_URL" >> "$GITHUB_OUTPUT"
+            - name: Generate Staging webhook URL
+              id: staging
+              run: |
+                  export SERVICE_ID=$(echo "${{ inputs.service-name }}" | sed 's/-/_/g')
+                  export STAGING_WEBHOOK_URL=$(echo "https://app.harness.io/gateway/pipeline/api/webhook/custom/v2?accountIdentifier=${ACCOUNT_IDENTIFIER}&orgIdentifier=${ORG_IDENTIFIER}&projectIdentifier=${PROJECT_IDENTIFIER}&pipelineIdentifier=staging_${SERVICE_ID}_deploy&triggerIdentifier=customwebhook_staging_${SERVICE_ID}")
+                  echo $STAGING_WEBHOOK_URL
+                  echo "webhook-url=$STAGING_WEBHOOK_URL" >> "$GITHUB_OUTPUT"
+            - name: Generate Prod webhook URL
+              id: prod
+              run: |
+                  export SERVICE_ID=$(echo "${{ inputs.service-name }}" | sed 's/-/_/g')
+                  export PROD_WEBHOOK_URL=$(echo "https://app.harness.io/gateway/pipeline/api/webhook/custom/v2?accountIdentifier=${ACCOUNT_IDENTIFIER}&orgIdentifier=${ORG_IDENTIFIER}&projectIdentifier=${PROJECT_IDENTIFIER}&pipelineIdentifier=prod_${SERVICE_ID}_deploy&triggerIdentifier=customwebhook_prod_${SERVICE_ID}")
+                  echo $PROD_WEBHOOK_URL
+                  echo "webhook-url=$PROD_WEBHOOK_URL" >> "$GITHUB_OUTPUT"
+
+    docker-build:
+        name: Build-amd64
+        runs-on: [self-hosted, X64]
+        permissions:
+            contents: read
+        outputs:
+            docker-tag-draft-commit: ${{ env.DOCKER_TAG_DRAFT_COMMIT }}
+            docker-tag-commit: ${{ env.DOCKER_TAG_COMMIT }}
+            docker-tag-cur: ${{ env.DOCKER_TAG_CUR }}
+        steps:
+            - name: Check docker volume utilization
+              run: |
+                  bash -c 'if [[ `df /var/lib/docker --output=pcent | sed 1d | tr -d " %"` > 85 ]]; then docker system prune -af ; else df -h /var/lib/docker | sed 1d; fi'
+            - name: Checkout
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+            - name: Setup NodeJs
+              uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
+              with:
+                  node-version: 16
+            - name: Buildcache Repo Login
+              uses: ./.github/actions/docker-ecr-login
+              id: buildcache
+              with:
+                  aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+                  ecr-repo-name: 'monorepo-buildcache'
+            - name: Configure NPM
+              run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}" >> ~/.npmrc
+            - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+            - name: Build image
+              uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd # v2.8.3
+              with:
+                  max_attempts: 3
+                  timeout_minutes: 25
+                  command: |
+                      bash ./apps/${{ inputs.service-name }}/docker-build.sh \
+                        ${{ inputs.docker-build-args }} \
+                       --build-arg VERSION="${{ inputs.version }}" \
+                       --build-arg ARCH=amd64
+
+                      test -e /tmp/IMAGE_ID || exit 1
+                      echo "DOCKER_IMAGE_ID=$(cat /tmp/IMAGE_ID)" >> $GITHUB_ENV
+
+            - name: Publish image as draft
+              # nrh: CLK-254084: temp fix to stop image creaation proliferation
+              if: startsWith(github.ref, 'refs/heads/')
+              run: |
+                  docker tag ${{ env.DOCKER_IMAGE_ID }} "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64" 
+                  docker tag ${{ env.DOCKER_IMAGE_ID }} "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_CUR }}"
+                  docker push --all-tags "${{ steps.buildcache.outputs.docker-repo-uri }}"
+    docker-build-arm64:
+        name: Build-arm64
+        runs-on: [self-hosted, ARM64]
+        permissions:
+            contents: read
+            packages: read
+        outputs:
+            docker-tag-draft-commit: ${{ env.DOCKER_TAG_DRAFT_COMMIT }}
+            docker-tag-commit: ${{ env.DOCKER_TAG_COMMIT }}
+            docker-tag-cur: ${{ env.DOCKER_TAG_CUR }}
+        steps:
+            - name: Check docker volume utilization
+              run: |
+                  bash -c 'if [[ `df /var/lib/docker --output=pcent | sed 1d | tr -d " %"` > 85 ]]; then docker system prune -af ; else df -h /var/lib/docker | sed 1d; fi'
+            - name: Checkout
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+            - name: Setup NodeJs
+              uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
+              with:
+                  node-version: 16
+            - name: Buildcache Repo Login
+              uses: ./.github/actions/docker-ecr-login
+              id: buildcache
+              with:
+                  aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+                  ecr-repo-name: 'monorepo-buildcache'
+            - name: Configure NPM
+              run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}" >> ~/.npmrc
+            - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # v2.4.0
+            - name: Get Version
+              uses: ./.github/actions/get-version
+              id: version
+            - name: Login to GitHub Container Registry
+              uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
+              if: inputs.service-name == 'gateway-service'
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Build image
+              uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd # v2.8.3
+              with:
+                  max_attempts: 3
+                  timeout_minutes: 25
+                  command: |
+                      bash ./apps/${{ inputs.service-name }}/docker-build.sh \
+                        ${{ inputs.docker-build-args }} \
+                       --build-arg VERSION="${{ steps.version.outputs.version }}" \
+                       --build-arg ARCH=arm64v8
+
+                      test -e /tmp/IMAGE_ID || exit 1
+                      echo "DOCKER_IMAGE_ID=$(cat /tmp/IMAGE_ID)" >> $GITHUB_ENV
+
+            - name: Publish image as draft
+              # nrh: CLK-254084: temp fix to stop image creaation proliferation
+              if: startsWith(github.ref, 'refs/heads/')
+              run: |
+                  docker tag ${{ env.DOCKER_IMAGE_ID }} "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64" 
+                  docker push --all-tags "${{ steps.buildcache.outputs.docker-repo-uri }}"
+
+    vulnerability-scan:
+        needs: [docker-build]
+        name: Vulnerability Scan
+        # TODO: This only runs on master merges for now, so we do not hit the 60/hr cap.
+        if: ${{ github.ref_name == 'master' && !inputs.skip-vulnerability-scan }}
+        continue-on-error: true # still experimental, continue if this job fails
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+            - name: Docker Vulnerability Scan
+              uses: ./.github/actions/docker-vulnerability-scan
+              id: vulnerability-scan
+              with:
+                  buildcache-aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+                  buildcache-aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+                  buildcache-aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+                  buildcache-ecr-repo-name: 'monorepo-buildcache'
+                  buildcache-pull-tag: ${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64
+                  lacework-account-name: ${{ secrets.LW_ACCOUNT_NAME }}
+                  lacework-access-token: ${{ secrets.LW_ACCESS_TOKEN }}
+
+    docker-validate:
+        # nrh: CLK-254084: temp fix to stop image creaation proliferation
+        if: startsWith(github.ref, 'refs/heads/')
+        needs: [docker-build]
+        # TODO: The name would be appended with the step name.
+        name: Validate
+        strategy:
+            matrix:
+                step:
+                    - healthcheck-verification
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+            - name: Buildcache Repo Login
+              uses: ./.github/actions/docker-ecr-login
+              id: buildcache
+              with:
+                  aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+                  ecr-repo-name: 'monorepo-buildcache'
+            - name: Pull Image
+              uses: ./.github/actions/docker-ecr-retag-push
+              id: buildcache-pull
+              with:
+                  docker-repo-uri: ${{ steps.buildcache.outputs.docker-repo-uri }}
+                  pull-tag: ${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64
+            # - name: Run Tests (TODO)
+            #   if: matrix.step == 'test-jest'
+            #   run: |
+            #       echo "Imagine we are running tests: ${{ matrix.step }}"
+            #       docker pull "${{ steps.buildcache-pull.outputs.pulled-image-id }}"
+            #       docker images
+            - name: healthcheck verification setup (nestjs)
+              if: |
+                  matrix.step == 'healthcheck-verification' && 
+                  inputs.is-nest-app &&
+                  !inputs.skip-health-check
+              uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd # v2.8.3
+              with:
+                  max_attempts: 3
+                  timeout_minutes: 2
+                  command: |
+                      docker-compose --profile localstack up -d
+                      docker run \
+                        -e AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+                        -e AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+                        -e DOCKER=true \
+                        -e TEST_SERVER=true \
+                        -e CLICKUP_ENV=test \
+                        -e AWS_REGION=us-west-2 \
+                        -e AWS_ACCESS_KEY_ID=test \
+                        -e AWS_SECRET_ACCESS_KEY=test \
+                        --net=host \
+                        -d \
+                        --cidfile /tmp/CONTAINER_ID \
+                        "${{ steps.buildcache-pull.outputs.pulled-image-id }}" \
+                        node ./main.js
+            - name: healthcheck verification setup (generic)
+              if: |
+                  matrix.step == 'healthcheck-verification' && 
+                  !inputs.is-nest-app &&
+                  !inputs.skip-health-check
+              run: |
+                  docker run \
+                    -d \
+                    --cidfile /tmp/CONTAINER_ID \
+                    "${{ steps.buildcache-pull.outputs.pulled-image-id }}"
+            - name: healthcheck verification
+              if: |
+                  matrix.step == 'healthcheck-verification' && 
+                  !inputs.skip-health-check
+              run: |
+                  DOCKER_CONTAINER_ID="$(cat /tmp/CONTAINER_ID)"
+
+                  # 40x5 = 200s
+                  for i in {1..40}; do
+                    sleep 5;
+                    DOCKER_STATUS=$(docker inspect $DOCKER_CONTAINER_ID --format '{{ .State.Status }}')
+                    DOCKER_HEALTH=$(docker inspect $DOCKER_CONTAINER_ID --format '{{ .State.Health.Status }}')
+                    echo "Status: ${DOCKER_STATUS}; Health: ${DOCKER_HEALTH}"
+                    if [ "${DOCKER_STATUS}" == "running" ] && [ "${DOCKER_HEALTH}" == "healthy" ]; then
+                      echo "Container is running and healthy!" 
+                      exit 0
+                    fi
+                  done;
+
+                  echo "Failed to get container healthy!"
+
+                  echo "Docker logs:"
+                  docker logs -n all $DOCKER_CONTAINER_ID
+
+                  echo "Docker inspect:"
+                  docker inspect $DOCKER_CONTAINER_ID
+
+                  exit 1
+
+    docker-publish-buildcache:
+        # nrh: CLK-254084: temp fix to stop image creaation proliferation
+        if: startsWith(github.ref, 'refs/heads/')
+        needs: [docker-build, docker-build-arm64, docker-validate]
+        name: Publish to Buildcache
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+            - name: Buildcache Repo Login
+              uses: ./.github/actions/docker-ecr-login
+              id: buildcache
+              with:
+                  aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+                  ecr-repo-name: 'monorepo-buildcache'
+            - name: Pull Image amd64
+              uses: ./.github/actions/docker-ecr-retag-push
+              id: buildcache-pull-amd64
+              with:
+                  docker-repo-uri: ${{ steps.buildcache.outputs.docker-repo-uri }}
+                  pull-tag: ${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64
+            - name: Pull Image arm64
+              uses: ./.github/actions/docker-ecr-retag-push
+              id: buildcache-pull-arm64
+              with:
+                  docker-repo-uri: ${{ steps.buildcache.outputs.docker-repo-uri }}
+                  pull-tag: ${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64
+            - name: Tag draft docker image with commit hash
+              run: |
+                  docker tag "${{ steps.buildcache-pull-amd64.outputs.pulled-image-id }}" "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_COMMIT }}-amd64"
+                  docker tag "${{ steps.buildcache-pull-arm64.outputs.pulled-image-id }}" "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_COMMIT }}-arm64"
+            - name: Tag draft image with branch name
+              if: ${{ github.event_name == 'push' }}
+              run: |
+                  docker tag "${{ steps.buildcache-pull-amd64.outputs.pulled-image-id }}" "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_CUR }}-amd64"
+                  docker tag "${{ steps.buildcache-pull-arm64.outputs.pulled-image-id }}" "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_CUR }}-arm64"
+            - name: Publish tags
+              run: |
+                  docker push --all-tags "${{ steps.buildcache.outputs.docker-repo-uri }}"
+
+                  docker manifest create "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}" \
+                  --amend "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64" \
+                  --amend "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64"
+
+                  docker manifest push "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}"
+
+                  docker manifest create "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_COMMIT }}" \
+                  --amend "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_COMMIT }}-amd64" \
+                  --amend "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_COMMIT }}-arm64"
+
+                  docker manifest push "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_COMMIT }}"
+
+                  docker manifest create "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_CUR }}" \
+                  --amend "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64" \
+                  --amend "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64"
+
+                  docker manifest push "${{ steps.buildcache.outputs.docker-repo-uri }}:${{ env.DOCKER_TAG_CUR }}"
+
+    docker-deploy-qa:
+        if: github.ref == 'refs/heads/master' && contains(fromJSON(inputs.envs), 'qa')
+        needs: [formatting, docker-publish-buildcache, docker-build, docker-build-arm64, docker-validate]
+        name: Deploy QA
+        permissions:
+            contents: read
+            actions: read
+        concurrency:
+            group: ${{ github.workflow }}-${{ inputs.service-name }}-${{ github.ref_name }}
+        uses: ./.github/workflows/ecs-deploy.yml
+        with:
+            buildcache-ecr-repo-name: 'monorepo-buildcache'
+            buildcache-pull-tag: ${{ needs.docker-build.outputs.docker-tag-draft-commit }}
+            github-environment: ecs-deploy-user-usqa
+            deploy-aws-region: 'us-east-1'
+            deploy-clickup-env: 'usQa'
+            deploy-type: 'monorepo'
+            deploy-service-name: ${{ inputs.service-name }}
+            deploy-ecr-repo-name: 'monorepo-deploy-us-qa'
+            deploy-push-tags: '${{ needs.docker-build.outputs.docker-tag-cur }} ${{ needs.docker-build.outputs.docker-tag-commit }}'
+            # Use the lambda corresponding to a deployment for the given tag
+            deploy-lambdas: us-east-1:deploy-hook-us-qa-monorepo-${{ needs.docker-build.outputs.docker-tag-cur }}
+            # Only pass the harness webhook if the service is in the services list
+            deploy-harness-webhook: ${{ (contains(fromJSON(vars.MONOREPO_QA_SERVICES), inputs.service-name) && needs.formatting.outputs.harness-webhook-url-qa) || '' }}
+            ecs-healthcheck-ignore-clusters: ${{ vars.ECS_HEALTHCHECK_IGNORE_CLUSTERS }}
+            ecs-deploy-ignore-regions: ${{ vars.ECS_DEPLOY_IGNORE_REGIONS }}
+            version: ${{ github.version }}
+        secrets:
+            buildcache-aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+            buildcache-aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+            buildcache-aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+            github-packages-read-token: ${{ secrets.ALL_PACKAGE_READ_TOKEN }}
+            ecs-alerts-slack-webhook: ${{ secrets.ECS_ALERTS_SLACK_WEBHOOK }}
+            deploy-harness-api-token: ${{ secrets.HARNESS_API_TOKEN }}
+            deploy-aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            deploy-aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            deploy-failure-pagerduty-key: ${{ secrets.PAGERDUTY_INTEGRATION_KEY }}
+
+    docker-deploy-staging:
+        if: github.ref == 'refs/heads/staging' && contains(fromJSON(inputs.envs), 'staging')
+        needs: [formatting, docker-publish-buildcache, docker-build, docker-build-arm64, docker-validate]
+        name: Deploy Staging
+        permissions:
+            contents: read
+            actions: read
+        concurrency:
+            group: ${{ github.workflow }}-${{ inputs.service-name }}-${{ github.ref_name }}
+        uses: ./.github/workflows/ecs-deploy.yml
+        with:
+            buildcache-ecr-repo-name: 'monorepo-buildcache'
+            buildcache-pull-tag: ${{ needs.docker-build.outputs.docker-tag-draft-commit }}
+            github-environment: ecs-deploy-user-globalstaging
+            deploy-aws-region: 'us-east-1'
+            deploy-clickup-env: 'globalStaging'
+            deploy-type: 'monorepo'
+            deploy-service-name: ${{ inputs.service-name }}
+            deploy-ecr-repo-name: 'monorepo-deploy-global-staging'
+            deploy-push-tags: '${{ needs.docker-build.outputs.docker-tag-cur }} ${{ needs.docker-build.outputs.docker-tag-commit }}'
+            # Use the lambda corresponding to a deployment for the given tag
+            deploy-lambdas: us-east-1:deploy-hook-global-staging-monorepo-${{ needs.docker-build.outputs.docker-tag-cur }}
+            # Only pass the harness webhook if the service is in the services list
+            deploy-harness-webhook: ${{ (contains(fromJSON(vars.MONOREPO_STAGING_SERVICES), inputs.service-name) && needs.formatting.outputs.harness-webhook-url-staging) || '' }}
+            ecs-healthcheck-ignore-clusters: ${{ vars.ECS_HEALTHCHECK_IGNORE_CLUSTERS }}
+            ecs-deploy-ignore-regions: ${{ vars.ECS_DEPLOY_IGNORE_REGIONS }}
+            version: ${{ github.version }}
+        secrets:
+            buildcache-aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+            buildcache-aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+            buildcache-aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+            github-packages-read-token: ${{ secrets.ALL_PACKAGE_READ_TOKEN }}
+            ecs-alerts-slack-webhook: ${{ secrets.ECS_ALERTS_SLACK_WEBHOOK }}
+            deploy-harness-api-token: ${{ secrets.HARNESS_API_TOKEN }}
+            deploy-aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            deploy-aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            deploy-failure-pagerduty-key: ${{ secrets.PAGERDUTY_INTEGRATION_KEY }}
+
+    docker-deploy-stage1:
+        if: github.ref == 'refs/heads/stage1' && contains(fromJSON(inputs.envs), 'stage1')
+        needs: [docker-publish-buildcache, docker-build, docker-build-arm64, docker-validate]
+        name: Deploy Stage1
+        permissions:
+            contents: read
+            actions: read
+        concurrency:
+            group: ${{ github.workflow }}-${{ inputs.service-name }}-${{ github.ref_name }}
+        uses: ./.github/workflows/ecs-deploy.yml
+        with:
+            buildcache-ecr-repo-name: 'monorepo-buildcache'
+            buildcache-pull-tag: ${{ needs.docker-build.outputs.docker-tag-draft-commit }}
+            github-environment: ecs-deploy-user-globalprod
+            deploy-aws-region: 'us-east-1'
+            deploy-clickup-env: 'stage1'
+            deploy-skip-check: 'true'
+            deploy-type: 'monorepo'
+            deploy-service-name: ${{ inputs.service-name }}
+            deploy-ecr-repo-name: 'monorepo-deploy-global-prod-stage1'
+            deploy-push-tags: '${{ needs.docker-build.outputs.docker-tag-cur }} ${{ needs.docker-build.outputs.docker-tag-commit }}'
+            deploy-lambdas: ''
+            ecs-healthcheck-ignore-clusters: ${{ vars.ECS_HEALTHCHECK_IGNORE_CLUSTERS }}
+            ecs-deploy-ignore-regions: ${{ vars.ECS_DEPLOY_IGNORE_REGIONS }}
+            version: ${{ github.version }}
+        secrets:
+            buildcache-aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+            buildcache-aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+            buildcache-aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+            github-packages-read-token: ${{ secrets.ALL_PACKAGE_READ_TOKEN }}
+            ecs-alerts-slack-webhook: ${{ secrets.ECS_ALERTS_SLACK_WEBHOOK }}
+            deploy-harness-api-token: ${{ secrets.HARNESS_API_TOKEN }}
+            deploy-aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            deploy-aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            deploy-failure-pagerduty-key: ${{ secrets.PAGERDUTY_INTEGRATION_KEY }}
+
+    docker-deploy-production:
+        if: github.ref == 'refs/heads/production' && contains(fromJSON(inputs.envs), 'production')
+        needs: [formatting, docker-publish-buildcache, docker-build, docker-build-arm64, docker-validate]
+        name: Deploy Production
+        permissions:
+            contents: read
+            actions: read
+        concurrency:
+            group: ${{ github.workflow }}-${{ inputs.service-name }}-${{ github.ref_name }}
+        uses: ./.github/workflows/ecs-deploy.yml
+        with:
+            buildcache-ecr-repo-name: 'monorepo-buildcache'
+            buildcache-pull-tag: ${{ needs.docker-build.outputs.docker-tag-draft-commit }}
+            github-environment: ecs-deploy-user-globalprod
+            deploy-aws-region: 'us-east-1'
+            deploy-clickup-env: 'globalProd'
+            deploy-type: 'monorepo'
+            deploy-service-name: ${{ inputs.service-name }}
+            deploy-ecr-repo-name: 'monorepo-deploy-global-prod'
+            deploy-push-tags: '${{ needs.docker-build.outputs.docker-tag-cur }} ${{ needs.docker-build.outputs.docker-tag-commit }}'
+            deploy-lambdas: us-east-1:deploy-hook-global-prod-monorepo-${{ needs.docker-build.outputs.docker-tag-cur }}
+            # deploy-harness-webhook: ${{ needs.formatting.outputs.harness-webhook-url-prod }}
+            ecs-healthcheck-ignore-clusters: ${{ vars.ECS_HEALTHCHECK_IGNORE_CLUSTERS }}
+            ecs-deploy-ignore-regions: ${{ vars.ECS_DEPLOY_IGNORE_REGIONS }}
+            version: ${{ github.version }}
+        secrets:
+            buildcache-aws-access-key-id: ${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
+            buildcache-aws-secret-access-key: ${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
+            buildcache-aws-region: ${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
+            github-packages-read-token: ${{ secrets.ALL_PACKAGE_READ_TOKEN }}
+            ecs-alerts-slack-webhook: ${{ secrets.ECS_ALERTS_SLACK_WEBHOOK }}
+            deploy-harness-api-token: ${{ secrets.HARNESS_API_TOKEN }}
+            deploy-aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            deploy-aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            deploy-failure-pagerduty-key: ${{ secrets.PAGERDUTY_INTEGRATION_KEY }}

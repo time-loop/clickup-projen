@@ -1,0 +1,67 @@
+FROM amazonlinux:latest@sha256:66d22a2b8749283aa0764e6983fbb8bf8c143511cf16c9773598acca2a1cd6d2
+
+COPY .nvmrc ./
+
+# Download and install node
+RUN curl -fsSL https://rpm.nodesource.com/setup_$(cat .nvmrc | cut -d. -f1).x | bash - \
+    && yum clean metadata \
+    && yum -y update-minimal \
+    && yum -y install nodejs-$(cat .nvmrc)-1nodesource \
+    && yum clean all \
+    && rm -rf /var/cache/yum \
+    # smoke tests
+    && node --version \
+    && npm --version
+
+# Install other dependencies
+RUN \
+    yum -y update-minimal \
+    && yum -y install \
+    # Common util
+    curl \
+    # To make pnpm install work
+    gcc-c++ make python3 \
+    # Runtime debugging
+    psmisc \
+    && yum clean all \
+    && rm -rf /var/cache/yum
+
+RUN node --version
+
+WORKDIR /app
+
+# Files required by pnpm install
+COPY .npmrc package.json pnpm-lock.yaml ./
+COPY ./patches ./patches
+
+# Install package manager
+RUN corepack enable
+
+# Forces pnpm to only install production dependencies and prevents pnpm post install error from husky
+ARG NODE_ENV=production
+
+# Mount the npmrc file containing the npm token with permission to read private packages
+RUN --mount=type=secret,id=npmrc,dst=/root/.npmrc npm run ci:install
+
+# Copy your dist and source files here, set NODE_CONFIG_DIR, etc.
+COPY ./dist/ .
+
+COPY ./dist/config ./config/app/
+COPY ./src/config ./config/
+ENV NODE_CONFIG_DIR=./config
+
+
+ARG VERSION=0.0.1
+ENV VERSION=${VERSION}
+
+ENV PORT=80
+EXPOSE 80
+
+# Tell the app to listen on this port.
+ENV DOCKER_APP_PORT=8080
+
+# Setup docker healthcheck
+COPY ./scripts/docker-healthcheck.sh ./
+HEALTHCHECK --start-period=300s CMD ./docker-healthcheck.sh
+
+CMD node ./main.js

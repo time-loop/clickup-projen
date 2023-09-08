@@ -1,6 +1,7 @@
 import { stringify } from 'cson-parser';
 import { JobPermission } from 'projen/lib/github/workflows-model';
 import { NodeProject } from 'projen/lib/javascript';
+import { getVersionStep } from './workflows/utils/getVersionStep';
 
 export module datadog {
   export interface ReleaseEventTags {
@@ -83,19 +84,7 @@ export module datadog {
           CI: 'true',
         },
         steps: [
-          {
-            name: 'Download build artifacts',
-            uses: 'actions/download-artifact@v3',
-            with: {
-              name: 'build-artifact',
-              path: project.release!.artifactsDirectory,
-            },
-          },
-          {
-            name: 'Get version',
-            id: 'event_metadata',
-            run: `echo "release_tag=$(cat ${project.release!.artifactsDirectory}/releasetag.txt)" >> $GITHUB_OUTPUT`,
-          },
+          ...getVersionStep(project),
           {
             name: 'Send Datadog event',
             // https://github.com/Glennmen/datadog-event-action/releases/tag/1.1.0

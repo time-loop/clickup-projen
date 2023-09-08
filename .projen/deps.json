@@ -130,6 +130,10 @@
       "type": "runtime"
     },
     {
+      "name": "multi-convention-namer",
+      "type": "runtime"
+    },
+    {
       "name": "projen",
       "type": "runtime"
     },

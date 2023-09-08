@@ -192,7 +192,7 @@ export module clickupCdk {
       // This cdkVersion is actually the minimum version that's compatible. It only affects devDeps.
       // This really only affects users when they try to deploy directly from their laptop.
       // When deploying from cdkPipelines, it will use whatever version the library is currently on per yarn.lock.
-      let cdkVersion = undefined;
+      let cdkVersion: string | undefined = undefined;
       if (semver.lt(options.cdkVersion, '2.64.0')) {
         cdkVersion = '2.87.0'; // Arbitrary newish version. Most developers will want the latest.
         console.warn(

@@ -181,6 +181,9 @@
       "steps": [
         {
           "spawn": "docgen"
+        },
+        {
+          "exec": "rm -r ./lib/samples; cp -r ./src/samples ./lib/"
         }
       ]
     },
