@@ -5,8 +5,14 @@ import { clickupEcsService } from '../clickup-ecs-service';
 import { OptionalNodeVersion } from '../optional-node-version';
 
 export module ecsServiceBuildPublishWorkflow {
+  export enum ClickUpSupportedArchType {
+    ARM64 = 'arm64',
+    AMD64 = 'amd64',
+  }
+
   const DEFAULT_RETRY_ACTION = 'nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd'; // v2.8.3
   export const WORKFLOW_LOCATION = '.github/workflows/ecs-service-build-publish.yml';
+  const DEFAULT_BUILD_ARCHITECTURES = [ClickUpSupportedArchType.ARM64];
 
   function createBuildPublishWorkflow(options: BuildPublishOptionsConfig) {
     const nodeVersion = options.nodeVersion ?? '16';
@@ -73,11 +79,6 @@ export module ecsServiceBuildPublishWorkflow {
     return defaultWorkflow;
   }
 
-  export enum ClickUpSupportedArchType {
-    ARM64 = 'arm64',
-    AMD64 = 'amd64',
-  }
-
   export interface BuildPublishOptionsConfig extends OptionalNodeVersion {
     /**
      * List of build architectures for which to build Docker artifacts.
@@ -92,7 +93,7 @@ export module ecsServiceBuildPublishWorkflow {
   ) {
     let jobs: Record<string, any> = {};
     const supportedArchTypes = Object.values(ClickUpSupportedArchType);
-    const buildArchitectures = options.buildArchitectures ?? [ClickUpSupportedArchType.ARM64];
+    const buildArchitectures = options.buildArchitectures ?? DEFAULT_BUILD_ARCHITECTURES;
 
     if (buildArchitectures.length === 0) {
       throw new Error(
