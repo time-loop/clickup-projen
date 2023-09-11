@@ -81,7 +81,7 @@ export module ecsServiceBuildPublishWorkflow {
   export interface BuildPublishOptionsConfig extends OptionalNodeVersion {
     /**
      * List of build architectures for which to build Docker artifacts.
-     * @default all
+     * @default ARM64
      */
     readonly buildArchitectures?: ClickUpSupportedArchType[];
   }
@@ -92,7 +92,7 @@ export module ecsServiceBuildPublishWorkflow {
   ) {
     let jobs: Record<string, any> = {};
     const supportedArchTypes = Object.values(ClickUpSupportedArchType);
-    const buildArchitectures = options.buildArchitectures ?? supportedArchTypes;
+    const buildArchitectures = options.buildArchitectures ?? [ClickUpSupportedArchType.ARM64];
 
     if (buildArchitectures.length === 0) {
       throw new Error(
@@ -219,7 +219,7 @@ export module ecsServiceBuildPublishWorkflow {
               'buildcache-aws-secret-access-key': '${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}',
               'buildcache-aws-region': '${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}',
               'buildcache-ecr-repo-name': 'monorepo-buildcache',
-              'buildcache-pull-tag': '${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64', // FIXME:
+              'buildcache-pull-tag': '${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64', // FIXME:
               'lacework-account-name': '${{ secrets.LW_ACCOUNT_NAME }}',
               'lacework-access-token': '${{ secrets.LW_ACCESS_TOKEN }}',
             },
@@ -255,7 +255,7 @@ export module ecsServiceBuildPublishWorkflow {
             id: 'buildcache-pull',
             with: {
               'docker-repo-uri': '${{ steps.buildcache.outputs.docker-repo-uri }}',
-              'pull-tag': '${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64', // FIXME: amd64 hardcoded!
+              'pull-tag': '${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64', // FIXME: amd64 hardcoded!
             },
           },
           {

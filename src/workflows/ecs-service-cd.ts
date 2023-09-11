@@ -37,6 +37,7 @@ export module ecsServiceCDWorkflow {
         Deploy: {
           uses: `./${ecsServiceDeployWorkflow.WORKFLOW_LOCATION}`,
           needs: ['get-version'],
+          secrets: 'inherit',
           with: {
             'service-name': project.serviceName,
             version: '${{ needs.get-version.outputs.version }}',

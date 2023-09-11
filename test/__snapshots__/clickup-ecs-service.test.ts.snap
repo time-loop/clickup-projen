@@ -150,59 +150,9 @@ jobs:
         run: |-
           docker tag \${{ env.DOCKER_IMAGE_ID }} "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64"
           docker push --all-tags "\${{ steps.buildcache.outputs.docker-repo-uri }}"
-  docker-build-amd64:
-    name: Build-amd64
-    runs-on:
-      - self-hosted
-      - X64
-    permissions:
-      contents: read
-    outputs:
-      docker-tag-draft-commit: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}
-      docker-tag-commit: \${{ env.DOCKER_TAG_COMMIT }}
-      docker-tag-cur: \${{ env.DOCKER_TAG_CUR }}
-    steps:
-      - name: Check docker volume utilization
-        run: bash -c 'if [[ \`df /var/lib/docker --output=pcent | sed 1d | tr -d " %"\` > 85 ]]; then docker system prune -af ; else df -h /var/lib/docker | sed 1d; fi'
-      - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
-      - name: Setup NodeJs
-        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d
-        with:
-          node-version: "16"
-      - name: Buildcache Repo Login
-        uses: time-loop/github-actions/dist/docker-ecr-login@53f03c9bc36389e6b4e671bd8a3cc6286ef37044
-        id: buildcache
-        with:
-          aws-access-key-id: \${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: \${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
-          aws-region: \${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
-          ecr-repo-name: monorepo-buildcache
-      - name: Configure NPM
-        run: echo "//npm.pkg.github.com/:_authToken=\${{ secrets.ALL_PACKAGE_READ_TOKEN }}" >> ~/.npmrc
-      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598
-      - name: Build image
-        uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd
-        with:
-          max_attempts: 3
-          timeout_minutes: 25
-          command: |-
-            bash ./scripts/docker-build.sh \\
-            \${{ inputs.docker-build-args }} \\
-            --build-arg VERSION="\${{ inputs.version }}" \\
-            --build-arg ARCH=amd64
-            test -e /tmp/IMAGE_ID || exit 1
-            echo "DOCKER_IMAGE_ID=$(cat /tmp/IMAGE_ID)" >> $GITHUB_ENV
-      - name: Publish image as draft
-        if: startsWith(github.ref, 'refs/heads/')
-        run: |-
-          docker tag \${{ env.DOCKER_IMAGE_ID }} "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64"
-          docker tag \${{ env.DOCKER_IMAGE_ID }} "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}"
-          docker push --all-tags "\${{ steps.buildcache.outputs.docker-repo-uri }}"
   vulnerability-scan:
     needs:
       - docker-build-arm64
-      - docker-build-amd64
     name: Vulnerability Scan
     if: \${{ github.ref_name == 'main' && !inputs.skip-vulnerability-scan }}
     continue-on-error: true
@@ -220,14 +170,13 @@ jobs:
           buildcache-aws-secret-access-key: \${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}
           buildcache-aws-region: \${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}
           buildcache-ecr-repo-name: monorepo-buildcache
-          buildcache-pull-tag: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64
+          buildcache-pull-tag: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64
           lacework-account-name: \${{ secrets.LW_ACCOUNT_NAME }}
           lacework-access-token: \${{ secrets.LW_ACCESS_TOKEN }}
   docker-validate:
     if: startsWith(github.ref, 'refs/heads/')
     needs:
       - docker-build-arm64
-      - docker-build-amd64
     name: Validate
     strategy:
       matrix:
@@ -252,7 +201,7 @@ jobs:
         id: buildcache-pull
         with:
           docker-repo-uri: \${{ steps.buildcache.outputs.docker-repo-uri }}
-          pull-tag: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64
+          pull-tag: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64
       - name: healthcheck verification setup (nestjs)
         if: matrix.step == 'healthcheck-verification' && inputs.is-nest-app && !inputs.skip-health-check
         uses: nick-fields/retry@943e742917ac94714d2f408a0e8320f2d1fcafcd
@@ -307,7 +256,6 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/')
     needs:
       - docker-build-arm64
-      - docker-build-amd64
       - docker-validate
     name: Publish to Buildcache
     runs-on: ubuntu-latest
@@ -328,35 +276,22 @@ jobs:
         with:
           docker-repo-uri: \${{ steps.buildcache.outputs.docker-repo-uri }}
           pull-tag: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64
-      - name: Pull Image amd64
-        uses: time-loop/github-actions/dist/docker-ecr-retag-push@53f03c9bc36389e6b4e671bd8a3cc6286ef37044
-        id: buildcache-pull-amd64
-        with:
-          docker-repo-uri: \${{ steps.buildcache.outputs.docker-repo-uri }}
-          pull-tag: \${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64
       - name: Tag draft docker image with commit hash
-        run: |-
-          docker tag "\${{ steps.buildcache-pull-arm64.outputs.pulled-image-id }}" "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}-arm64"
-          docker tag "\${{ steps.buildcache-pull-amd64.outputs.pulled-image-id }}" "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}-amd64"
+        run: docker tag "\${{ steps.buildcache-pull-arm64.outputs.pulled-image-id }}" "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}-arm64"
       - name: Tag draft image with branch name
         if: \${{ github.event_name == 'push' }}
-        run: |-
-          docker tag "\${{ steps.buildcache-pull-arm64.outputs.pulled-image-id }}" "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}-arm64"
-          docker tag "\${{ steps.buildcache-pull-amd64.outputs.pulled-image-id }}" "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}-amd64"
+        run: docker tag "\${{ steps.buildcache-pull-arm64.outputs.pulled-image-id }}" "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}-arm64"
       - name: Publish tags
         run: |-
           docker push --all-tags "\${{ steps.buildcache.outputs.docker-repo-uri }}"
           docker manifest create "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}" \\
-          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64" \\
-          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64"
+          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}-arm64"
           docker manifest push "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_DRAFT_COMMIT }}"
           docker manifest create "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}" \\
-          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}-arm64" \\
-          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}-amd64"
+          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}-arm64"
           docker manifest push "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_COMMIT }}"
           docker manifest create "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}" \\
-          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}-arm64" \\
-          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}-amd64"
+          --amend "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}-arm64"
           docker manifest push "\${{ steps.buildcache.outputs.docker-repo-uri }}:\${{ env.DOCKER_TAG_CUR }}"
 "
 `;
@@ -405,6 +340,7 @@ jobs:
     uses: ./.github/workflows/ecs-service-deploy.yml
     needs:
       - get-version
+    secrets: inherit
     with:
       service-name: test
       version: \${{ needs.get-version.outputs.version }}
