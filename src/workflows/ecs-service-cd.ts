@@ -1,9 +1,10 @@
-import { JobPermission } from 'projen/lib/github/workflows-model';
+import { YamlFile } from 'projen';
 import { ecsServiceDeployWorkflow } from './ecs-service-deploy';
-import { getVersionStep } from './utils/getVersionStep';
+import { getVersionJob } from './utils/getVersion';
 import { clickupEcsService } from '../clickup-ecs-service';
 
 export module ecsServiceCDWorkflow {
+  export const WORKFLOW_LOCATION = '.github/workflows/ecs-service-cd.yml';
   export interface CDOptionsConfig extends ecsServiceDeployWorkflow.EcsServiceDeployOptionsConfig {}
 
   export function createContinuousDeliveryWorkflow(
@@ -12,30 +13,38 @@ export module ecsServiceCDWorkflow {
     override?: any,
   ) {
     ecsServiceDeployWorkflow.addEcsServiceDeployWorkflowYml(project, options, override);
-
-    project.release?.addJobs({
-      cd: {
-        name: `Deploy ${project.serviceName} to ECS`,
-        runsOn: ['ubuntu-latest'],
-        needs: ['release'], // Release job name from project.release
-        permissions: {
-          actions: JobPermission.READ,
-          contents: JobPermission.READ,
-          packages: JobPermission.READ,
-        },
-        steps: [
-          ...getVersionStep(project),
-          {
-            name: 'Deploy',
-            uses: `./${ecsServiceDeployWorkflow.WORKFLOW_LOCATION}`,
-            with: {
-              'service-name': project.serviceName,
-              version: '${{ steps.event_metadata.outputs.release_tag }}',
-              'harness-account-identifier': '${{ secrets.HARNESS_ACCOUNT_IDENTIFIER }}',
-            },
-          },
-        ],
+    new YamlFile(project, ecsServiceCDWorkflow.WORKFLOW_LOCATION, {
+      obj: {
+        ...getContinuousDeliveryWorkflow(project),
+        ...override,
       },
     });
+  }
+
+  function getContinuousDeliveryWorkflow(project: clickupEcsService.ClickUpTypeScriptEcsServiceProject) {
+    const workflow = {
+      name: `Deploy ${project.serviceName} to ECS`,
+      on: {
+        push: {
+          branches: project.release?.branches,
+        },
+      },
+      env: {
+        RELEASE: true,
+      },
+      jobs: {
+        ...getVersionJob(project),
+        Deploy: {
+          uses: `./${ecsServiceDeployWorkflow.WORKFLOW_LOCATION}`,
+          needs: ['get-version'],
+          with: {
+            'service-name': project.serviceName,
+            version: '${{ needs.get-version.outputs.version }}',
+            'harness-account-identifier': '${{ secrets.HARNESS_ACCOUNT_IDENTIFIER }}',
+          },
+        },
+      },
+    };
+    return workflow;
   }
 }

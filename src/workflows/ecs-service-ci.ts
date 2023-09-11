@@ -1,10 +1,11 @@
+import { YamlFile } from 'projen';
 import { JobPermission } from 'projen/lib/github/workflows-model';
 import { ecsServiceBuildPublishWorkflow } from './ecs-service-build';
-import { getCheckoutStep } from './utils/getCheckoutStep';
-import { getVersionStep as getVersionSteps } from './utils/getVersionStep';
+import { getVersionJob } from './utils/getVersion';
 import { clickupEcsService } from '../clickup-ecs-service';
 
 export module ecsServiceCIWorkflow {
+  export const WORKFLOW_LOCATION = '.github/workflows/ecs-service-ci.yml';
   export interface CIOptionsConfig extends ecsServiceBuildPublishWorkflow.BuildPublishOptionsConfig {}
 
   /**
@@ -42,44 +43,59 @@ export module ecsServiceCIWorkflow {
 
   export function createContinuousIntegrationWorkflow(
     project: clickupEcsService.ClickUpTypeScriptEcsServiceProject,
-    options: CIOptionsConfig,
+    options: ecsServiceBuildPublishWorkflow.BuildPublishOptionsConfig,
     override?: any,
-  ) {
+  ): void {
     ecsServiceBuildPublishWorkflow.addBuildPublishWorkflowYml(project, options, override);
     setBuildReleaseTasks(project);
-    project.buildWorkflow?.addPostBuildJob('ci', {
-      name: 'Docker Build and Publish',
+    new YamlFile(project, ecsServiceCIWorkflow.WORKFLOW_LOCATION, {
+      obj: {
+        ...getContinuousIntegrationWorkflow(project),
+        ...override,
+      },
+    });
+  }
+
+  export function getContinuousIntegrationWorkflow(project: clickupEcsService.ClickUpTypeScriptEcsServiceProject) {
+    const workflow = {
+      name: 'Continuous Integration',
+      on: {
+        pull_request: {},
+        workflow_dispatch: {},
+      },
       env: {
         FORCE_COLOR: '3', // Fix terminal color output
         GIT_TAG_PREFIX: 'backend',
       },
-      runsOn: ['ubuntu-latest'],
-      permissions: {
-        contents: JobPermission.READ,
-        actions: JobPermission.READ,
-        packages: JobPermission.READ,
+      jobs: {
+        ...getVersionJob(project),
+        ...createBuildPublishJob(project),
       },
-      steps: [
-        getCheckoutStep(),
-        ...getVersionSteps(project),
-        {
-          name: 'Build and Publish Docker Image to ECR',
-          uses: `./${ecsServiceBuildPublishWorkflow.WORKFLOW_LOCATION}`,
-          with: {
-            version: '${{ steps.event_metadata.outputs.release_tag }}',
-            'service-name': project.serviceName,
-            'all-package-read-token': '${{ secrets.ALL_PACKAGE_READ_TOKEN }}',
-            'buildcache-aws-access-key-id': '${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}',
-            'buildcache-aws-secret-access-key': '${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}',
-            'buildcache-aws-region': '${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}',
-            'lacework-account-name': '${{ secrets.LW_ACCOUNT_NAME }}',
-            'lacework-access-token': '${{ secrets.LW_ACCESS_TOKEN }}',
-            'skip-health-check': false, // TODO: Not hardcode false
-            'is-nest-app': true, // TODO: Not hardcode true
-            'skip-vulnerability-scan': true, // TODO: Not hardcode true
-          },
+    };
+    return workflow;
+  }
+
+  function createBuildPublishJob(project: clickupEcsService.ClickUpTypeScriptEcsServiceProject) {
+    const job = {
+      'build-publish-docker': {
+        name: 'Build and Publish Docker Image to ECR',
+        permissions: {
+          contents: JobPermission.READ,
+          actions: JobPermission.READ,
+          packages: JobPermission.READ,
         },
-      ],
-    });
+        needs: ['get-version'],
+        uses: `./${ecsServiceBuildPublishWorkflow.WORKFLOW_LOCATION}`,
+        secrets: 'inherit',
+        with: {
+          version: '${{ needs.get-version.outputs.version }}',
+          'service-name': project.serviceName,
+          'skip-health-check': false, // TODO: Not hardcode false
+          'is-nest-app': true, // TODO: Not hardcode true
+          'skip-vulnerability-scan': true, // TODO: Not hardcode true
+        },
+      },
+    };
+    return job;
   }
 }

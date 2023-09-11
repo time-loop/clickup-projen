@@ -44,30 +44,6 @@ export module ecsServiceBuildPublishWorkflow {
               type: 'boolean',
               default: false,
             },
-            'buildcache-aws-access-key-id': {
-              type: 'string',
-              required: true,
-            },
-            'buildcache-aws-secret-access-key': {
-              type: 'string',
-              required: true,
-            },
-            'buildcache-aws-region': {
-              type: 'string',
-              required: true,
-            },
-            'lacework-account-name': {
-              type: 'string',
-              required: true,
-            },
-            'lacework-access-token': {
-              type: 'string',
-              required: true,
-            },
-            'all-package-read-token': {
-              type: 'string',
-              required: true,
-            },
             version: {
               description: 'The version number that was created for the deploy.',
               required: true,
@@ -180,7 +156,7 @@ export module ecsServiceBuildPublishWorkflow {
           getBuildcacheLoginStep(),
           {
             name: 'Configure NPM',
-            run: 'echo "//npm.pkg.github.com/:_authToken=${{ inputs.all-package-read-token }}" >> ~/.npmrc',
+            run: 'echo "//npm.pkg.github.com/:_authToken=${{ secrets.ALL_PACKAGE_READ_TOKEN }}" >> ~/.npmrc',
           },
           {
             uses: 'pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598', // 2.4.0
@@ -204,8 +180,8 @@ export module ecsServiceBuildPublishWorkflow {
           {
             name: 'Publish image as draft',
             // nrh: CLK-254084: temp fix to stop image creaation proliferation
-            if: 'startsWith(github.ref, "refs/heads/")',
-            runNow: [
+            if: "startsWith(github.ref, 'refs/heads/')",
+            run: [
               ...dockerTags.map(
                 (tag) =>
                   `docker tag \${{ env.DOCKER_IMAGE_ID }} "\${{ steps.buildcache.outputs.docker-repo-uri }}:${tag}"`,
@@ -239,13 +215,13 @@ export module ecsServiceBuildPublishWorkflow {
             uses: 'time-loop/github-actions/dist/docker-vulnerability-scan@53f03c9bc36389e6b4e671bd8a3cc6286ef37044', // TODO: Do not use prerelease from branch
             id: 'vulnerability-scan',
             with: {
-              'buildcache-aws-access-key-id': '${{ inputs.buildcache-aws-access-key-id }}',
-              'buildcache-aws-secret-access-key': '${{ inputs.buildcache-aws-secret-access-key }}',
-              'buildcache-aws-region': '${{ inputs.buildcache-aws-region }}',
+              'buildcache-aws-access-key-id': '${{ secrets.ECR_BUILD_CACHE_AWS_ACCESS_KEY_ID }}',
+              'buildcache-aws-secret-access-key': '${{ secrets.ECR_BUILD_CACHE_AWS_SECRET_ACCESS_KEY }}',
+              'buildcache-aws-region': '${{ secrets.ECR_BUILD_CACHE_AWS_REGION }}',
               'buildcache-ecr-repo-name': 'monorepo-buildcache',
               'buildcache-pull-tag': '${{ env.DOCKER_TAG_DRAFT_COMMIT }}-amd64', // FIXME:
-              'lacework-account-name': '${{ inputs.lacework-account-name }}',
-              'lacework-access-token': '${{ inputs.lacework-account-token }}',
+              'lacework-account-name': '${{ secrets.LW_ACCOUNT_NAME }}',
+              'lacework-access-token': '${{ secrets.LW_ACCESS_TOKEN }}',
             },
           },
         ],
@@ -258,7 +234,7 @@ export module ecsServiceBuildPublishWorkflow {
     const job = {
       'docker-validate': {
         // nrh: CLK-254084: temp fix to stop image creaation proliferation
-        if: 'startsWith(github.ref, "refs/heads/")',
+        if: "startsWith(github.ref, 'refs/heads/')",
         needs: buildJobNames,
         name: 'Validate',
         strategy: {
@@ -284,7 +260,7 @@ export module ecsServiceBuildPublishWorkflow {
           },
           {
             name: 'healthcheck verification setup (nestjs)',
-            if: 'matrix.step == "healthcheck-verification" && inputs.is-nest-app && !inputs.skip-health-check',
+            if: "matrix.step == 'healthcheck-verification' && inputs.is-nest-app && !inputs.skip-health-check",
             uses: DEFAULT_RETRY_ACTION,
             with: {
               max_attempts: 3,
@@ -310,7 +286,7 @@ export module ecsServiceBuildPublishWorkflow {
           },
           {
             name: 'healthcheck verification setup (generic)',
-            if: 'matrix.step == "healthcheck-verification" && !inputs.is-nest-app && !inputs.skip-health-check',
+            if: "matrix.step == 'healthcheck-verification' && !inputs.is-nest-app && !inputs.skip-health-check",
             run: [
               'docker run \\',
               '-d \\',
@@ -320,7 +296,7 @@ export module ecsServiceBuildPublishWorkflow {
           },
           {
             name: 'healthcheck verification',
-            if: 'matrix.step == "healthcheck-verification" && !inputs.skip-health-check',
+            if: "matrix.step == 'healthcheck-verification' && !inputs.skip-health-check",
             run: [
               'DOCKER_CONTAINER_ID="$(cat /tmp/CONTAINER_ID)"',
               // 40x5 = 200s
@@ -365,7 +341,7 @@ done;`,
     const job = {
       'docker-publish-buildcache': {
         // nrh: CLK-254084: temp fix to stop image creaation proliferation
-        if: 'startsWith(github.ref, "refs/heads/")',
+        if: "startsWith(github.ref, 'refs/heads/')",
         needs: [...buildJobNames, 'docker-validate'],
         name: 'Publish to Buildcache',
         'runs-on': 'ubuntu-latest',
@@ -435,7 +411,7 @@ done;`,
     options: BuildPublishOptionsConfig,
     override?: any,
   ): void {
-    new YamlFile(project, WORKFLOW_LOCATION, {
+    new YamlFile(project, ecsServiceBuildPublishWorkflow.WORKFLOW_LOCATION, {
       obj: { ...createBuildPublishWorkflow({ nodeVersion: project.workflowNodeVersion, ...options }), ...override },
     });
   }

@@ -1,6 +1,8 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
 import { clickupEcsService, ecsServiceDeployWorkflow } from '../src';
 import { ecsServiceBuildPublishWorkflow } from '../src/workflows/ecs-service-build';
+import { ecsServiceCIWorkflow } from '../src/workflows/ecs-service-ci';
+import { ecsServiceCDWorkflow } from '../src/workflows/ecs-service-cd';
 
 describe('ClickUpTypeScriptEcsServiceProject', () => {
   describe('default action metadata', () => {
@@ -26,18 +28,6 @@ describe('ClickUpTypeScriptEcsServiceProject', () => {
         expect(githubWorkflows).toMatchSnapshot();
       });
 
-      it('adds CI workflow to build workflow', () => {
-        expect(project.buildWorkflow).not.toBeUndefined();
-        const workflow = synthed['.github/workflows/build.yml'];
-        expect(workflow).toMatchSnapshot();
-      });
-
-      it('adds CD workflow to release workflow', () => {
-        expect(project.release).not.toBeUndefined();
-        const workflow = synthed['.github/workflows/release.yml'];
-        expect(workflow).toMatchSnapshot();
-      });
-
       it('creates proper ecs-service-build-publish.yml contents', () => {
         const workflow = synthed[ecsServiceBuildPublishWorkflow.WORKFLOW_LOCATION];
         expect(workflow).toMatchSnapshot();
@@ -50,6 +40,16 @@ describe('ClickUpTypeScriptEcsServiceProject', () => {
 
       it('creates proper harness-deploy.yml contents', () => {
         const workflow = synthed[ecsServiceDeployWorkflow.HARNESS_WORKFLOW_LOCATION];
+        expect(workflow).toMatchSnapshot();
+      });
+
+      it('creates proper ecs-service-ci.yml contents', () => {
+        const workflow = synthed[ecsServiceCIWorkflow.WORKFLOW_LOCATION];
+        expect(workflow).toMatchSnapshot();
+      });
+
+      it('creates proper ecs-service-cd.yml contents', () => {
+        const workflow = synthed[ecsServiceCDWorkflow.WORKFLOW_LOCATION];
         expect(workflow).toMatchSnapshot();
       });
     });
