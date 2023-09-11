@@ -127,7 +127,7 @@ export module renovateWorkflow {
               // Bypass prerelease versions:
               // https://docs.renovatebot.com/configuration-options/#allowedversions
               // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
-              allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+-(alpha|beta).*$/',
+              allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/',
             },
             {
               matchDepTypes: ['optionalDependencies'],
