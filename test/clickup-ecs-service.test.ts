@@ -1,8 +1,8 @@
 import { synthSnapshot } from 'projen/lib/util/synth';
 import { clickupEcsService, ecsServiceDeployWorkflow } from '../src';
 import { ecsServiceBuildPublishWorkflow } from '../src/workflows/ecs-service-build';
-import { ecsServiceCIWorkflow } from '../src/workflows/ecs-service-ci';
 import { ecsServiceCDWorkflow } from '../src/workflows/ecs-service-cd';
+import { ecsServiceCIWorkflow } from '../src/workflows/ecs-service-ci';
 
 describe('ClickUpTypeScriptEcsServiceProject', () => {
   describe('default action metadata', () => {
