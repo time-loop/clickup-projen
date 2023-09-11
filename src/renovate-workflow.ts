@@ -124,7 +124,9 @@ export module renovateWorkflow {
               automerge: options.autoMergeNonBreakingUpdates ? true : undefined,
               // Adding the auto-approve label will make projens auto approve workflow approve the PR so it will be auto merged
               addLabels: [options.autoMergeNonBreakingUpdates ? AUTO_APPROVE_PR_LABEL : undefined],
-              // Bypass prerelease versions
+              // Bypass prerelease versions:
+              // https://docs.renovatebot.com/configuration-options/#allowedversions
+              // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
               allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+-(alpha|beta).*$/',
             },
             {
