@@ -115,13 +115,6 @@ export module renovateWorkflow {
           ],
           packageRules: [
             {
-              matchPackagePatterns: ['^@time-loop\\/clickup-projen'],
-              // Bypass prerelease versions:
-              // https://docs.renovatebot.com/configuration-options/#allowedversions
-              // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
-              allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/',
-            },
-            {
               // copied from this preset: https://docs.renovatebot.com/presets-group/#groupallnonmajor
               groupName: 'all non-major dependencies',
               groupSlug: 'all-minor-patch',
@@ -136,6 +129,13 @@ export module renovateWorkflow {
             {
               matchDepTypes: ['optionalDependencies'],
               addLabels: [OPTIONAL_RENOVATE_PR_LABEL],
+            },
+            {
+              matchPackagePatterns: ['^@time-loop\\/clickup-projen'],
+              // Bypass prerelease versions:
+              // https://docs.renovatebot.com/configuration-options/#allowedversions
+              // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
+              allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/',
             },
           ],
 
