@@ -14,10 +14,19 @@
   ],
   "packageRules": [
     {
+      "matchPackagePatterns": [
+        "^@time-loop\\/clickup-projen"
+      ],
+      "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/"
+    },
+    {
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "matchPackagePatterns": [
         "*"
+      ],
+      "excludePackagePatterns": [
+        "^@time-loop\\/clickup-projen"
       ],
       "matchUpdateTypes": [
         "minor",
@@ -26,8 +35,7 @@
       "automerge": true,
       "addLabels": [
         "auto-approve"
-      ],
-      "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/"
+      ]
     },
     {
       "matchDepTypes": [
