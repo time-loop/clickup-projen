@@ -61,7 +61,7 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "projen": "^0.72.20"
+    "projen": "^0.73.17"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
