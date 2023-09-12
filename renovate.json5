@@ -19,6 +19,9 @@
       "matchPackagePatterns": [
         "*"
       ],
+      "excludePackagePatterns": [
+        "^@time-loop\\/clickup-projen"
+      ],
       "matchUpdateTypes": [
         "minor",
         "patch"
@@ -26,8 +29,7 @@
       "automerge": true,
       "addLabels": [
         "auto-approve"
-      ],
-      "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/"
+      ]
     },
     {
       "matchDepTypes": [
@@ -36,6 +38,12 @@
       "addLabels": [
         "optional"
       ]
+    },
+    {
+      "matchPackagePatterns": [
+        "^@time-loop\\/clickup-projen"
+      ],
+      "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/"
     }
   ],
   "ignoreDeps": [
