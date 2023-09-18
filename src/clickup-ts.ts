@@ -159,6 +159,7 @@ export module clickupTs {
         entryPoints: ['./src/index.ts'],
         out: project.docsDirectory,
         readme: 'none',
+        plugin: props.html ? [] : ['typedoc-plugin-markdown'],
       };
       return new JsonFile(project, props.configFilePath ?? 'typedoc.json', {
         obj: {
