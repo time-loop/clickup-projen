@@ -48,7 +48,7 @@ index aa0d831..d4b75b6 100644
 +
 +    // cdk.context.json lookup support role
 +    const cdkPipelinesVa = core.Environment.usCdkPipelines('us-east-1');
-+    const vaStageId = cdkPipeline.getUniqueStageIdentifier(cdkPipelinesVa).addPrefix(['oicd']);
++    const vaStageId = cdkPipeline.getUniqueStageIdentifier(cdkPipelinesVa).addPrefix(['oidc']);
 +    oidcPermissions.addStage(
 +      GitHubActionsOIDCCdkContextLookupRole.asStage(this, vaStageId.pascal, {...commonProps, namedEnv: cdkPipelinesVa})
 +    )
