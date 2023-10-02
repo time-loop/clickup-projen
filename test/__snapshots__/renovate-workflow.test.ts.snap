@@ -115,6 +115,9 @@ exports[`getRenovateOptions defaults 1`] = `
           undefined,
         ],
         "automerge": undefined,
+        "excludePackagePatterns": [
+          "^@time-loop\\/clickup-projen",
+        ],
         "groupName": "all non-major dependencies",
         "groupSlug": "all-minor-patch",
         "matchPackagePatterns": [
@@ -131,6 +134,12 @@ exports[`getRenovateOptions defaults 1`] = `
         ],
         "matchDepTypes": [
           "optionalDependencies",
+        ],
+      },
+      {
+        "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/",
+        "matchPackagePatterns": [
+          "^@time-loop\\/clickup-projen",
         ],
       },
     ],

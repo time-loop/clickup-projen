@@ -37,8 +37,8 @@
     "@types/jest": "^29.5.4",
     "@types/node": "^16",
     "@types/semver": "^7.5.1",
-    "@typescript-eslint/eslint-plugin": "^5",
-    "@typescript-eslint/parser": "^5",
+    "@typescript-eslint/eslint-plugin": "^6",
+    "@typescript-eslint/parser": "^6",
     "eslint": "^8",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-node": "^0.3.9",
@@ -54,18 +54,18 @@
     "jsii-rosetta": "5.0.x",
     "npm-check-updates": "^16",
     "prettier": "^3.0.3",
-    "projen": "^0.72.20",
+    "projen": "^0.73.17",
     "standard-version": "^9",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "projen": "^0.72.20"
+    "projen": "^0.73.17"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.72.20",
+    "projen": "^0.73.17",
     "semver": "^7.5.4",
     "ts-deepmerge": "^6.2.0"
   },

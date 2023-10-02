@@ -119,6 +119,7 @@ export module renovateWorkflow {
               groupName: 'all non-major dependencies',
               groupSlug: 'all-minor-patch',
               matchPackagePatterns: ['*'],
+              excludePackagePatterns: ['^@time-loop\\/clickup-projen'],
               matchUpdateTypes: ['minor', 'patch'],
               // Tell renovate to enable github's auto merge feature on the PR
               automerge: options.autoMergeNonBreakingUpdates ? true : undefined,
@@ -128,6 +129,13 @@ export module renovateWorkflow {
             {
               matchDepTypes: ['optionalDependencies'],
               addLabels: [OPTIONAL_RENOVATE_PR_LABEL],
+            },
+            {
+              matchPackagePatterns: ['^@time-loop\\/clickup-projen'],
+              // Bypass prerelease versions:
+              // https://docs.renovatebot.com/configuration-options/#allowedversions
+              // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
+              allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/',
             },
           ],
 
