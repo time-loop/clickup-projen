@@ -18,6 +18,7 @@ export module semgrepWorkflow {
         name: 'Scan',
         'runs-on': 'ubuntu-latest',
         container: {
+          // Reocurring task to check the pinned version SEC-8540
           image: 'returntocorp/semgrep@sha256:6c7ab81e4d1fd25a09f89f1bd52c984ce107c6ff33affef6ca3bc626a4cc479b',
         },
         steps: [
