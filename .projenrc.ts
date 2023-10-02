@@ -2,10 +2,13 @@ import { cdk, github, javascript, TextFile, YamlFile } from 'projen';
 import { addToProjectWorkflow } from './src/add-to-project';
 import { renovateWorkflow } from './src/renovate-workflow';
 import { semgrepWorkflow } from './src/semgrep-workflow';
+import { slackAlert } from './src/slack-alert';
 import { updateProjen } from './src/update-projen';
 import { parameters } from './src/utils/parameters';
 
 const bundledDeps = ['cson-parser', 'semver', 'ts-deepmerge'];
+
+const minNodeVersion = '18.17.1';
 
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',
@@ -15,6 +18,9 @@ const project = new cdk.JsiiProject({
   authorOrganization: true,
   jsiiVersion: '5.0.x',
   // Apache open source license, to match projen license
+
+  minNodeVersion,
+  workflowNodeVersion: minNodeVersion,
 
   defaultReleaseBranch: 'main',
   // release: true, // default
@@ -85,6 +91,8 @@ const project = new cdk.JsiiProject({
   codeCov: true,
   codeCovTokenSecret: 'CODECOV_TOKEN',
 });
+
+slackAlert.addReleaseEvent(project);
 
 new YamlFile(project, 'codecov.yml', {
   obj: {

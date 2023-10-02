@@ -62,7 +62,7 @@ This is to make sure you OIDC stages don't conflict with your service.
 +    const oidcPermissions = githubPipeline.addWave('OIDC-GitHub-Actions-Permissions');
 +    [core.Environment.usQa, core.Environment.globalProd].forEach((factory) => {
 +      const namedEnv = factory('us-east-1');
-+      const stageId = cdkPipeline.getUniqueStageIdentifier(namedEnv).addPrefix(['oicd']);
++      const stageId = cdkPipeline.getUniqueStageIdentifier(namedEnv).addPrefix(['oidc']);
 +      oidcPermissions.addStage(
 +        GitHubActionsOIDCPermissions.asStage(this, stageId.pascal, { ...commonProps, namedEnv }),
 +      );
