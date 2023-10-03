@@ -185,7 +185,7 @@ export module datadogServiceCatalog {
         name: `Publish DD Service Catalog for ${serviceName}`,
         uses: 'arcxp/datadog-service-catalog-metadata-provider@v2',
         with: {
-          'service-version': `${DefaultServiceCatalogValues.SERVICE_VERSION}`,
+          'schema-version': `${DefaultServiceCatalogValues.SERVICE_VERSION}`,
           'datadog-hostname': `${DefaultServiceCatalogValues.DATADOG_HOSTNAME}`,
           'datadog-key': `${DefaultServiceCatalogValues.DATADOG_KEY}`,
           'datadog-app-key': `${DefaultServiceCatalogValues.DATADOG_APP_KEY}`,
