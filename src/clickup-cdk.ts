@@ -20,6 +20,7 @@ export module clickupCdk {
     ...clickupTs.deps,
     '@time-loop/cdk-library',
     '@time-loop/cdk-named-environments',
+    'source-map@^0.7.4', // CLK-393642 and https://github.com/mozilla/source-map/issues/454
     'cdk-constants',
     'multi-convention-namer',
   ];

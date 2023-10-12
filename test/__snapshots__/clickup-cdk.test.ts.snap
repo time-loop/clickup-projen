@@ -493,6 +493,7 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
     "cdk-constants": "*",
     "constructs": "^10.0.5",
     "multi-convention-namer": "*",
+    "source-map": "^0.7.4",
   },
   "devDependencies": {
     "@types/jest": "*",
@@ -944,6 +945,7 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
     "cdk-constants": "*",
     "constructs": "^10.0.5",
     "multi-convention-namer": "*",
+    "source-map": "^0.7.4",
   },
   "devDependencies": {
     "@types/jest": "*",
@@ -1067,6 +1069,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
     "cdk-constants": "*",
     "constructs": "^10.0.5",
     "multi-convention-namer": "*",
+    "source-map": "^0.7.4",
   },
   "devDependencies": {
     "@time-loop/cdk-log-parser": "latest",
