@@ -164,21 +164,21 @@ export module datadogServiceCatalog {
 
       const contacts = `${options.contacts?.map(
         (contact) => `
-  - type: ${contact.type}
-    contact: ${contact.contact}
-    name: ${contact.name}`,
+- type: ${contact.type}
+  contact: ${contact.contact}
+  name: ${contact.name}`,
       )}`;
 
       const links = `${options.links?.map(
         (link) => `
-  - type: ${link.type}
-    url: ${link.url}
-    name: ${link.name}`,
+- type: ${link.type}
+  url: ${link.url}
+  name: ${link.name}`,
       )}`;
 
       const tags = `${Object.keys(serviceTags).map(
         (key) => `
-  - ${key}:${serviceTags[key]}`,
+- ${key}:${serviceTags[key]}`,
       )}`;
 
       const step: JobStep = {
@@ -195,7 +195,6 @@ export module datadogServiceCatalog {
           tier: `${serviceInfo.tier ?? DefaultServiceCatalogValues.TIER}`,
           lifecycle: `${serviceInfo.lifecycle ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
           team: `${serviceInfo.team ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
-          pagerdutyUrl: `${serviceInfo.pagerdutyUrl ?? DefaultServiceCatalogValues.NOT_PROVIDED}`,
           'slack-support-channel': `${DefaultServiceCatalogValues.SLACK_SUPPORT_CHANNEL}`,
           contacts,
           links,
