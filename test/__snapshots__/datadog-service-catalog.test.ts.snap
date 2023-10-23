@@ -100,27 +100,27 @@ jobs:
           team: Not Provided
           pagerdutyUrl: https://test.pagerduty.com
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
-          contacts: |-
+          contacts: |2-
             
-            - type: email
-              contact: contacttest@clickup.com
-              name: contact test
-          links: |-
+              - type: email
+                contact: contacttest@clickup.com
+                name: contact test
+          links: |2-
             
-            - type: other
-              url: https://test.clickup.com
-              name: link test,
-            - type: other
-              url: https://staging.clickup.com
-              name: staging link test
-          tags: |-
+              - type: other
+                url: https://test.clickup.com
+                name: link test,
+              - type: other
+                url: https://staging.clickup.com
+                name: staging link test
+          tags: |2-
             
-            - project:test-cdk,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }},
-            - tag1:tag1-test,
-            - tag2:tag2-test
+              - project:test-cdk,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }},
+              - tag1:tag1-test,
+              - tag2:tag2-test
 "
 `;
 
@@ -226,12 +226,12 @@ jobs:
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
           contacts: undefined
           links: undefined
-          tags: |-
+          tags: |2-
             
-            - project:test-cdk,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }}
+              - project:test-cdk,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }}
       - name: Publish DD Service Catalog for test-cdk
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
@@ -249,11 +249,11 @@ jobs:
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
           contacts: undefined
           links: undefined
-          tags: |-
+          tags: |2-
             
-            - project:test-cdk,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }}
+              - project:test-cdk,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }}
 "
 `;

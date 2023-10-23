@@ -164,21 +164,21 @@ export module datadogServiceCatalog {
 
       const contacts = `${options.contacts?.map(
         (contact) => `
-- type: ${contact.type}
-  contact: ${contact.contact}
-  name: ${contact.name}`,
+  - type: ${contact.type}
+    contact: ${contact.contact}
+    name: ${contact.name}`,
       )}`;
 
       const links = `${options.links?.map(
         (link) => `
-- type: ${link.type}
-  url: ${link.url}
-  name: ${link.name}`,
+  - type: ${link.type}
+    url: ${link.url}
+    name: ${link.name}`,
       )}`;
 
       const tags = `${Object.keys(serviceTags).map(
         (key) => `
-- ${key}:${serviceTags[key]}`,
+  - ${key}:${serviceTags[key]}`,
       )}`;
 
       const step: JobStep = {

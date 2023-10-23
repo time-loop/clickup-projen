@@ -1405,12 +1405,12 @@ jobs:
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
           contacts: undefined
           links: undefined
-          tags: |-
+          tags: |2-
             
-            - project:test,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }}
+              - project:test,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }}
 "
 `;
 
@@ -1585,18 +1585,18 @@ jobs:
           team: testing
           pagerdutyUrl: https://test.pagerduty.com
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
-          contacts: |-
+          contacts: |2-
             
-            - type: email
-              contact: contacttest@clickup.com
-              name: contact test
+              - type: email
+                contact: contacttest@clickup.com
+                name: contact test
           links: undefined
-          tags: |-
+          tags: |2-
             
-            - project:test,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }}
+              - project:test,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }}
 "
 `;
 
@@ -1771,22 +1771,22 @@ jobs:
           team: testing
           pagerdutyUrl: https://test.pagerduty.com
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
-          contacts: |-
+          contacts: |2-
             
-            - type: email
-              contact: contacttest@clickup.com
-              name: contact test
-          links: |-
+              - type: email
+                contact: contacttest@clickup.com
+                name: contact test
+          links: |2-
             
-            - type: other
-              url: https://test.clickup.com
-              name: link test
-          tags: |-
+              - type: other
+                url: https://test.clickup.com
+                name: link test
+          tags: |2-
             
-            - project:test,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }}
+              - project:test,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }}
 "
 `;
 
@@ -1963,12 +1963,12 @@ jobs:
           slack-support-channel: https://click-up.slack.com/archives/C043T0JBJKY
           contacts: undefined
           links: undefined
-          tags: |-
+          tags: |2-
             
-            - project:test,
-            - release:true,
-            - version:\${{ steps.event_metadata.outputs.release_tag }},
-            - actor:\${{ github.actor }}
+              - project:test,
+              - release:true,
+              - version:\${{ steps.event_metadata.outputs.release_tag }},
+              - actor:\${{ github.actor }}
 "
 `;
 
