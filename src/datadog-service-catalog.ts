@@ -3,7 +3,7 @@ import { NodeProject } from 'projen/lib/javascript';
 
 export module datadogServiceCatalog {
   export enum DefaultServiceCatalogValues {
-    SERVICE_VERSION = '2.1',
+    SERVICE_VERSION = 'v2.1',
     DATADOG_HOSTNAME = 'app.datadoghq.com',
     DATADOG_KEY = '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
     DATADOG_APP_KEY = '${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}',
@@ -164,21 +164,21 @@ export module datadogServiceCatalog {
 
       const contacts = `${options.contacts?.map(
         (contact) => `
-- type: ${contact.type}
-  contact: ${contact.contact}
-  name: ${contact.name}`,
+  - type: ${contact.type}
+    contact: ${contact.contact}
+    name: ${contact.name}`,
       )}`;
 
       const links = `${options.links?.map(
         (link) => `
-- type: ${link.type}
-  url: ${link.url}
-  name: ${link.name}`,
+  - type: ${link.type}
+    url: ${link.url}
+    name: ${link.name}`,
       )}`;
 
       const tags = `${Object.keys(serviceTags).map(
         (key) => `
-- ${key}:${serviceTags[key]}`,
+  - ${key}:${serviceTags[key]}`,
       )}`;
 
       const step: JobStep = {
