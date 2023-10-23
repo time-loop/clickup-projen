@@ -88,7 +88,7 @@ jobs:
       - name: Publish DD Service Catalog for test-service
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
-          schema-version: "2.1"
+          schema-version: v2.1
           datadog-hostname: app.datadoghq.com
           datadog-key: \${{ secrets.DD_PROJEN_RELEASE_API_KEY }}
           datadog-app-key: \${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}
@@ -212,7 +212,7 @@ jobs:
       - name: Publish DD Service Catalog for test-service
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
-          schema-version: "2.1"
+          schema-version: v2.1
           datadog-hostname: app.datadoghq.com
           datadog-key: \${{ secrets.DD_PROJEN_RELEASE_API_KEY }}
           datadog-app-key: \${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}
@@ -235,7 +235,7 @@ jobs:
       - name: Publish DD Service Catalog for test-cdk
         uses: arcxp/datadog-service-catalog-metadata-provider@v2
         with:
-          schema-version: "2.1"
+          schema-version: v2.1
           datadog-hostname: app.datadoghq.com
           datadog-key: \${{ secrets.DD_PROJEN_RELEASE_API_KEY }}
           datadog-app-key: \${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}

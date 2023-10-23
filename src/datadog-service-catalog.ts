@@ -3,7 +3,7 @@ import { NodeProject } from 'projen/lib/javascript';
 
 export module datadogServiceCatalog {
   export enum DefaultServiceCatalogValues {
-    SERVICE_VERSION = '2.1',
+    SERVICE_VERSION = 'v2.1',
     DATADOG_HOSTNAME = 'app.datadoghq.com',
     DATADOG_KEY = '${{ secrets.DD_PROJEN_RELEASE_API_KEY }}',
     DATADOG_APP_KEY = '${{ secrets.DD_PROJEN_RELEASE_APP_KEY }}',
