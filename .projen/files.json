@@ -15,7 +15,6 @@
     ".github/workflows/update-projen-main.yml",
     ".gitignore",
     ".mergify.yml",
-    ".npmrc",
     ".nvmrc",
     ".prettierignore",
     ".prettierrc.json",
