@@ -225,6 +225,7 @@ exports[`ClickUpTypeScriptProject defaults package.json 1`] = `
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
+    "constructs": "^10.0.0",
     "esbuild": "*",
     "eslint": "^8",
     "eslint-config-prettier": "*",
