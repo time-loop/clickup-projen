@@ -24,11 +24,12 @@
       "type": "build"
     },
     {
-      "name": "eslint-config-prettier",
+      "name": "constructs",
+      "version": "^10.0.0",
       "type": "build"
     },
     {
-      "name": "eslint-import-resolver-node",
+      "name": "eslint-config-prettier",
       "type": "build"
     },
     {
@@ -77,11 +78,6 @@
     {
       "name": "jsii",
       "version": "5.0.x",
-      "type": "build"
-    },
-    {
-      "name": "npm-check-updates",
-      "version": "^16",
       "type": "build"
     },
     {
