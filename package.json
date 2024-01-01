@@ -53,18 +53,18 @@
     "jsii-pacmak": "^1.93.0",
     "jsii-rosetta": "5.0.x",
     "prettier": "^3.1.1",
-    "projen": "^0.77.4",
+    "projen": "^0.78.5",
     "standard-version": "^9",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "projen": "^0.77.4"
+    "projen": "^0.78.5"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.77.4",
+    "projen": "^0.78.5",
     "semver": "^7.5.4",
     "ts-deepmerge": "^6.2.0"
   },
@@ -119,11 +119,13 @@
         }
       ]
     ],
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json"
-      }
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json"
+        }
+      ]
     }
   },
   "types": "lib/index.d.ts",
