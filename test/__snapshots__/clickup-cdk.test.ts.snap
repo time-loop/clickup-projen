@@ -56,12 +56,6 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
       "cobertura",
       "text",
     ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json",
-      },
-    },
-    "preset": "ts-jest",
     "reporters": [
       "default",
       [
@@ -78,6 +72,14 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
     "testPathIgnorePatterns": [
       "/node_modules/",
     ],
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json",
+        },
+      ],
+    },
     "watchPathIgnorePatterns": [
       "/node_modules/",
     ],
@@ -536,12 +538,6 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
       "cobertura",
       "text",
     ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json",
-      },
-    },
-    "preset": "ts-jest",
     "reporters": [
       "default",
       [
@@ -558,6 +554,14 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
     "testPathIgnorePatterns": [
       "/node_modules/",
     ],
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json",
+        },
+      ],
+    },
     "watchPathIgnorePatterns": [
       "/node_modules/",
     ],
@@ -986,12 +990,6 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
       "cobertura",
       "text",
     ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json",
-      },
-    },
-    "preset": "ts-jest",
     "reporters": [
       "default",
       [
@@ -1008,6 +1006,14 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
     "testPathIgnorePatterns": [
       "/node_modules/",
     ],
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json",
+        },
+      ],
+    },
     "watchPathIgnorePatterns": [
       "/node_modules/",
     ],
@@ -1109,12 +1115,6 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
       "cobertura",
       "text",
     ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json",
-      },
-    },
-    "preset": "ts-jest",
     "reporters": [
       "default",
       [
@@ -1131,6 +1131,14 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
     "testPathIgnorePatterns": [
       "/node_modules/",
     ],
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json",
+        },
+      ],
+    },
     "watchPathIgnorePatterns": [
       "/node_modules/",
     ],
