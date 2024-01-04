@@ -115,7 +115,7 @@ export module datadogServiceCatalog {
 
   /**
    * Adds 'Send to Datadog Service Catalog' job to the release workflow.
-   *
+   * @deprecated Please see https://github.com/time-loop/terraform-target-datadog-account/blob/main/docs/service-catalog.md
    * @param project The NodeProject to which the release event workflow will be added
    * @param options Service information that will be included in the DD Service Catalog.
    */
