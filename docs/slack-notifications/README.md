@@ -11,7 +11,7 @@ If you would like to customise the slack channel your repos alerts get posted to
 
 ## Customising the slack webhook title and body
 
-If you would like to override the [default message title and / or body](https://github.com/time-loop/clickup-projen/blob/03ffb318426fc10d31a4267aa4143bf9000263ec/src/slack-alert.ts#L77-L82) posted in the slack alert, you can set the following configuration in `.projenrc.ts`:
+If you would like to override the [default message title and / or body](https://github.com/time-loop/clickup-projen/blob/03ffb318426fc10d31a4267aa4143bf9000263ec/src/slack-alert.ts#L77-L82) posted in the slack alert, you can set the following configuration in your repos `.projenrc.ts`:
 ```
 // .projenrc.ts
 const project = new clickupCdk.ClickUpCdkTypeScriptApp({
