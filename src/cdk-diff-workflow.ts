@@ -136,7 +136,7 @@ export module cdkDiffWorkflow {
           uses: 'aws-actions/configure-aws-credentials@v1',
           with: {
             'role-to-assume': env.oidcRoleArn,
-            'role-duration-seconds': 900,
+            'role-duration-seconds': env.roleDuration ?? 900,
             'aws-region': 'us-west-2',
           },
         },
@@ -249,6 +249,12 @@ export module cdkDiffWorkflow {
      * Example: `no-qa-changes`
      */
     readonly labelToApplyWhenNoDiffPresent: string;
+
+    /**
+     * Duration in seconds for the assumed role to be valid
+     * Defaut value: `900`
+     */
+    readonly roleDuration?: number;
   }
 
   export interface EnvToDiff extends BaseEnvToDiff {
