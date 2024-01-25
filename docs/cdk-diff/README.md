@@ -28,18 +28,21 @@ Details follow.
 +        oidcRoleArn: `arn:aws:iam::${core.Environment.usQa.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-qa',
 +        stackSearchString: 'Qa',
+         roleDuration: 1800, // Set this value to a desired value only if the diff workflow is expected to take longer than 900 seconds. 
 +      },
 +      {
 +        name: 'staging',
 +        oidcRoleArn: `arn:aws:iam::${core.Environment.globalStaging.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-staging',
 +        stackSearchString: 'Staging',
+         roleDuration: 1800, // Set this value to a desired value only if the diff workflow is expected to take longer than 900 seconds. 
 +      },
 +      {
 +        name: 'prod',
 +        oidcRoleArn: `arn:aws:iam::${core.Environment.globalProd.account}:role/${name}-github-actions-role`,
 +        labelToApplyWhenNoDiffPresent: 'no-changes-prod',
 +        stackSearchString: 'Prod',
+         roleDuration: 1800, // Set this value to a desired value only if the diff workflow is expected to take longer than 900 seconds.
 +      },
 +    ],
 +    createOidcRoleStack: true,
