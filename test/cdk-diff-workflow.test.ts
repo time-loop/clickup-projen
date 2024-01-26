@@ -25,6 +25,27 @@ describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
     expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
   });
 
+  test('diff with roleDuration value set', () => {
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
+      defaultReleaseBranch: 'main',
+      name: 'test',
+    });
+    cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stackSearchString: 'Qa',
+          roleDuration: 1800,
+        },
+      ],
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
+  });
+
   test('node20', () => {
     const project = new clickupCdk.ClickUpCdkTypeScriptApp({
       cdkVersion: '2.91.0',
