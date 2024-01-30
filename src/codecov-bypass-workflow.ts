@@ -1,10 +1,10 @@
 import { YamlFile } from 'projen';
 import { clickupCdk } from './clickup-cdk';
 
-const DEFAULT_CODECOV_GITHUB_APP_ID = 254;
+const CODECOV_GITHUB_APP_ID = 254;
 
 export module codecovBypassWorkflow {
-  function CreateCodecovBypassWorkflow(options?: CodecovBypassOptionsConfig) {
+  function createCodecovBypassWorkflow(options: CodecovBypassOptionsConfig) {
     const defaultWorkflow = {
       name: options?.workflowName || 'Code coverage increased',
       on: {
@@ -12,14 +12,14 @@ export module codecovBypassWorkflow {
           types: ['completed'],
         },
         pull_request: {
-          types: ['labelled', 'unlabeled'],
+          types: ['labeled', 'unlabeled'],
         },
       },
       permissions: {},
       jobs: {
         'code-coverage-increased': {
           'runs-on': 'ubuntu-latest',
-          if: `github.event_name == \'check_suite\' || github.event.check_suite.app.id == ${options?.CodecovGithubAppId || DEFAULT_CODECOV_GITHUB_APP_ID}`,
+          if: `github.event_name != \'check_suite\' || github.event.check_suite.app.id == ${CODECOV_GITHUB_APP_ID}`,
           steps: [
             {
               name: 'Check codecov results',
@@ -32,7 +32,7 @@ export module codecovBypassWorkflow {
                 'github-private-key': options?.githubAppPrivateKey || '${{ secrets.CLICKUP_GITHUB_BOT_PRIVATE_KEY }}',
                 'skip-label': options?.skipLabel || 'code coverage not required',
                 'check-name': options?.checkName || 'Code coverage increased',
-                'check-suite-app-id': options?.CodecovGithubAppId || DEFAULT_CODECOV_GITHUB_APP_ID,
+                'check-suite-app-id': CODECOV_GITHUB_APP_ID,
                 'check-suite-check-names': options?.checkSuiteCheckNames?.join(',') || 'codecov/patch,codecov/project',
                 'details-url':
                   options?.detailsUrl || 'https://app.codecov.io/gh/${{ github.repository }}/pull/<% prNumber %>',
@@ -48,42 +48,48 @@ export module codecovBypassWorkflow {
 
   export interface CodecovBypassOptionsConfig {
     /**
-     * Workflow Name
-     */
-    readonly workflowName?: string;
-
-    /**
-     * Codecov Github App ID
-     */
-    readonly CodecovGithubAppId?: number;
-
-    /**
      * GitHub App ID
      */
-    readonly githubAppId?: number;
+    readonly githubAppId: string;
 
     /**
      * GitHub App Private Key
      */
-    readonly githubAppPrivateKey?: string;
+    readonly githubAppPrivateKey: string;
+
+    /**
+     * Should enable (create) the workflow
+     * @default true
+     */
+    readonly enabled: boolean;
+
+    /**
+     * Workflow Name
+     * @default 'Code coverage increased'
+     */
+    readonly workflowName?: string;
 
     /**
      * Skip Label
+     * @default 'code coverage not required'
      */
     readonly skipLabel?: string;
 
     /**
      * Check Name
+     * @default 'Code coverage increased'
      */
     readonly checkName?: string;
 
     /**
      * Check Suite Check Names
+     * @default ['codecov/patch', 'codecov/project']
      */
     readonly checkSuiteCheckNames?: string[];
 
     /**
      * Details URL
+     * @default 'https://app.codecov.io/gh/${{ github.repository }}/pull/<% prNumber %>'
      */
     readonly detailsUrl?: string;
   }
@@ -94,11 +100,11 @@ export module codecovBypassWorkflow {
 
   export function addCodecovBypassWorkflowYml(
     project: clickupCdk.ClickUpCdkTypeScriptApp,
-    options?: CodecovBypassOptionsConfig,
+    options: CodecovBypassOptionsConfig,
     override?: any,
   ): void {
     new YamlFile(project, '.github/workflows/codecov-bypass.yml', {
-      obj: { ...CreateCodecovBypassWorkflow(options), ...override },
+      obj: { ...createCodecovBypassWorkflow(options), ...override },
     });
   }
 }

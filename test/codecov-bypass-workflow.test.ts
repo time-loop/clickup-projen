@@ -1,5 +1,4 @@
 import { Testing } from 'projen';
-// import * as Yaml from 'yaml';
 
 import { clickupCdk } from '../src/clickup-cdk';
 import { codecovBypassWorkflow } from '../src/codecov-bypass-workflow';
@@ -11,7 +10,10 @@ describe('addCodecovBypassWorkflowYml - codecov-bypass .yml file added', () => {
       defaultReleaseBranch: 'main',
       name: 'test',
     });
-    codecovBypassWorkflow.addCodecovBypassWorkflowYml(project);
+    codecovBypassWorkflow.addCodecovBypassWorkflowYml(project, {
+      githubAppId: 'reference to some secret',
+      githubAppPrivateKey: 'reference to some secret',
+    });
     const synth = Testing.synth(project);
     expect(synth['.github/workflows/codecov-bypass.yml']).toMatchSnapshot();
   });
@@ -24,9 +26,8 @@ describe('addCodecovBypassWorkflowYml - codecov-bypass .yml file added', () => {
     });
     codecovBypassWorkflow.addCodecovBypassWorkflowYml(project, {
       workflowName: 'workflowName',
-      CodecovGithubAppId: 111,
-      githubAppId: 222,
-      githubAppPrivateKey: 'github-app-private-key',
+      githubAppId: '${{ vars.GH_APP_ID_VAR_NAME }}',
+      githubAppPrivateKey: 'r${{ secrets.GH_APP_ID_PRIVATE_KEY_SECRET_NAME }}',
       skipLabel: 'skipLabel',
       checkName: 'checkName',
       checkSuiteCheckNames: ['checkSuiteCheckName1', 'checkSuiteCheckName2'],
