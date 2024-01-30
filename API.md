@@ -12898,6 +12898,7 @@ const envToDiff: cdkDiffWorkflow.EnvToDiff = { ... }
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.name">name</a></code> | <code>string</code> | Unique name for the cdk diff action. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.oidcRoleArn">oidcRoleArn</a></code> | <code>string</code> | Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.stackSearchString">stackSearchString</a></code> | <code>string</code> | String to search for stacks to diff Example: `Qa`, 'Staging', 'Prod'. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.roleDuration">roleDuration</a></code> | <code>number</code> | Duration in seconds for the assumed role to be valid Defaut value: `900`. |
 
 ---
 
@@ -12954,6 +12955,18 @@ String to search for stacks to diff Example: `Qa`, 'Staging', 'Prod'.
 
 ---
 
+##### `roleDuration`<sup>Optional</sup> <a name="roleDuration" id="@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff.property.roleDuration"></a>
+
+```typescript
+public readonly roleDuration: number;
+```
+
+- *Type:* number
+
+Duration in seconds for the assumed role to be valid Defaut value: `900`.
+
+---
+
 ### ExplicitStacksEnvToDiff <a name="ExplicitStacksEnvToDiff" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff"></a>
 
 #### Initializer <a name="Initializer" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.Initializer"></a>
@@ -12972,6 +12985,7 @@ const explicitStacksEnvToDiff: cdkDiffWorkflow.ExplicitStacksEnvToDiff = { ... }
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.name">name</a></code> | <code>string</code> | Unique name for the cdk diff action. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.oidcRoleArn">oidcRoleArn</a></code> | <code>string</code> | Name of the OIDC role name which contains neccesasry IAM policies to run the CDK diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.stacks">stacks</a></code> | <code>string[]</code> | Explicit stacks given instead of using stackSearchString to find stacks via cdk ls Example: `['stack1', 'stack2']`. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.roleDuration">roleDuration</a></code> | <code>number</code> | Duration in seconds for the assumed role to be valid Defaut value: `900`. |
 
 ---
 
@@ -13025,6 +13039,18 @@ public readonly stacks: string[];
 - *Type:* string[]
 
 Explicit stacks given instead of using stackSearchString to find stacks via cdk ls Example: `['stack1', 'stack2']`.
+
+---
+
+##### `roleDuration`<sup>Optional</sup> <a name="roleDuration" id="@time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff.property.roleDuration"></a>
+
+```typescript
+public readonly roleDuration: number;
+```
+
+- *Type:* number
+
+Duration in seconds for the assumed role to be valid Defaut value: `900`.
 
 ---
 
