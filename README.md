@@ -186,8 +186,8 @@ Watch with awe and wonder as projen stamps out a project with
   - Collaborators and Teams: https://github.com/time-loop/my-new-repo/settings/access
     - You MUST either grant `write` to the `cu-infra-svc-git` machine user (who is a member of the `@time-loop/devops` team) OR you can provide your own `PROJEN_GITHUB_TOKEN` with a GitHub PAT
     - Other than the bot user, you should probably avoid granting access directly to users, but instead grant to teams.
-    - You should probably grant `admin` to your team.
-      Otherwise, you should almost certainly grant `admin` to your manager.
+    - You should probably grant `maintain` to your team.
+      Otherwise, you should almost certainly grant `maintain` to your manager.
     - If this is a `-cdk` repo, please grant `admin` to `@time-loop/devops`.
     - You should probably grant `write` to the `@time-loop/ft_engineering` team (these are full-time engineers).
     - You should probably grant `write` to the `@time-loop/timeloop` team (this is a broader group).
