@@ -10,21 +10,21 @@ on:
       - completed
   pull_request:
     types:
-      - labelled
+      - labeled
       - unlabeled
 permissions: {}
 jobs:
   code-coverage-increased:
     runs-on: ubuntu-latest
-    if: github.event_name == 'check_suite' || github.event.check_suite.app.id == 254
+    if: github.event_name != 'check_suite' || github.event.check_suite.app.id == 254
     steps:
       - name: Check codecov results
         uses: time-loop/github-actions/dist/wrap-check-suite@wrap-check-suite+0.3.2
         env:
           FORCE_COLOR: 3
         with:
-          github-app-id: \${{ secrets.CLICKUP_GITHUB_BOT_APP_ID }}
-          github-private-key: \${{ secrets.CLICKUP_GITHUB_BOT_PRIVATE_KEY }}
+          github-app-id: \${{ vars.CODECOV_GITHUB_APP_ID }}
+          github-private-key: \${{ secrets.CODECOV_GITHUB_APP_PRIVATE_KEY }}
           skip-label: code coverage not required
           check-name: Code coverage increased
           check-suite-app-id: 254
@@ -43,24 +43,24 @@ on:
       - completed
   pull_request:
     types:
-      - labelled
+      - labeled
       - unlabeled
 permissions: {}
 jobs:
   code-coverage-increased:
     runs-on: ubuntu-latest
-    if: github.event_name == 'check_suite' || github.event.check_suite.app.id == 111
+    if: github.event_name != 'check_suite' || github.event.check_suite.app.id == 254
     steps:
       - name: Check codecov results
         uses: time-loop/github-actions/dist/wrap-check-suite@wrap-check-suite+0.3.2
         env:
           FORCE_COLOR: 3
         with:
-          github-app-id: 222
-          github-private-key: github-app-private-key
+          github-app-id: \${{ vars.GH_APP_ID_VAR_NAME }}
+          github-private-key: r\${{ secrets.GH_APP_ID_PRIVATE_KEY_SECRET_NAME }}
           skip-label: skipLabel
           check-name: checkName
-          check-suite-app-id: 111
+          check-suite-app-id: 254
           check-suite-check-names: checkSuiteCheckName1,checkSuiteCheckName2
           details-url: some url
 "

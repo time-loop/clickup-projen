@@ -10,10 +10,7 @@ describe('addCodecovBypassWorkflowYml - codecov-bypass .yml file added', () => {
       defaultReleaseBranch: 'main',
       name: 'test',
     });
-    codecovBypassWorkflow.addCodecovBypassWorkflowYml(project, {
-      githubAppId: 'reference to some secret',
-      githubAppPrivateKey: 'reference to some secret',
-    });
+    codecovBypassWorkflow.addCodecovBypassWorkflowYml(project);
     const synth = Testing.synth(project);
     expect(synth['.github/workflows/codecov-bypass.yml']).toMatchSnapshot();
   });
@@ -35,5 +32,18 @@ describe('addCodecovBypassWorkflowYml - codecov-bypass .yml file added', () => {
     });
     const synth = Testing.synth(project);
     expect(synth['.github/workflows/codecov-bypass.yml']).toMatchSnapshot();
+  });
+
+  test('disabled', () => {
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      cdkVersion: '2.91.0',
+      defaultReleaseBranch: 'main',
+      name: 'test',
+    });
+    codecovBypassWorkflow.addCodecovBypassWorkflowYml(project, {
+      disabled: true,
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/codecov-bypass.yml']).toBeUndefined();
   });
 });

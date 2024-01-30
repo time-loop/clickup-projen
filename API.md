@@ -5085,6 +5085,7 @@ const clickUpCdkCommonOptions: clickupCdk.ClickUpCdkCommonOptions = { ... }
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.cdkDiffOptionsConfig">cdkDiffOptionsConfig</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig</code> | Cdk diff options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.codecovBypassOptionsConfig">codecovBypassOptionsConfig</a></code> | <code>@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig</code> | Codecov Bypass options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
@@ -5129,6 +5130,19 @@ public readonly cdkDiffOptionsConfig: CDKDiffOptionsConfig;
 - *Default:* undefined
 
 Cdk diff options.
+
+---
+
+##### `codecovBypassOptionsConfig`<sup>Optional</sup> <a name="codecovBypassOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkCommonOptions.property.codecovBypassOptionsConfig"></a>
+
+```typescript
+public readonly codecovBypassOptionsConfig: CodecovBypassOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig
+- *Default:* undefined
+
+Codecov Bypass options.
 
 ---
 
@@ -5378,6 +5392,7 @@ const clickUpCdkConstructLibraryOptions: clickupCdk.ClickUpCdkConstructLibraryOp
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.cdkDiffOptionsConfig">cdkDiffOptionsConfig</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig</code> | Cdk diff options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.codecovBypassOptionsConfig">codecovBypassOptionsConfig</a></code> | <code>@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig</code> | Codecov Bypass options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
@@ -7890,6 +7905,19 @@ Cdk diff options.
 
 ---
 
+##### `codecovBypassOptionsConfig`<sup>Optional</sup> <a name="codecovBypassOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.codecovBypassOptionsConfig"></a>
+
+```typescript
+public readonly codecovBypassOptionsConfig: CodecovBypassOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig
+- *Default:* undefined
+
+Codecov Bypass options.
+
+---
+
 ##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkConstructLibraryOptions.property.renovateOptionsConfig"></a>
 
 ```typescript
@@ -8127,6 +8155,7 @@ const clickUpCdkTypeScriptAppOptions: clickupCdk.ClickUpCdkTypeScriptAppOptions 
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnRelease">sendSlackWebhookOnRelease</a></code> | <code>boolean</code> | Should we send a slack webhook on release (required for compliance audits). |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendSlackWebhookOnReleaseOpts">sendSlackWebhookOnReleaseOpts</a></code> | <code>@time-loop/clickup-projen.slackAlert.ReleaseEventOptions</code> | Slack alert on release options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.cdkDiffOptionsConfig">cdkDiffOptionsConfig</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig</code> | Cdk diff options. |
+| <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.codecovBypassOptionsConfig">codecovBypassOptionsConfig</a></code> | <code>@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig</code> | Codecov Bypass options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.renovateOptionsConfig">renovateOptionsConfig</a></code> | <code>@time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig</code> | Renovate options. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEvent">sendReleaseEvent</a></code> | <code>boolean</code> | Feature flag for datadog event sending on release. |
 | <code><a href="#@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.sendReleaseEventOpts">sendReleaseEventOpts</a></code> | <code>@time-loop/clickup-projen.datadog.ReleaseEventOptions</code> | Datadog event options to use on release. |
@@ -10505,6 +10534,19 @@ Cdk diff options.
 
 ---
 
+##### `codecovBypassOptionsConfig`<sup>Optional</sup> <a name="codecovBypassOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.codecovBypassOptionsConfig"></a>
+
+```typescript
+public readonly codecovBypassOptionsConfig: CodecovBypassOptionsConfig;
+```
+
+- *Type:* @time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig
+- *Default:* undefined
+
+Codecov Bypass options.
+
+---
+
 ##### `renovateOptionsConfig`<sup>Optional</sup> <a name="renovateOptionsConfig" id="@time-loop/clickup-projen.clickupCdk.ClickUpCdkTypeScriptAppOptions.property.renovateOptionsConfig"></a>
 
 ```typescript
@@ -12817,6 +12859,135 @@ public readonly renovateOptionsConfig: RenovateOptionsConfig;
 ```
 
 - *Type:* @time-loop/clickup-projen.renovateWorkflow.RenovateOptionsConfig
+
+---
+
+### CodecovBypassOptionsConfig <a name="CodecovBypassOptionsConfig" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig"></a>
+
+#### Initializer <a name="Initializer" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.Initializer"></a>
+
+```typescript
+import { codecovBypassWorkflow } from '@time-loop/clickup-projen'
+
+const codecovBypassOptionsConfig: codecovBypassWorkflow.CodecovBypassOptionsConfig = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.checkName">checkName</a></code> | <code>string</code> | Check Name. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.checkSuiteCheckNames">checkSuiteCheckNames</a></code> | <code>string[]</code> | Check Suite Check Names. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.detailsUrl">detailsUrl</a></code> | <code>string</code> | Details URL. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.disabled">disabled</a></code> | <code>boolean</code> | Skip creating (using) the workflow. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.githubAppId">githubAppId</a></code> | <code>string</code> | GitHub App ID. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.githubAppPrivateKey">githubAppPrivateKey</a></code> | <code>string</code> | GitHub App Private Key. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.skipLabel">skipLabel</a></code> | <code>string</code> | Skip Label. |
+| <code><a href="#@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.workflowName">workflowName</a></code> | <code>string</code> | Workflow Name. |
+
+---
+
+##### `checkName`<sup>Optional</sup> <a name="checkName" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.checkName"></a>
+
+```typescript
+public readonly checkName: string;
+```
+
+- *Type:* string
+- *Default:* 'Code coverage increased'
+
+Check Name.
+
+---
+
+##### `checkSuiteCheckNames`<sup>Optional</sup> <a name="checkSuiteCheckNames" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.checkSuiteCheckNames"></a>
+
+```typescript
+public readonly checkSuiteCheckNames: string[];
+```
+
+- *Type:* string[]
+- *Default:* ['codecov/patch', 'codecov/project']
+
+Check Suite Check Names.
+
+---
+
+##### `detailsUrl`<sup>Optional</sup> <a name="detailsUrl" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.detailsUrl"></a>
+
+```typescript
+public readonly detailsUrl: string;
+```
+
+- *Type:* string
+- *Default:* 'https://app.codecov.io/gh/${{ github.repository }}/pull/<% prNumber %>'
+
+Details URL.
+
+---
+
+##### `disabled`<sup>Optional</sup> <a name="disabled" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.disabled"></a>
+
+```typescript
+public readonly disabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Skip creating (using) the workflow.
+
+---
+
+##### `githubAppId`<sup>Optional</sup> <a name="githubAppId" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.githubAppId"></a>
+
+```typescript
+public readonly githubAppId: string;
+```
+
+- *Type:* string
+- *Default:* '${{ vars.CODECOV_GITHUB_APP_ID }}'
+
+GitHub App ID.
+
+---
+
+##### `githubAppPrivateKey`<sup>Optional</sup> <a name="githubAppPrivateKey" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.githubAppPrivateKey"></a>
+
+```typescript
+public readonly githubAppPrivateKey: string;
+```
+
+- *Type:* string
+- *Default:* '${{ secrets.CODECOV_GITHUB_APP_PRIVATE_KEY }}'
+
+GitHub App Private Key.
+
+---
+
+##### `skipLabel`<sup>Optional</sup> <a name="skipLabel" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.skipLabel"></a>
+
+```typescript
+public readonly skipLabel: string;
+```
+
+- *Type:* string
+- *Default:* 'code coverage not required'
+
+Skip Label.
+
+---
+
+##### `workflowName`<sup>Optional</sup> <a name="workflowName" id="@time-loop/clickup-projen.codecovBypassWorkflow.CodecovBypassOptionsConfig.property.workflowName"></a>
+
+```typescript
+public readonly workflowName: string;
+```
+
+- *Type:* string
+- *Default:* 'Code coverage increased'
+
+Workflow Name.
 
 ---
 
