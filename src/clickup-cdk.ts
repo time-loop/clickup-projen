@@ -7,6 +7,7 @@ import { cdkContextJson } from './cdk-context-json';
 import { cdkDiffWorkflow } from './cdk-diff-workflow';
 import { clickupTs } from './clickup-ts';
 import { codecov } from './codecov';
+import { codecovBypassWorkflow } from './codecov-bypass-workflow';
 import { datadog } from './datadog';
 import { datadogServiceCatalog } from './datadog-service-catalog';
 import { nodeVersion } from './node-version';
@@ -87,6 +88,13 @@ export module clickupCdk {
     readonly cdkDiffOptionsConfig?: cdkDiffWorkflow.CDKDiffOptionsConfig;
 
     /**
+     * Codecov Bypass options
+     *
+     * @default undefined
+     */
+    readonly codecovBypassOptionsConfig?: codecovBypassWorkflow.CodecovBypassOptionsConfig;
+
+    /**
      * Datadog Service Catalog options
      *
      * @default undefined
@@ -123,6 +131,7 @@ export module clickupCdk {
         repositoryUrl,
         renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
         cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
+        codecovBypassOptions: codecovBypassWorkflow.getCodecovBypassOptions(options.codecovBypassOptionsConfig),
       });
       super(mergedOptions);
       clickupTs.fixTsNodeDeps(this.package);
@@ -231,6 +240,9 @@ export module clickupCdk {
         if (options.cdkDiffOptionsConfig.createOidcRoleStack) {
           cdkDiffWorkflow.addOidcRoleStack(this);
         }
+      }
+      if (options.codecovBypassOptionsConfig) {
+        codecovBypassWorkflow.addCodecovBypassWorkflowYml(this, options.codecovBypassOptionsConfig);
       }
 
       if (options.cdkContextJsonOptions) {
