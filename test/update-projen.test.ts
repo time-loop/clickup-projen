@@ -11,6 +11,6 @@ describe('addAddToProjectWorkflowYml', () => {
     updateProjen.addWorkflows(project);
     const synth = Testing.synth(project);
     expect(synth['.github/workflows/add-to-update-projen-project.yml']).toMatchSnapshot();
-    expect(synth['.github/workflows/upgrade-projen-main.yml']).toMatchSnapshot();
+    expect(synth['.github/workflows/update-projen-main.yml']).toMatchSnapshot();
   });
 });

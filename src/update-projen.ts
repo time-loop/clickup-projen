@@ -46,6 +46,8 @@ export module updateProjen {
       pullRequestTitle: 'upgrade projen',
       semanticCommit: 'fix', // let's get this into the changelog.
       taskName: UPDATE_PROJEN_PR_LABEL,
+      // Defaults to minor otherwise which means if we ship a breaking change to projen it never gets propagated out
+      target: 'latest',
       workflowOptions: {
         schedule: UpgradeDependenciesSchedule.MONTHLY,
         labels: [UPDATE_PROJEN_PR_LABEL],
