@@ -124,15 +124,23 @@ export module clickupCdk {
       const authorAddress = options.authorAddress || clickupTs.defaults.authorAddress;
       // Theoretically we should be able to just take a default here, but for some reason this is required.
       const repositoryUrl = options.repositoryUrl || `https://github.com/${name.substring(1)}.git`;
-      const mergedOptions = merge(clickupTs.defaults, { jsiiVersion: '5.0.*' }, options, {
-        authorName,
-        authorAddress,
-        name,
-        repositoryUrl,
-        renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
-        cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
-        codecovBypassOptions: codecovBypassWorkflow.getCodecovBypassOptions(options.codecovBypassOptionsConfig),
-      });
+      const mergedOptions = merge(
+        clickupTs.defaults,
+        {
+          jsiiVersion: '~5.3.0', // Force JSII upgrade CLK-469895
+          typescriptVersion: '~5.3.0',
+        },
+        options,
+        {
+          authorName,
+          authorAddress,
+          name,
+          repositoryUrl,
+          renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+          cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
+          codecovBypassOptions: codecovBypassWorkflow.getCodecovBypassOptions(options.codecovBypassOptionsConfig),
+        },
+      );
       super(mergedOptions);
       clickupTs.fixTsNodeDeps(this.package);
       codecov.addCodeCovYml(this);
