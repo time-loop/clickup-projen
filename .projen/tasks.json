@@ -262,7 +262,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=projen,@time-loop/clickup-projen"
+          "exec": "npx npm-check-updates@16 --upgrade --target=latest --peer --dep=dev,peer,prod,optional --filter=projen,@time-loop/clickup-projen"
         },
         {
           "exec": "yarn install --check-files"
