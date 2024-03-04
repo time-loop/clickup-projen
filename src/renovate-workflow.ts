@@ -1,4 +1,5 @@
-import assert from 'node:assert';
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- impossible for this to work with npx projen build otherwise
+import assert = require('node:assert');
 import { typescript, YamlFile, RenovatebotOptions } from 'projen';
 import merge from 'ts-deepmerge';
 
