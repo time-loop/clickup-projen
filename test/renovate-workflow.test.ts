@@ -21,6 +21,15 @@ describe('addRenovateWorkflowYml', () => {
     const synth = Testing.synth(project);
     expect(synth['.github/workflows/renovate.yml']).toMatchSnapshot();
   });
+  test('schedule time based on project name', () => {
+    const project = new typescript.TypeScriptProject({
+      defaultReleaseBranch: 'main',
+      name: 'another-project',
+    });
+    renovateWorkflow.addRenovateWorkflowYml(project);
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/renovate.yml']).toContain('cron: 55 0 * * MON-FRI');
+  });
 });
 
 describe('getRenovateOptions', () => {
