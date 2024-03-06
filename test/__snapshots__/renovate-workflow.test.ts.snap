@@ -6,7 +6,7 @@ exports[`addRenovateWorkflowYml file added 1`] = `
 name: upgrade-main
 on:
   schedule:
-    - cron: 0 0 * * MON-FRI
+    - cron: 25 0 * * MON-FRI
   workflow_dispatch: {}
   push:
     branches:
@@ -51,7 +51,7 @@ exports[`addRenovateWorkflowYml override 1`] = `
 name: upgrade-main
 on:
   schedule:
-    - cron: 0 0 * * MON-FRI
+    - cron: 25 0 * * MON-FRI
   workflow_dispatch: {}
   push:
     branches:
@@ -149,7 +149,7 @@ exports[`getRenovateOptions defaults 1`] = `
     "rangeStrategy": "bump",
   },
   "scheduleInterval": [
-    "before 1am on Monday",
+    "before 2am on Monday",
   ],
 }
 `;
