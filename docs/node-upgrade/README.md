@@ -11,9 +11,9 @@ Do so at your own risk and make sure you know what you are doing.
 
 ## Steps
 
-1. Update your `.projenrc.ts` with `workflowNodeVersion: '20.5.1'` or whatever version of node you want to use.
+1. Update your `.projenrc.ts` with `workflowNodeVersion: '20.11.1'` or whatever version of node you want to use.
 ![.projenrc.ts](./projenrcts.png)
-1. Run `npx projen`, `git add .`, and `git commit -m "feat: upgrade node to v20.5.1"` as appropriate. Push and merge.
+1. Run `npx projen`, `git add .`, and `git commit -m "feat: upgrade node to v20.11.1"` as appropriate. Push and merge.
 
 ## Troubleshooting
 

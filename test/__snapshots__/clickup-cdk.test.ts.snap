@@ -10,7 +10,7 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
   },
   "devDependencies": {
     "@types/jest": "*",
-    "@types/node": "^18",
+    "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk-lib": "2.91.0",
@@ -37,7 +37,7 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
     "typescript": "~5.3.0",
   },
   "engines": {
-    "node": ">= 18.17.1",
+    "node": ">= 20.11.1",
   },
   "jest": {
     "clearMocks": true,
@@ -180,7 +180,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -213,7 +213,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -243,7 +243,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -373,7 +373,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -406,7 +406,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -497,7 +497,7 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
   },
   "devDependencies": {
     "@types/jest": "*",
-    "@types/node": "^18",
+    "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk": "^2.91.0",
@@ -518,7 +518,7 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
     "typescript": "*",
   },
   "engines": {
-    "node": ">= 18.17.1",
+    "node": ">= 20.11.1",
   },
   "jest": {
     "clearMocks": true,
@@ -1074,7 +1074,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
   "devDependencies": {
     "@time-loop/cdk-log-parser": "latest",
     "@types/jest": "*",
-    "@types/node": "^18",
+    "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk": "^2.91.0",
@@ -1095,7 +1095,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
     "typescript": "*",
   },
   "engines": {
-    "node": ">= 18.17.1",
+    "node": ">= 20.11.1",
   },
   "jest": {
     "clearMocks": true,
@@ -1275,7 +1275,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1308,7 +1308,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1456,7 +1456,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1489,7 +1489,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1641,7 +1641,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1674,7 +1674,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -1830,7 +1830,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -1863,7 +1863,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -2011,7 +2011,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release
@@ -2044,7 +2044,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
