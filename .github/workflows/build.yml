@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Install dependencies
         run: yarn install --check-files
       - name: build
@@ -96,7 +96,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.17.1
+          node-version: 20.11.1
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
