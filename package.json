@@ -35,8 +35,8 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "@types/node": "^18",
-    "@types/semver": "^7.5.7",
+    "@types/node": "^20",
+    "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "constructs": "^10.0.0",
@@ -74,7 +74,7 @@
     "ts-deepmerge"
   ],
   "engines": {
-    "node": ">= 18.17.1"
+    "node": ">= 20.11.1"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",

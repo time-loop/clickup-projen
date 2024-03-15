@@ -4,7 +4,7 @@
     "renovate"
   ],
   "schedule": [
-    "before 1am on Monday"
+    "before 2am on Monday"
   ],
   "extends": [
     "config:base",
