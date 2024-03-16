@@ -8,7 +8,7 @@ import { parameters } from './src/utils/parameters';
 
 const bundledDeps = ['cson-parser', 'semver', 'ts-deepmerge'];
 
-const minNodeVersion = '18.17.1';
+const minNodeVersion = '20.11.1';
 
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',

@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "@types/node": "^18",
+    "@types/node": "^20",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
@@ -53,18 +53,18 @@
     "jsii-pacmak": "^1.94.0",
     "jsii-rosetta": "5.0.x",
     "prettier": "^3.2.5",
-    "projen": "^0.78.5",
+    "projen": "^0.80.4",
     "standard-version": "^9",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
-    "projen": "^0.78.5"
+    "projen": "^0.80.4"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.78.5",
+    "projen": "^0.80.4",
     "semver": "^7.6.0",
     "ts-deepmerge": "^6.2.1"
   },
@@ -74,7 +74,7 @@
     "ts-deepmerge"
   ],
   "engines": {
-    "node": ">= 18.17.1"
+    "node": ">= 20.11.1"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
