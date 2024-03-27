@@ -73,6 +73,9 @@
     "semver",
     "ts-deepmerge"
   ],
+  "engines": {
+    "node": ">= 18.17.1"
+  },
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "publishConfig": {
