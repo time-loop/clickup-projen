@@ -47,11 +47,11 @@ export module renovateWorkflow {
           steps: [
             {
               name: 'Checkout',
-              uses: 'actions/checkout@v3',
+              uses: 'actions/checkout@v4',
             },
             {
               name: 'Self-hosted Renovate',
-              uses: 'renovatebot/github-action@v39.0.1', // We might want to un-pin this or figure out a renovate process for it.
+              uses: 'renovatebot/github-action@v40.1.6', // We might want to un-pin this or figure out a renovate process for it.
               // Skip running renovate in a loop when renovate updates the dependency dashboard issue and re-triggers this workflow
               if: `(github.event_name != 'issues' && github.event_name != 'pull_request') || github.actor != '${RENOVATE_GITHUB_USERNAME}'`,
               with: {
