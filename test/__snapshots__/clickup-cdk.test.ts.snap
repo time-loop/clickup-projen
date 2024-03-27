@@ -10,7 +10,7 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
   },
   "devDependencies": {
     "@types/jest": "*",
-    "@types/node": "^20",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk-lib": "2.91.0",
@@ -37,7 +37,7 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
     "typescript": "~5.3.0",
   },
   "engines": {
-    "node": ">= 20.11.1",
+    "node": ">= 18.17.1",
   },
   "jest": {
     "clearMocks": true,
@@ -517,7 +517,7 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
   },
   "devDependencies": {
     "@types/jest": "*",
-    "@types/node": "^20",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk": "^2.91.0",
@@ -538,7 +538,7 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
     "typescript": "*",
   },
   "engines": {
-    "node": ">= 20.11.1",
+    "node": ">= 18.17.1",
   },
   "jest": {
     "clearMocks": true,
@@ -1104,7 +1104,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
   "devDependencies": {
     "@time-loop/cdk-log-parser": "latest",
     "@types/jest": "*",
-    "@types/node": "^20",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "aws-cdk": "^2.91.0",
@@ -1125,7 +1125,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
     "typescript": "*",
   },
   "engines": {
-    "node": ">= 20.11.1",
+    "node": ">= 18.17.1",
   },
   "jest": {
     "clearMocks": true,

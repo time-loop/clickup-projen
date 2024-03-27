@@ -232,7 +232,7 @@ exports[`ClickUpTypeScriptProject defaults package.json 1`] = `
   },
   "devDependencies": {
     "@types/jest": "*",
-    "@types/node": "^20",
+    "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
     "constructs": "^10.0.0",
@@ -255,7 +255,7 @@ exports[`ClickUpTypeScriptProject defaults package.json 1`] = `
     "typescript": "*",
   },
   "engines": {
-    "node": ">= 20.11.1",
+    "node": ">= 18.17.1",
   },
   "jest": {
     "clearMocks": true,

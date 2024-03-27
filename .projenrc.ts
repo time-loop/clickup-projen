@@ -8,8 +8,6 @@ import { parameters } from './src/utils/parameters';
 
 const bundledDeps = ['cson-parser', 'semver', 'ts-deepmerge'];
 
-const minNodeVersion = '20.11.1';
-
 const project = new cdk.JsiiProject({
   name: '@time-loop/clickup-projen',
   author: 'ClickUp DevOps',
@@ -20,8 +18,8 @@ const project = new cdk.JsiiProject({
   jsiiVersion: '5.0.x',
   // Apache open source license, to match projen license
 
-  minNodeVersion,
-  workflowNodeVersion: minNodeVersion,
+  minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
+  workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
   defaultReleaseBranch: 'main',
   // release: true, // default
@@ -143,7 +141,7 @@ new YamlFile(project, 'codecov.yml', {
 });
 
 new TextFile(project, '.nvmrc', {
-  lines: [project.minNodeVersion ?? parameters.PROJEN_NODE_VERSION],
+  lines: [parameters.PROJEN_NODE_VERSION],
 });
 
 renovateWorkflow.addRenovateWorkflowYml(project);
