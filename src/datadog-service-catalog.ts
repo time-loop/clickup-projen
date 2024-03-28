@@ -132,7 +132,7 @@ export module datadogServiceCatalog {
         steps: [
           {
             name: 'Download build artifacts',
-            uses: 'actions/download-artifact@v3',
+            uses: 'actions/download-artifact@v4',
             with: {
               name: 'build-artifact',
               path: project.release!.artifactsDirectory,
