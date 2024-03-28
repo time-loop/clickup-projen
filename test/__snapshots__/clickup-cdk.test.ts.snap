@@ -299,7 +299,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -324,7 +324,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -452,7 +452,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -477,7 +477,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -914,7 +914,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -939,7 +939,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1374,7 +1374,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1399,7 +1399,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1424,7 +1424,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1565,7 +1565,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1590,7 +1590,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1615,7 +1615,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1760,7 +1760,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1785,7 +1785,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1810,7 +1810,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1959,7 +1959,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -1984,7 +1984,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -2009,7 +2009,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -2150,7 +2150,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
@@ -2175,7 +2175,7 @@ jobs:
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
