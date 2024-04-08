@@ -1,12 +1,9 @@
 import { awscdk, Testing } from 'projen';
+import { requiredParams } from './requiredParams';
 import { cdkContextJson } from '../src/cdk-context-json';
 
 describe('injectAwsAuthIntoBuild', () => {
-  const project = new awscdk.AwsCdkTypeScriptApp({
-    cdkVersion: '2.1.0',
-    defaultReleaseBranch: 'main',
-    name: 'foo',
-  });
+  const project = new awscdk.AwsCdkTypeScriptApp(requiredParams);
   const lookupAccountId = '123412341234';
   cdkContextJson.injectAwsAuthIntoBuild(project, {
     lookupAccountId,
@@ -23,11 +20,7 @@ describe('injectAwsAuthIntoBuild', () => {
 });
 
 describe('addOidcRoleStack', () => {
-  const project = new awscdk.AwsCdkTypeScriptApp({
-    cdkVersion: '2.1.0',
-    defaultReleaseBranch: 'main',
-    name: 'foo',
-  });
+  const project = new awscdk.AwsCdkTypeScriptApp(requiredParams);
   cdkContextJson.addOidcRoleStack(project);
   const synth = Testing.synth(project);
   test('adds stack definition', () => {

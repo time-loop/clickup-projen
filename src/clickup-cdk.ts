@@ -17,6 +17,12 @@ import { slackAlert } from './slack-alert';
 import { updateProjen } from './update-projen';
 
 export module clickupCdk {
+  // We added support for x-region replication bucket sharing
+  // in https://github.com/aws/aws-cdk/pull/28447 which was released in v2.119.0
+  // Security needs us to start reaping the orphaned buckets: SEC-8843
+  const minCdkVersion = '2.119.0';
+  const defaultCdkVersion = '2.135.0'; // Arbitrary newish version. Most developers will want the latest.
+
   export const deps = [
     ...clickupTs.deps,
     '@time-loop/cdk-library',
@@ -205,16 +211,14 @@ export module clickupCdk {
         throw new Error('pnpm not supported by cdkPipelines: https://staging.clickup.com/t/333/CLK-252116');
       }
 
-      // AWS turned off node12 support. cdk changed the node version for their asset bundling in
-      // https://github.com/aws/aws-cdk/releases/tag/v2.64.0
-      // This cdkVersion is actually the minimum version that's compatible. It only affects devDeps.
+      // This cdkVersion is actually the minimum version that's compatible. This only affects devDeps.
       // This really only affects users when they try to deploy directly from their laptop.
       // When deploying from cdkPipelines, it will use whatever version the library is currently on per yarn.lock.
       let cdkVersion = undefined;
-      if (semver.lt(options.cdkVersion, '2.64.0')) {
-        cdkVersion = '2.87.0'; // Arbitrary newish version. Most developers will want the latest.
+      if (semver.lt(options.cdkVersion, minCdkVersion)) {
+        cdkVersion = defaultCdkVersion;
         console.warn(
-          `Your cdkVersion of ${options.cdkVersion} is less than 2.64.0. We recommend using latest, which you can find at https://github.com/aws/aws-cdk/releases . Until you explicitly set something, we are pushing to ${cdkVersion}`,
+          `Your cdkVersion of ${options.cdkVersion} is less than ${minCdkVersion}. We recommend using latest, which you can find at https://github.com/aws/aws-cdk/releases . Until you explicitly set something the is compliant, we are pushing to ${defaultCdkVersion}`,
         );
       }
 
