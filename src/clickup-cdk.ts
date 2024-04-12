@@ -17,11 +17,9 @@ import { slackAlert } from './slack-alert';
 import { updateProjen } from './update-projen';
 
 export module clickupCdk {
-  // We added support for x-region replication bucket sharing
-  // in https://github.com/aws/aws-cdk/pull/28447 which was released in v2.119.0
-  // Security needs us to start reaping the orphaned buckets: SEC-8843
-  const minCdkVersion = '2.119.0';
-  const defaultCdkVersion = '2.135.0'; // Arbitrary newish version. Most developers will want the latest.
+  // https://github.com/time-loop/cdk-ecs-fargate/pull/476
+  const minCdkVersion = '2.137.0';
+  const defaultCdkVersion = '2.137.0'; // Arbitrary newish version. Most developers will want the latest.
 
   export const deps = [
     ...clickupTs.deps,
