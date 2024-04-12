@@ -1,13 +1,8 @@
 import path from 'path';
 import { Testing, javascript } from 'projen';
+import { requiredParams } from './requiredParams';
 import { clickupCdk } from '../src';
 import { datadogServiceCatalog } from '../src/datadog-service-catalog';
-
-const requiredParams = {
-  name: 'test',
-  cdkVersion: '2.91.0',
-  defaultReleaseBranch: 'main',
-};
 
 describe('ClickUpCdkTypeScriptApp', () => {
   describe('defaults', () => {

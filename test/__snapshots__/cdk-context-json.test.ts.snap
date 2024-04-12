@@ -16,7 +16,7 @@ export class GitHubActionsOIDCCdkContextLookupRole extends core.Stack {
     })();
   }
   constructor(scope: Construct, props: core.StackProps) {
-    const projectName = 'foo';
+    const projectName = 'test';
     // NOTE: you should never deploy this anywhere but the cdkPipelines account
     // And the GitHubActionsOIDCPermissions class for cdk-diff should never be deployed
     // in the cdkPipelines account. Name collision is intentional here.
@@ -80,7 +80,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-west-2
-          role-to-assume: arn:aws:iam::123412341234:role/foo-github-actions-role
+          role-to-assume: arn:aws:iam::123412341234:role/test-github-actions-role
           role-duration-seconds: 900
       - name: Checkout
         uses: actions/checkout@v4
