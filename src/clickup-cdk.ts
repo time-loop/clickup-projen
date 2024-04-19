@@ -17,9 +17,8 @@ import { slackAlert } from './slack-alert';
 import { updateProjen } from './update-projen';
 
 export module clickupCdk {
-  // https://github.com/time-loop/cdk-ecs-fargate/pull/476
-  const minCdkVersion = '2.137.0';
-  const defaultCdkVersion = '2.137.0'; // Arbitrary newish version. Most developers will want the latest.
+  const minCdkVersion = '2.138.0'; // https://github.com/aws/aws-cdk/issues/29746
+  const defaultCdkVersion = '2.138.0';
 
   export const deps = [
     ...clickupTs.deps,
