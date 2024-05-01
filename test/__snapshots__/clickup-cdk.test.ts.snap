@@ -1102,7 +1102,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
     "source-map": "^0.7.4",
   },
   "devDependencies": {
-    "@time-loop/cdk-log-parser": "latest",
+    "@time-loop/cdk-log-parser": "*",
     "@types/jest": "*",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
