@@ -15,7 +15,7 @@ const project = new cdk.JsiiProject({
   authorName: 'ClickUp DevOps',
   authorOrganization: true,
   majorVersion: 1, // trigger a 1.0.0 release
-  jsiiVersion: '5.0.x',
+  jsiiVersion: '~5.4.0', // per note, JSII since v5.0.0 are not semver'd so... stick with minor version updates.
   // Apache open source license, to match projen license
 
   minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
