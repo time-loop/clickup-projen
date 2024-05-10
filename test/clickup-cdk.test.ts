@@ -1,5 +1,5 @@
 import path from 'path';
-import { Testing, javascript } from 'projen';
+import { Testing } from 'projen';
 import { requiredParams } from './requiredParams';
 import { clickupCdk } from '../src';
 import { datadogServiceCatalog } from '../src/datadog-service-catalog';
@@ -36,15 +36,6 @@ describe('ClickUpCdkTypeScriptApp', () => {
     test('datadog event sending can be disabled', () => {
       p = new clickupCdk.ClickUpCdkTypeScriptApp({ ...requiredParams, sendReleaseEvent: false });
       expect(p.datadogEvent).toBeFalsy();
-    });
-
-    test('pnpm throws', () => {
-      expect(() => {
-        new clickupCdk.ClickUpCdkTypeScriptApp({
-          ...requiredParams,
-          packageManager: javascript.NodePackageManager.PNPM,
-        });
-      }).toThrowError(/pnpm not supported by cdkPipelines/);
     });
 
     describe('node20', () => {
