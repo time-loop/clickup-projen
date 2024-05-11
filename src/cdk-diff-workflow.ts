@@ -17,7 +17,7 @@ export module cdkDiffWorkflow {
       with: {
         version: options.pnpmVersion ?? '9',
       },
-    }
+    };
 
     const defaultWorkflow = {
       name: 'cdk-diff',
@@ -62,7 +62,7 @@ export module cdkDiffWorkflow {
                 'node-version': options.nodeVersion ?? parameters.PROJEN_NODE_VERSION,
               },
             },
-            ...(options.packageManager === javascript.NodePackageManager.PNPM? [installPnpm] : []),
+            ...(options.packageManager === javascript.NodePackageManager.PNPM ? [installPnpm] : []),
             {
               name: 'Install dependencies',
               run: installDeps,
