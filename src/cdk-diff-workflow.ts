@@ -11,6 +11,14 @@ export module cdkDiffWorkflow {
         ? 'pnpm i --frozen-lockfile'
         : 'yarn install --check-files';
 
+    const installPnpm = {
+      name: 'Setup pnpm',
+      uses: 'pnpm/action-setup@v3',
+      with: {
+        version: options.pnpmVersion ?? '9',
+      },
+    };
+
     const defaultWorkflow = {
       name: 'cdk-diff',
       on: {
@@ -54,6 +62,7 @@ export module cdkDiffWorkflow {
                 'node-version': options.nodeVersion ?? parameters.PROJEN_NODE_VERSION,
               },
             },
+            ...(options.packageManager === javascript.NodePackageManager.PNPM ? [installPnpm] : []),
             {
               name: 'Install dependencies',
               run: installDeps,
@@ -294,6 +303,12 @@ export module cdkDiffWorkflow {
      * @default - the packageManager in the project
      */
     readonly packageManager?: javascript.NodePackageManager;
+
+    /**
+     * What version of pnpm?
+     * @default - 9 if you are using PNPM
+     */
+    readonly pnpmVersion?: string;
   }
 
   export function getCDKDiffOptions(options?: CDKDiffOptionsConfig) {
@@ -310,6 +325,7 @@ export module cdkDiffWorkflow {
         ...createCdkDiffWorkflow({
           nodeVersion: project.workflowNodeVersion,
           packageManager: project.package.packageManager,
+          pnpmVersion: project.package.pnpmVersion,
           ...options,
         }),
         ...override,
