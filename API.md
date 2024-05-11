@@ -5025,6 +5025,7 @@ const cDKDiffOptionsConfig: cdkDiffWorkflow.CDKDiffOptionsConfig = { ... }
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.nodeVersion">nodeVersion</a></code> | <code>string</code> | Specify a nodeVersion. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.envsToDiff">envsToDiff</a></code> | <code>@time-loop/clickup-projen.cdkDiffWorkflow.EnvToDiff \| @time-loop/clickup-projen.cdkDiffWorkflow.ExplicitStacksEnvToDiff[]</code> | Collection of environments to cdk diff. |
 | <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.createOidcRoleStack">createOidcRoleStack</a></code> | <code>boolean</code> | Detrmines if the OIDC role stack should be created. |
+| <code><a href="#@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.packageManager">packageManager</a></code> | <code>projen.javascript.NodePackageManager</code> | Which package manager is being used? |
 
 ---
 
@@ -5062,6 +5063,19 @@ public readonly createOidcRoleStack: boolean;
 - *Type:* boolean
 
 Detrmines if the OIDC role stack should be created.
+
+---
+
+##### `packageManager`<sup>Optional</sup> <a name="packageManager" id="@time-loop/clickup-projen.cdkDiffWorkflow.CDKDiffOptionsConfig.property.packageManager"></a>
+
+```typescript
+public readonly packageManager: NodePackageManager;
+```
+
+- *Type:* projen.javascript.NodePackageManager
+- *Default:* the packageManager in the project
+
+Which package manager is being used?
 
 ---
 
