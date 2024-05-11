@@ -1,4 +1,4 @@
-import { SampleFile, YamlFile } from 'projen';
+import { SampleFile, YamlFile, javascript } from 'projen';
 import { NodePackage } from 'projen/lib/javascript';
 import { clickupCdk } from './clickup-cdk';
 import { OptionalNodeVersion } from './optional-node-version';
@@ -6,6 +6,11 @@ import { parameters } from './utils/parameters';
 
 export module cdkDiffWorkflow {
   function createCdkDiffWorkflow(options: CDKDiffOptionsConfig) {
+    const installDeps =
+      options.packageManager === javascript.NodePackageManager.PNPM
+        ? 'pnpm i --frozen-lockfile'
+        : 'yarn install --check-files';
+
     const defaultWorkflow = {
       name: 'cdk-diff',
       on: {
@@ -51,7 +56,7 @@ export module cdkDiffWorkflow {
             },
             {
               name: 'Install dependencies',
-              run: 'yarn install --check-files',
+              run: installDeps,
             },
             createStackCaptureStep(options.envsToDiff),
             ...createDiffSteps(options.envsToDiff).flat(),
@@ -283,6 +288,12 @@ export module cdkDiffWorkflow {
      * Detrmines if the OIDC role stack should be created
      */
     readonly createOidcRoleStack?: boolean;
+
+    /**
+     * Which package manager is being used?
+     * @default - the packageManager in the project
+     */
+    readonly packageManager?: javascript.NodePackageManager;
   }
 
   export function getCDKDiffOptions(options?: CDKDiffOptionsConfig) {
@@ -295,7 +306,14 @@ export module cdkDiffWorkflow {
     override?: any,
   ): void {
     new YamlFile(project, '.github/workflows/cdk-diff.yml', {
-      obj: { ...createCdkDiffWorkflow({ nodeVersion: project.workflowNodeVersion, ...options }), ...override },
+      obj: {
+        ...createCdkDiffWorkflow({
+          nodeVersion: project.workflowNodeVersion,
+          packageManager: project.package.packageManager,
+          ...options,
+        }),
+        ...override,
+      },
     });
   }
 
