@@ -1,4 +1,4 @@
-import { Testing } from 'projen';
+import { Testing, javascript } from 'projen';
 // import * as Yaml from 'yaml';
 
 import { requiredParams } from './requiredParams';
@@ -43,6 +43,26 @@ describe('addCdkDiffWorkflowYml - cdk diff.yml file added', () => {
     const project = new clickupCdk.ClickUpCdkTypeScriptApp({
       ...requiredParams,
       workflowNodeVersion: '20.5.1',
+    });
+    cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
+      envsToDiff: [
+        {
+          name: 'qa',
+          oidcRoleArn: 'arn:aws:iam::123456789012:role/squad-github-actions-oidc-role-name-qa',
+          labelToApplyWhenNoDiffPresent: 'qa-no-changes',
+          stackSearchString: 'Qa',
+        },
+      ],
+    });
+    const synth = Testing.synth(project);
+    expect(synth['.github/workflows/cdk-diff.yml']).toMatchSnapshot();
+  });
+
+  test('pnpm', () => {
+    const project = new clickupCdk.ClickUpCdkTypeScriptApp({
+      ...requiredParams,
+      packageManager: javascript.NodePackageManager.PNPM,
+      pnpmVersion: '9',
     });
     cdkDiffWorkflow.addCdkDiffWorkflowYml(project, {
       envsToDiff: [
