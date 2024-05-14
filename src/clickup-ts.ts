@@ -52,7 +52,7 @@ export module clickupTs {
         // This does some env var obverloading where the release step also defines NPM_TOKEN with the action token that allows uploading
         env: { NPM_TOKEN: '${{ secrets.ALL_PACKAGE_READ_TOKEN }}' },
         run: [
-          'cat > .npmrc <<EOF',
+          'cat > ~/.npmrc <<EOF',
           '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}',
           '@time-loop:registry=https://npm.pkg.github.com/',
           'EOF',
