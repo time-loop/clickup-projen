@@ -65,7 +65,7 @@
   "dependencies": {
     "cson-parser": "^4.0.9",
     "projen": "^0.81.8",
-    "semver": "^7.6.0",
+    "semver": "^7.6.2",
     "ts-deepmerge": "^6.2.1"
   },
   "bundledDependencies": [
