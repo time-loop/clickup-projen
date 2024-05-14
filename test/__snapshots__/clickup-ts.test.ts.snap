@@ -36,6 +36,9 @@ jobs:
           //npm.pkg.github.com/:_authToken=\${NPM_TOKEN}
           @time-loop:registry=https://npm.pkg.github.com/
           EOF
+          if [ -d "dist" ]; then
+          cp .npmrc dist
+          fi
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
       - name: Setup Node.js
