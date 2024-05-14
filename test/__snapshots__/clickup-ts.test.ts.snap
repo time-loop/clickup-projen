@@ -32,7 +32,7 @@ jobs:
         env:
           NPM_TOKEN: \${{ secrets.ALL_PACKAGE_READ_TOKEN }}
         run: |-
-          cat > .npmrc <<EOF
+          cat > ~/.npmrc <<EOF
           //npm.pkg.github.com/:_authToken=\${NPM_TOKEN}
           @time-loop:registry=https://npm.pkg.github.com/
           EOF
