@@ -49,13 +49,16 @@ export module clickupTs {
     workflowBootstrapSteps: [
       {
         name: 'GitHub Packages authorization',
-        // This does some env var obverloading where the release step also defines NPM_TOKEN with the action token that allows uploading
+        // This does some env var overloading where the release step also defines NPM_TOKEN with the action token that allows uploading
         env: { NPM_TOKEN: '${{ secrets.ALL_PACKAGE_READ_TOKEN }}' },
         run: [
           'cat > .npmrc <<EOF',
           '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}',
           '@time-loop:registry=https://npm.pkg.github.com/',
           'EOF',
+          'if [ -d "dist" ]; then', // package-js workflow needs a .npmrc in the dist directory
+          'cp .npmrc dist',
+          'fi',
         ].join('\n'),
       },
       {
