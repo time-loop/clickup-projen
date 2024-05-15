@@ -280,8 +280,8 @@ jobs:
         run: cd .repo && yarn install --check-files --frozen-lockfile
       - name: Create js artifact
         run: cd .repo && npx projen package:js
-      - name: Remove .npmrc file for release
-        run: rm .npmrc
+      - name: Remove ~/.npmrc file for release
+        run: rm ~/.npmrc || true
       - name: Collect js Artifact
         run: mv .repo/dist dist
       - name: Release

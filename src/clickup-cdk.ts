@@ -161,8 +161,8 @@ export module clickupCdk {
       const releaseYaml = this.tryFindObjectFile('.github/workflows/release.yml');
       releaseYaml?.patch(
         JsonPatch.add('/jobs/release_npm/steps/8', {
-          name: 'Remove .npmrc file for release',
-          run: 'rm .npmrc',
+          name: 'Remove ~/.npmrc file for release',
+          run: 'rm ~/.npmrc || true',
         }),
       );
 
