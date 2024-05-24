@@ -239,6 +239,13 @@ export module clickupTs {
       if (options.sendSlackWebhookOnRelease !== false) {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
       }
+
+      if (this.package.packageManager === javascript.NodePackageManager.PNPM) {
+        // Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
+        this.package.addField('packageManager', 'pnpm@9.1.2');
+        // necessary to allow minor/patch version updates of pnpm on dev boxes
+        this.npmrc.addConfig('package-manager-strict', 'false');
+      }
     }
   }
 

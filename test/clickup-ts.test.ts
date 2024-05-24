@@ -1,4 +1,4 @@
-import { Testing } from 'projen';
+import { Testing, javascript } from 'projen';
 import { clickupTs } from '../src';
 
 describe('ClickUpTypeScriptProject', () => {
@@ -109,6 +109,21 @@ describe('ClickUpTypeScriptProject', () => {
       });
       const matchedFiles = project.files.filter((file) => file.path === testOverride);
       expect(matchedFiles).toHaveLength(1);
+    });
+  });
+  describe('pnpm', () => {
+    const p = new clickupTs.ClickUpTypeScriptProject({
+      name: '@time-loop/test',
+      defaultReleaseBranch: 'main',
+      packageManager: javascript.NodePackageManager.PNPM,
+      pnpmVersion: '9',
+    });
+    const synth = Testing.synth(p);
+    it('packageManager', () => {
+      expect(synth['package.json'].packageManager).toBe('pnpm@9.1.2');
+    });
+    it('package-manager-strict=false', () => {
+      expect(synth['.npmrc']).toMatch(/package-manager-strict=false/);
     });
   });
 });
