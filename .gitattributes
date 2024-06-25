@@ -17,6 +17,7 @@
 /.gitignore linguist-generated
 /.mergify.yml linguist-generated
 /.npmignore linguist-generated
+/.npmrc linguist-generated
 /.nvmrc linguist-generated
 /.prettierignore linguist-generated
 /.prettierrc.json linguist-generated
@@ -28,6 +29,6 @@
 /codecov.yml linguist-generated
 /LICENSE linguist-generated
 /package.json linguist-generated
+/pnpm-lock.yaml linguist-generated
 /renovate.json5 linguist-generated
 /tsconfig.dev.json linguist-generated
-/yarn.lock linguist-generated

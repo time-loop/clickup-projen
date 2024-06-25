@@ -73,6 +73,7 @@
     "semver",
     "ts-deepmerge"
   ],
+  "pnpm": {},
   "engines": {
     "node": ">= 18.17.1"
   },

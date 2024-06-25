@@ -18,6 +18,9 @@ const project = new cdk.JsiiProject({
   jsiiVersion: '~5.4.0', // per note, JSII since v5.0.0 are not semver'd so... stick with minor version updates.
   // Apache open source license, to match projen license
 
+  packageManager: javascript.NodePackageManager.PNPM,
+  pnpmVersion: '9',
+
   minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
   workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
