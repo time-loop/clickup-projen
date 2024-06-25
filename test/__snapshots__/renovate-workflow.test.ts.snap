@@ -142,6 +142,18 @@ exports[`getRenovateOptions defaults 1`] = `
           "^@time-loop\\/clickup-projen",
         ],
       },
+      {
+        "matchPackagePrefixes": [
+          "@time-loop/",
+        ],
+        "matchUpdateTypes": [
+          "major",
+        ],
+        "prBodyNotes": [
+          "# MAJOR VERSION UPDATE",
+          "Read the release notes!",
+        ],
+      },
     ],
     "platformAutomerge": true,
     "prConcurrentLimit": 0,
