@@ -44,6 +44,18 @@
         "^@time-loop\\/clickup-projen"
       ],
       "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/"
+    },
+    {
+      "matchPackagePrefixes": [
+        "@time-loop/"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "prBodyNotes": [
+        "# MAJOR VERSION UPDATE",
+        "Read the release notes!"
+      ]
     }
   ],
   "ignoreDeps": [

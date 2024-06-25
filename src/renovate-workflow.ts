@@ -140,6 +140,11 @@ export module renovateWorkflow {
               // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
               allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/',
             },
+            {
+              matchPackagePrefixes: ['@time-loop/'],
+              matchUpdateTypes: ['major'],
+              prBodyNotes: ['# MAJOR VERSION UPDATE', 'Read the release notes!'],
+            },
           ],
 
           /* override defaults set in config:base preset */
