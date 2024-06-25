@@ -143,6 +143,13 @@ new YamlFile(project, 'codecov.yml', {
   },
 });
 
+// Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
+project.package.addField('packageManager', 'pnpm@9.1.2');
+// necessary to allow minor/patch version updates of pnpm on dev boxes
+project.npmrc.addConfig('package-manager-strict', 'false');
+// PNPM support for bundledDeps https://pnpm.io/npmrc#node-linker
+project.npmrc.addConfig('node-linker', 'hoisted');
+
 new TextFile(project, '.nvmrc', {
   lines: [parameters.PROJEN_NODE_VERSION],
 });
