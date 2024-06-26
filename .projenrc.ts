@@ -18,6 +18,9 @@ const project = new cdk.JsiiProject({
   jsiiVersion: '~5.4.0', // per note, JSII since v5.0.0 are not semver'd so... stick with minor version updates.
   // Apache open source license, to match projen license
 
+  packageManager: javascript.NodePackageManager.PNPM,
+  pnpmVersion: '9',
+
   minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
   workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
 
@@ -139,6 +142,13 @@ new YamlFile(project, 'codecov.yml', {
     },
   },
 });
+
+// Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
+project.package.addField('packageManager', 'pnpm@9.1.2');
+// necessary to allow minor/patch version updates of pnpm on dev boxes
+project.npmrc.addConfig('package-manager-strict', 'false');
+// PNPM support for bundledDeps https://pnpm.io/npmrc#node-linker
+project.npmrc.addConfig('node-linker', 'hoisted');
 
 new TextFile(project, '.nvmrc', {
   lines: [parameters.PROJEN_NODE_VERSION],
