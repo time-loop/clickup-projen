@@ -53,8 +53,9 @@
         "major"
       ],
       "prBodyNotes": [
-        "# MAJOR VERSION UPDATE",
-        "Read the release notes!"
+        "# DANGER WILL ROBINSON!!!",
+        "Applying major version updates without understanding what they do has caused outages at ClickUp. Don't be that guy. Read the release notes. The release notes are in a link buried in the rollup below. Sorry, unfortunately Renovate does not offer a reasonable way to expose them here. If in doubt, escalate to CloudPlatform.",
+        "CloudPlatform thanks you for being diligent with your library updates!"
       ]
     }
   ],
