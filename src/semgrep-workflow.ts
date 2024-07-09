@@ -19,7 +19,7 @@ export module semgrepWorkflow {
         'runs-on': 'ubuntu-latest',
         container: {
           // Reocurring task to check the pinned version SEC-8540
-          image: 'semgrep/semgrep@sha256:d08d065e4041a222e7b54ed2ad8faddfef978bcc210aa9d0b6da93d251082808',
+          image: 'semgrep/semgrep@sha256:aeb24a8f042cb60fc64a87c6e52b01033fb11442fd224ccc41cc363f5ca3aa10', // 1.78.0
         },
         steps: [
           {
