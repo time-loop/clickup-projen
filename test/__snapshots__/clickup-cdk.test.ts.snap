@@ -11,8 +11,8 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
   "devDependencies": {
     "@types/jest": "*",
     "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "aws-cdk-lib": "2.138.0",
     "constructs": "10.0.5",
     "esbuild": "*",
@@ -49,6 +49,7 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
     "coveragePathIgnorePatterns": [
       "/node_modules/",
     ],
+    "coverageProvider": "v8",
     "coverageReporters": [
       "json",
       "lcov",
@@ -66,8 +67,8 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
       ],
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(test|src)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
@@ -520,8 +521,8 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
   "devDependencies": {
     "@types/jest": "*",
     "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "aws-cdk": "^2.138.0",
     "esbuild": "*",
     "eslint": "^8",
@@ -553,6 +554,7 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
       "/node_modules/",
       "/src/main.ts",
     ],
+    "coverageProvider": "v8",
     "coverageReporters": [
       "json",
       "lcov",
@@ -570,8 +572,8 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
       ],
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(test|src)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
@@ -983,8 +985,8 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
   "devDependencies": {
     "@types/jest": "*",
     "@types/node": "^20",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "aws-cdk": "^2.138.0",
     "esbuild": "*",
     "eslint": "^8",
@@ -1016,6 +1018,7 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
       "/node_modules/",
       "/src/main.ts",
     ],
+    "coverageProvider": "v8",
     "coverageReporters": [
       "json",
       "lcov",
@@ -1033,8 +1036,8 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
       ],
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(test|src)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
@@ -1109,8 +1112,8 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
     "@time-loop/cdk-log-parser": "*",
     "@types/jest": "*",
     "@types/node": "^18",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "aws-cdk": "^2.138.0",
     "esbuild": "*",
     "eslint": "^8",
@@ -1142,6 +1145,7 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
       "/node_modules/",
       "/src/main.ts",
     ],
+    "coverageProvider": "v8",
     "coverageReporters": [
       "json",
       "lcov",
@@ -1159,8 +1163,8 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
       ],
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(test|src)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
