@@ -37,8 +37,8 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^18",
     "@types/semver": "^7.5.8",
-    "@typescript-eslint/eslint-plugin": "^6",
-    "@typescript-eslint/parser": "^6",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "@typescript-eslint/parser": "^7",
     "constructs": "^10.0.0",
     "eslint": "^8",
     "eslint-config-prettier": "^9.1.0",
@@ -53,18 +53,18 @@
     "jsii-pacmak": "^1.100.0",
     "jsii-rosetta": "~5.4.0",
     "prettier": "^3.3.2",
-    "projen": "^0.81.8",
+    "projen": "^0.84.13",
     "standard-version": "^9",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.2"
   },
   "peerDependencies": {
-    "projen": "^0.81.8"
+    "projen": "^0.84.13"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.81.8",
+    "projen": "^0.84.13",
     "semver": "^7.6.2",
     "ts-deepmerge": "^6.2.1"
   },
@@ -85,12 +85,15 @@
   },
   "version": "0.0.0",
   "jest": {
+    "coverageProvider": "v8",
     "collectCoverageFrom": [
       "src/**/*.ts"
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/@(test|src)/**/*(*.)@(spec|test).ts?(x)"
+      "<rootDir>/@(src|test)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(src|test)/**/__tests__/**/*.ts?(x)",
+      "<rootDir>/@(projenrc)/**/*(*.)@(spec|test).ts?(x)",
+      "<rootDir>/@(projenrc)/**/__tests__/**/*.ts?(x)"
     ],
     "clearMocks": true,
     "collectCoverage": true,
