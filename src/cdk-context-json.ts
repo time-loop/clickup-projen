@@ -33,11 +33,23 @@ export module cdkContextJson {
      */
     readonly createOidcRoleStack?: boolean;
     /**
+     * Add default feature flags for CDK
+     *
+     * @default - true
+     */
+    readonly addDefaultFeatureFlags?: boolean;
+    /**
      * You must configure this if you want to self-mutation cdk.context.json.
      *
      * @default - do not modify the build workflow to authorize against AWS.
      */
     readonly injectionOptions?: InjectionOptions;
+  }
+
+  export function addDefaultFeatureFlags(project: awscdk.AwsCdkTypeScriptApp): void {
+    project.cdkConfig.json.addOverride('context', {
+      '@aws-cdk/aws-ecs:disableExplicitDeploymentControllerForCircuitBreaker': true,
+    });
   }
 
   export function injectAwsAuthIntoBuild(project: awscdk.AwsCdkTypeScriptApp, options: InjectionOptions): void {

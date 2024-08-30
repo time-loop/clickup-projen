@@ -13537,8 +13537,22 @@ const options: cdkContextJson.Options = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@time-loop/clickup-projen.cdkContextJson.Options.property.addDefaultFeatureFlags">addDefaultFeatureFlags</a></code> | <code>boolean</code> | Add default feature flags for CDK. |
 | <code><a href="#@time-loop/clickup-projen.cdkContextJson.Options.property.createOidcRoleStack">createOidcRoleStack</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#@time-loop/clickup-projen.cdkContextJson.Options.property.injectionOptions">injectionOptions</a></code> | <code>@time-loop/clickup-projen.cdkContextJson.InjectionOptions</code> | You must configure this if you want to self-mutation cdk.context.json. |
+
+---
+
+##### `addDefaultFeatureFlags`<sup>Optional</sup> <a name="addDefaultFeatureFlags" id="@time-loop/clickup-projen.cdkContextJson.Options.property.addDefaultFeatureFlags"></a>
+
+```typescript
+public readonly addDefaultFeatureFlags: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Add default feature flags for CDK.
 
 ---
 

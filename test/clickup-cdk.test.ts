@@ -15,6 +15,7 @@ describe('ClickUpCdkTypeScriptApp', () => {
       'src/widget.ts',
       'test/widget.test.ts',
       '.github/workflows/release.yml',
+      'cdk.json',
     ].forEach((file) => {
       test(file, () => {
         expect(synth[file]).toMatchSnapshot();

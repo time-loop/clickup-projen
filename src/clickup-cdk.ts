@@ -259,6 +259,10 @@ export module clickupCdk {
         }
       }
 
+      if (options.cdkContextJsonOptions?.addDefaultFeatureFlags !== false) {
+        cdkContextJson.addDefaultFeatureFlags(this);
+      }
+
       if (options.sendReleaseEvent === false) {
         this.datadogEvent = false;
       } else {

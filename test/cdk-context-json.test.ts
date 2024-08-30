@@ -27,3 +27,12 @@ describe('addOidcRoleStack', () => {
     expect(synth['src/github-actions-oidc-cdk-context-lookup-role.ts']).toMatchSnapshot();
   });
 });
+
+describe('addDefaultFeatureFlags', () => {
+  const project = new awscdk.AwsCdkTypeScriptApp(requiredParams);
+  cdkContextJson.addDefaultFeatureFlags(project);
+  const synth = Testing.synth(project);
+  test('adds feature flags', () => {
+    expect(synth['cdk.json']).toMatchSnapshot();
+  });
+});
