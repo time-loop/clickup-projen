@@ -209,7 +209,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -414,7 +414,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -878,7 +878,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -1342,7 +1342,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -1533,7 +1533,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -1728,7 +1728,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -1927,7 +1927,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -2118,7 +2118,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: \${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
