@@ -54,17 +54,17 @@
     "jsii-pacmak": "^1.100.0",
     "jsii-rosetta": "~5.4.0",
     "prettier": "^3.3.2",
-    "projen": "^0.86.7",
+    "projen": "^0.87.0",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.2"
   },
   "peerDependencies": {
-    "projen": "^0.86.7"
+    "projen": "^0.87.0"
   },
   "dependencies": {
     "cson-parser": "^4.0.9",
-    "projen": "^0.86.7",
+    "projen": "^0.87.0",
     "semver": "^7.6.2",
     "ts-deepmerge": "^6.2.1"
   },
