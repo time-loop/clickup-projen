@@ -12,8 +12,8 @@ importers:
         specifier: ^4.0.9
         version: 4.0.9
       projen:
-        specifier: ^0.87.0
-        version: 0.87.0(constructs@10.3.0)
+        specifier: ^0.90.0
+        version: 0.90.0(constructs@10.3.0)
       semver:
         specifier: ^7.6.2
         version: 7.6.2
@@ -1212,6 +1212,7 @@ packages:
   eslint@8.57.0:
     resolution: {integrity: sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -2267,8 +2268,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  projen@0.87.0:
-    resolution: {integrity: sha512-XGAYLxtNp+azXFQyFRiH3AN4ahw8oolhRz1yq/eowRTuIf/WrX2qjznTR1PGVc1uKauo+3aPEHJz0OfiOUJJLg==}
+  projen@0.90.0:
+    resolution: {integrity: sha512-klJXSriGl/w+9Gj22vNenq8DjMBIscaOArt0aSTtPjeZyb5s0OSrDF0ALSzlLfz4x7dT8jRB2C8sb9tuuR/sUA==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -2762,8 +2763,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.7.0-dev.20240904:
-    resolution: {integrity: sha512-iGi6VWFGOuxPvDfwfK1/8C172NWzC5gtC4G2dxqCQehrr86WTfFkc9aWucynaxZdwQNMqG1Iu83bmXD7CNHCmg==}
+  typescript@5.7.0-dev.20241031:
+    resolution: {integrity: sha512-CR0uSMNCzLCXjptJ38ESiEpTMEYJiplIe9jmZLQuTp5nrxwOE2ljMg5z1XyPI+Uss1saZOdpwkPxXU3mDIASEg==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4163,7 +4164,7 @@ snapshots:
     dependencies:
       semver: 7.6.2
       shelljs: 0.8.5
-      typescript: 5.7.0-dev.20240904
+      typescript: 5.7.0-dev.20241031
 
   electron-to-chromium@1.4.811: {}
 
@@ -4284,7 +4285,7 @@ snapshots:
       debug: 4.3.5
       enhanced-resolve: 5.17.0
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.5
@@ -4296,7 +4297,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -4317,7 +4318,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.18.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.14.0
       is-glob: 4.0.3
@@ -5685,7 +5686,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  projen@0.87.0(constructs@10.3.0):
+  projen@0.90.0(constructs@10.3.0):
     dependencies:
       constructs: 10.3.0
 
@@ -6162,7 +6163,7 @@ snapshots:
 
   typescript@5.5.2: {}
 
-  typescript@5.7.0-dev.20240904: {}
+  typescript@5.7.0-dev.20241031: {}
 
   uglify-js@3.18.0:
     optional: true
