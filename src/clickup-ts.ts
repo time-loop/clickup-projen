@@ -5,7 +5,6 @@ import { addToProjectWorkflow } from './add-to-project';
 import { codecov } from './codecov';
 import { nodeVersion } from './node-version';
 import { renovateWorkflow } from './renovate-workflow';
-import { semgrepWorkflow } from './semgrep-workflow';
 import { slackAlert } from './slack-alert';
 import { updateProjen } from './update-projen';
 import { parameters } from './utils/parameters';
@@ -232,7 +231,6 @@ export module clickupTs {
       codecov.addCodeCovYml(this);
       nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
-      semgrepWorkflow.addSemgrepWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
       updateProjen.addWorkflows(this);
       if (options.docgen ?? true) new TypedocDocgen(this, options.docgenOptions ?? {});
