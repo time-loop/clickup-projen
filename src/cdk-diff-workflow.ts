@@ -100,7 +100,7 @@ export module cdkDiffWorkflow {
             },
             {
               name: 'Save processed diff logs',
-              uses: 'actions/upload-artifact@v3.1.2',
+              uses: 'actions/upload-artifact@v4',
               with: {
                 name: 'ProcessedDiffLogs',
                 path: '*.log',

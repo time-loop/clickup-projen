@@ -106,7 +106,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
@@ -220,7 +220,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
@@ -334,7 +334,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
@@ -448,7 +448,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
@@ -656,7 +656,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
@@ -770,7 +770,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
@@ -888,7 +888,7 @@ jobs:
         with:
           github-token: \${{ secrets.GITHUB_TOKEN }}
       - name: Save processed diff logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: ProcessedDiffLogs
           path: "*.log"
