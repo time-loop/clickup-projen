@@ -120,7 +120,7 @@ describe('ClickUpTypeScriptProject', () => {
     });
     const synth = Testing.synth(p);
     it('packageManager', () => {
-      expect(synth['package.json'].packageManager).toBe('pnpm@9.1.2');
+      expect(synth['package.json'].packageManager).toBe('pnpm@9.15.4');
     });
     it('package-manager-strict=false', () => {
       expect(synth['.npmrc']).toMatch(/package-manager-strict=false/);
