@@ -9,7 +9,7 @@ export class parameters {
 
   // This should be updated occasionally to the latest release of the current active version.
   // This will drive all the other node versions throughout the system.
-  static PROJEN_NODE_VERSION: string = '20.11.1';
+  static PROJEN_NODE_VERSION: string = '22.13.1';
 
   // This should be updated occasionally to the latest release of the current active version.
   static PROJEN_PNPM_VERSION: string = '9.15.5';

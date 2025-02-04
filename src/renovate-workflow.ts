@@ -51,7 +51,8 @@ export module renovateWorkflow {
             },
             {
               name: 'Self-hosted Renovate',
-              uses: 'renovatebot/github-action@v40.1.6', // We might want to un-pin this or figure out a renovate process for it.
+              // NOTE: this doesn't get us onto node22 for renovatebot, it's running 20.17.16
+              uses: 'renovatebot/github-action@v41.0.12', // We might want to un-pin this or figure out a renovate process for it.
               // Skip running renovate in a loop when renovate updates the dependency dashboard issue and re-triggers this workflow
               if: `(github.event_name != 'issues' && github.event_name != 'pull_request') || github.actor != '${RENOVATE_GITHUB_USERNAME}'`,
               with: {
