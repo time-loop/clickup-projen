@@ -146,6 +146,10 @@ new YamlFile(project, 'codecov.yml', {
 project.package.addField('packageManager', `pnpm@${parameters.PROJEN_PNPM_VERSION}`);
 // necessary to allow minor/patch version updates of pnpm on dev boxes
 project.npmrc.addConfig('package-manager-strict', 'false');
+// pnpm will manage the version of the package manager (pnpm)
+project.npmrc.addConfig('manage-package-manager-versions', 'true');
+// pnpm checks this value before running commands and will use (and install if missing) the specified version
+project.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
 // PNPM support for bundledDeps https://pnpm.io/npmrc#node-linker
 project.npmrc.addConfig('node-linker', 'hoisted');
 
