@@ -120,10 +120,16 @@ describe('ClickUpTypeScriptProject', () => {
     });
     const synth = Testing.synth(p);
     it('packageManager', () => {
-      expect(synth['package.json'].packageManager).toBe('pnpm@9.15.4');
+      expect(synth['package.json'].packageManager).toBe('pnpm@9.15.5');
     });
-    it('package-manager-strict=false', () => {
-      expect(synth['.npmrc']).toMatch(/package-manager-strict=false/);
+
+    const npmrcEntries = [
+      // 'package-manager-strict=false',
+      'manage-package-manager-versions=true',
+      'use-node-version=22.13.1',
+    ];
+    it.each(npmrcEntries)('%s', (npmrcEntry) => {
+      expect(synth['.npmrc']).toContain(npmrcEntry);
     });
   });
 });

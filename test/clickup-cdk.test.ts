@@ -58,6 +58,19 @@ describe('ClickUpCdkTypeScriptApp', () => {
         packageManager: javascript.NodePackageManager.PNPM,
       });
       const synth = Testing.synth(p);
+      it('packageManager', () => {
+        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.5');
+      });
+
+      const npmrcEntries = [
+        // 'package-manager-strict=false',
+        'manage-package-manager-versions=true',
+        'use-node-version=22.13.1',
+      ];
+      it.each(npmrcEntries)('%s', (npmrcEntry) => {
+        expect(synth['.npmrc']).toContain(npmrcEntry);
+      });
+
       ['.npmrc', 'package.json'].forEach((file) => {
         test(file, () => {
           expect(synth[file]).toMatchSnapshot();
@@ -105,6 +118,27 @@ describe('ClickUpCdkConstructLibrary', () => {
       const synth = Testing.synth(p);
       const releaseFile = synth['.github/workflows/release.yml'];
       expect(releaseFile).toMatchSnapshot();
+    });
+
+    describe('pnpm', () => {
+      p = new clickupCdk.ClickUpCdkConstructLibrary({
+        ...commonProps,
+        packageManager: javascript.NodePackageManager.PNPM,
+      });
+      const synth = Testing.synth(p);
+      it('packageManager', () => {
+        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.5');
+      });
+
+      const npmrcEntries = [
+        // 'package-manager-strict=false',
+        'manage-package-manager-versions=true',
+        'use-node-version=22.13.1',
+        'node-linker=hoisted',
+      ];
+      it.each(npmrcEntries)('%s', (npmrcEntry) => {
+        expect(synth['.npmrc']).toContain(npmrcEntry);
+      });
     });
   });
 });
