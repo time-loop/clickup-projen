@@ -240,9 +240,13 @@ export module clickupTs {
 
       if (this.package.packageManager === javascript.NodePackageManager.PNPM) {
         // Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
-        this.package.addField('packageManager', 'pnpm@9.15.4');
+        this.package.addField('packageManager', `pnpm@${parameters.PROJEN_PNPM_VERSION}`);
         // necessary to allow minor/patch version updates of pnpm on dev boxes
         this.npmrc.addConfig('package-manager-strict', 'false');
+        // pnpm will manage the version of the package manager (pnpm)
+        this.npmrc.addConfig('manage-package-manager-versions', 'true');
+        // pnpm checks this value before running commands and will use (and install if missing) the specified version
+        this.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
       }
     }
   }
