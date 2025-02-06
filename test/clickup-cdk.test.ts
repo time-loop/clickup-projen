@@ -1,5 +1,5 @@
 import path from 'path';
-import { Testing } from 'projen';
+import { javascript, Testing } from 'projen';
 import { requiredParams } from './requiredParams';
 import { clickupCdk } from '../src';
 import { datadogServiceCatalog } from '../src/datadog-service-catalog';
@@ -46,6 +46,19 @@ describe('ClickUpCdkTypeScriptApp', () => {
       });
       const synth = Testing.synth(p);
       ['.nvmrc', 'package.json', '.github/workflows/release.yml'].forEach((file) => {
+        test(file, () => {
+          expect(synth[file]).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('pnpm', () => {
+      p = new clickupCdk.ClickUpCdkTypeScriptApp({
+        ...requiredParams,
+        packageManager: javascript.NodePackageManager.PNPM,
+      });
+      const synth = Testing.synth(p);
+      ['.npmrc', 'package.json'].forEach((file) => {
         test(file, () => {
           expect(synth[file]).toMatchSnapshot();
         });
