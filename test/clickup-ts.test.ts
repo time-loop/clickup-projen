@@ -124,7 +124,7 @@ describe('ClickUpTypeScriptProject', () => {
     });
 
     const npmrcEntries = [
-      // 'package-manager-strict=false',
+      'package-manager-strict=false',
       'manage-package-manager-versions=true',
       'use-node-version=22.13.1',
     ];

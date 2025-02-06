@@ -131,7 +131,7 @@ describe('ClickUpCdkConstructLibrary', () => {
       });
 
       const npmrcEntries = [
-        // 'package-manager-strict=false',
+        'package-manager-strict=false',
         'manage-package-manager-versions=true',
         'use-node-version=22.13.1',
         'node-linker=hoisted',
