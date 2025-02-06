@@ -290,8 +290,13 @@ export module clickupCdk {
       if (this.package.packageManager === javascript.NodePackageManager.PNPM) {
         // Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
         this.package.addField('packageManager', `pnpm@${parameters.PROJEN_PNPM_VERSION}`);
+        // This appears to conflict with the cdkPipeline
+        // https://github.com/time-loop/cdk-library/blob/f3e4bb92013d19e8971bac2a4cbf16c06c57cea3/src/cdk-pipeline/cdk-pipeline.ts#L264
         // pnpm will manage the version of the package manager (pnpm)
-        this.npmrc.addConfig('manage-package-manager-versions', 'true');
+        // this.npmrc.addConfig('manage-package-manager-versions', 'true');
+        // So instead
+        // necessary to allow minor/patch version updates of pnpm on dev boxes
+        this.npmrc.addConfig('package-manager-strict', 'false');
         // pnpm checks this value before running commands and will use (and install if missing) the specified version
         this.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
       }

@@ -63,8 +63,8 @@ describe('ClickUpCdkTypeScriptApp', () => {
       });
 
       const npmrcEntries = [
-        // 'package-manager-strict=false',
-        'manage-package-manager-versions=true',
+        'package-manager-strict=false',
+        // 'manage-package-manager-versions=true',
         'use-node-version=22.13.1',
       ];
       it.each(npmrcEntries)('%s', (npmrcEntry) => {
