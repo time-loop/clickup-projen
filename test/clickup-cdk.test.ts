@@ -140,6 +140,18 @@ describe('ClickUpCdkConstructLibrary', () => {
         expect(synth['.npmrc']).toContain(npmrcEntry);
       });
     });
+
+    describe('workflowNodeVersion', () => {
+      p = new clickupCdk.ClickUpCdkConstructLibrary({
+        ...commonProps,
+        packageManager: javascript.NodePackageManager.PNPM,
+        workflowNodeVersion: '22.0.0',
+      });
+      const synth = Testing.synth(p);
+      it('use-node-version in .npmrc file', () => {
+        expect(synth['.npmrc']).toContain('use-node-version=22.0.0');
+      });
+    });
   });
 });
 
