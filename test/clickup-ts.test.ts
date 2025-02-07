@@ -126,7 +126,7 @@ describe('ClickUpTypeScriptProject', () => {
     const npmrcEntries = [
       'package-manager-strict=false',
       'manage-package-manager-versions=true',
-      'use-node-version=22.13.1',
+      'use-node-version=20.11.1',
     ];
     it.each(npmrcEntries)('%s', (npmrcEntry) => {
       expect(synth['.npmrc']).toContain(npmrcEntry);
