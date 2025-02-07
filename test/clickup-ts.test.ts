@@ -126,10 +126,24 @@ describe('ClickUpTypeScriptProject', () => {
     const npmrcEntries = [
       'package-manager-strict=false',
       'manage-package-manager-versions=true',
-      'use-node-version=22.13.1',
+      'use-node-version=20.11.1',
     ];
     it.each(npmrcEntries)('%s', (npmrcEntry) => {
       expect(synth['.npmrc']).toContain(npmrcEntry);
+    });
+  });
+
+  describe('workflowNodeVersion', () => {
+    const p = new clickupTs.ClickUpTypeScriptProject({
+      name: '@time-loop/test',
+      defaultReleaseBranch: 'main',
+      packageManager: javascript.NodePackageManager.PNPM,
+      pnpmVersion: '9',
+      workflowNodeVersion: '22.0.0',
+    });
+    const synth = Testing.synth(p);
+    it('use-node-version in .npmrc file', () => {
+      expect(synth['.npmrc']).toContain('use-node-version=22.0.0');
     });
   });
 });

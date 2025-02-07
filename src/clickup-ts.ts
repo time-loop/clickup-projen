@@ -246,7 +246,7 @@ export module clickupTs {
         // pnpm will manage the version of the package manager (pnpm)
         this.npmrc.addConfig('manage-package-manager-versions', 'true');
         // pnpm checks this value before running commands and will use (and install if missing) the specified version
-        this.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
+        this.npmrc.addConfig('use-node-version', options.workflowNodeVersion ?? parameters.PROJEN_NODE_VERSION);
       }
     }
   }

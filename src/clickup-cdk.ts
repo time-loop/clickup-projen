@@ -184,7 +184,7 @@ export module clickupCdk {
         // pnpm will manage the version of the package manager (pnpm)
         this.npmrc.addConfig('manage-package-manager-versions', 'true');
         // pnpm checks this value before running commands and will use (and install if missing) the specified version
-        this.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
+        this.npmrc.addConfig('use-node-version', options.workflowNodeVersion ?? parameters.PROJEN_NODE_VERSION);
         // PNPM support for bundledDeps https://pnpm.io/npmrc#node-linker
         this.npmrc.addConfig('node-linker', 'hoisted');
       }
@@ -298,7 +298,7 @@ export module clickupCdk {
         // necessary to allow minor/patch version updates of pnpm on dev boxes
         this.npmrc.addConfig('package-manager-strict', 'false');
         // pnpm checks this value before running commands and will use (and install if missing) the specified version
-        this.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
+        this.npmrc.addConfig('use-node-version', options.workflowNodeVersion ?? parameters.PROJEN_NODE_VERSION);
       }
     }
   }
