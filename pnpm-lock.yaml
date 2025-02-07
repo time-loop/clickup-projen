@@ -12,8 +12,8 @@ importers:
         specifier: ^4.0.9
         version: 4.0.9
       projen:
-        specifier: ^0.91.7
-        version: 0.91.7(constructs@10.3.0)
+        specifier: ^0.91.8
+        version: 0.91.8(constructs@10.3.0)
       semver:
         specifier: ^7.7.1
         version: 7.7.1
@@ -2338,8 +2338,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  projen@0.91.7:
-    resolution: {integrity: sha512-HECW1Q/0TzS1fKVGpobr/fcLAHRWGfaOL7GmLAmwh0enhcmeE0Tld5kjyb8Sj+q3Hf0KdWP8lufuQ0WxltYcYQ==}
+  projen@0.91.8:
+    resolution: {integrity: sha512-TWpxSiv3ZkJoZ2Y0hjnjwmKLlUnxmbPANmQ8yDdUeE6LIYoPmfU0Zw0ijNDI3uTq0BjIz5mFDkic94RW/1Hguw==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -2819,8 +2819,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.8.0-dev.20250203:
-    resolution: {integrity: sha512-7uBe1WQtxSnGGcxEqyP9vgCySQbLHmQaRXDjPK8UF32VVjhXBJZmcq1ti4zKy3mldZG59pdo6hQkhJhqZG2Zhw==}
+  typescript@5.8.0-dev.20250207:
+    resolution: {integrity: sha512-bRCO1GkVxTLd/UFJWOg9R1oRiSMidcfpICzuQlDJlHspv6hlcJvvIJP0BvQxrBYpu4dbzqp/Fh8rRYIkEjbSlQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4260,7 +4260,7 @@ snapshots:
     dependencies:
       semver: 7.7.1
       shelljs: 0.8.5
-      typescript: 5.8.0-dev.20250203
+      typescript: 5.8.0-dev.20250207
 
   ejs@3.1.10:
     dependencies:
@@ -5788,7 +5788,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  projen@0.91.7(constructs@10.3.0):
+  projen@0.91.8(constructs@10.3.0):
     dependencies:
       constructs: 10.3.0
 
@@ -6258,7 +6258,7 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  typescript@5.8.0-dev.20250203: {}
+  typescript@5.8.0-dev.20250207: {}
 
   uglify-js@3.18.0:
     optional: true
