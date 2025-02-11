@@ -126,7 +126,7 @@ describe('ClickUpTypeScriptProject', () => {
     const npmrcEntries = [
       'package-manager-strict=false',
       'manage-package-manager-versions=true',
-      'use-node-version=20.11.1',
+      'use-node-version=22.14.0',
     ];
     it.each(npmrcEntries)('%s', (npmrcEntry) => {
       expect(synth['.npmrc']).toContain(npmrcEntry);
@@ -139,7 +139,7 @@ describe('ClickUpTypeScriptProject', () => {
       defaultReleaseBranch: 'main',
       packageManager: javascript.NodePackageManager.PNPM,
       pnpmVersion: '9',
-      workflowNodeVersion: '22.0.0',
+      workflowNodeVersion: '22.0.0', // test explicit downgrade
     });
     const synth = Testing.synth(p);
     it('use-node-version in .npmrc file', () => {
