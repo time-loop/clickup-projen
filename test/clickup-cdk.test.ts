@@ -65,7 +65,7 @@ describe('ClickUpCdkTypeScriptApp', () => {
       const npmrcEntries = [
         'package-manager-strict=false',
         // 'manage-package-manager-versions=true',
-        'use-node-version=20.11.1',
+        'use-node-version=22.14.0',
       ];
       it.each(npmrcEntries)('%s', (npmrcEntry) => {
         expect(synth['.npmrc']).toContain(npmrcEntry);
@@ -133,7 +133,7 @@ describe('ClickUpCdkConstructLibrary', () => {
       const npmrcEntries = [
         'package-manager-strict=false',
         'manage-package-manager-versions=true',
-        'use-node-version=20.11.1',
+        'use-node-version=22.14.0',
         'node-linker=hoisted',
       ];
       it.each(npmrcEntries)('%s', (npmrcEntry) => {
