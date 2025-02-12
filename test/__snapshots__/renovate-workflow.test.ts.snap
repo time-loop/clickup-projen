@@ -96,6 +96,7 @@ exports[`getRenovateOptions defaults 1`] = `
   "ignore": [
     "node",
     "@time-loop/clickup-projen",
+    "pnpm",
   ],
   "ignoreProjen": true,
   "labels": [
