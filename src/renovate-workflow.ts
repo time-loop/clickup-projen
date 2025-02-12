@@ -106,6 +106,7 @@ export module renovateWorkflow {
         ignore: [
           'node', // managed by projen
           '@time-loop/clickup-projen', // managed as part of the projen upgrade workflow
+          'pnpm', // managed by projen
         ],
         overrideConfig: {
           /* override projen renovate defaults */
