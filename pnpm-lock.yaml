@@ -46,8 +46,8 @@ importers:
         specifier: ^9
         version: 9.19.0
       eslint-config-prettier:
-        specifier: ^9.1.0
-        version: 9.1.0(eslint@9.19.0)
+        specifier: ^10.1.1
+        version: 10.1.1(eslint@9.19.0)
       eslint-import-resolver-typescript:
         specifier: ^3.9.1
         version: 3.9.1(eslint-plugin-import@2.31.0)(eslint@9.19.0)
@@ -56,7 +56,7 @@ importers:
         version: 2.31.0(@typescript-eslint/parser@8.22.0(eslint@9.19.0)(typescript@5.8.2))(eslint-import-resolver-typescript@3.9.1)(eslint@9.19.0)
       eslint-plugin-prettier:
         specifier: ^5.2.3
-        version: 5.2.3(eslint-config-prettier@9.1.0(eslint@9.19.0))(eslint@9.19.0)(prettier@3.5.3)
+        version: 5.2.3(eslint-config-prettier@10.1.1(eslint@9.19.0))(eslint@9.19.0)(prettier@3.5.3)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.39)(ts-node@10.9.2(@types/node@18.19.39)(typescript@5.8.2))
@@ -1259,8 +1259,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-prettier@9.1.0:
-    resolution: {integrity: sha512-NSWl5BFQWEPi1j4TjVNItzYV7dZXZ+wP6I6ZhrBGpChQhZRUaElihE9uRRkcbRnNb76UMKDF3r+WTmNcGPKsqw==}
+  eslint-config-prettier@10.1.1:
+    resolution: {integrity: sha512-4EQQr6wXwS+ZJSzaR5ZCrYgLxqvUjdXctaEtBqHcbkW944B1NQyO4qpdHQbXBONfwxXdkAY81HH4+LUfrg+zPw==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -2900,8 +2900,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.9.0-dev.20250316:
-    resolution: {integrity: sha512-UmfN0N0+BNaF43agcV7pJdXkGofnGu7MDdoB6wANOPJyBjc9t6AUSiM7Ud4yj4ftGhpJwsF5NygXyy2U3kXdFQ==}
+  typescript@5.9.0-dev.20250317:
+    resolution: {integrity: sha512-uJqhFodkdY2AwOyuwbI+o9Ywgyi2OHBhEEUTgtHwFJskUQnUvNXylzMLgQIXn3VqRKS+/oXrq5tD3ZJsYcV2VQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4404,7 +4404,7 @@ snapshots:
     dependencies:
       semver: 7.7.1
       shelljs: 0.8.5
-      typescript: 5.9.0-dev.20250316
+      typescript: 5.9.0-dev.20250317
 
   ejs@3.1.10:
     dependencies:
@@ -4507,7 +4507,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-prettier@9.1.0(eslint@9.19.0):
+  eslint-config-prettier@10.1.1(eslint@9.19.0):
     dependencies:
       eslint: 9.19.0
 
@@ -4574,14 +4574,14 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-prettier@5.2.3(eslint-config-prettier@9.1.0(eslint@9.19.0))(eslint@9.19.0)(prettier@3.5.3):
+  eslint-plugin-prettier@5.2.3(eslint-config-prettier@10.1.1(eslint@9.19.0))(eslint@9.19.0)(prettier@3.5.3):
     dependencies:
       eslint: 9.19.0
       prettier: 3.5.3
       prettier-linter-helpers: 1.0.0
       synckit: 0.9.2
     optionalDependencies:
-      eslint-config-prettier: 9.1.0(eslint@9.19.0)
+      eslint-config-prettier: 10.1.1(eslint@9.19.0)
 
   eslint-scope@8.2.0:
     dependencies:
@@ -6419,7 +6419,7 @@ snapshots:
 
   typescript@5.8.2: {}
 
-  typescript@5.9.0-dev.20250316: {}
+  typescript@5.9.0-dev.20250317: {}
 
   uglify-js@3.18.0:
     optional: true
