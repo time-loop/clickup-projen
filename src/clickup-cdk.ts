@@ -130,7 +130,7 @@ export module clickupCdk {
       const mergedOptions = merge(
         clickupTs.defaults,
         {
-          jsiiVersion: '~5.7.0', // Force JSII upgrade CLK-469895
+          jsiiVersion: '~5.8.0', // Force JSII upgrade CLK-469895
           typescriptVersion: '~5.7.0',
         },
         options,
