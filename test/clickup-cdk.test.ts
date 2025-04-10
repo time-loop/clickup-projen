@@ -20,6 +20,10 @@ describe('ClickUpCdkTypeScriptApp', () => {
         expect(synth[file]).toMatchSnapshot();
       });
     });
+
+    test('aws-cdk cli lib is at least 2.1007.0', () => {
+      expect(synth['package.json'].dependencies['aws-cdk']).toBe('^2.1007.0');
+    });
     test('prettier is enabled', () => {
       expect(p.prettier).toBeTruthy();
     });

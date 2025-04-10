@@ -17,8 +17,8 @@ import { updateProjen } from './update-projen';
 import { parameters } from './utils/parameters';
 
 export module clickupCdk {
-  const minCdkVersion = '2.138.0'; // https://github.com/aws/aws-cdk/issues/29746
-  const defaultCdkVersion = '2.138.0';
+  const minCdkVersion = '2.189.0'; // let's push past the (painful) split of the cli
+  const defaultCdkVersion = '2.189.0';
 
   export const deps = [
     ...clickupTs.deps,
@@ -233,6 +233,12 @@ export module clickupCdk {
         renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
       });
       super(mergedOptions);
+
+      // We need to deal with the cli split
+      // https://github.com/projen/projen/issues/4157
+      // https://aws.amazon.com/blogs/opensource/aws-cdk-is-splitting-construct-library-and-cli/
+      this.addDeps('aws-cdk@^2.1007.0'); // skip past the first few versions of the CLI, they were rough.
+
       this.workflowNodeVersion = mergedOptions.workflowNodeVersion;
       clickupTs.fixTsNodeDeps(this.package);
       new AppSampleCode(this);
