@@ -12,8 +12,8 @@ importers:
         specifier: ^4.0.9
         version: 4.0.9
       projen:
-        specifier: ^0.91.20
-        version: 0.91.20(constructs@10.3.0)
+        specifier: ^0.91.29
+        version: 0.91.29(constructs@10.3.0)
       semver:
         specifier: ^7.7.1
         version: 7.7.1
@@ -2439,8 +2439,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  projen@0.91.20:
-    resolution: {integrity: sha512-CurufZ0DMMpP7w5tlm7e5MvoSUEFL2tCpPqRFVc+G74E8Z8+CnnFpwxz8OUhQrbOtn7GyNkfhR6o+UNTcstpig==}
+  projen@0.91.29:
+    resolution: {integrity: sha512-5lPKIZukWWinwPQwnQClGf1wSC9T2f8XlZF1pE+rtx5HCbZ+hDX53pFo8l+79x9dgaRgJmEqhG/PjoOM8HrFRQ==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -2454,6 +2454,7 @@ packages:
       - fast-json-patch
       - glob
       - ini
+      - parse-conflict-json
       - semver
       - shx
       - xmlbuilder2
@@ -5949,7 +5950,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  projen@0.91.20(constructs@10.3.0):
+  projen@0.91.29(constructs@10.3.0):
     dependencies:
       constructs: 10.3.0
 
