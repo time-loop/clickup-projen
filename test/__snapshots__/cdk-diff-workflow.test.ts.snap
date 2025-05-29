@@ -10,6 +10,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
@@ -124,6 +125,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
@@ -238,6 +240,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
@@ -352,6 +355,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
@@ -466,6 +470,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
@@ -674,6 +679,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
@@ -788,6 +794,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  metadata: write
   pull-requests: write
 jobs:
   diff:
