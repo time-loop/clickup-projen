@@ -28,6 +28,7 @@ export module cdkDiffWorkflow {
       permissions: {
         'id-token': 'write',
         contents: 'write',
+        metadata: 'write',
         'pull-requests': 'write',
       },
       jobs: {
