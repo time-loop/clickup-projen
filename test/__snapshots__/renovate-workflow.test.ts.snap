@@ -105,10 +105,10 @@ exports[`getRenovateOptions defaults 1`] = `
   "overrideConfig": {
     "automergeType": "pr",
     "extends": [
-      "config:base",
+      "config:recommended",
       "group:recommended",
       "group:monorepos",
-      "github>whitesource/merge-confidence:beta",
+      "mergeConfidence:all-badges",
     ],
     "packageRules": [
       {
@@ -116,13 +116,11 @@ exports[`getRenovateOptions defaults 1`] = `
           undefined,
         ],
         "automerge": undefined,
-        "excludePackagePatterns": [
-          "^@time-loop\\/clickup-projen",
-        ],
         "groupName": "all non-major dependencies",
         "groupSlug": "all-minor-patch",
-        "matchPackagePatterns": [
+        "matchPackageNames": [
           "*",
+          "!/^@time-loop\\/clickup-projen/",
         ],
         "matchUpdateTypes": [
           "minor",
@@ -139,13 +137,13 @@ exports[`getRenovateOptions defaults 1`] = `
       },
       {
         "allowedVersions": "!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/",
-        "matchPackagePatterns": [
-          "^@time-loop\\/clickup-projen",
+        "matchPackageNames": [
+          "/^@time-loop\\/clickup-projen/",
         ],
       },
       {
-        "matchPackagePrefixes": [
-          "@time-loop/",
+        "matchPackageNames": [
+          "@time-loop/{/,}**",
         ],
         "matchUpdateTypes": [
           "major",
