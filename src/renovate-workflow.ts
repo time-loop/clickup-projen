@@ -112,19 +112,18 @@ export module renovateWorkflow {
           /* override projen renovate defaults */
           // Remove :preserveSemverRanges preset added by projen to make renovate update all non breaking dependencies
           extends: [
-            'config:base',
+            'config:recommended', // Updated from 'config:base'
             'group:recommended',
             'group:monorepos',
             // Add merge confidence columns to update PRs
-            'github>whitesource/merge-confidence:beta',
+            'mergeConfidence:all-badges', // Updated from 'github>whitesource/merge-confidence:beta'
           ],
           packageRules: [
             {
               // copied from this preset: https://docs.renovatebot.com/presets-group/#groupallnonmajor
               groupName: 'all non-major dependencies',
               groupSlug: 'all-minor-patch',
-              matchPackagePatterns: ['*'],
-              excludePackagePatterns: ['^@time-loop\\/clickup-projen'],
+              matchPackageNames: ['*', '!/^@time-loop\\/clickup-projen/'], // Updated from matchPackagePatterns and excludePackagePatterns
               matchUpdateTypes: ['minor', 'patch'],
               // Tell renovate to enable github's auto merge feature on the PR
               automerge: options.autoMergeNonBreakingUpdates ? true : undefined,
@@ -136,14 +135,14 @@ export module renovateWorkflow {
               addLabels: [OPTIONAL_RENOVATE_PR_LABEL],
             },
             {
-              matchPackagePatterns: ['^@time-loop\\/clickup-projen'],
+              matchPackageNames: ['/^@time-loop\\/clickup-projen/'], // Updated from matchPackagePatterns
               // Bypass prerelease versions:
               // https://docs.renovatebot.com/configuration-options/#allowedversions
               // Ex: 1.1.1 is allowed, 1.1.1-beta.0 is not allowed.
               allowedVersions: '!/^[0-9]+\\.[0-9]+\\.[0-9]+(\\.[0-9]+)?-(alpha|beta).*$/',
             },
             {
-              matchPackagePrefixes: ['@time-loop/'],
+              matchPackageNames: ['@time-loop/{/,}**'], // Updated from matchPackagePrefixes
               matchUpdateTypes: ['major'],
               prBodyNotes: [
                 '# DANGER WILL ROBINSON!!!',
@@ -153,7 +152,7 @@ export module renovateWorkflow {
             },
           ],
 
-          /* override defaults set in config:base preset */
+          /* override defaults set in config:recommended preset */
           // update all dependencies, not just major versions
           rangeStrategy: 'bump',
           // Create PRs for all updates in one go as we only run renovate once a week
