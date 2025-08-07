@@ -9,17 +9,13 @@ describe('ClickUpTypeScriptProject', () => {
     });
     const synth = Testing.synth(p);
     // console.log(Object.getOwnPropertyNames(synth));
-    [
-      'codecov.yml',
-      'package.json',
-      '.github/workflows/upgrade-main.yml',
-      '.mergify.yml',
-      '.github/workflows/release.yml',
-    ].forEach((f) => {
-      test(f, () => {
-        expect(synth[f]).toMatchSnapshot();
-      });
-    });
+    ['package.json', '.github/workflows/upgrade-main.yml', '.mergify.yml', '.github/workflows/release.yml'].forEach(
+      (f) => {
+        test(f, () => {
+          expect(synth[f]).toMatchSnapshot();
+        });
+      },
+    );
     test('prettier is enabled', () => {
       expect(p.prettier).toBeTruthy();
     });
@@ -29,8 +25,25 @@ describe('ClickUpTypeScriptProject', () => {
     test('min node version is 18', () => {
       expect(synth['package.json'].engines.node).toBe('>= 18.17.1');
     });
+    test('codecov is disabled by default', () => {
+      expect(synth['codecov.yml']).toBeUndefined();
+    });
     // TODO: soooo many more tests need to be written here.
   });
+
+  describe('codecov', () => {
+    test('can be explicitly enabled', () => {
+      const p = new clickupTs.ClickUpTypeScriptProject({
+        name: '@time-loop/test',
+        defaultReleaseBranch: 'main',
+        codeCov: true,
+      });
+      const synth = Testing.synth(p);
+      expect(synth['codecov.yml']).toBeDefined();
+      expect(synth['codecov.yml']).toMatchSnapshot();
+    });
+  });
+
   describe('name', () => {
     let envCache = process.env;
 
