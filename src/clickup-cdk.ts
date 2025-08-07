@@ -146,7 +146,9 @@ export module clickupCdk {
       );
       super(mergedOptions);
       clickupTs.fixTsNodeDeps(this.package);
-      codecov.addCodeCovYml(this);
+      if (mergedOptions.codeCov) {
+        codecov.addCodeCovYml(this);
+      }
       nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
@@ -248,7 +250,9 @@ export module clickupCdk {
         # my-new-app-cdk
         `,
       });
-      codecov.addCodeCovYml(this);
+      if (mergedOptions.codeCov) {
+        codecov.addCodeCovYml(this);
+      }
       nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
