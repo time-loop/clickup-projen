@@ -86,7 +86,7 @@ export module clickupTs {
         collectCoverageFrom: ['src/**/*.ts'],
       },
     },
-    codeCov: true,
+    codeCov: false,
     codeCovTokenSecret: 'CODECOV_TOKEN',
   };
 
@@ -228,7 +228,9 @@ export module clickupTs {
       });
       super(mergedOptions);
       fixTsNodeDeps(this.package);
-      codecov.addCodeCovYml(this);
+      if (mergedOptions.codeCov) {
+        codecov.addCodeCovYml(this);
+      }
       nodeVersion.addNodeVersionFile(this, { nodeVersion: mergedOptions.workflowNodeVersion });
       renovateWorkflow.addRenovateWorkflowYml(this);
       addToProjectWorkflow.addAddToProjectWorkflowYml(this);
