@@ -89,8 +89,7 @@ const project = new cdk.JsiiProject({
       collectCoverageFrom: ['src/**/*.ts'],
     },
   },
-  codeCov: true,
-  codeCovTokenSecret: 'CODECOV_TOKEN',
+  codeCov: false,
 });
 
 slackAlert.addReleaseEvent(project);
