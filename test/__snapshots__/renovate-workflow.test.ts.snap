@@ -110,6 +110,7 @@ exports[`getRenovateOptions defaults 1`] = `
       "group:monorepos",
       "mergeConfidence:all-badges",
     ],
+    "minimumReleaseAge": "7 days",
     "packageRules": [
       {
         "addLabels": [
@@ -153,6 +154,12 @@ exports[`getRenovateOptions defaults 1`] = `
           "Applying major version updates without understanding what they do has caused outages at ClickUp. Don't be that guy. Read the release notes. The release notes are in a link buried in the rollup below. Sorry, unfortunately Renovate does not offer a reasonable way to expose them here. If in doubt, escalate to CloudPlatform.",
           "CloudPlatform thanks you for being diligent with your library updates!",
         ],
+      },
+      {
+        "matchPackageNames": [
+          "@time-loop/{/,}**",
+        ],
+        "minimumReleaseAge": "0 days",
       },
     ],
     "platformAutomerge": true,

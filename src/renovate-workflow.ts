@@ -150,6 +150,11 @@ export module renovateWorkflow {
                 'CloudPlatform thanks you for being diligent with your library updates!',
               ],
             },
+            {
+              matchPackageNames: ['@time-loop/{/,}**'],
+              // Trust all internal packages
+              minimumReleaseAge: '0 days',
+            },
           ],
 
           /* override defaults set in config:recommended preset */
@@ -164,6 +169,8 @@ export module renovateWorkflow {
           automergeType: 'pr',
           // Use github's auto merge feature and not renovate's built in alternative
           platformAutomerge: true,
+          // Only consider dependencies that have been released for 7 days, to mimimize the risk of compromised packages being merged
+          minimumReleaseAge: '7 days',
         },
       },
       options.defaultOverrides ?? {
