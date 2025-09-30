@@ -55,7 +55,7 @@
     "jsii-rosetta": "~5.8.0",
     "prettier": "^3.6.2",
     "projen": "^0.95.4",
-    "ts-jest": "^29.4.1",
+    "ts-jest": "^29.4.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
