@@ -34,8 +34,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.14.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.7
       - name: Install dependencies
-        run: yarn install --check-files
+        run: pnpm i --frozen-lockfile
       - name: capture stacks to diff
         run: |-
           ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
@@ -149,8 +153,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.14.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.7
       - name: Install dependencies
-        run: yarn install --check-files
+        run: pnpm i --frozen-lockfile
       - name: capture stacks to diff
         run: |-
           ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
@@ -264,8 +272,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.14.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.7
       - name: Install dependencies
-        run: yarn install --check-files
+        run: pnpm i --frozen-lockfile
       - name: capture stacks to diff
         run: |-
           ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
@@ -379,8 +391,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.14.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.7
       - name: Install dependencies
-        run: yarn install --check-files
+        run: pnpm i --frozen-lockfile
       - name: capture stacks to diff
         run: |-
           ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
@@ -494,8 +510,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.14.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.7
       - name: Install dependencies
-        run: yarn install --check-files
+        run: pnpm i --frozen-lockfile
       - name: capture stacks to diff
         run: |-
           ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json
@@ -703,8 +723,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20.5.1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9.15.7
       - name: Install dependencies
-        run: yarn install --check-files
+        run: pnpm i --frozen-lockfile
       - name: capture stacks to diff
         run: |-
           ./node_modules/.bin/cdk ls -l -j --notices=false > cdk-ls.json

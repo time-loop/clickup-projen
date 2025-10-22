@@ -63,7 +63,7 @@ describe('ClickUpCdkTypeScriptApp', () => {
       });
       const synth = Testing.synth(p);
       it('packageManager', () => {
-        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.5');
+        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.7');
       });
 
       const npmrcEntries = [
@@ -131,7 +131,7 @@ describe('ClickUpCdkConstructLibrary', () => {
       });
       const synth = Testing.synth(p);
       it('packageManager', () => {
-        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.5');
+        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.7');
       });
 
       const npmrcEntries = [
