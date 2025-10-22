@@ -18,7 +18,7 @@ const project = new cdk.JsiiProject({
   // Apache open source license, to match projen license
 
   packageManager: javascript.NodePackageManager.PNPM,
-  pnpmVersion: '9',
+  pnpmVersion: parameters.PROJEN_PNPM_VERSION,
 
   minNodeVersion: parameters.PROJEN_MIN_ENGINE_NODE_VERSION,
   workflowNodeVersion: parameters.PROJEN_NODE_VERSION,
@@ -40,7 +40,7 @@ const project = new cdk.JsiiProject({
     },
   },
 
-  gitignore: ['.idea'],
+  gitignore: ['.idea', '.claude/settings.local.json'],
 
   // We don't depend on any private resources.
   // Add a .npmrc before we try to Install dependencies

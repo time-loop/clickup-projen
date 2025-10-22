@@ -34,6 +34,7 @@ jspm_packages/
 .yarn-integrity
 .cache
 .idea
+.claude/settings.local.json
 /test-reports/
 junit.xml
 /coverage/
