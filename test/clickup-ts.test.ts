@@ -133,7 +133,7 @@ describe('ClickUpTypeScriptProject', () => {
     });
     const synth = Testing.synth(p);
     it('packageManager', () => {
-      expect(synth['package.json'].packageManager).toBe('pnpm@9.15.5');
+      expect(synth['package.json'].packageManager).toBe('pnpm@9.15.7');
     });
 
     const npmrcEntries = [
@@ -157,6 +157,54 @@ describe('ClickUpTypeScriptProject', () => {
     const synth = Testing.synth(p);
     it('use-node-version in .npmrc file', () => {
       expect(synth['.npmrc']).toContain('use-node-version=22.0.0');
+    });
+  });
+
+  describe('explicit package manager override', () => {
+    describe('npm', () => {
+      const p = new clickupTs.ClickUpTypeScriptProject({
+        name: '@time-loop/test',
+        defaultReleaseBranch: 'main',
+        packageManager: javascript.NodePackageManager.NPM,
+      });
+      const synth = Testing.synth(p);
+      it('should use npm when explicitly set', () => {
+        expect(p.package.packageManager).toBe(javascript.NodePackageManager.NPM);
+      });
+      it('should not have pnpm packageManager field', () => {
+        expect(synth['package.json'].packageManager).toBeUndefined();
+      });
+      it('should not have pnpm .npmrc entries', () => {
+        if (synth['.npmrc']) {
+          expect(synth['.npmrc']).not.toContain('package-manager-strict');
+          expect(synth['.npmrc']).not.toContain('manage-package-manager-versions');
+          expect(synth['.npmrc']).not.toContain('use-node-version');
+        }
+        // If .npmrc doesn't exist, that's also fine for npm
+      });
+    });
+
+    describe('yarn', () => {
+      const p = new clickupTs.ClickUpTypeScriptProject({
+        name: '@time-loop/test',
+        defaultReleaseBranch: 'main',
+        packageManager: javascript.NodePackageManager.YARN,
+      });
+      const synth = Testing.synth(p);
+      it('should use yarn when explicitly set', () => {
+        expect(p.package.packageManager).toBe(javascript.NodePackageManager.YARN);
+      });
+      it('should not have pnpm packageManager field', () => {
+        expect(synth['package.json'].packageManager).toBeUndefined();
+      });
+      it('should not have pnpm .npmrc entries', () => {
+        if (synth['.npmrc']) {
+          expect(synth['.npmrc']).not.toContain('package-manager-strict');
+          expect(synth['.npmrc']).not.toContain('manage-package-manager-versions');
+          expect(synth['.npmrc']).not.toContain('use-node-version');
+        }
+        // If .npmrc doesn't exist, that's also fine for yarn
+      });
     });
   });
 });

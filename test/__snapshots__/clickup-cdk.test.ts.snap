@@ -99,10 +99,12 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
   "license": "UNLICENSED",
   "main": "lib/index.js",
   "name": "@time-loop/test",
+  "packageManager": "pnpm@9.15.7",
   "peerDependencies": {
     "aws-cdk-lib": "^2.138.0",
     "constructs": "^10.0.5",
   },
+  "pnpm": {},
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
   },
@@ -182,12 +184,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -273,16 +279,20 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Checkout
         uses: actions/checkout@v5
         with:
           path: .repo
       - name: Install Dependencies
-        run: cd .repo && yarn install --check-files --frozen-lockfile
-      - name: Extract build artifact
-        run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
+        run: cd .repo && pnpm i --frozen-lockfile
       - name: Remove ~/.npmrc file for release
         run: rm ~/.npmrc || true
+      - name: Extract build artifact
+        run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
       - name: Move build artifact out of the way
         run: mv dist dist.old
       - name: Create js artifact
@@ -391,12 +401,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -599,6 +613,8 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
+  "packageManager": "pnpm@9.15.7",
+  "pnpm": {},
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -858,12 +874,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 20.5.1
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -1066,6 +1086,8 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
+  "packageManager": "pnpm@9.15.7",
+  "pnpm": {},
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -1202,7 +1224,7 @@ exports[`ClickUpCdkTypeScriptApp options pnpm package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
-  "packageManager": "pnpm@9.15.5",
+  "packageManager": "pnpm@9.15.7",
   "pnpm": {},
   "publishConfig": {
     "access": "public",
@@ -1332,6 +1354,8 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
+  "packageManager": "pnpm@9.15.7",
+  "pnpm": {},
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -1464,12 +1488,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -1657,12 +1685,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -1854,12 +1886,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -2055,12 +2091,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -2248,12 +2288,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov

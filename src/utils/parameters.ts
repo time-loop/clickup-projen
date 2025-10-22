@@ -12,5 +12,5 @@ export class parameters {
   static PROJEN_NODE_VERSION: string = '22.14.0';
 
   // This should be updated occasionally to the latest release of the current active version.
-  static PROJEN_PNPM_VERSION: string = '9.15.5';
+  static PROJEN_PNPM_VERSION: string = '9.15.7';
 }

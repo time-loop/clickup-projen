@@ -79,12 +79,16 @@ jobs:
           EOF
       - name: Make cdk-ecr-deployment sane
         run: export FORCE_PREBUILT_LAMBDA=1
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.7
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 22.14.0
       - name: Install dependencies
-        run: yarn install --check-files --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
       - name: Upload coverage to Codecov
@@ -312,6 +316,8 @@ exports[`ClickUpTypeScriptProject defaults package.json 1`] = `
   "license": "UNLICENSED",
   "main": "lib/index.js",
   "name": "@time-loop/test",
+  "packageManager": "pnpm@9.15.7",
+  "pnpm": {},
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
   },

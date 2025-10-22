@@ -28,6 +28,8 @@ export module clickupTs {
     authorOrganization: true,
     licensed: false,
     defaultReleaseBranch: 'main',
+    packageManager: javascript.NodePackageManager.PNPM,
+    pnpmVersion: parameters.PROJEN_PNPM_VERSION,
 
     release: true,
     releaseToNpm: true,
