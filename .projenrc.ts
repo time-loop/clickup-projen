@@ -59,7 +59,7 @@ const project = new cdk.JsiiProject({
 
   bundledDeps,
   deps: [...bundledDeps, 'projen', 'semver'],
-  devDeps: ['projen', '@types/semver'],
+  devDeps: ['projen', '@types/semver', 'jsii-docgen@^10.11.0'],
   peerDeps: ['projen'],
 
   prettier: true,
