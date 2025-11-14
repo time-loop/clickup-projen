@@ -133,7 +133,10 @@ describe('ClickUpTypeScriptProject', () => {
     });
     const synth = Testing.synth(p);
     it('packageManager', () => {
-      expect(synth['package.json'].packageManager).toBe('pnpm@9.15.7');
+      expect(synth['package.json'].packageManager).toBe('pnpm@10.22.0');
+      expect(synth['package.json'].pnpm).toEqual({
+        onlyBuiltDependencies: ['esbuild', 'unrs-resolver'],
+      });
     });
 
     const npmrcEntries = [

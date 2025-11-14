@@ -82,7 +82,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -316,8 +316,13 @@ exports[`ClickUpTypeScriptProject defaults package.json 1`] = `
   "license": "UNLICENSED",
   "main": "lib/index.js",
   "name": "@time-loop/test",
-  "packageManager": "pnpm@9.15.7",
-  "pnpm": {},
+  "packageManager": "pnpm@10.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver",
+    ],
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
   },
