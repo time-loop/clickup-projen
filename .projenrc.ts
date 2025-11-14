@@ -1,5 +1,6 @@
 import { cdk, github, javascript, TextFile, YamlFile } from 'projen';
 import { addToProjectWorkflow } from './src/add-to-project';
+import { pnpmConfig } from './src/pnpm-config';
 import { renovateWorkflow } from './src/renovate-workflow';
 import { slackAlert } from './src/slack-alert';
 import { updateProjen } from './src/update-projen';
@@ -141,16 +142,7 @@ new YamlFile(project, 'codecov.yml', {
   },
 });
 
-// Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
-project.package.addField('packageManager', `pnpm@${parameters.PROJEN_PNPM_VERSION}`);
-// necessary to allow minor/patch version updates of pnpm on dev boxes
-project.npmrc.addConfig('package-manager-strict', 'false');
-// pnpm will manage the version of the package manager (pnpm)
-project.npmrc.addConfig('manage-package-manager-versions', 'true');
-// pnpm checks this value before running commands and will use (and install if missing) the specified version
-project.npmrc.addConfig('use-node-version', parameters.PROJEN_NODE_VERSION);
-// PNPM support for bundledDeps https://pnpm.io/npmrc#node-linker
-project.npmrc.addConfig('node-linker', 'hoisted');
+pnpmConfig.addPnpmConfig(project, { forLibrary: true });
 
 new TextFile(project, '.nvmrc', {
   lines: [parameters.PROJEN_NODE_VERSION],

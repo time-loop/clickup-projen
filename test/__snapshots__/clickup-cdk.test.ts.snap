@@ -99,12 +99,17 @@ exports[`ClickUpCdkConstructLibrary defaults package.json 1`] = `
   "license": "UNLICENSED",
   "main": "lib/index.js",
   "name": "@time-loop/test",
-  "packageManager": "pnpm@9.15.7",
+  "packageManager": "pnpm@10.22.0",
   "peerDependencies": {
     "aws-cdk-lib": "^2.138.0",
     "constructs": "^10.0.5",
   },
-  "pnpm": {},
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver",
+    ],
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
   },
@@ -187,7 +192,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -282,7 +287,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Checkout
         uses: actions/checkout@v5
         with:
@@ -404,7 +409,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -613,8 +618,13 @@ exports[`ClickUpCdkTypeScriptApp defaults package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
-  "packageManager": "pnpm@9.15.7",
-  "pnpm": {},
+  "packageManager": "pnpm@10.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver",
+    ],
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -877,7 +887,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -1086,8 +1096,13 @@ exports[`ClickUpCdkTypeScriptApp options node20 package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
-  "packageManager": "pnpm@9.15.7",
-  "pnpm": {},
+  "packageManager": "pnpm@10.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver",
+    ],
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -1128,6 +1143,7 @@ exports[`ClickUpCdkTypeScriptApp options pnpm .npmrc 1`] = `
 
 resolution-mode=highest
 package-manager-strict=false
+manage-package-manager-versions=true
 use-node-version=22.14.0
 "
 `;
@@ -1224,8 +1240,13 @@ exports[`ClickUpCdkTypeScriptApp options pnpm package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
-  "packageManager": "pnpm@9.15.7",
-  "pnpm": {},
+  "packageManager": "pnpm@10.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver",
+    ],
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -1354,8 +1375,13 @@ exports[`cdk-diff additions - ClickUpCdkTypeScriptApp package.json 1`] = `
   },
   "license": "UNLICENSED",
   "name": "test",
-  "packageManager": "pnpm@9.15.7",
-  "pnpm": {},
+  "packageManager": "pnpm@10.22.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver",
+    ],
+  },
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/",
@@ -1491,7 +1517,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -1688,7 +1714,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -1889,7 +1915,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -2094,7 +2120,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
@@ -2291,7 +2317,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.7
+          version: 10.22.0
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:

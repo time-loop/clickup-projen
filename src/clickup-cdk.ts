@@ -1,4 +1,4 @@
-import { awscdk, Component, javascript, JsonPatch, SampleDir, SampleReadme } from 'projen';
+import { awscdk, Component, JsonPatch, SampleDir, SampleReadme } from 'projen';
 import * as semver from 'semver';
 import merge from 'ts-deepmerge';
 
@@ -11,10 +11,10 @@ import { codecovBypassWorkflow } from './codecov-bypass-workflow';
 import { datadog } from './datadog';
 import { datadogServiceCatalog } from './datadog-service-catalog';
 import { nodeVersion } from './node-version';
+import { pnpmConfig } from './pnpm-config';
 import { renovateWorkflow } from './renovate-workflow';
 import { slackAlert } from './slack-alert';
 import { updateProjen } from './update-projen';
-import { parameters } from './utils/parameters';
 
 export module clickupCdk {
   const minCdkVersion = '2.189.0'; // let's push past the (painful) split of the cli
@@ -178,18 +178,10 @@ export module clickupCdk {
         slackAlert.addReleaseEvent(this, options.sendSlackWebhookOnReleaseOpts);
       }
 
-      if (this.package.packageManager === javascript.NodePackageManager.PNPM) {
-        // Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
-        this.package.addField('packageManager', `pnpm@${parameters.PROJEN_PNPM_VERSION}`);
-        // necessary to allow minor/patch version updates of pnpm on dev boxes
-        this.npmrc.addConfig('package-manager-strict', 'false');
-        // pnpm will manage the version of the package manager (pnpm)
-        this.npmrc.addConfig('manage-package-manager-versions', 'true');
-        // pnpm checks this value before running commands and will use (and install if missing) the specified version
-        this.npmrc.addConfig('use-node-version', options.workflowNodeVersion ?? parameters.PROJEN_NODE_VERSION);
-        // PNPM support for bundledDeps https://pnpm.io/npmrc#node-linker
-        this.npmrc.addConfig('node-linker', 'hoisted');
-      }
+      pnpmConfig.addPnpmConfig(this, {
+        workflowNodeVersion: options.workflowNodeVersion,
+        forLibrary: true,
+      });
     }
   }
 
@@ -295,21 +287,7 @@ export module clickupCdk {
         datadogServiceCatalog.addServiceCatalogEvent(this, options.serviceCatalogOptions);
       }
 
-      // While this is a subclass of AwsCdkTypeScriptApp,
-      // it doesn't seem to be inheriting this stuff
-      if (this.package.packageManager === javascript.NodePackageManager.PNPM) {
-        // Automate part of https://app.clickup-stg.com/333/v/dc/ad-757629/ad-3577645
-        this.package.addField('packageManager', `pnpm@${parameters.PROJEN_PNPM_VERSION}`);
-        // This appears to conflict with the cdkPipeline
-        // https://github.com/time-loop/cdk-library/blob/f3e4bb92013d19e8971bac2a4cbf16c06c57cea3/src/cdk-pipeline/cdk-pipeline.ts#L264
-        // pnpm will manage the version of the package manager (pnpm)
-        // this.npmrc.addConfig('manage-package-manager-versions', 'true');
-        // So instead
-        // necessary to allow minor/patch version updates of pnpm on dev boxes
-        this.npmrc.addConfig('package-manager-strict', 'false');
-        // pnpm checks this value before running commands and will use (and install if missing) the specified version
-        this.npmrc.addConfig('use-node-version', options.workflowNodeVersion ?? parameters.PROJEN_NODE_VERSION);
-      }
+      pnpmConfig.addPnpmConfig(this, options);
     }
   }
 

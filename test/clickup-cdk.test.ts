@@ -63,12 +63,15 @@ describe('ClickUpCdkTypeScriptApp', () => {
       });
       const synth = Testing.synth(p);
       it('packageManager', () => {
-        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.7');
+        expect(synth['package.json'].packageManager).toBe('pnpm@10.22.0');
+        expect(synth['package.json'].pnpm).toEqual({
+          onlyBuiltDependencies: ['esbuild', 'unrs-resolver'],
+        });
       });
 
       const npmrcEntries = [
         'package-manager-strict=false',
-        // 'manage-package-manager-versions=true',
+        'manage-package-manager-versions=true',
         'use-node-version=22.14.0',
       ];
       it.each(npmrcEntries)('%s', (npmrcEntry) => {
@@ -131,7 +134,10 @@ describe('ClickUpCdkConstructLibrary', () => {
       });
       const synth = Testing.synth(p);
       it('packageManager', () => {
-        expect(synth['package.json'].packageManager).toBe('pnpm@9.15.7');
+        expect(synth['package.json'].packageManager).toBe('pnpm@10.22.0');
+        expect(synth['package.json'].pnpm).toEqual({
+          onlyBuiltDependencies: ['esbuild', 'unrs-resolver'],
+        });
       });
 
       const npmrcEntries = [
