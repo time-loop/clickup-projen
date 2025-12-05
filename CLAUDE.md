@@ -109,7 +109,7 @@ Tests use snapshot testing extensively. When making changes:
 Version management is centralized in `src/utils/parameters.ts`:
 - `PROJEN_MIN_ENGINE_NODE_VERSION`: Minimum engine requirement (18.17.1)
 - `PROJEN_NODE_VERSION`: Workflow and development version (22.14.0)
-- `PROJEN_PNPM_VERSION`: PNPM version (9.15.5)
+- `PROJEN_PNPM_VERSION`: PNPM version (10.22.0)
 
 These cascade to all generated projects. Update in one place to affect all consumers.
 
