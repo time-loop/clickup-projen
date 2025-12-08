@@ -191,8 +191,7 @@ export module clickupTs {
   }
 
   export interface ClickUpTypeScriptProjectOptions
-    extends typescript.TypeScriptProjectOptions,
-      slackAlert.SendSlackOptions {
+    extends typescript.TypeScriptProjectOptions, slackAlert.SendSlackOptions {
     /**
      * Additional options pertaining to the typedoc config file.
      * NOTE: `docgen` attribute cannot be false.
