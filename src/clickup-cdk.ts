@@ -106,8 +106,7 @@ export module clickupCdk {
   }
 
   export interface ClickUpCdkConstructLibraryOptions
-    extends awscdk.AwsCdkConstructLibraryOptions,
-      ClickUpCdkCommonOptions {}
+    extends awscdk.AwsCdkConstructLibraryOptions, ClickUpCdkCommonOptions {}
 
   /**
    * ClickUp standardized CDK Construct Library.
