@@ -142,6 +142,10 @@ export module clickupCdk {
           renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
           cdkDiffOptions: cdkDiffWorkflow.getCDKDiffOptions(options.cdkDiffOptionsConfig),
           codecovBypassOptions: codecovBypassWorkflow.getCodecovBypassOptions(options.codecovBypassOptionsConfig),
+          // Only set codeCovTokenSecret if codecov is explicitly enabled
+          ...(options.codeCov && {
+            codeCovTokenSecret: options.codeCovTokenSecret ?? 'CODECOV_TOKEN',
+          }),
         },
       );
       super(mergedOptions);
@@ -225,6 +229,10 @@ export module clickupCdk {
         cdkVersion: cdkVersion ?? options.cdkVersion,
         sampleCode: false,
         renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+        // Only set codeCovTokenSecret if codecov is explicitly enabled
+        ...(options.codeCov && {
+          codeCovTokenSecret: options.codeCovTokenSecret ?? 'CODECOV_TOKEN',
+        }),
       });
       super(mergedOptions);
 

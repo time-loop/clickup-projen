@@ -90,7 +90,6 @@ export module clickupTs {
       },
     },
     codeCov: false,
-    codeCovTokenSecret: 'CODECOV_TOKEN',
   };
 
   /**
@@ -228,6 +227,10 @@ export module clickupTs {
         docgen: undefined,
         name: normalizeName(options.name),
         renovatebotOptions: renovateWorkflow.getRenovateOptions(options.renovateOptionsConfig),
+        // Only set codeCovTokenSecret if codecov is explicitly enabled
+        ...(options.codeCov && {
+          codeCovTokenSecret: options.codeCovTokenSecret ?? 'CODECOV_TOKEN',
+        }),
       });
       super(mergedOptions);
       fixTsNodeDeps(this.package);
