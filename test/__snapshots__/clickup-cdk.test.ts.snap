@@ -201,11 +201,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -418,11 +413,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -896,11 +886,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -1526,11 +1511,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -1723,11 +1703,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -1924,11 +1899,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -2129,11 +2099,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
@@ -2326,11 +2291,6 @@ jobs:
         run: pnpm i --frozen-lockfile
       - name: release
         run: npx projen release
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: \${{ secrets.CODECOV_TOKEN }}
-          directory: coverage
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-

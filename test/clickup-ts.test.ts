@@ -32,6 +32,18 @@ describe('ClickUpTypeScriptProject', () => {
   });
 
   describe('codecov', () => {
+    test('defaults do not include codecov in workflows', () => {
+      const p = new clickupTs.ClickUpTypeScriptProject({
+        name: '@time-loop/test',
+        defaultReleaseBranch: 'main',
+      });
+      const synth = Testing.synth(p);
+      const buildWorkflow = synth['.github/workflows/build.yml'];
+      expect(buildWorkflow).toBeDefined();
+      expect(buildWorkflow).not.toContain('Upload coverage to Codecov');
+      expect(buildWorkflow).not.toContain('codecov/codecov-action');
+    });
+
     test('can be explicitly enabled', () => {
       const p = new clickupTs.ClickUpTypeScriptProject({
         name: '@time-loop/test',
